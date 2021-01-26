@@ -1,0 +1,25 @@
+.eye {
+  position: relative;
+  bottom: -17px;
+  left: -5px;
+  right: 45px;
+  cursor: pointer;
+  z-index: 100;
+}
+.eye:hover {
+  color: black;
+}
+
+ion-item {
+  margin: 20px 5px;
+  // position: relative;
+}
+
+.valErr {
+  color: red;
+  font-size: 0.8rem;
+}
+
+ion-label {
+  color: dodgerblue !important;
+}

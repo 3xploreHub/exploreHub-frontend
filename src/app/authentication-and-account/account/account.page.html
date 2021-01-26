@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background-color: white">
+  <ion-card>
+    <ion-card-header>Personal Information</ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <h6>
+            Account Type:
+            <b>{{user.accountType}}</b>
+          </h6>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <h6>Full Name: <b>{{user.fullName}}</b></h6>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <h6>Address: <b>{{user.address}}</b></h6>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+          <h6>Email: <b>{{user.email}}</b></h6>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+          <h6>Contact number: <b>{{user.contactNumber}}</b></h6>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+          <h6>Gender: <b>{{user.gender}}</b></h6>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="create-outline" slot="end"></ion-icon>
+          <h6>Age: <b>{{user.age}}</b></h6>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

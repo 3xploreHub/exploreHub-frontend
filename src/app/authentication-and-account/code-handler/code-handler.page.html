@@ -1,0 +1,49 @@
+<ion-card>
+  <ion-card-content *ngIf="pendingCode">
+    <ion-item>
+      <h3>Enter code here to reset password</h3>
+    </ion-item>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating" for="code">Code</ion-label>
+        <ion-input
+          clear-input="true"
+          name="code"
+          formControlName="code"
+        ></ion-input>
+      </ion-item>
+      <ul
+        class="valErr"
+        *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null"
+      >
+        <li *ngFor="let error of form.get('code').errors.validations">
+          {{ error.message }}
+        </li>
+      </ul>
+      <ion-item>
+        <ion-button [disabled]="form.get('code').errors != null" type="submit"
+          >Submit</ion-button
+        >
+      </ion-item>
+    </form>
+  </ion-card-content>
+</ion-card>
+<ion-card *ngIf="pendingCode">
+  <ion-card-content>
+    <ion-item style="font-size: 11px" *ngFor="let code of codeSent; index as i">
+      <!-- <p slot="start">{{i + 1}}</p> -->
+      <ion-icon name="key-outline" slot="start"></ion-icon>
+      sent to {{ code.sentTo }}
+      <span
+        style="
+          font-weight: bold;
+          padding-left: 5px;
+          margin-left: 5px;
+          border-left: 1px solid lightgray;
+        "
+        >{{ 'will expire after '+(code.displayTime != undefined ?
+        code.displayTime: '00:00')}}</span
+      >
+    </ion-item>
+  </ion-card-content>
+</ion-card>
