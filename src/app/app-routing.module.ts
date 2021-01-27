@@ -91,6 +91,18 @@ const routes: Routes = [
       ).then((m) => m.VerificationPageModule),
     canActivate: [VerificationGuard],
   },
+  {
+    path: 'service-provider',
+    loadChildren: () => import('./service-provider/service-provider.module').then( m => m.ServiceProviderPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tourist',
+    loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
+    canActivate: [AuthGuard],
+  },
+
+
 ];
 
 @NgModule({
