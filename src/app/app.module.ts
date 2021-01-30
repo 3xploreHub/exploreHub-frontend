@@ -12,7 +12,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
-import { LoadingPage } from "./loading/loading.page";
+import { LoadingPage } from "./modules/loading/loading.page";
 
 @NgModule({
   declarations: [AppComponent, LoadingPage],
@@ -41,4 +41,4 @@ import { LoadingPage } from "./loading/loading.page";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {}                        

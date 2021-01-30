@@ -9,12 +9,6 @@ import { AddAccountInfoGuard } from "./services-common-helper/route-guards/add-a
 
 const routes: Routes = [
   {
-    path: "home",
-    loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
-    canActivate: [AuthGuard],
-  },
-  {
     path: "",
     redirectTo: "login",
     pathMatch: "full",
@@ -100,9 +94,7 @@ const routes: Routes = [
     path: 'tourist',
     loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
     canActivate: [AuthGuard],
-  },
-
-
+  }
 ];
 
 @NgModule({

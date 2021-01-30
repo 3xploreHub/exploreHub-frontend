@@ -28,7 +28,6 @@ const routes: Routes = [
     path: 'select-host-tourist-spot',
     loadChildren: () => import('./select-host-tourist-spot/select-host-tourist-spot.module').then(m => m.SelectHostTouristSpotPageModule)
   },
-
 ];
 
 @NgModule({

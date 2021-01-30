@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateTouristSpotOperationPageRoutingModule } from './create-tourist-spot-operation-routing.module';
 
 import { CreateTouristSpotOperationPage } from './create-tourist-spot-operation.page';
+import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CreateTouristSpotOperationPage } from './create-tourist-spot-operation.
     IonicModule,
     CreateTouristSpotOperationPageRoutingModule
   ],
-  declarations: [CreateTouristSpotOperationPage]
+  declarations: [CreateTouristSpotOperationPage, PageCreatorComponent]
 })
 export class CreateTouristSpotOperationPageModule {}
