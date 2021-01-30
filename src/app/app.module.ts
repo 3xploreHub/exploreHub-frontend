@@ -13,12 +13,17 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
 import { LoadingPage } from "./modules/loading/loading.page";
+import { CommonModule } from '@angular/common';
+import { TextComponent } from "./page-elements/text/text.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
-  declarations: [AppComponent, LoadingPage],
+  declarations: [AppComponent, LoadingPage, TextComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

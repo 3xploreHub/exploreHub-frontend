@@ -6,9 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnInit {
+  public done: boolean = false;
+  public text: string;
+  public delted: boolean = false;
+  public delClicked: boolean = false;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  renderText() {
+    if (this.text) {
+      this.done = true;
+    }
+  }
 
 }

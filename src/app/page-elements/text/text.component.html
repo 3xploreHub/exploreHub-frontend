@@ -1,3 +1,37 @@
-<p>
-  text works!
-</p>
+<div *ngIf="!deleted">
+  <div *ngIf="!done; else doneBlock" class="textAreaWrapper">
+    <ion-textarea auto-grow="true" [(ngModel)]="text" class="textarea" autofocus="true" rows="1"
+      placeholder="Enter text here">
+    </ion-textarea>
+    <div *ngIf="!delClicked; else confirmDelete" class="footer">
+      <div (click)="delClicked = true" class="footerDiv">
+        <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
+      </div>
+      <div class="footerDiv">
+        <ion-icon name="color-wand-outline"></ion-icon>
+        <span>Style</span>
+      </div>
+
+      <div (click)="renderText()" class="footerDiv">
+        <ion-icon name="checkmark-outline"></ion-icon>
+        <span>Done</span>
+      </div>
+    </div>
+    <ng-template #confirmDelete>
+      <div class="footer">
+        <div class="footerDiv">
+          Are you sure?
+        </div>
+        <div (click)="deleted = true" class="footerDiv">
+          Yes
+        </div>
+        <div (click)="delClicked = false" class="footerDiv">
+          No
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #doneBlock>
+    <p (click)="done = false" class="renderedText">{{text}}</p>
+  </ng-template>
+</div>
