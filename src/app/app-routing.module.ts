@@ -9,12 +9,6 @@ import { AddAccountInfoGuard } from "./services-common-helper/route-guards/add-a
 
 const routes: Routes = [
   {
-    path: "home",
-    loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
-    canActivate: [AuthGuard],
-  },
-  {
     path: "",
     redirectTo: "login",
     pathMatch: "full",
@@ -90,6 +84,16 @@ const routes: Routes = [
         "./authentication-and-account/verification/verification.module"
       ).then((m) => m.VerificationPageModule),
     canActivate: [VerificationGuard],
+  },
+  {
+    path: 'service-provider',
+    loadChildren: () => import('./service-provider/service-provider.module').then( m => m.ServiceProviderPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tourist',
+    loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
+    canActivate: [AuthGuard],
   },
 ];
 

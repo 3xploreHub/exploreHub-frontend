@@ -1,0 +1,56 @@
+<div>
+  <div class="modalWrapper">
+    <div class="listWrapper">
+      <!-- <ion-icon class="closeList" (click)="dismiss()" name="close-outline"></ion-icon> -->
+      <div class="listInnerWrapper">
+
+        <div class="itemWrapper" (click)="addComponent('title')">
+          <div class="itemTitle">Add Title</div>
+          <div class="itemSample paragraph title">
+            Lorem ipsum
+            <p class="subText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae nihil incidunt culpa quisquam neque unde porro dolorum deleniti reprehenderit corporis.</p>
+          </div>
+        </div>
+
+        <div class="itemWrapper" (click)="addComponent('text')">
+          <div class="itemTitle">Add Paragraph</div>
+          <div class="itemSample paragraph">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+          </div>
+        </div>
+
+        <div class="itemWrapper" (click)="addComponent('text')">
+          <div class="itemTitle">Add Labelled text</div>
+          <div class="itemSample paragraph">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+          </div>
+        </div>
+
+        <div class="itemWrapper" (click)="addComponent('photo')">
+          <div class="itemTitle">Add Photo</div>
+          <div class="itemSample imgHolder">
+            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
+          </div>
+        </div>
+
+        <div class="itemWrapper" (click)="addComponent('photos-slide')">
+          <div class="itemTitle">Add Sliding Photos</div>
+          <div class="itemSample imgHolder">
+            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
+          </div>
+        </div>
+
+        <div class="itemWrapper" (click)="addComponent('photos-slide')">
+          <div class="itemTitle">Add Sliding Photos</div>
+          <div class="itemSample imgHolder">
+            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modalFooter">
+      <div class="closeModal" (click)="dismiss()">Cancel</div>
+    </div>
+  </div>
+</div>

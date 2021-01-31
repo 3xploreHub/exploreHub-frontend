@@ -1,0 +1,37 @@
+.textAreaWrapper {
+    margin:10px;
+    padding:0;
+    border: 1px solid rgb(140, 172, 194);
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.footer {
+    background-color: rgba(139, 165, 196, 0.5);
+    display: flex;
+    color:rgb(94, 93, 93);
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.textarea {
+    margin-top: 0;
+    text-align: left;
+    padding:4px;
+    background-color: rgb(239, 249, 252);
+}
+
+.renderedText {
+    padding:7px;
+    margin:0;
+    font-size:14px;
+}
+
+.footerDiv {
+    padding:8px;
+}
+
+.saving {
+    text-align:center;
+    padding:8px;
+}
