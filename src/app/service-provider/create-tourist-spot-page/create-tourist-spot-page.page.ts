@@ -10,7 +10,7 @@ import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.
 })
 export class CreateTouristSpotPagePage implements OnInit {
   @ViewChild(PageCreatorComponent)
-  public pageCreator:PageCreatorComponent;
+  public pageCreator: PageCreatorComponent;
   public touristSpot: TouristSpotPage;
 
   constructor(
@@ -19,15 +19,17 @@ export class CreateTouristSpotPagePage implements OnInit {
 
   ngOnInit() {
     this.creator.get("touristSpotId").then(id => {
-      this.creator.getDraftTouristSpotPage(id).subscribe(
-        response => {
-          this.touristSpot = response;
-          this.pageCreator.setPage(this.touristSpot)
-        },
-        error => {
-          console.log("error in getting tourist spot: ", error)
-        }
-      )
+      if (id) {
+        this.creator.getDraftTouristSpotPage(id).subscribe(
+          response => {
+            this.touristSpot = response;
+            this.pageCreator.setPage(this.touristSpot)
+          },
+          error => {
+            console.log("error in getting tourist spot: ", error)
+          }
+        )
+      }
     })
   }
 

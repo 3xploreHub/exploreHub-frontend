@@ -1,3 +1,5 @@
+import { Element } from "./Element";
+
 export interface ElementComponent {
-    data: any;
+    values: Element;
 }

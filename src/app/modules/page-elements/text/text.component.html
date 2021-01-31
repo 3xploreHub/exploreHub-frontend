@@ -1,13 +1,14 @@
 <div *ngIf="!deleted">
   <div *ngIf="!done; else doneBlock" class="textAreaWrapper">
-    <ion-textarea auto-grow="true" [(ngModel)]="text" class="textarea" rows="1" placeholder="Enter text here">
+    <ion-textarea auto-grow="true" [readonly]="saving" [(ngModel)]="values.data.text" class="textarea" rows="1"
+      placeholder="Enter text here">
     </ion-textarea>
     <div *ngIf="saving; else manageTextBlock" class="footer">
-      <div class="saving">Saving....</div>
+      <div class="saving">{{message}}</div>
     </div>
     <ng-template #manageTextBlock>
       <div *ngIf="!delClicked; else confirmDelete" class="footer">
-        <div (click)="text? delClicked = true: deleted = true" class="footerDiv">
+        <div (click)="values.data.text? delClicked = true: deleted = true" class="footerDiv">
           <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
         </div>
         <div class="footerDiv">
@@ -36,6 +37,6 @@
     </ng-template>
   </div>
   <ng-template #doneBlock>
-    <p (click)="done = false" class="renderedText">{{text}}</p>
+    <p (click)="edit()" class="renderedText">{{values.data.text}}</p>
   </ng-template>
 </div>

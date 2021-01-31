@@ -29,7 +29,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!request.headers.has("check_availability")) {
+    if (!request.headers.has("hideLoadingIndicator")) {
       this.loadingService.show();
     }
     return from(this.authServices.get("currentUser")).pipe(

@@ -11,6 +11,7 @@ import userTokenType from "../../services-common-helper/constantValue/user-token
 @Injectable({
   providedIn: "root",
 })
+
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/account`;
   attemptedUrl: string;

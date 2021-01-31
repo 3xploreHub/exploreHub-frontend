@@ -40,15 +40,14 @@ export class PageCreatorComponent implements OnInit {
   setPage(page) {
     this.page = page;
     this.page.components.forEach(component => {
-      console.log(component)
-      this.renderComponent(component.type, component.data)
+      this.renderComponent(component.type, component)
     })
   }
 
   async showComponentList() {
     const modal = await this.modalController.create({
       component: PageElementListComponent,
-      cssClass: 'my-custom-class'
+      cssClass: 'componentListModal'
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
@@ -57,12 +56,11 @@ export class PageCreatorComponent implements OnInit {
     return present;
   }
 
-  renderComponent(componentName: string, data: any) {
+  renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
-
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
-      comp.instance.data = data;
+      comp.instance.values = componentValues;
     }
   }
 
