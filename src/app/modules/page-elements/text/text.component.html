@@ -1,0 +1,41 @@
+<div *ngIf="!deleted">
+  <div *ngIf="!done; else doneBlock" class="textAreaWrapper">
+    <ion-textarea auto-grow="true" [(ngModel)]="text" class="textarea" rows="1" placeholder="Enter text here">
+    </ion-textarea>
+    <div *ngIf="saving; else manageTextBlock" class="footer">
+      <div class="saving">Saving....</div>
+    </div>
+    <ng-template #manageTextBlock>
+      <div *ngIf="!delClicked; else confirmDelete" class="footer">
+        <div (click)="text? delClicked = true: deleted = true" class="footerDiv">
+          <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
+        </div>
+        <div class="footerDiv">
+          <ion-icon name="color-wand-outline"></ion-icon>
+          <span>Style</span>
+        </div>
+
+        <div (click)="renderText()" class="footerDiv">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          <span>Done</span>
+        </div>
+      </div>
+      <ng-template #confirmDelete>
+        <div class="footer">
+          <div class="footerDiv">
+            Are you sure?
+          </div>
+          <div (click)="delete()" class="footerDiv">
+            Yes
+          </div>
+          <div (click)="delClicked = false" class="footerDiv">
+            No
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+  <ng-template #doneBlock>
+    <p (click)="done = false" class="renderedText">{{text}}</p>
+  </ng-template>
+</div>

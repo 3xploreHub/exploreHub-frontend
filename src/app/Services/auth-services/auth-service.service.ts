@@ -16,12 +16,6 @@ export class AuthService {
   attemptedUrl: string;
   token = null;
 
-  httpOption = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-    }),
-  };
-
   constructor(
     private http: HttpClient,
     public lStorage: Storage,

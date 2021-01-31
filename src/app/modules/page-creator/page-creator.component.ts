@@ -1,10 +1,13 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PhotoComponent } from 'src/app/page-elements/photo/photo.component';
-import { PhotosSlidesComponent } from 'src/app/page-elements/photos-slides/photos-slides.component';
-import { TextComponent } from 'src/app/page-elements/text/text.component';
-import { TitleComponent } from 'src/app/page-elements/title/title.component';
+import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
+import { PhotosSlidesComponent } from 'src/app/modules/page-elements/photos-slides/photos-slides.component';
+import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
+import { ElementComponent } from '../interfaces/element-component';
+import { TouristSpotPage } from '../interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
+import { TitleComponent } from '../page-elements/title/title.component';
+import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-page-creator',
@@ -13,6 +16,7 @@ import { PageElementListComponent } from '../page-element-list/page-element-list
 })
 export class PageCreatorComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
+  public page: TouristSpotPage;
   components = {
     'text': TextComponent,
     'title': TitleComponent,
@@ -21,13 +25,24 @@ export class PageCreatorComponent implements OnInit {
   }
 
   constructor(public modalController: ModalController,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    public componentFactoryResolver: ComponentFactoryResolver,
+    public creator: PageCreatorService
+  ) { }
 
   ngOnInit() {
-
+    
   }
+
   ngAfterViewInit() {
-    console.log(this.pageElement)
+    
+  }
+
+  setPage(page) {
+    this.page = page;
+    this.page.components.forEach(component => {
+      console.log(component)
+      this.renderComponent(component.type, component.data)
+    })
   }
 
   async showComponentList() {
@@ -37,16 +52,17 @@ export class PageCreatorComponent implements OnInit {
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(data);
+    this.renderComponent(data, null);
 
     return present;
   }
 
-  renderComponent(componentName: string) {
+  renderComponent(componentName: string, data: any) {
     if (componentName) {
-      
-      const factory = this.componentFactoryResolver.resolveComponentFactory(this.components[componentName]);
-      this.pageElement.createComponent(factory);
+
+      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+      const comp = this.pageElement.createComponent<ElementComponent>(factory);
+      comp.instance.data = data;
     }
   }
 

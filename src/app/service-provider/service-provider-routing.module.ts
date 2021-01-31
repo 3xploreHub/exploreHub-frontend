@@ -9,14 +9,6 @@ const routes: Routes = [
     component: ServiceProviderPage,
   },
   {
-    path: 'create-tourist-spot-operation',
-    loadChildren: () => import('./create-tourist-spot-operation/create-tourist-spot-operation.module').then(m => m.CreateTouristSpotOperationPageModule)
-  },
-  {
-    path: 'create-service-contribution',
-    loadChildren: () => import('./create-service-contribution/create-service-contribution.module').then(m => m.CreateServiceContributionPageModule)
-  },
-  {
     path: 'select-service-type',
     loadChildren: () => import('./select-service-type/select-service-type.module').then(m => m.SelectServiceTypePageModule)
   },
@@ -28,6 +20,16 @@ const routes: Routes = [
     path: 'select-host-tourist-spot',
     loadChildren: () => import('./select-host-tourist-spot/select-host-tourist-spot.module').then(m => m.SelectHostTouristSpotPageModule)
   },
+  {
+    path: 'create-tourist-spot-page',
+    loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then( m => m.CreateTouristSpotPagePageModule)
+  },
+  {
+    path: 'create-service-page',
+    loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule)
+  },
+
+
 ];
 
 @NgModule({

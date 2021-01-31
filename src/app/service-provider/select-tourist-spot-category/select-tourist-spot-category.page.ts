@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-select-tourist-spot-category',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectTouristSpotCategoryPage implements OnInit {
 
-  constructor() { }
+  constructor(public creator: PageCreatorService) { }
 
   ngOnInit() {
+    this.creator.save("touristSpotId", "fake-tourist-spot-id")
   }
 
 }
