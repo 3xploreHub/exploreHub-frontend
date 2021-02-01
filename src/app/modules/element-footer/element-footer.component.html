@@ -1,5 +1,6 @@
 <div *ngIf="!data.done">
-  <div *ngIf="data.saving; else manageTextBlock" class="footer">
+  <div *ngIf="data.saving; else manageTextBlock" class="footer saving">
+    <ion-spinner name="lines-small"></ion-spinner>
     <div class="saving">{{data.message}}</div>
   </div>
   <ng-template #manageTextBlock>
@@ -13,7 +14,7 @@
         <span class="footerText">Style</span>
       </div>
 
-      <div (click)="render.emit()" class="footerDiv">
+      <div (click)="render.emit()" class="footerDiv" [class.disabled]="!data.hasValue">
         <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
         <span class="footerText">Done</span>
       </div>

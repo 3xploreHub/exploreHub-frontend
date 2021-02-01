@@ -1,6 +1,6 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
-    <ion-textarea auto-grow="true" [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="textarea"
+    <ion-textarea auto-grow="true" (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="textarea"
       rows="1" placeholder="Enter text here">
     </ion-textarea>
     <app-element-footer [data]="footerData" (render)="renderText()" (delete)="delete()">
@@ -9,13 +9,8 @@
 
   <ng-template #doneBlock>
     <div class="wrapper">
-      <app-edit-or-delete-popup 
-      *ngIf="showPopup"
-      (edit)="edit()"
-      (delete)="delete()"
-      (close)="showPopup = false"
-      [deleting]="saving"
-       class="popup"></app-edit-or-delete-popup>
+      <app-edit-or-delete-popup *ngIf="showPopup" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
+        [deleting]="footerData.saving" class="popup"></app-edit-or-delete-popup>
       <p (click)="showPopup = true" class="renderedText">{{values.data.text}}</p>
     </div>
   </ng-template>
