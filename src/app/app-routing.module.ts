@@ -9,9 +9,9 @@ import { AddAccountInfoGuard } from "./services-common-helper/route-guards/add-a
 
 const routes: Routes = [
   {
-    path: "home",
+    path: "tourist",
     loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
+      import("./tourist/tourist.module").then((m) => m.TouristPageModule),
     canActivate: [AuthGuard],
   },
   {

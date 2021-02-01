@@ -118,7 +118,7 @@ export class AuthService {
   }
 
   hasAttemptedUrl() {
-    return this.attemptedUrl ? this.attemptedUrl : "/home";
+    return this.attemptedUrl ? this.attemptedUrl : "/tourist";
   }
 
   isLoggedIn(type: string) {

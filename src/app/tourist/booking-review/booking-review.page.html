@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>booking-review</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <h2>Booking Information Review</h2>
+
+        <ion-grid>
+            <div class="booking">
+                <ion-row class="date">
+                    <ion-col offset-4 size="5">
+
+                        <p>Arrival Date:</p>
+                        <p></p>
+
+                    </ion-col>
+                    <ion-col size="5">
+                        <div>
+                            <p>Departure Date:</p>
+                            <p>December 08, 2021</p>
+                        </div>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-icon (click)="handleEdit()" color="success" name="pencil-sharp"></ion-icon>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+                        <div>
+                            <p>Occupants</p>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6">
+                        <div>
+                            <p>2 Adults | 4 Kids</p>
+                        </div>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-icon color="success" name="pencil-sharp"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <p class="devider">Room</p>
+            <ion-row>
+                <ion-col size="4">
+                    <div>
+                        <img src="../../../assets/family.jpg" alt="">
+                    </div>
+                </ion-col>
+                <ion-col size="6">
+                    <div>
+                        <p>Family Bedroom</p>
+                        <p>&#8369;400.00</p>
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <div>
+                        <ion-icon color="secondary" name="sync"></ion-icon>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <p class="devider">Extra Service</p>
+            <ion-row class="extra-service">
+                <ion-col size="4">
+                    <div>
+                        <img src="../../../assets/family.jpg" alt="">
+                    </div>
+                </ion-col>
+                <ion-col size="6">
+                    <div>
+                        <p>Luggage Forwarding</p>
+                        <p>&#8369;200.00</p>
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <div>
+                        <ion-icon color="danger" name="trash-outline"></ion-icon>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row class="extra-service">
+                <ion-col class="extra-service" size="4">
+                    <div>
+                        <img src="../../../assets/family.jpg" alt="">
+                    </div>
+                </ion-col>
+                <ion-col size="6">
+                    <div>
+                        <p>All Day Breakfast</p>
+                        <p>&#8369;200.00</p>
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <div>
+                        <ion-icon color="danger" name="trash-outline"></ion-icon>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div>
+            <div class="cancel">
+                <ion-label color="danger">Cancel</ion-label>
+            </div>
+            <ion-button class="button" color="secondary" size="medium" (click)="handleSubmit()">Submit</ion-button>
+        </div>
+    </div>
+</ion-content>

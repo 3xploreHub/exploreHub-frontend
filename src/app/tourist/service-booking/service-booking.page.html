@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['/tourist/service-list']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>service-booking</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <ion-slides [options]="option" class="ion-margin-top">
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/master.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/single.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/family.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/master.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/single.jpg">
+                </ion-card>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="details">
+        <h4>Umpad Guest House</h4>
+        <div class="location">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-label>Moalboal, Cebu</ion-label>
+        </div>
+        <div class="info">
+            <div>
+                <ion-icon size="small" color="success" name="call"></ion-icon>
+                <p>09090909099</p>
+            </div>
+            <div>
+                <ion-icon size="small" color="success" name="heart"></ion-icon>
+                <p> &#8369;500/day</p>
+            </div>
+        </div>
+        <div>
+            <ion-label class="offers">Umpad offers the following:</ion-label>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <div>
+                            <p>-free breakfast</p>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div>
+                            <p>-security</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+</ion-content>
