@@ -23,6 +23,4 @@ export class ElementFooterComponent implements OnInit {
   }
 
   ngOnInit() { }
-
-  
 }

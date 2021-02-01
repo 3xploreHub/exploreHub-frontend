@@ -5,16 +5,17 @@
   <ng-template #manageTextBlock>
     <div *ngIf="!delClicked; else confirmDelete" class="footer">
       <div (click)="data.hasValue? delClicked = true: data.deleted = true" class="footerDiv">
-        <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
+        <ion-icon class="footerIcon" name="trash-outline"></ion-icon>
+        <span class="footerText">Delete</span>
       </div>
       <div class="footerDiv">
-        <ion-icon name="color-wand-outline"></ion-icon>
-        <span>Style</span>
+        <ion-icon class="footerIcon" name="color-wand-outline"></ion-icon>
+        <span class="footerText">Style</span>
       </div>
 
       <div (click)="render.emit()" class="footerDiv">
-        <ion-icon name="checkmark-outline"></ion-icon>
-        <span>Done</span>
+        <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
+        <span class="footerText">Done</span>
       </div>
     </div>
     <ng-template #confirmDelete>
@@ -23,9 +24,11 @@
           Are you sure?
         </div>
         <div (click)="delete.emit()" class="footerDiv">
+          <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
           Yes
         </div>
         <div (click)="delClicked = false" class="footerDiv">
+          <ion-icon class="footerIcon" name="close-outline"></ion-icon>
           No
         </div>
       </div>

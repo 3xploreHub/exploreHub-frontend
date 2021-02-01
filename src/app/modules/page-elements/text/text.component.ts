@@ -17,6 +17,7 @@ export class TextComponent implements OnInit {
   public oldText: string = "";
   public message:string = "Saving Changes...";
   public footerData: FooterData;
+  public showPopup: boolean = false;
 
   constructor(public creator: PageCreatorService,public alert: AlertController,) {
     this.footerData = {
@@ -72,11 +73,12 @@ export class TextComponent implements OnInit {
       } else {
         this.footerData.done = true;
       }
-      this.footerData.hasValue = true;
+      this.footerData.hasValue = true; 
     }
   }
 
   edit() {
+    this.showPopup = false;
     this.footerData.oldText = this.values.data.text;
     this.footerData.done = false;
   }
