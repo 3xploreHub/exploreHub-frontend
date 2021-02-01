@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Element } from '../../interfaces/Element';
+import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
@@ -14,16 +15,25 @@ export class TextComponent implements OnInit {
   public deleted: boolean = false;
   public saving: boolean = false;
   public oldText: string = "";
-  public message:string = "Saving Changes..."
+  public message:string = "Saving Changes...";
+  public footerData: FooterData;
 
   constructor(public creator: PageCreatorService,public alert: AlertController,) {
+    this.footerData = {
+      done: false,
+      deleted: false,
+      saving: false,
+      oldText: null, 
+      message: "Saving Changes...",
+      hasValue: false,
+    }
   }
 
   ngOnInit() {
     if (this.values) {
-      console.log(this.values.data)
-      this.done = true;
+      this.footerData.done = true;
       this.values = this.values;
+      this.footerData.hasValue = true;
     } else {
       this.values = { id: null, type: "text", styles: [], data: { text: null } }
     }
@@ -31,8 +41,8 @@ export class TextComponent implements OnInit {
 
   renderText() {
     if (this.values.data.text) {
-      if (this.oldText && this.oldText != this.values.data.text) {
-        this.saving = true;
+      if (this.footerData.oldText && this.footerData.oldText != this.values.data.text) {
+        this.footerData.saving = true;
         this.creator.editComponent(this.values).subscribe(
           (response) => {
             this.values = response;
@@ -41,12 +51,12 @@ export class TextComponent implements OnInit {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
           },
           () => {
-            this.done = true;
-            this.saving = false;
+            this.footerData.done = true;
+            this.footerData.saving = false;
           }
         )
-      } else if (!this.oldText) {
-        this.saving = true;
+      } else if (!this.footerData.oldText) {
+        this.footerData.saving = true;
         this.creator.saveComponent(this.values).subscribe(
           (response) => {
             this.values = response;
@@ -55,39 +65,40 @@ export class TextComponent implements OnInit {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
           },
           () => {
-            this.done = true;
-            this.saving = false;
+            this.footerData.done = true;
+            this.footerData.saving = false;
           }
         )
       } else {
-        this.done = true;
+        this.footerData.done = true;
       }
+      this.footerData.hasValue = true;
     }
   }
 
   edit() {
-    this.oldText = this.values.data.text;
-    this.done = false;
+    this.footerData.oldText = this.values.data.text;
+    this.footerData.done = false;
   }
 
   delete() {
     if (this.values.id) {
-      this.message = "Deleting..."
-      this.saving = true;
+      this.footerData.message = "Deleting..."
+      this.footerData.saving = true;
       this.creator.deleteComponent(this.values.id).subscribe(
         (response) => {
-          this.deleted = true;
+          this.footerData.deleted = true;
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
-          this.saving = false;
-          this.message = "Saving Changes..."
+          this.footerData.saving = false;
+          this.footerData.message = "Saving Changes..."
         }
       )
     } else {
-      this.deleted = true;
+      this.footerData.deleted = true;
     }
     
   }

@@ -19,6 +19,7 @@ import { FormsModule } from "@angular/forms";
 import { TitleComponent } from "./modules/page-elements/title/title.component";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
 import { PhotosSlidesComponent } from "./modules/page-elements/photos-slides/photos-slides.component";
+import { ElementFooterComponent } from "./modules/element-footer/element-footer.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PhotosSlidesComponent } from "./modules/page-elements/photos-slides/pho
     TextComponent,
     TitleComponent,
     PhotoComponent,
-    PhotosSlidesComponent
+    PhotosSlidesComponent,
+    ElementFooterComponent,
   ],
   entryComponents: [],
   imports: [

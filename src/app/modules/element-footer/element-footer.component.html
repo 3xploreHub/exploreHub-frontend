@@ -1,0 +1,34 @@
+<div *ngIf="!data.done">
+  <div *ngIf="data.saving; else manageTextBlock" class="footer">
+    <div class="saving">{{data.message}}</div>
+  </div>
+  <ng-template #manageTextBlock>
+    <div *ngIf="!delClicked; else confirmDelete" class="footer">
+      <div (click)="data.hasValue? delClicked = true: data.deleted = true" class="footerDiv">
+        <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
+      </div>
+      <div class="footerDiv">
+        <ion-icon name="color-wand-outline"></ion-icon>
+        <span>Style</span>
+      </div>
+
+      <div (click)="render.emit()" class="footerDiv">
+        <ion-icon name="checkmark-outline"></ion-icon>
+        <span>Done</span>
+      </div>
+    </div>
+    <ng-template #confirmDelete>
+      <div class="footer">
+        <div class="footerDiv">
+          Are you sure?
+        </div>
+        <div (click)="delete.emit()" class="footerDiv">
+          Yes
+        </div>
+        <div (click)="delClicked = false" class="footerDiv">
+          No
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>
