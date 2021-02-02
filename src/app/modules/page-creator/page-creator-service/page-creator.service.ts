@@ -12,6 +12,7 @@ import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
 })
 export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
+  public 
 
   constructor(
     public lStorage: Storage,
@@ -56,4 +57,10 @@ export class PageCreatorService {
       headers: { hideLoadingIndicator: "true" },
     })
   }
+
+  saveComponenWithMedia(component: Element): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addComponenWithMedia`, component, {
+      headers: { hideLoadingIndicator: "true" },
+    });
+  } 
 }
