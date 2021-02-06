@@ -3,17 +3,28 @@ import { ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { PhotosSlidesComponent } from 'src/app/modules/page-elements/photos-slides/photos-slides.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
-import { ElementComponent } from '../interfaces/element-component';
 import { TouristSpotPage } from '../interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { TitleComponent } from '../page-elements/title/title.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
+
+export interface Element {
+  id:string;
+  type: string;  
+  data: any;
+  styles: string[];
+}
+
+export interface ElementComponent {
+  values: Element;
+}
 
 @Component({
   selector: 'app-page-creator',
   templateUrl: './page-creator.component.html',
   styleUrls: ['./page-creator.component.scss'],
 })
+
 export class PageCreatorComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   public page: TouristSpotPage;
@@ -33,9 +44,9 @@ export class PageCreatorComponent implements OnInit {
     
   }
 
-  ngAfterViewInit() {
+  // ngAfterViewInit() {
     
-  }
+  // }
 
   setPage(page) {
     this.page = page;

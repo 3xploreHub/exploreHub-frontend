@@ -1,4 +1,4 @@
-.wrapper {
+.container {
     padding:0;
     background-color: lightgray;
 }
@@ -12,7 +12,19 @@
     align-items: center;
 }
 
-.selectImage {
+.shrink {
+    height: unset !important;
+    flex-direction: row;
+
+    .buttonDiv {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .imageIcon {
+        vertical-align: middle;
+        font-size: 21px;
+    }
 }
 
 .fileInput {
@@ -22,6 +34,27 @@
 }
 
 .imageIcon {
-    font-size: 40px;
+    font-size: 50px;
     margin:8px;
+}
+
+.buttonDiv {
+    text-align: center;
+}
+
+.imageContainer {
+    // background-color: lightgray;
+}
+
+.imageGrid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.singleCol {
+    display: block !important;
+}
+
+.imageCont {
+    margin:0;
 }

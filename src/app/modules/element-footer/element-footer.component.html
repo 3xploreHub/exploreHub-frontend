@@ -5,16 +5,16 @@
   </div>
   <ng-template #manageTextBlock>
     <div *ngIf="!delClicked; else confirmDelete" class="footer">
-      <div (click)="data.hasValue? delClicked = true: data.deleted = true" class="footerDiv">
-        <ion-icon class="footerIcon" name="trash-outline"></ion-icon>
+      <div (click)="data.hasValue? delClicked = true: data.deleted = true" class="footerDiv dangerColor">
+        <ion-icon class="footerIcon dangerColor" name="trash-outline"></ion-icon>
         <span class="footerText">Delete</span>
       </div>
-      <div class="footerDiv">
-        <ion-icon class="footerIcon" name="color-wand-outline"></ion-icon>
+      <div class="footerDiv primColor">
+        <ion-icon class="footerIcon " name="color-wand-outline"></ion-icon>
         <span class="footerText">Style</span>
       </div>
 
-      <div (click)="render.emit()" class="footerDiv" [class.disabled]="!data.hasValue">
+      <div (click)="render.emit()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
         <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
         <span class="footerText">Done</span>
       </div>
@@ -24,11 +24,11 @@
         <div class="footerDiv">
           Are you sure?
         </div>
-        <div (click)="delete.emit()" class="footerDiv">
-          <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
+        <div (click)="delete.emit()" class="footerDiv dangerColor">
+          <ion-icon class="footerIcon dangerColor" name="checkmark-outline"></ion-icon>
           Yes
         </div>
-        <div (click)="delClicked = false" class="footerDiv">
+        <div (click)="delClicked = false" class="footerDiv primColor">
           <ion-icon class="footerIcon" name="close-outline"></ion-icon>
           No
         </div>

@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Element } from '../../interfaces/Element';
 import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
+import { Element } from '../page-creator.component';
 
-export interface ApiImage {
+export interface Image {
   _id: string;
   url: string;
 }
@@ -68,35 +68,30 @@ export class PageCreatorService {
     });
   }
 
-  uploadImage(blobData, ext):Observable<any> {
+  uploadImage(blobData, values: Element): Observable<any> {
     const formData = new FormData();
-    formData.append('image', blobData, `myimage.${ext}`);
+    formData.append('image', blobData);
+    formData.append('values', JSON.stringify(values));
 
-    console.log(blobData)
     return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
-    // console.log(formData);
-    // const res: ApiImage = {
-    //   _id: "123",
-    //   name: "test",
-    //   createdAt: new Date(),
-    //   url: "http://localhost:3000/uploads/tourmeimage-1609160027028.png",
-    // };
-    // return of(res);
   }
 
-  uploadImageFile(file: File) {
+  uploadImageFile(file: File, values: Element) {
     const ext = file.name.split('.').pop();
     const formData = new FormData();
     formData.append('image', file, `myimage.${ext}`);
+    formData.append('values', JSON.stringify(values));
 
     return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
   }
 
-  deleteImage(id) {
-    return this.http.delete(`${this.apiUrl}/image/${id}`);
+  deleteImage(componentId, imageId) {
+    return this.http.post(`${this.apiUrl}/deleteImage`, { componentId: componentId, imageId: imageId}, {
+      headers: { hideLoadingIndicator: ""},
+    });
   }
 }

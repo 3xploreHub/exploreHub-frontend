@@ -29,3 +29,25 @@
     --background: rgba(49, 49, 49, 0.1);
     --margin-top:100px;
 }
+
+
+.dangerColor {
+    color: rgb(230, 8, 8) !important;
+}
+
+.primColor {
+    color:rgb(8, 121, 233);
+}
+
+.componentWrapper {
+    position: relative;
+    overflow: visible;
+}
+ 
+.componentPopup {
+    position: absolute;
+    width:100%;
+    height: 100%;
+    display: flex;
+    z-index: 99;
+}

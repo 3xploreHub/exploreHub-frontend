@@ -16,7 +16,6 @@ export class ElementFooterComponent implements OnInit {
       done: false,
       deleted: false,
       saving: false,
-      oldText: null, 
       message: "Saving Changes...",
       hasValue: false,
     }

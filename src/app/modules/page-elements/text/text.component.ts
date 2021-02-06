@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Element } from '../../interfaces/Element';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { Element } from '../../page-creator/page-creator.component';
 
 @Component({
   selector: 'app-text',
@@ -11,20 +11,15 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class TextComponent implements OnInit {
   @Input() values: Element;
-  public done: boolean = false;
-  public deleted: boolean = false;
-  public saving: boolean = false;
-  public oldText: string = "";
-  public message:string = "Saving Changes...";
   public footerData: FooterData;
+  public oldText: string;
   public showPopup: boolean = false;
 
-  constructor(public creator: PageCreatorService,public alert: AlertController,) {
+  constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
       done: false,
       deleted: false,
       saving: false,
-      oldText: null, 
       message: "Saving Changes...",
       hasValue: false,
     }
@@ -33,7 +28,6 @@ export class TextComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       this.footerData.done = true;
-      this.values = this.values;
       this.footerData.hasValue = true;
     } else {
       this.values = { id: null, type: "text", styles: [], data: { text: null } }
@@ -42,7 +36,7 @@ export class TextComponent implements OnInit {
 
   renderText() {
     if (this.values.data.text) {
-      if (this.footerData.oldText && this.footerData.oldText != this.values.data.text) {
+      if (this.oldText && this.oldText != this.values.data.text) {
         this.footerData.saving = true;
         this.creator.editComponent(this.values).subscribe(
           (response) => {
@@ -56,7 +50,7 @@ export class TextComponent implements OnInit {
             this.footerData.saving = false;
           }
         )
-      } else if (!this.footerData.oldText) {
+      } else if (!this.oldText) {
         this.footerData.saving = true;
         this.creator.saveComponent(this.values).subscribe(
           (response) => {
@@ -79,7 +73,7 @@ export class TextComponent implements OnInit {
 
   edit() {
     this.showPopup = false;
-    this.footerData.oldText = this.values.data.text;
+    this.oldText = this.values.data.text;
     this.footerData.done = false;
   }
 
@@ -102,7 +96,6 @@ export class TextComponent implements OnInit {
     } else {
       this.footerData.deleted = true;
     }
-    
   }
 
   async presentAlert(message) {

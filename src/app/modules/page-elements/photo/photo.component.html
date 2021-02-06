@@ -1,36 +1,37 @@
-<div class="wrapper">
-  <!-- <div *ngIf="!previeImage; else preview" class="innerWrapper">
-    <ion-icon class="imageIcon" name="image-outline"></ion-icon>
-    <input class="fileInput" type="file" (change)="loadImageFromDevice($event)" id="file-input" accept="image/png, image/jpeg">
-  </div>
-  <ng-template #preview>
-    <div class="innerWrapper">
-      <img [src]="previewImage" alt="">
-    </div>
-  </ng-template> -->
-  <ion-row>
-    <ion-col size="6" *ngFor="let img of images; let i = index;" class="ion-text-center">
-      <ion-label>
-        {{ img.name }}
-        <p>{{ img.createdAt | date:'short' }}</p>
-      </ion-label>
-
-      <img [src]="img.url" />
-      <ion-fab vertical="bottom" horizontal="end">
-        <ion-fab-button color="danger" size="small" (click)="deleteImage(img, i)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-col>
-  </ion-row>
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done; else imageDisplay" class="container">
+    <ion-row>
+      <ion-col [size]="images.length > 1? 6: 12" *ngFor="let img of images; let i = index;" class="ion-text-center">
+        <img [src]="img.url" />
+        <ion-fab vertical="bottom" horizontal="end">
+          <ion-fab-button color="danger" size="small" (click)="deleteImage(img, i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
 
     <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
-
-    <div class="innerWrapper">
-      <img [src]="previewImage" alt="test">
-      <ion-fab-button (click)="selectImageSource()">
-        <ion-icon class="imageIcon" name="image-outline"></ion-icon>
-      </ion-fab-button>
+    <div class="innerWrapper primColor" [class.shrink]="images.length > 0">
+      <div class="buttonDiv" (click)="selectImageSource()">
+        <ion-icon class="imageIcon primColor" name="image-outline"></ion-icon>
+        <div>{{images.length > 0 ? "Add another photo": "Select Photo"}}</div>
+      </div>
     </div>
-  <app-element-footer></app-element-footer>
+    <app-element-footer [data]="footerData" (render)="footerData.done = true" (delete)="delete()">
+    </app-element-footer>
+
+  </div>
+  <ng-template #imageDisplay>
+    <div class="componentWrapper imageContainer">
+      <app-edit-or-delete-popup *ngIf="showPopup" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      
+      <div class="imageGrid" [class.singleCol]="images.length == 1" (click)="showPopup = true">
+        <div *ngFor="let img of images; let i = index;" class="ion-text-center">
+          <img [src]="img.url" />
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>
