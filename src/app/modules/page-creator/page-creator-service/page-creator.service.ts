@@ -1,18 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
 import { Storage } from "@ionic/storage";
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Element } from '../../interfaces/Element';
 import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
+
+export interface ApiImage {
+  _id: string;
+  url: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
-  public 
+  public
 
   constructor(
     public lStorage: Storage,
@@ -62,5 +66,37 @@ export class PageCreatorService {
     return this.http.post(`${this.apiUrl}/addComponenWithMedia`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
-  } 
+  }
+
+  uploadImage(blobData, ext):Observable<any> {
+    const formData = new FormData();
+    formData.append('image', blobData, `myimage.${ext}`);
+
+    console.log(blobData)
+    return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
+      headers: { hideLoadingIndicator: "", containsFiles: "" },
+    });
+    // console.log(formData);
+    // const res: ApiImage = {
+    //   _id: "123",
+    //   name: "test",
+    //   createdAt: new Date(),
+    //   url: "http://localhost:3000/uploads/tourmeimage-1609160027028.png",
+    // };
+    // return of(res);
+  }
+
+  uploadImageFile(file: File) {
+    const ext = file.name.split('.').pop();
+    const formData = new FormData();
+    formData.append('image', file, `myimage.${ext}`);
+
+    return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
+      headers: { hideLoadingIndicator: "", containsFiles: "" },
+    });
+  }
+
+  deleteImage(id) {
+    return this.http.delete(`${this.apiUrl}/image/${id}`);
+  }
 }
