@@ -1,5 +1,5 @@
 export interface Element {
-    id:string;
+    _id: string;
     type: string;  
     data: any;
     styles: string[];

@@ -9,7 +9,7 @@ import { TitleComponent } from '../page-elements/title/title.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 export interface Element {
-  id:string;
+  _id:string;
   type: string;  
   data: any;
   styles: string[];
@@ -17,6 +17,7 @@ export interface Element {
 
 export interface ElementComponent {
   values: Element;
+  parentId: string;
 }
 
 @Component({
@@ -72,6 +73,7 @@ export class PageCreatorComponent implements OnInit {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
+      comp.instance.parentId = this.page._id;
     }
   }
 

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
-import { Observable, of } from 'rxjs';
+import { from, observable, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
 import { Element } from '../page-creator.component';
@@ -10,6 +11,12 @@ export interface Image {
   _id: string;
   url: string;
 }
+export interface Page {
+  _id: string;
+  components: any[];
+  category: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,21 +51,21 @@ export class PageCreatorService {
     return this.http.get<TouristSpotPage>(`${this.apiUrl}/draftTouristSpotPage/${id}`)
   }
 
-  saveComponent(component: Element): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addComponent`, component, {
+  saveComponent(component: Element, touristSpotId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addComponent/${touristSpotId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
-  editComponent(component: Element): Observable<any> {
-    return this.http.put(`${this.apiUrl}/editComponent/${component.id}`, component, {
+  editComponent(component: Element, touristSpotId:string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/editComponent/${touristSpotId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
-  deleteComponent(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteComponent/${id}`, {
-      headers: { hideLoadingIndicator: "true" },
+  deleteComponent(touristSpotId: string, compId:string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteComponent/${touristSpotId}/${compId}`, {
+      headers: { hideLoadingIndicator: "true" },  
     })
   }
 
@@ -93,5 +100,13 @@ export class PageCreatorService {
     return this.http.post(`${this.apiUrl}/deleteImage`, { componentId: componentId, imageId: imageId}, {
       headers: { hideLoadingIndicator: ""},
     });
+  }
+
+  createTouristSpotPage() {
+    return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
+  }
+
+  retrieveToristSpotPage(id) {
+    return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
   }
 }

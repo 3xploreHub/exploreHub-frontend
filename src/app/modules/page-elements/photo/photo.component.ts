@@ -14,6 +14,7 @@ const { Camera } = Plugins;
 
 export class PhotoComponent implements OnInit {
   @Input() values: Element;
+  @Input() parentId: string;
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
@@ -40,7 +41,7 @@ export class PhotoComponent implements OnInit {
       this.images = this.values.data; //{_id: "adfsfasf", url: "https://adfaf"}
       this.footerData.hasValue = true;
     } else {
-      this.values = { id: null, type: "photo", styles: [], data: [] }
+      this.values = { _id: null, type: "photo", styles: [], data: [] }
     }
   }
 
@@ -115,7 +116,7 @@ export class PhotoComponent implements OnInit {
   deleteImage(image: Image, index) {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    this.creator.deleteImage(this.values.id, image._id).subscribe(
+    this.creator.deleteImage(this.values._id, image._id).subscribe(
       (response) => {
         this.images.splice(index, 1);
       },
@@ -130,10 +131,10 @@ export class PhotoComponent implements OnInit {
   }
 
   delete() {
-    if (this.values.id) {
+    if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.values.id).subscribe(
+      this.creator.deleteComponent(this.values._id,this.parentId).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

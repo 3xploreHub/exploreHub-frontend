@@ -11,6 +11,7 @@ import { Element } from '../../page-creator/page-creator.component';
 })
 export class TextComponent implements OnInit {
   @Input() values: Element;
+  @Input() parentId: string;
   public footerData: FooterData;
   public oldText: string;
   public showPopup: boolean = false;
@@ -30,7 +31,7 @@ export class TextComponent implements OnInit {
       this.footerData.done = true;
       this.footerData.hasValue = true;
     } else {
-      this.values = { id: null, type: "text", styles: [], data: { text: null } }
+      this.values = { _id: null, type: "text", styles: [], data: { text: null } }
     }
   }
 
@@ -38,7 +39,7 @@ export class TextComponent implements OnInit {
     if (this.values.data.text) {
       if (this.oldText && this.oldText != this.values.data.text) {
         this.footerData.saving = true;
-        this.creator.editComponent(this.values).subscribe(
+        this.creator.editComponent(this.values, this.parentId).subscribe(
           (response) => {
             this.values = response;
           },
@@ -52,7 +53,7 @@ export class TextComponent implements OnInit {
         )
       } else if (!this.oldText) {
         this.footerData.saving = true;
-        this.creator.saveComponent(this.values).subscribe(
+        this.creator.saveComponent(this.values,this.parentId).subscribe(
           (response) => {
             this.values = response;
           },
@@ -78,10 +79,10 @@ export class TextComponent implements OnInit {
   }
 
   delete() {
-    if (this.values.id) {
+    if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.values.id).subscribe(
+      this.creator.deleteComponent(this.values._id, this.parentId).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

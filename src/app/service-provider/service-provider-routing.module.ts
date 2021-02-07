@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./select-host-tourist-spot/select-host-tourist-spot.module').then(m => m.SelectHostTouristSpotPageModule)
   },
   {
-    path: 'create-tourist-spot-page',
+    path: 'create-tourist-spot-page/:id',
     loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then( m => m.CreateTouristSpotPagePageModule)
   },
   {
