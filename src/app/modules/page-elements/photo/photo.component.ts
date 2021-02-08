@@ -38,7 +38,7 @@ export class PhotoComponent implements OnInit {
     if (this.values) {
       this.footerData.done = true;
       this.footerData.hasValue = true;
-      this.images = this.values.data; //{_id: "adfsfasf", url: "https://adfaf"}
+      this.images = this.values.data; //[{_id: "adfsfasf", url: "https://adfaf"}]
       this.footerData.hasValue = true;
     } else {
       this.values = { _id: null, type: "photo", styles: [], data: [] }
@@ -91,7 +91,7 @@ export class PhotoComponent implements OnInit {
 
     const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
     this.footerData.saving = true;
-    this.creator.uploadImage(blobData, this.values).subscribe((data: Element) => {
+    this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: Element) => {
       this.getResponseData(data);
     });
   }
@@ -101,7 +101,7 @@ export class PhotoComponent implements OnInit {
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
-    this.creator.uploadImageFile(file, this.values).subscribe((data: Element) => {
+    this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: Element) => {
       this.getResponseData(data);
     });
   }
@@ -116,7 +116,7 @@ export class PhotoComponent implements OnInit {
   deleteImage(image: Image, index) {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    this.creator.deleteImage(this.values._id, image._id).subscribe(
+    this.creator.deleteImage(this.parentId, this.values, image._id).subscribe(
       (response) => {
         this.images.splice(index, 1);
       },
@@ -134,7 +134,7 @@ export class PhotoComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.values._id,this.parentId).subscribe(
+      this.creator.deleteComponent(this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

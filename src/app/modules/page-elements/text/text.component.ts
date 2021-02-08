@@ -31,7 +31,7 @@ export class TextComponent implements OnInit {
       this.footerData.done = true;
       this.footerData.hasValue = true;
     } else {
-      this.values = { _id: null, type: "text", styles: [], data: { text: null } }
+      this.values = { _id: "", type: "text", styles: [], data: { text: null } }
     }
   }
 
@@ -41,7 +41,7 @@ export class TextComponent implements OnInit {
         this.footerData.saving = true;
         this.creator.editComponent(this.values, this.parentId).subscribe(
           (response) => {
-            this.values = response;
+            // this.values = response;
           },
           (error) => {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -82,7 +82,7 @@ export class TextComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.values._id, this.parentId).subscribe(
+      this.creator.deleteComponent( this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

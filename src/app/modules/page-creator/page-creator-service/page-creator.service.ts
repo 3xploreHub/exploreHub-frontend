@@ -51,54 +51,49 @@ export class PageCreatorService {
     return this.http.get<TouristSpotPage>(`${this.apiUrl}/draftTouristSpotPage/${id}`)
   }
 
-  saveComponent(component: Element, touristSpotId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addComponent/${touristSpotId}`, component, {
+  saveComponent(component: Element, parentId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addComponent/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
-  editComponent(component: Element, touristSpotId:string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/editComponent/${touristSpotId}`, component, {
+  editComponent(component: Element, parentId: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/editComponent/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
-  deleteComponent(touristSpotId: string, compId:string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteComponent/${touristSpotId}/${compId}`, {
-      headers: { hideLoadingIndicator: "true" },  
+  deleteComponent(parentId: string, compId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteComponent/${parentId}/${compId}`, {
+      headers: { hideLoadingIndicator: "true" },
     })
   }
 
-  saveComponenWithMedia(component: Element): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addComponenWithMedia`, component, {
-      headers: { hideLoadingIndicator: "true" },
-    });
-  }
-
-  uploadImage(blobData, values: Element): Observable<any> {
+  uploadImage(parentId: string, blobData, values: Element): Observable<any> {
     const formData = new FormData();
     formData.append('image', blobData);
     formData.append('values', JSON.stringify(values));
 
-    return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
+    return this.http.post(`${this.apiUrl}/addComponentWithMedia/${parentId}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
   }
 
-  uploadImageFile(file: File, values: Element) {
+  uploadImageFile(parentId: string, file: File, values: Element) {
     const ext = file.name.split('.').pop();
     const formData = new FormData();
     formData.append('image', file, `myimage.${ext}`);
     formData.append('values', JSON.stringify(values));
 
-    return this.http.post(`${this.apiUrl}/addComponentWithMedia`, formData, {
+    return this.http.post(`${this.apiUrl}/addComponentWithMedia/${parentId}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
   }
 
-  deleteImage(componentId, imageId) {
-    return this.http.post(`${this.apiUrl}/deleteImage`, { componentId: componentId, imageId: imageId}, {
-      headers: { hideLoadingIndicator: ""},
+  deleteImage(parentId: string, component: Element, imageId: string) {
+    return this.http.post(`${this.apiUrl}/deleteImage/${parentId}`,
+      { component: component, imageToDelete: imageId }, {
+      headers: { hideLoadingIndicator: "" },
     });
   }
 
