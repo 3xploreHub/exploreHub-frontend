@@ -101,13 +101,16 @@ export class PhotoComponent implements OnInit {
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
+    this.footerData.saving = true;
     this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: Element) => {
       this.getResponseData(data);
     });
   }
 
   getResponseData(data) {
-    this.values = data;
+    this.values._id = data._id;
+    this.values.data = this.images;
+    this.values.data.push(data.data[0])
     this.images = this.values.data;
     this.footerData.saving = false;
     this.footerData.hasValue = true;
