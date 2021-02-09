@@ -119,7 +119,7 @@ export class PhotoComponent implements OnInit {
   deleteImage(image: Image, index) {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    this.creator.deleteImage(this.parentId, this.values, image._id).subscribe(
+    this.creator.deleteImage(this.parentId, this.values._id, this.images[index].url, image._id).subscribe(
       (response) => {
         this.images.splice(index, 1);
       },

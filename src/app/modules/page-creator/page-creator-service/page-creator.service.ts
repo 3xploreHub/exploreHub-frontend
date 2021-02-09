@@ -90,9 +90,9 @@ export class PageCreatorService {
     });
   }
 
-  deleteImage(parentId: string, component: Element, imageId: string) {
+  deleteImage(parentId: string, componentId: string, imageUrl: string, imageId: string) {
     return this.http.post(`${this.apiUrl}/deleteImage/${parentId}`,
-      { component: component, imageToDelete: imageId }, {
+      { imageUrl: imageUrl,componentId: componentId, imageId: imageId }, {
       headers: { hideLoadingIndicator: "" },
     });
   }
