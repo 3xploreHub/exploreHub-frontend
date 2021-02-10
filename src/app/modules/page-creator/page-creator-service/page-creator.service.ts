@@ -63,8 +63,8 @@ export class PageCreatorService {
     })
   }
 
-  deleteComponent(parentId: string, compId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteComponent/${parentId}/${compId}`, {
+  deleteComponent(parentId: string, compId: string, images:any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deleteComponent/${parentId}/${compId}`, {images: images}, {
       headers: { hideLoadingIndicator: "true" },
     })
   }

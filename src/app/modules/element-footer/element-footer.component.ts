@@ -22,4 +22,10 @@ export class ElementFooterComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  onDone() {
+    if (this.data.hasValue) {
+      this.render.emit();
+    }
+  }
 }

@@ -14,7 +14,7 @@
         <span class="footerText">Style</span>
       </div>
 
-      <div (click)="render.emit()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
+      <div (click)="onDone()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
         <ion-icon class="footerIcon" name="checkmark-outline"></ion-icon>
         <span class="footerText">Done</span>
       </div>

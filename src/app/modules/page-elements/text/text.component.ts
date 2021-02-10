@@ -82,7 +82,7 @@ export class TextComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent( this.parentId, this.values._id).subscribe(
+      this.creator.deleteComponent( this.parentId, this.values._id, null).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

@@ -122,6 +122,9 @@ export class PhotoComponent implements OnInit {
     this.creator.deleteImage(this.parentId, this.values._id, this.images[index].url, image._id).subscribe(
       (response) => {
         this.images.splice(index, 1);
+        if (this.images.length == 0) {
+          this.footerData.hasValue = false;
+        }
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -137,7 +140,8 @@ export class PhotoComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.parentId, this.values._id).subscribe(
+      const images = this.images.map(img => img.url);
+      this.creator.deleteComponent(this.parentId, this.values._id, images).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },
