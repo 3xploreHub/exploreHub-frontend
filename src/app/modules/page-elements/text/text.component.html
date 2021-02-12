@@ -1,7 +1,8 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
-    <ion-textarea auto-grow="true" (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="textarea"
-      rows="1" placeholder="Enter text here">
+    <ion-textarea auto-grow="true" (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false"
+      [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="textarea" rows="1"
+      placeholder="Enter text here">
     </ion-textarea>
     <app-element-footer [data]="footerData" (render)="renderText()" (delete)="delete()">
     </app-element-footer>
@@ -11,7 +12,7 @@
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="showPopup" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <p (click)="showPopup = true" class="renderedText">{{values.data.text}}</p>
+      <app-text-display (click)="showPopup = true" [values]="values"></app-text-display>
     </div>
   </ng-template>
 

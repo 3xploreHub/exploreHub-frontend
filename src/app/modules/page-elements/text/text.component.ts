@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { doesNotReject } from 'assert';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { Element } from '../../page-creator/page-creator.component';
@@ -23,15 +24,19 @@ export class TextComponent implements OnInit {
       saving: false,
       message: "Saving Changes...",
       hasValue: false,
+      hasId: false
     }
   }
 
   ngOnInit() {
     if (this.values) {
-      this.footerData.done = true;
-      this.footerData.hasValue = true;
+      this.footerData.done = this.values.data.text != null;
+      this.footerData.hasValue = this.values.data.text != null;
+      this.footerData.hasId = true;
     } else {
-      this.values = { _id: "", type: "text", styles: [], data: { text: null } }
+      this.values = { _id: "", type: "text", styles: [], data: { text: null } };
+      this.footerData.message = "Adding Field..."
+      this.addComponent(false);
     }
   }
 
@@ -47,29 +52,38 @@ export class TextComponent implements OnInit {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
           },
           () => {
-            this.footerData.done = true;
-            this.footerData.saving = false;
+            this.done();
           }
         )
       } else if (!this.oldText) {
-        this.footerData.saving = true;
-        this.creator.saveComponent(this.values,this.parentId).subscribe(
-          (response) => {
-            this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.footerData.done = true;
-            this.footerData.saving = false;
-          }
-        )
+        this.addComponent();
       } else {
         this.footerData.done = true;
       }
       this.footerData.hasValue = true; 
     }
+  }
+
+  addComponent(isDone:boolean = true) {
+    this.footerData.saving = true;
+    this.creator.saveComponent(this.values,this.parentId).subscribe(
+      (response) => {
+        this.values = response;
+        this.footerData.hasId = true;
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.done(isDone);
+      }
+    )
+  }
+
+  done(done:boolean = true) {
+    this.footerData.done = done;
+    this.footerData.saving = false;
+    this.footerData.message = "Saving  Changes...";
   }
 
   edit() {

@@ -31,17 +31,31 @@ export class PhotoComponent implements OnInit {
       saving: false,
       message: "Uploading image...",
       hasValue: false,
+      hasId: false
     }
   }
 
   ngOnInit() {
     if (this.values) {
-      this.footerData.done = true;
-      this.footerData.hasValue = true;
+      this.footerData.done = this.values.data.length > 0;
+      this.footerData.hasValue = this.values.data.length > 0;
       this.images = this.values.data; //[{_id: "adfsfasf", url: "https://adfaf"}]
-      this.footerData.hasValue = true;
+      this.footerData.hasId = true;
     } else {
       this.values = { _id: null, type: "photo", styles: [], data: [] }
+      this.footerData.message = "Adding Field..."
+      this.footerData.saving = true;
+      this.creator.saveComponent(this.values, this.parentId).subscribe(
+        (response) => {
+          this.values = response;
+          this.footerData.hasId = true;
+          this.footerData.message = "Saving Changes..."
+          this.footerData.saving = false
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+      )
     }
   }
 
@@ -82,18 +96,24 @@ export class PhotoComponent implements OnInit {
   }
 
   async addImage(source: CameraSource) {
-    const image = await Camera.getPhoto({
-      quality: 60,
-      allowEditing: true,
-      resultType: CameraResultType.Base64,
-      source
-    });
+    try {
+      const image = await Camera.getPhoto({
+        quality: 60,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        source
+      });
 
-    const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
-    this.footerData.saving = true;
-    this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: Element) => {
-      this.getResponseData(data);
-    });
+      const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
+      this.footerData.saving = true;
+      this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: Element) => {
+        this.getResponseData(data);
+      }, (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // Used for browser direct file upload
@@ -104,6 +124,8 @@ export class PhotoComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: Element) => {
       this.getResponseData(data);
+    }, (error) => {
+      this.presentAlert("Oops! Something went wrong. Please try again later!")
     });
   }
 
@@ -114,6 +136,7 @@ export class PhotoComponent implements OnInit {
     this.images = this.values.data;
     this.footerData.saving = false;
     this.footerData.hasValue = true;
+    this.footerData.hasId = true;
   }
 
   deleteImage(image: Image, index) {
@@ -157,6 +180,7 @@ export class PhotoComponent implements OnInit {
       this.footerData.deleted = true;
     }
   }
+
   edit() {
     this.showPopup = false;
     this.footerData.done = false;

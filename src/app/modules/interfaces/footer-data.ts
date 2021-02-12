@@ -4,4 +4,5 @@ export interface FooterData {
     saving: boolean;
     message: string;
     hasValue: boolean;
+    hasId:boolean;
 }

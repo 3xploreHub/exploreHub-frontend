@@ -52,6 +52,7 @@ export class PageCreatorComponent implements OnInit {
   setPage(page) {
     this.page = page;
     this.page.components.forEach(component => {
+      console.log(component)
       this.renderComponent(component.type, component)
     })
   }
