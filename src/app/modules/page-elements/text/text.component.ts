@@ -48,7 +48,7 @@ export class TextComponent implements OnInit {
   renderText() {
     // this.values.data.text = this.values.data.text.trim();
     if (this.values.data.text) {
-      if (this.hasChanges || this.checkStyleChanges()) {
+      if (this.hasChanges || (JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles))) {
         this.footerData.saving = true;
         this.creator.editComponent(this.values, this.parentId).subscribe(
           (response) => {
@@ -101,9 +101,6 @@ export class TextComponent implements OnInit {
 
   applyStyle(style) {
     this.values.styles = this.creator.applyStyle(this.values.styles, style);
-  }
-  checkStyleChanges() {
-    return JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
   }
   changeStyle() {
     this.oldStyles = this.values.styles;

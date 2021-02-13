@@ -22,7 +22,8 @@
 
 .option {
     font-size: 16px;
-    padding:0 8px;
+    padding:6px;
+    margin:2px;
 }
 
 .cancel {
@@ -38,4 +39,8 @@
     margin-top: 0;
     padding:0 10px;
     padding-top: 0;
+}
+
+.lastFont {
+    border-right: 1px solid lightgray;
 }
