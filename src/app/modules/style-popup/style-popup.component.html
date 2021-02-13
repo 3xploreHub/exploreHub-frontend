@@ -1,13 +1,14 @@
 <div class="popupOverlay">
   <div class="styleOption">
-    <p (click)="select.emit('title')" class="option">Title</p>
-    <p (click)="select.emit('bold')" class="option">Bold</p>
-    <p (click)="select.emit('normal')" class="option">Normal</p>
+    <p (click)="select.emit('font-title')" class="option">Title</p>
+    <p (click)="select.emit('font-bold')" class="option">Bold</p>
+    <p (click)="select.emit('font-normal')" class="option">Normal</p>
   </div>
     <div class="styleOption">
     <p (click)="select.emit('text-left')" class="option">Left</p>
     <p (click)="select.emit('text-center')" class="option">Center</p>
     <p (click)="select.emit('text-right')" class="option">Right</p>
+    <p (click)="select.emit('text-justify')" class="option">Justify</p>
   </div>
   <div class="styleOption cancel">
     <p (click)="close.emit()" class="option dangerColor">

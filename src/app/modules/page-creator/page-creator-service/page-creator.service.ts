@@ -100,20 +100,13 @@ export class PageCreatorService {
   }
 
   applyStyle(styles:any, style:string) {
-    let fontStyle = ["title", "bold", "normal"];
-    let textAlignment = ["text-left", "text-right", "text-center"];
+    let type = style.split("-")[0];
 
-    let group = fontStyle.includes(style)? fontStyle: textAlignment;
-    styles = this.addStyle(styles, style, group)
+    styles = styles.filter(stl => stl.split("-")[0] != type);
 
     if (!styles.includes(style)) {
       styles.push(style)
     }
-    return styles;
-  }
-
-  addStyle(styles: any, style: string, styleGroup: any) {
-    styles = styles.filter(stl => stl != style && !styleGroup.includes(stl));
     return styles;
   }
 }
