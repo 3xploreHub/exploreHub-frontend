@@ -1,11 +1,16 @@
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { Platform, ActionSheetController, AlertController } from '@ionic/angular';
+import { ElementValues } from '../../interfaces/ElementValues';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService, Image } from '../../page-creator/page-creator-service/page-creator.service';
-import { Element } from '../../page-creator/page-creator.component';
 const { Camera } = Plugins;
 
+export interface dataToDelete {
+  _id: string;
+  url: string;
+}
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
@@ -13,12 +18,13 @@ const { Camera } = Plugins;
 })
 
 export class PhotoComponent implements OnInit {
-  @Input() values: Element;
+  @Input() values: ElementValues;
   @Input() parentId: string;
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
   public showPopup: boolean = false;
+  public dataToDelete: dataToDelete;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
 
   constructor(private creator: PageCreatorService,
@@ -31,8 +37,11 @@ export class PhotoComponent implements OnInit {
       saving: false,
       message: "Uploading image...",
       hasValue: false,
-      hasId: false
+      hasId: false,
+      isDefault: false,
+      hasStyle: false
     }
+    this.dataToDelete = { _id: null, url: null }
   }
 
   ngOnInit() {
@@ -41,8 +50,9 @@ export class PhotoComponent implements OnInit {
       this.footerData.hasValue = this.values.data.length > 0;
       this.images = this.values.data; //[{_id: "adfsfasf", url: "https://adfaf"}]
       this.footerData.hasId = true;
+      this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: null, type: "photo", styles: [], data: [] }
+      this.values = { _id: null, type: "photo", styles: [], data: [], default: false}
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveComponent(this.values, this.parentId).subscribe(
@@ -106,7 +116,7 @@ export class PhotoComponent implements OnInit {
 
       const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
       this.footerData.saving = true;
-      this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: Element) => {
+      this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: ElementValues) => {
         this.getResponseData(data);
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -122,7 +132,7 @@ export class PhotoComponent implements OnInit {
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
     this.footerData.saving = true;
-    this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: Element) => {
+    this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: ElementValues) => {
       this.getResponseData(data);
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -139,24 +149,33 @@ export class PhotoComponent implements OnInit {
     this.footerData.hasId = true;
   }
 
-  deleteImage(image: Image, index) {
+  removeData(image: Image) {
+    const img = {...image}
+    this.dataToDelete = img;
+  }
+
+  deleteImage() {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    this.creator.deleteImage(this.parentId, this.values._id, this.images[index].url, image._id).subscribe(
-      (response) => {
-        this.images.splice(index, 1);
-        if (this.images.length == 0) {
-          this.footerData.hasValue = false;
+    this.creator.deleteImage(this.parentId, this.values._id,
+      this.dataToDelete.url,
+      this.dataToDelete._id).subscribe(
+        (response) => {
+          this.images = this.images.filter(image => image._id != this.dataToDelete._id)
+          this.dataToDelete._id = null;
+          this.dataToDelete.url = null;
+          if (this.images.length == 0) {
+            this.footerData.hasValue = false;
+          }
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.footerData.saving = false;
+          this.footerData.message = "Uploading image..."
         }
-      },
-      (error) => {
-        this.presentAlert("Oops! Something went wrong. Please try again later!")
-      },
-      () => {
-        this.footerData.saving = false;
-        this.footerData.message = "Uploading image..."
-      }
-    );
+      );
   }
 
   delete() {

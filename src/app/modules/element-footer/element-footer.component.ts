@@ -10,6 +10,9 @@ export class ElementFooterComponent implements OnInit {
   @Input() data: FooterData;
   @Output() render: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() selectStyle: EventEmitter<string> = new EventEmitter();
+  @Output() openStylePopup: EventEmitter<any> = new EventEmitter();
+  public showStylePopup: boolean = false;
 
   constructor() {
     this.data = {
@@ -18,7 +21,9 @@ export class ElementFooterComponent implements OnInit {
       saving: false,
       message: "Saving Changes...",
       hasValue: false,
-      hasId: false
+      hasId: false,
+      isDefault: false,
+      hasStyle: false,
     }
   }
 
@@ -28,5 +33,11 @@ export class ElementFooterComponent implements OnInit {
     if (this.data.hasValue) {
       this.render.emit();
     }
+    this.showStylePopup = false
+  }
+
+  pickStyle() {
+    this.showStylePopup = true;
+    this.openStylePopup.emit()
   }
 }

@@ -4,19 +4,13 @@ import { Storage } from "@ionic/storage";
 import { from, observable, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ElementValues } from '../../interfaces/ElementValues';
 import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
-import { Element } from '../page-creator.component';
 
 export interface Image {
   _id: string;
   url: string;
 }
-export interface Page {
-  _id: string;
-  components: any[];
-  category: string;
-}
-
 
 @Injectable({
   providedIn: 'root'
@@ -51,13 +45,13 @@ export class PageCreatorService {
     return this.http.get<TouristSpotPage>(`${this.apiUrl}/draftTouristSpotPage/${id}`)
   }
 
-  saveComponent(component: Element, parentId: string): Observable<any> {
+  saveComponent(component: ElementValues, parentId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/addComponent/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
-  editComponent(component: Element, parentId: string): Observable<any> {
+  editComponent(component: ElementValues, parentId: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/editComponent/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
@@ -69,7 +63,7 @@ export class PageCreatorService {
     })
   }
 
-  uploadImage(parentId: string, blobData, values: Element): Observable<any> {
+  uploadImage(parentId: string, blobData, values: ElementValues): Observable<any> {
     const formData = new FormData();
     formData.append('image', blobData);
     formData.append('values', JSON.stringify(values));
@@ -79,7 +73,7 @@ export class PageCreatorService {
     });
   }
 
-  uploadImageFile(parentId: string, file: File, values: Element) {
+  uploadImageFile(parentId: string, file: File, values: ElementValues) {
     const ext = file.name.split('.').pop();
     const formData = new FormData();
     formData.append('image', file, `myimage.${ext}`);
@@ -103,5 +97,23 @@ export class PageCreatorService {
 
   retrieveToristSpotPage(id) {
     return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
+  }
+
+  applyStyle(styles:any, style:string) {
+    let fontStyle = ["title", "bold", "normal"];
+    let textAlignment = ["text-left", "text-right", "text-center"];
+
+    let group = fontStyle.includes(style)? fontStyle: textAlignment;
+    styles = this.addStyle(styles, style, group)
+
+    if (!styles.includes(style)) {
+      styles.push(style)
+    }
+    return styles;
+  }
+
+  addStyle(styles: any, style: string, styleGroup: any) {
+    styles = styles.filter(stl => stl != style && !styleGroup.includes(stl));
+    return styles;
   }
 }

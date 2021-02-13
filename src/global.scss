@@ -40,14 +40,39 @@
 }
 
 .componentWrapper {
-    position: relative;
-    overflow: visible;
+    position: relative !important;
+    overflow: visible !important;
 }
  
 .componentPopup {
     position: absolute;
     width:100%;
+    top:0;
     height: 100%;
     display: flex;
-    z-index: 99;
+    z-index: inherit;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.normal {
+    font-size: 16px !important;
+}
+
+.title {
+    font-size: 22px !important;
 }

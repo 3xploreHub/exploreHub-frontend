@@ -3,22 +3,13 @@ import { ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { PhotosSlidesComponent } from 'src/app/modules/page-elements/photos-slides/photos-slides.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
+import { ElementComponent } from '../interfaces/element-component';
+import { ElementValues } from '../interfaces/ElementValues';
 import { TouristSpotPage } from '../interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
+import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
 import { TitleComponent } from '../page-elements/title/title.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
-
-export interface Element {
-  _id:string;
-  type: string;  
-  data: any;
-  styles: string[];
-}
-
-export interface ElementComponent {
-  values: Element;
-  parentId: string;
-}
 
 @Component({
   selector: 'app-page-creator',
@@ -31,6 +22,7 @@ export class PageCreatorComponent implements OnInit {
   public page: TouristSpotPage;
   components = {
     'text': TextComponent,
+    'labelled-text': LabelledTextComponent,
     'title': TitleComponent,
     'photo': PhotoComponent,
     'photos-slide': PhotosSlidesComponent
@@ -42,16 +34,12 @@ export class PageCreatorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    //dfgdf
   }
-
-  // ngAfterViewInit() {
-    
-  // }
 
   setPage(page) {
     this.page = page;
-    this.page.components.forEach(component => {
+    this.page.components.forEach((component: any) => {
       console.log(component)
       this.renderComponent(component.type, component)
     })
@@ -77,6 +65,4 @@ export class PageCreatorComponent implements OnInit {
       comp.instance.parentId = this.page._id;
     }
   }
-
-
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Element } from '../../interfaces/Element';
+import { ElementValues } from '../../interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-text-display',
@@ -7,9 +8,11 @@ import { Element } from '../../interfaces/Element';
   styleUrls: ['./text-display.component.scss'],
 })
 export class TextDisplayComponent implements OnInit {
-  @Input() values: Element;
-  constrtuctor() { }
+  @Input() values: ElementValues;
+
+  constructor() { }
 
   ngOnInit() {}
+
 
 }

@@ -1,13 +1,17 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done; else imageDisplay" class="container">
     <ion-row>
-      <ion-col [size]="images.length > 1? 6: 12" *ngFor="let img of images; let i = index;" class="ion-text-center">
-        <img [src]="img.url" />
-        <ion-fab vertical="bottom" horizontal="end">
-          <ion-fab-button color="danger" size="small" (click)="deleteImage(img, i)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+      <ion-col [size]="images.length > 1? 6: 12" *ngFor="let img of images" class="ion-text-center">
+        <div class="componentWrapper">
+          <img [src]="img.url" />
+          <ion-fab *ngIf="dataToDelete._id != img._id" vertical="bottom" horizontal="end">
+            <ion-fab-button color="danger" size="small" (click)="removeData(img)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+          <app-delete-data *ngIf="dataToDelete._id === img._id" (delete)="deleteImage()" (close)="dataToDelete._id = null"
+            [deleting]="footerData.saving" class="componentPopup"></app-delete-data>
+        </div>
       </ion-col>
     </ion-row>
 
@@ -20,13 +24,13 @@
     </div>
     <app-element-footer [data]="footerData" (render)="footerData.done = true" (delete)="delete()">
     </app-element-footer>
-
   </div>
+
   <ng-template #imageDisplay>
     <div class="componentWrapper imageContainer">
-      <app-edit-or-delete-popup *ngIf="showPopup" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-        <app-photo-display (click)="showPopup = true" [values]="values"></app-photo-display>
+      <app-photo-display (click)="showPopup = true" [values]="values"></app-photo-display>
     </div>
   </ng-template>
 </div>

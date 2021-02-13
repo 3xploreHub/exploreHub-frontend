@@ -1,7 +1,7 @@
 
 .footerDiv {
-    padding:10px;
-    font-size: 15px;
+    padding:10px 15px;
+    font-size: 18px;
 }
 
 .saving {
@@ -10,7 +10,7 @@
 }
 
 .footer {
-    border-top:1px solid #ffffff;
+    // border-top:1px solid #ffffff;
     background-color:lightgray;
     display: flex;
     align-items: center;
@@ -18,10 +18,16 @@
     justify-content: space-between;
 }
 
+.isDefaultMode {
+    justify-content: flex-end;
+}
+
 .footerIcon {
-    font-size: 19px;
+    font-size: 20px;
     padding-right:3px;
     vertical-align: middle;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .footerText {
@@ -33,5 +39,5 @@
 }
 
 .disabled {
-    opacity: .4;
+    opacity: .5;
 }

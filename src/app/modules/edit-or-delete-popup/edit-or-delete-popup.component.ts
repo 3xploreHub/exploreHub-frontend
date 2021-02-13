@@ -10,6 +10,7 @@ export class EditOrDeletePopupComponent implements OnInit {
   @Output() delete: EventEmitter<any> = new EventEmitter();
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Input() deleting: boolean = false;
+  @Input() isDefault: boolean = false;
   delClicked = false;
 
   constructor() { }

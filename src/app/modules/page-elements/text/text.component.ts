@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { doesNotReject } from 'assert';
+import { filter } from 'rxjs/operators';
+import { ElementValues } from '../../interfaces/ElementValues';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
-import { Element } from '../../page-creator/page-creator.component';
 
 @Component({
   selector: 'app-text',
@@ -11,11 +12,12 @@ import { Element } from '../../page-creator/page-creator.component';
   styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnInit {
-  @Input() values: Element;
+  @Input() values: ElementValues;
   @Input() parentId: string;
   public footerData: FooterData;
-  public oldText: string;
   public showPopup: boolean = false;
+  public hasChanges: boolean = false;
+  public oldStyles: string[] = [];
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -24,7 +26,9 @@ export class TextComponent implements OnInit {
       saving: false,
       message: "Saving Changes...",
       hasValue: false,
-      hasId: false
+      hasId: false,
+      isDefault: false,
+      hasStyle: true
     }
   }
 
@@ -33,16 +37,18 @@ export class TextComponent implements OnInit {
       this.footerData.done = this.values.data.text != null;
       this.footerData.hasValue = this.values.data.text != null;
       this.footerData.hasId = true;
+      this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "text", styles: [], data: { text: null } };
+      this.values = { _id: "", type: "text", styles: [], data: { placeholder: "Enter text here", text: null }, default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
   }
 
   renderText() {
+    // this.values.data.text = this.values.data.text.trim();
     if (this.values.data.text) {
-      if (this.oldText && this.oldText != this.values.data.text) {
+      if (this.hasChanges || this.checkStyleChanges()) {
         this.footerData.saving = true;
         this.creator.editComponent(this.values, this.parentId).subscribe(
           (response) => {
@@ -55,12 +61,12 @@ export class TextComponent implements OnInit {
             this.done();
           }
         )
-      } else if (!this.oldText) {
-        this.addComponent();
       } else {
         this.footerData.done = true;
       }
       this.footerData.hasValue = true; 
+    } else {
+      this.footerData.hasValue = false;
     }
   }
 
@@ -84,18 +90,30 @@ export class TextComponent implements OnInit {
     this.footerData.done = done;
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
+    this.hasChanges = false;
   }
 
   edit() {
     this.showPopup = false;
-    this.oldText = this.values.data.text;
+    this.hasChanges = false;
     this.footerData.done = false;
+  }
+
+  applyStyle(style) {
+    this.values.styles = this.creator.applyStyle(this.values.styles, style);
+  }
+  checkStyleChanges() {
+    return JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
+  }
+  changeStyle() {
+    this.oldStyles = this.values.styles;
+    console.log("oldstyles", this.oldStyles);
   }
 
   delete() {
     if (this.values._id) {
-      this.footerData.message = "Deleting..."
       this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
       this.creator.deleteComponent( this.parentId, this.values._id, null).subscribe(
         (response) => {
           this.footerData.deleted = true;
@@ -104,8 +122,7 @@ export class TextComponent implements OnInit {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
-          this.footerData.saving = false;
-          this.footerData.message = "Saving Changes..."
+          this.done(false)
         }
       )
     } else {

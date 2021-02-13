@@ -5,4 +5,6 @@ export interface FooterData {
     message: string;
     hasValue: boolean;
     hasId:boolean;
+    isDefault: boolean;
+    hasStyle: boolean;
 }

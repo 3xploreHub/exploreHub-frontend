@@ -23,6 +23,10 @@ import { ElementFooterComponent } from "./modules/element-footer/element-footer.
 import { EditOrDeletePopupComponent } from "./modules/edit-or-delete-popup/edit-or-delete-popup.component";
 import { TextDisplayComponent } from "./modules/page-elements-display/text-display/text-display.component";
 import { PhotoDisplayComponent } from "./modules/page-elements-display/photo-display/photo-display.component";
+import { LabelledTextComponent } from "./modules/page-elements/labelled-text/labelled-text.component";
+import { LabelledTextDisplayComponent } from "./modules/page-elements-display/labelled-text-display/labelled-text-display.component";
+import { DeleteDataComponent } from "./modules/delete-data/delete-data.component";
+import { StylePopupComponent } from "./modules/style-popup/style-popup.component";
 
 @NgModule({
   declarations: [
@@ -31,11 +35,16 @@ import { PhotoDisplayComponent } from "./modules/page-elements-display/photo-dis
     TextComponent,
     TitleComponent,
     PhotoComponent,
+    LabelledTextComponent,
     PhotosSlidesComponent,
     ElementFooterComponent,
+    DeleteDataComponent,
+    StylePopupComponent,
     EditOrDeletePopupComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,
+    LabelledTextDisplayComponent,
+
   ],
   entryComponents: [],
   imports: [

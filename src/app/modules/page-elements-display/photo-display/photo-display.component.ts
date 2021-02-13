@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Element } from '../../interfaces/Element';
+import { ElementValues } from '../../interfaces/ElementValues';
 
 @Component({
   selector: 'app-photo-display',
@@ -7,7 +7,7 @@ import { Element } from '../../interfaces/Element';
   styleUrls: ['./photo-display.component.scss'],
 })
 export class PhotoDisplayComponent implements OnInit {
-  @Input() values: Element;
+  @Input() values: ElementValues;
   images: any;
   constructor() {
 
