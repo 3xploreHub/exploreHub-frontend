@@ -46,6 +46,7 @@ export class TextComponent implements OnInit {
       this.addComponent(false);
     }
   }
+  
 
   renderText() {
     let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
@@ -65,7 +66,7 @@ export class TextComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.editComponent(this.values, this.parentId).subscribe(
       (response) => {
-        // this.values = response;
+        // this.values = response this is the rivas branch;
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
