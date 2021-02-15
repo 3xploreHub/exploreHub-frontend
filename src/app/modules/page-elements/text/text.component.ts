@@ -66,7 +66,7 @@ export class TextComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.editComponent(this.values, this.parentId).subscribe(
       (response) => {
-        // this.values = response this is the rivas branch;
+        // this.values = response this is the rivas branch 2;
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
