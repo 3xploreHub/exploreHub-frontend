@@ -87,7 +87,6 @@ export class PhotoComponent implements OnInit {
       }
     ];
 
-    // Only allow file selection inside a browser
     if (!this.plt.is('hybrid')) {
       buttons.push({
         text: 'Choose a File',
