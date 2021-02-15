@@ -7,7 +7,8 @@ import { PageCreatorService } from '../page-creator/page-creator-service/page-cr
   styleUrls: ['./style-popup.component.scss'],
 })
 export class StylePopupComponent implements OnInit {
-  @Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() save: EventEmitter<any> = new EventEmitter();
+  @Output() cancel: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<string> = new EventEmitter();
   constructor() { }
 

@@ -12,7 +12,6 @@ export class ElementFooterComponent implements OnInit {
   @Output() delete: EventEmitter<any> = new EventEmitter();
   @Output() selectStyle: EventEmitter<string> = new EventEmitter();
   @Output() openStylePopup: EventEmitter<any> = new EventEmitter();
-  public showStylePopup: boolean = false;
 
   constructor() {
     this.data = {
@@ -29,15 +28,5 @@ export class ElementFooterComponent implements OnInit {
 
   ngOnInit() { }
 
-  onDone() {
-    if (this.data.hasValue) {
-      this.render.emit();
-    }
-    this.showStylePopup = false
-  }
 
-  pickStyle() {
-    this.showStylePopup = true;
-    this.openStylePopup.emit()
-  }
 }

@@ -18,7 +18,6 @@ import { TextComponent } from "./modules/page-elements/text/text.component";
 import { FormsModule } from "@angular/forms";
 import { TitleComponent } from "./modules/page-elements/title/title.component";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
-import { PhotosSlidesComponent } from "./modules/page-elements/photos-slides/photos-slides.component";
 import { ElementFooterComponent } from "./modules/element-footer/element-footer.component";
 import { EditOrDeletePopupComponent } from "./modules/edit-or-delete-popup/edit-or-delete-popup.component";
 import { TextDisplayComponent } from "./modules/page-elements-display/text-display/text-display.component";
@@ -36,7 +35,6 @@ import { StylePopupComponent } from "./modules/style-popup/style-popup.component
     TitleComponent,
     PhotoComponent,
     LabelledTextComponent,
-    PhotosSlidesComponent,
     ElementFooterComponent,
     DeleteDataComponent,
     StylePopupComponent,

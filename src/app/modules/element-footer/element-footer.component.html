@@ -10,7 +10,7 @@
         <span class="footerText">Delete</span>
       </div>
 
-      <div *ngIf="data.hasStyle" (click)="pickStyle()" class="footerDiv primColor">
+      <div *ngIf="data.hasStyle" (click)="openStylePopup.emit()" class="footerDiv primColor">
         <ion-icon class="footerIcon " name="color-wand-outline"></ion-icon>
         <span class="footerText">Style</span>
       </div>
@@ -19,7 +19,6 @@
         <ion-icon class="footerIcon" name="checkmark-circle-outline"></ion-icon>
         <span class="footerText">Done</span>
       </div>
-      <app-style-popup *ngIf="data.hasStyle && showStylePopup" (select)="selectStyle.emit($event)" (close)="onDone()" class="componentPopup"></app-style-popup>
     </div>
     <ng-template #confirmDelete>
       <div class="footer">

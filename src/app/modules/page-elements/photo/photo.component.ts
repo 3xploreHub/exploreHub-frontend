@@ -39,7 +39,7 @@ export class PhotoComponent implements OnInit {
       hasValue: false,
       hasId: false,
       isDefault: false,
-      hasStyle: false
+      hasStyle: true
     }
     this.dataToDelete = { _id: null, url: null }
   }
@@ -161,7 +161,8 @@ export class PhotoComponent implements OnInit {
       this.dataToDelete.url,
       this.dataToDelete._id).subscribe(
         (response) => {
-          this.images = this.images.filter(image => image._id != this.dataToDelete._id)
+          this.values.data = this.images.filter(image => image._id != this.dataToDelete._id)
+          this.images = this.values.data;
           this.dataToDelete._id = null;
           this.dataToDelete.url = null;
           if (this.images.length == 0) {

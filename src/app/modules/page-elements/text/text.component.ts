@@ -18,6 +18,7 @@ export class TextComponent implements OnInit {
   public showPopup: boolean = false;
   public hasChanges: boolean = false;
   public oldStyles: string[] = [];
+  public showStylePopup: boolean = false;
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -38,8 +39,9 @@ export class TextComponent implements OnInit {
       this.footerData.hasValue = this.values.data.text != null;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
+      this.oldStyles = this.values.styles;
     } else {
-      this.values = { _id: "", type: "text", styles: [], data: { placeholder: "Enter text here", text: null }, default: false };
+      this.values = { _id: "", type: "text", styles: ["bg-light", "font-normal", "color-light", "text-left"], data: { placeholder: "Enter text here", text: null }, default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
@@ -48,6 +50,9 @@ export class TextComponent implements OnInit {
   renderText() {
     // this.values.data.text = this.values.data.text.trim();
     if (this.values.data.text) {
+      console.log((JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles)))
+      console.log(this.values.styles)
+      console.log(this.oldStyles)
       if (this.hasChanges || (JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles))) {
         this.footerData.saving = true;
         this.creator.editComponent(this.values, this.parentId).subscribe(
@@ -91,6 +96,7 @@ export class TextComponent implements OnInit {
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
     this.hasChanges = false;
+    this.oldStyles = this.values.styles;
   }
 
   edit() {
@@ -104,6 +110,7 @@ export class TextComponent implements OnInit {
   }
   changeStyle() {
     this.oldStyles = this.values.styles;
+    this.showStylePopup = true;
     console.log("oldstyles", this.oldStyles);
   }
 

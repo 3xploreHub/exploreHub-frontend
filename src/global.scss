@@ -97,21 +97,27 @@
 }
 
 .color-dark {
-    color:rgb(41, 41, 41) !important;
+    color:rgb(43, 43, 43) !important;
 }
 
 .color-darker {
     color:rgb(10, 10, 10) !important;
 }
 
+.font-extraLarge {
+    font-size: 23px !important;
+}
 .font-large {
-    font-size: 22px !important;
+    font-size: 20px !important;
 }
 .font-medium {
     font-size: 17px !important;
 }
 .font-small {
     font-size: 15px !important;
+}
+.fontStyle-bolder {
+    font-weight: 800 !important;
 }
 .fontStyle-bold {
     font-weight: 600 !important;
@@ -125,9 +131,10 @@
 }
 
 .bg-light {
-    background-color: rgb(209, 217, 224);
+    background-color: rgb(248, 248, 248) !important;
+    // background-color: rgb(209, 217, 224);
 }
 
 .bg-white {
-    background-color: #ffff;
+    background-color: #ffff !important;
 }

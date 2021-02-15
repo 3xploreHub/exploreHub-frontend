@@ -1,7 +1,6 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
-import { PhotosSlidesComponent } from 'src/app/modules/page-elements/photos-slides/photos-slides.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../interfaces/element-component';
 import { ElementValues } from '../interfaces/ElementValues';
@@ -25,7 +24,6 @@ export class PageCreatorComponent implements OnInit {
     'labelled-text': LabelledTextComponent,
     'title': TitleComponent,
     'photo': PhotoComponent,
-    'photos-slide': PhotosSlidesComponent
   }
 
   constructor(public modalController: ModalController,
