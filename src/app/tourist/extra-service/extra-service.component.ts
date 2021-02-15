@@ -16,16 +16,16 @@ export class ExtraServiceComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit() {
-    this.extraService()
+    // this.extraService()
   }
 
-  extraService(){
-    this.touristService.retrieveAllTouristSpots().subscribe((data)=>{
-      this.extraServiceArray=data[0].components[1].data
-      console.log("extra: ",this.extraServiceArray);
+  // extraService(){
+  //   this.touristService.retrieveAllTouristSpots().subscribe((data)=>{
+  //     this.extraServiceArray=data[0].components[1].data
+  //     console.log("extra: ",this.extraServiceArray);
       
-    })
-  }
+  //   })
+  // }
   dismiss() {
     this.modalCtrl.dismiss({
       'dismissed': true,

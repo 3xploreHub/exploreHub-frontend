@@ -27,9 +27,9 @@ export class HomePage implements OnInit {
   }
 
   touristSpots(){
-    this.touristService.retrieveAllTouristSpots().subscribe((data)=>{      
-      this.allTouristSpots = data[0];
-      console.log(this.allTouristSpots);
+    this.touristService.retrieveAllTouristSpotPage().subscribe((data)=>{      
+   
+      console.log(data);
       
     })
   }

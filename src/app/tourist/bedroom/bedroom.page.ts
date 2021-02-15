@@ -14,7 +14,7 @@ export class BedroomPage implements OnInit {
   constructor( public modalController: ModalController,private touristService:TouristServicesService) { }
 
   ngOnInit() {
-    this.bedrooms();
+ 
   }
   async presentModal() {
     const modal = await this.modalController.create({
@@ -24,13 +24,6 @@ export class BedroomPage implements OnInit {
     return await modal.present();
   }
 
-  bedrooms(){
-    this.touristService.retrieveAllTouristSpots().subscribe((data)=>{
-      this.bedroomArray=data[0].components[0].data
-      console.log("bedrooms: ",this.bedroomArray);
-      
-      
-    })
-  }
+  
 
 }

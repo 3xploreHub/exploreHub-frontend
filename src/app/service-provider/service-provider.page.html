@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>service-provider</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <a (click)="goto()">
+      <p>Create service</p>
+    </a>
+  </ion-item>
+  <ion-item>
+    <a [routerLink]="['/service-provider/select-tourist-spot-category']">
+      <p>Create tourist spot</p>
+    </a>
+  </ion-item>
+</ion-content>

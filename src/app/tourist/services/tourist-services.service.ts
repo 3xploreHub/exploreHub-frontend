@@ -8,14 +8,14 @@ import { environment } from "../../../environments/environment";
   providedIn: 'root'
 })
 export class TouristServicesService {
-  private apiUrl = `${environment.apiUrl}`;
+  private apiUrl = `${environment.apiUrl}/tourist`;
 
   constructor(
     private http: HttpClient
   ) { }
 
-    retrieveAllTouristSpots():Observable<any>{
-      return this.http.get(`${this.apiUrl}/touristSpotOperator/retrieveAllTouristSpot`)
+  retrieveAllTouristSpotPage():Observable<any>{
+      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotPage`)
     }
  
 }

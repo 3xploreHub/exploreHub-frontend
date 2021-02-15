@@ -1,0 +1,37 @@
+<div class="popupWrapper">
+  <div class="popupDiaglog">
+    <div *ngIf="!delClicked; else delBlock" class="popupDiaglog">
+      <div class="popupOption primColor" (click)="edit.emit()">
+        <p>Edit</p>
+      </div>
+      <div *ngIf="!isDefault" class="popupOption dangerColor" (click)="delClicked = true">
+        <p>Delete</p>
+      </div>
+      <div class="popupOption" (click)="close.emit()">
+        <ion-icon name="close-outline" class="popupIcon"></ion-icon>
+      </div>
+    </div>
+
+    <ng-template #delBlock>
+      <div *ngIf="!deleting; else deletingBlock" class="popupDiaglog">
+        <div class="popupOption">
+          <p>Are you sure?</p>
+        </div>
+        <div class="popupOption dangerColor" (click)="delete.emit()">
+          <p>Yes</p>
+        </div>
+        <div class="popupOption primColor" (click)="close.emit()">
+          <p>No</p>
+        </div>
+      </div>
+      <ng-template #deletingBlock>
+        <div class="popupOption primColor">
+          <ion-spinner name="lines-small"></ion-spinner>
+          <p>
+            Deleting...
+          </p>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

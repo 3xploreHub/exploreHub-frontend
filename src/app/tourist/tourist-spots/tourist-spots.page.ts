@@ -20,7 +20,7 @@ export class TouristSpotsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.touristSpots()
+    // this.touristSpots()
   }
   hideAndShow(){
     if(this.rules){
@@ -29,12 +29,12 @@ export class TouristSpotsPage implements OnInit {
       this.rules = true;
     }
   }
-  touristSpots(){
-    this.touristService.retrieveAllTouristSpots().subscribe((data)=>{      
-      this.selectedSpot = data[0];
-      console.log(this.selectedSpot);
+  // touristSpots(){
+  //   this.touristService.retrieveAllTouristSpots().subscribe((data)=>{      
+  //     this.selectedSpot = data[0];
+  //     console.log(this.selectedSpot);
       
-    })
-  }
+  //   })
+  // }
 
 }

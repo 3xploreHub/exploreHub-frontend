@@ -1,0 +1,36 @@
+<div class="popupOverlay">
+  <div class="rowWrapper">
+    <div class="styleOption">
+      <p (click)="select.emit('font-extraLarge')" class="option">Extra-large</p>
+      <p (click)="select.emit('font-large')" class="option">Large</p>
+      <p (click)="select.emit('font-medium')" class="option">Medium</p>
+      <p (click)="select.emit('font-small')" class="option">Small</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="select.emit('fontStyle-bolder')" class="option">Bolder</p>
+      <p (click)="select.emit('fontStyle-bold')" class="option">Bold</p>
+      <p (click)="select.emit('fontStyle-normal')" class="option">Normal</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="select.emit('bg-white')" class="option">No-background</p>
+      <p (click)="select.emit('bg-light')" class="option">Light-backround</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="select.emit('text-left')" class="option">Left</p>
+      <p (click)="select.emit('text-center')" class="option">Center</p>
+      <p (click)="select.emit('text-right')" class="option">Right</p>
+      <p (click)="select.emit('text-justify')" class="option">Justify</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="select.emit('color-darker')" class="option">Darker</p>
+      <p (click)="select.emit('color-dark')" class="option">Dark</p>
+      <p (click)="select.emit('color-light')" class="option">Light</p>
+      <p (click)="select.emit('color-lighter')" class="option">Lighter</p>
+      <p (click)="select.emit('color-blue')" class="option">Blue</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="cancel.emit()" class="option dangerColor">Cancel</p>
+      <p (click)="save.emit()" class="option primColor">Save</p>
+    </div>
+  </div>
+</div>
