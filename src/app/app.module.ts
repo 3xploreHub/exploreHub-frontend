@@ -16,7 +16,6 @@ import { LoadingPage } from "./modules/loading/loading.page";
 import { CommonModule } from '@angular/common';
 import { TextComponent } from "./modules/page-elements/text/text.component";
 import { FormsModule } from "@angular/forms";
-import { TitleComponent } from "./modules/page-elements/title/title.component";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
 import { ElementFooterComponent } from "./modules/element-footer/element-footer.component";
 import { EditOrDeletePopupComponent } from "./modules/edit-or-delete-popup/edit-or-delete-popup.component";
@@ -32,7 +31,6 @@ import { StylePopupComponent } from "./modules/style-popup/style-popup.component
     AppComponent,
     LoadingPage,
     TextComponent,
-    TitleComponent,
     PhotoComponent,
     LabelledTextComponent,
     ElementFooterComponent,
