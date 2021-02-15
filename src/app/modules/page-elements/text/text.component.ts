@@ -65,7 +65,7 @@ export class TextComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.editComponent(this.values, this.parentId).subscribe(
       (response) => {
-        // this.values = response;
+        // this.values = response this is the develop branch;
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
