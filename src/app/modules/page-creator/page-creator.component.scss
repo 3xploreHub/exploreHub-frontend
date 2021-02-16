@@ -1,13 +1,71 @@
 .addComponentBtn {
-    background-color: lightgray;
-    padding:10px;
+    background-color: dodgerblue;
+    padding:10px 20px;
     border-radius: 3px;
+    color:white;
     margin:10px;
     text-align: center;
-    color:gray;
 }
 
 .creator {
     margin-bottom: 150px;
     background: #ffff;
+}
+
+.addInfo {
+    padding:5px;
+    margin: 50px;
+    background: rgba(114, 114, 114, 0.2);
+    text-align: center;
+
+    h5 {
+        margin:5px;
+    }
+    
+    p {
+        margin: 5px;
+        font-size: 13px;
+        color:gray;
+    }
+}
+
+.services {
+    background: seagreen !important;
+}   
+
+.addServicesBox {
+    text-align: left !important;
+}
+
+.btnHolder {
+    text-align: right;
+}
+
+.nextIcon {
+    // font-size: 20px;
+    vertical-align: middle;
+    padding:5px;
+}
+
+.bookingBtn {
+    background: rgb(230, 149, 0) !important;
+}
+
+.divider {
+    text-align: center;
+
+    h4 {
+        // margin:5px;
+        margin-bottom: 20px;
+    }
+}
+
+.servicesSection {
+    background: rgb(232, 243, 243);
+    padding: 20px 0;
+    padding-bottom: 50px;
+}
+
+.bookingInfoSection {
+    background: rgb(219, 231, 235);
 }

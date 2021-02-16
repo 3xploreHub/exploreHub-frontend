@@ -1,4 +1,43 @@
 <div class="creator">
     <ng-template #pageElement></ng-template>
-    <div class="addComponentBtn" (click)="showComponentList()">Add</div>
+    <br />
+    <div class="addInfo">
+        <h6>Add other information.</h6>
+        <p>Click <b>Add Field</b> to select component that you can use to present other information about the tourist
+            spot.</p>
+        <div class="addComponentBtn" (click)="showComponentList()">Add Field</div>
+
+    </div>
+    <br />
+    <div class="servicesSection">
+        <div class="divider">
+            <h4>Services And Offers</h4>
+            <!-- <p>Services or facilities, ex. rooms, catages</p> -->
+        </div>
+        <ng-template #pageService></ng-template>
+
+        <div class="addInfo">
+            <h6>Add services or something you offer.</h6>
+            <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities that
+                you
+                offer that tourists can avail.</p>
+            <div class="addComponentBtn services" (click)="showServicesComponentList()">Add Field</div>
+
+        </div>
+    </div>
+    <div class="servicesSection bookingInfoSection">
+        <div class="divider">
+            <h4>Booking Info</h4>
+        </div>
+        <div class="addInfo">
+            <h6>Add needed informations for booking.</h6>
+
+            <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some informations that
+                you
+                will require them to provide to make an arrangement.</p>
+            <div class="addComponentBtn bookingBtn" (click)="showComponentList()">
+                Add Field
+            </div>
+        </div>
+    </div>
 </div>

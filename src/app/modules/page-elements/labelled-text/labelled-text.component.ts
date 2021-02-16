@@ -56,8 +56,8 @@ export class LabelledTextComponent implements OnInit {
 
 
   renderText() {
-    this.values.data.label = this.values.data.label.trim();
-    this.values.data.text = this.values.data.text.trim();
+    this.values.data.label = this.values.data.label ? this.values.data.label.trim(): null;
+    this.values.data.text = this.values.data.text? this.values.data.text.trim(): null;
     this.detectTyping();
     if (this.footerData.hasValue) {
       if (this.hasChanges && this.footerData.hasValue) {

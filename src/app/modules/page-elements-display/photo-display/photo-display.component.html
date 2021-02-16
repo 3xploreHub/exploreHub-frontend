@@ -1,4 +1,4 @@
-<div class="imageGrid" [class.singleCol]="images.length == 1" (click)="showPopup = true">
+<div *ngIf="images.length > 0" class="imageGrid" [class.singleCol]="images.length == 1" (click)="showPopup = true">
   <div *ngFor="let img of images; let i = index;" class="ion-text-center">
     <img [src]="img.url" />
   </div>
