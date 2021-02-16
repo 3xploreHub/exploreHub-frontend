@@ -8,7 +8,7 @@ import { TouristSpotPage } from '../interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';
-import { ItemListComponent } from '../page-services/item-list/item-list.component';
+import { ItemComponent } from '../page-services/item/item.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class PageCreatorComponent implements OnInit {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
-    'item-list': ItemListComponent
+    'item-list': ItemComponent
   }
 
   constructor(public modalController: ModalController,
@@ -70,6 +70,7 @@ export class PageCreatorComponent implements OnInit {
   }
 
   renderComponent(type: ViewContainerRef, componentName: string, componentValues: any) {
+    console.log(this.pageElement)
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = type.createComponent<ElementComponent>(factory);

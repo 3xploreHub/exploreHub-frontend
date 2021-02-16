@@ -8,16 +8,15 @@ import { PageElementListComponent } from '../../page-element-list/page-element-l
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
-import { PageServicesListComponent } from '../../page-services-list/page-services-list.component';
 
 @Component({
-  selector: 'app-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.scss'],
+  selector: 'app-item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.scss'],
 })
 
-export class ItemListComponent implements OnInit {
-  @ViewChild('serviceElements', { read: ViewContainerRef }) serviceElements: ViewContainerRef;
+export class ItemComponent implements OnInit {
+  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Input() parentId: string;
   public footerData: FooterData;
@@ -26,7 +25,7 @@ export class ItemListComponent implements OnInit {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
-    'item-list': ItemListComponent
+    // 'item-list': ItemComponent
   }
 
   constructor(
@@ -55,9 +54,15 @@ export class ItemListComponent implements OnInit {
       this.footerData.hasValue = data.text != null && data.label != null;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      if (this.values.data.length > 0) {
-        this.setPage(this.values.data)
-      }
+      this.footerData.saving = true;
+      this.footerData.message = "Loading..."
+      setTimeout(() => {
+        this.footerData.saving = false; 
+        this.footerData.message = "Saving Changes..."
+        if (this.values.data.length > 0) {
+          this.setPage(this.values.data)
+        }
+      }, 3000);
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
@@ -66,8 +71,8 @@ export class ItemListComponent implements OnInit {
     }
   }
 
-  setPage(data) {
-    data.forEach((component: any) => {
+  setPage(component) {
+    component.forEach((component: any) => {
       this.renderComponent(component.type, component)
     })
   }
@@ -87,7 +92,7 @@ export class ItemListComponent implements OnInit {
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.serviceElements.createComponent<ElementComponent>(factory);
+      const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
       comp.instance.parent = "component";

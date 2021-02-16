@@ -59,8 +59,10 @@ export class PageCreatorService {
     });
   }
 
-  editComponent(component: ElementValues, parentId: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/editComponent/${parentId}`, component, {
+  editComponent(component: ElementValues, parentId: string, parent:string): Observable<any> {
+    const componentGroup = parent == "page" ? "editComponent": "editChildComponent";
+    const params = parent == "page"? parentId: `${this.currentPageId}/${parentId}`;
+    return this.http.put(`${this.apiUrl}/${componentGroup}/${params}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }

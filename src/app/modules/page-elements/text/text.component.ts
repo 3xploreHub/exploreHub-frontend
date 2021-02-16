@@ -65,7 +65,7 @@ export class TextComponent implements OnInit {
 
   saveChanges(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.creator.editComponent(this.values, this.parentId).subscribe(
+    this.creator.editComponent(this.values, this.parentId, this.parent).subscribe(
       (response) => {
         // this.values = response this is the rivas branch 2 and another changes to commit;
       },

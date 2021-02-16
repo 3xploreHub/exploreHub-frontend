@@ -63,7 +63,7 @@ export class LabelledTextComponent implements OnInit {
     if (this.footerData.hasValue) {
       if (this.hasChanges && this.footerData.hasValue) {
         this.footerData.saving = true;
-        this.creator.editComponent(this.values, this.parentId).subscribe(
+        this.creator.editComponent(this.values, this.parentId, this.parent).subscribe(
           (response) => {
             // this.values = response;
           },
