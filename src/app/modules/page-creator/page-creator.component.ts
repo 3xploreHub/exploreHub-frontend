@@ -38,51 +38,45 @@ export class PageCreatorComponent implements OnInit {
 
   setPage(page) {
     this.page = page;
+    this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
       console.log(component)
-      this.renderComponent(component.type, component)
+      this.renderComponent(this.pageElement, component.type, component)
+    })
+    this.page.services.forEach((component: any) => {
+      console.log(component)
+      this.renderComponent(this.pageService, component.type, component)
     })
   }
 
   async showComponentList() {
+    return this.showModal(this.pageElement, PageElementListComponent);
+  }
+
+  showServicesComponentList() {
+    return this.showModal(this.pageService, PageServicesListComponent);
+  }
+
+  async showModal(type: ViewContainerRef, List: any) {
     const modal = await this.modalController.create({
-      component: PageElementListComponent,
+      component: List,
       cssClass: 'componentListModal'
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null);
+    this.renderComponent(type, data, null);
 
     return present;
   }
 
-  async showServicesComponentList() {
-    const modal = await this.modalController.create({
-      component: PageServicesListComponent,
-      cssClass: 'componentListModal'
-    });
-    const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderServiceComponent(data, null);
-
-    return present;
-  }
-
-  renderServiceComponent(componentName: string, componentValues: any) {
+  renderComponent(type: ViewContainerRef, componentName: string, componentValues: any) {
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageService.createComponent<ElementComponent>(factory);
+      const comp = type.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.page._id;
+      comp.instance.parent = "page";
     }
   }
 
-  renderComponent(componentName: string, componentValues: any) {
-    if (componentName) {
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageElement.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.page._id;
-    }
-  }
 }

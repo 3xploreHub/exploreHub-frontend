@@ -12,6 +12,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 export class LabelledTextComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
+  @Input() parent: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
   public lastValue: string = null;
@@ -44,7 +45,7 @@ export class LabelledTextComponent implements OnInit {
     } else {
       this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null }, default:false };
       this.footerData.message = "Adding Field..."
-      this.addComponent(false);
+      this.addComponent(false, this.parent);
     }
   }
 
@@ -82,9 +83,9 @@ export class LabelledTextComponent implements OnInit {
     }
   }
 
-  addComponent(isDone: boolean = true) {
+  addComponent(isDone: boolean = true, parent: string) {
     this.footerData.saving = true;
-    this.creator.saveComponent(this.values, this.parentId).subscribe(
+    this.creator.saveComponent(this.values, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;

@@ -17,7 +17,7 @@ export interface Image {
 })
 export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
-  public
+  public currentPageId: string;
 
   constructor(
     public lStorage: Storage,
@@ -45,8 +45,16 @@ export class PageCreatorService {
     return this.http.get<TouristSpotPage>(`${this.apiUrl}/draftTouristSpotPage/${id}`)
   }
 
-  saveComponent(component: ElementValues, parentId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addComponent/${parentId}`, component, {
+  saveComponent(component: ElementValues, parentId: string, parent: string): Observable<any> {
+    const componentGroup = parent == "page" ? "addComponent": "addChildComponent";
+    const params = parent == "page"? parentId: `${this.currentPageId}/${parentId}`;
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
+      headers: { hideLoadingIndicator: "true" },
+    });
+  }
+
+  saveServiceComponent(component: ElementValues, parentId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addServiceComponent/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }

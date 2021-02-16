@@ -20,6 +20,7 @@ export interface dataToDelete {
 export class PhotoComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
+  @Input() parent: string;
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
@@ -55,7 +56,7 @@ export class PhotoComponent implements OnInit {
       this.values = { _id: null, type: "photo", styles: [], data: [], default: false}
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
-      this.creator.saveComponent(this.values, this.parentId).subscribe(
+      this.creator.saveComponent(this.values, this.parentId, this.parent).subscribe(
         (response) => {
           this.values = response;
           this.footerData.hasId = true;

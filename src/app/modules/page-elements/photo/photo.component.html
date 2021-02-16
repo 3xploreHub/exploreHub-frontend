@@ -22,7 +22,7 @@
         <div>{{images.length > 0 ? "Add another photo": "Select Photo"}}</div>
       </div>
     </div>
-    <app-element-footer [data]="footerData" (render)="footerData.done = true" (delete)="delete()">
+    <app-element-footer [data]="footerData" (render)="footerData.done = this.images.length > 0" (delete)="delete()">
     </app-element-footer>
   </div>
 
