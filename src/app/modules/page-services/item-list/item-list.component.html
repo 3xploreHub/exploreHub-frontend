@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div *ngIf="!footerData.deleted" class="wrapper">
   <div class="serviceContainer">
     <ng-template #pageElement></ng-template>
     <p class="addComp" (click)="addItem()">Add info about this service</p>

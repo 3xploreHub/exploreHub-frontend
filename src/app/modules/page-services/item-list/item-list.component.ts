@@ -54,6 +54,7 @@ export class ItemListComponent implements OnInit {
         this.footerData.saving = false;
         this.footerData.message = "Saving Changes..."
         if (this.values.data.length > 0) {
+          this.footerData.done = true;
           this.setPage(this.values.data)
         }
       }, 1000);

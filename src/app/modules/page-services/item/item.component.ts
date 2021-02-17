@@ -61,6 +61,7 @@ export class ItemComponent implements OnInit {
         this.footerData.saving = false; 
         this.footerData.message = "Saving Changes..."
         if (this.values.data.length > 0) {
+          this.footerData.done = true;
           this.setPage(this.values.data)
         }
       }, 1000);
@@ -121,7 +122,23 @@ export class ItemComponent implements OnInit {
     alert("render")
   }
   delete() {
-    alert("delete")
+    if (this.values._id) {
+      this.footerData.message = "Deleting..."
+      this.footerData.saving = true;
+      this.creator.deleteItemComponent(this.parentId, this.values._id).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done();
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
   }
 
   done(done: boolean = true) {
