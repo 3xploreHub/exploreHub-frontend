@@ -4,4 +4,5 @@ export interface ElementComponent {
     values: ElementValues;
     parentId: string;
     parent: string;
+    grandParentId: string;
 }

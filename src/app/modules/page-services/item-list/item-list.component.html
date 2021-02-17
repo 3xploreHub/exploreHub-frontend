@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="serviceContainer">
     <ng-template #pageElement></ng-template>
-    <p class="addComp" (click)="showComponentList()">Add info about this service</p>
+    <p class="addComp" (click)="addItem()">Add info about this service</p>
   </div>
   <app-element-footer [data]="footerData" (render)="renderService()" (delete)="delete()"></app-element-footer>
 </div>

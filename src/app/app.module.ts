@@ -26,6 +26,7 @@ import { LabelledTextDisplayComponent } from "./modules/page-elements-display/la
 import { DeleteDataComponent } from "./modules/delete-data/delete-data.component";
 import { StylePopupComponent } from "./modules/style-popup/style-popup.component";
 import { ItemComponent } from "./modules/page-services/item/item.component";
+import { ItemListComponent } from "./modules/page-services/item-list/item-list.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ItemComponent } from "./modules/page-services/item/item.component";
     DeleteDataComponent,
     StylePopupComponent,
     ItemComponent,
+    ItemListComponent,
     EditOrDeletePopupComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,

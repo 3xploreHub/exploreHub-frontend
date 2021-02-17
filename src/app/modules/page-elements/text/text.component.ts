@@ -15,6 +15,7 @@ export class TextComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() parent: string;
+  @Input() grandParentId: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
   public hasChanges: boolean = false;
@@ -65,8 +66,8 @@ export class TextComponent implements OnInit {
 
   saveChanges(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.creator.editComponent(this.values, this.parentId, this.parent).subscribe(
-      (response) => {
+    this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      (response) => { 
         // this.values = response this is the rivas branch 2 and another changes to commit;
       },
       (error) => {
@@ -80,7 +81,7 @@ export class TextComponent implements OnInit {
 
   addComponent(isDone: boolean = true, parent: string) {
     this.footerData.saving = true;
-    this.creator.saveComponent(this.values, this.parentId, parent).subscribe(
+    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
@@ -125,7 +126,7 @@ export class TextComponent implements OnInit {
     if (this.values._id) {
       this.footerData.saving = true;
       this.footerData.message = "Deleting..."
-      this.creator.deleteComponent(this.parentId, this.values._id, null).subscribe(
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

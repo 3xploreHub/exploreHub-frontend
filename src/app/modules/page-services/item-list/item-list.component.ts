@@ -4,29 +4,22 @@ import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
-import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
-import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
-import { PhotoComponent } from '../../page-elements/photo/photo.component';
-import { TextComponent } from '../../page-elements/text/text.component';
+import { ItemComponent } from '../item/item.component';
 
 @Component({
-  selector: 'app-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.scss'],
 })
 
-export class ItemComponent implements OnInit {
+export class ItemListComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Input() parentId: string;
-  @Input() parent: string;
   public footerData: FooterData;
 
   components = {
-    'text': TextComponent,
-    'labelled-text': LabelledTextComponent,
-    'photo': PhotoComponent,
-    // 'item-list': ItemComponent
+    'item': ItemComponent
   }
 
   constructor(
@@ -58,7 +51,7 @@ export class ItemComponent implements OnInit {
       this.footerData.saving = true;
       this.footerData.message = "Loading..."
       setTimeout(() => {
-        this.footerData.saving = false; 
+        this.footerData.saving = false;
         this.footerData.message = "Saving Changes..."
         if (this.values.data.length > 0) {
           this.setPage(this.values.data)
@@ -66,7 +59,7 @@ export class ItemComponent implements OnInit {
       }, 1000);
     } else {
       this.footerData.done = false;
-      this.values = { _id: "", type: "item", styles: [], data: [], default: false };
+      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
@@ -78,16 +71,20 @@ export class ItemComponent implements OnInit {
     })
   }
 
-  async showComponentList() {
-    const modal = await this.modalController.create({
-      component: PageElementListComponent,
-      cssClass: 'componentListModal'
-    });
-    const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null);
+  // async showComponentList() {
+  //   const modal = await this.modalController.create({
+  //     component: PageElementListComponent,
+  //     cssClass: 'componentListModal'
+  //   });
+  //   const present = await modal.present();
+  //   const { data } = await modal.onWillDismiss();
+  //   this.renderComponent(data, null);
 
-    return present;
+  //   return present;
+  // }
+
+  addItem(){
+    this.renderComponent("item", null);
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -96,14 +93,13 @@ export class ItemComponent implements OnInit {
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
-      comp.instance.grandParentId = this.parentId;
       comp.instance.parent = "component";
     }
   }
 
-  addComponent(isDone: boolean = true) {
+  addComponent(isDone: boolean = true) { 
     this.footerData.saving = true;
-    this.creator.saveItemComponent(this.values, this.parentId, this.parent).subscribe(
+    this.creator.saveServiceComponent(this.values, this.parentId).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
@@ -121,7 +117,23 @@ export class ItemComponent implements OnInit {
     alert("render")
   }
   delete() {
-    alert("delete")
+    if (this.values._id) {
+      this.footerData.message = "Deleting..."
+      this.footerData.saving = true;
+      this.creator.deleteServiceComponent(this.parentId, this.values._id).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done();
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
   }
 
   done(done: boolean = true) {
@@ -139,4 +151,5 @@ export class ItemComponent implements OnInit {
     });
     await alert.present();
   }
+
 }

@@ -41,13 +41,9 @@ export class PageCreatorService {
     });
   }
 
-  getDraftTouristSpotPage(id: string): Observable<TouristSpotPage> {
-    return this.http.get<TouristSpotPage>(`${this.apiUrl}/draftTouristSpotPage/${id}`)
-  }
-
-  saveComponent(component: ElementValues, parentId: string, parent: string): Observable<any> {
-    const componentGroup = parent == "page" ? "addComponent": "addChildComponent";
-    const params = parent == "page"? parentId: `${this.currentPageId}/${parentId}`;
+  saveComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
+    const componentGroup = parent == "page" ? "addComponent" : "addServiceChildComponent";
+    const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
@@ -59,44 +55,77 @@ export class PageCreatorService {
     });
   }
 
-  editComponent(component: ElementValues, parentId: string, parent:string): Observable<any> {
-    const componentGroup = parent == "page" ? "editComponent": "editChildComponent";
-    const params = parent == "page"? parentId: `${this.currentPageId}/${parentId}`;
+  saveItemComponent(component: ElementValues, parentId: string, parent: string): Observable<any> {
+    const componentGroup = parent == "page" ? "addComponent" : "addChildComponent";
+    const params = parent == "page" ? parentId : `${this.currentPageId}/${parentId}`;
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
+      headers: { hideLoadingIndicator: "true" },
+    });
+  }
+
+
+  editComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
+    const componentGroup = parent == "page" ? "editComponent" : "editChildComponent";
+    const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.put(`${this.apiUrl}/${componentGroup}/${params}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
-  deleteComponent(parentId: string, compId: string, images:any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deleteComponent/${parentId}/${compId}`, {images: images}, {
+  // deleteComponent(parentId: string, compId: string, images:any, parent: string): Observable<any> {
+  //   const componentGroup = parent == "page" ? "deleteComponent": "deleteChildComponent";
+  //   const params = parent == "page"? `${parentId}/${compId}`: `${this.currentPageId}/${parentId}/${compId}`;
+  //   return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, {images: images}, {
+  //     headers: { hideLoadingIndicator: "true" },
+  //   })
+  // }
+
+  deleteComponent(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
+    const componentGroup = parent == "page" ? "deleteComponent" : "deleteItemChild";
+    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, { images: images }, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
-  uploadImage(parentId: string, blobData, values: ElementValues): Observable<any> {
+  deleteServiceComponent(pageId: string, serviceId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteServiceComponent/${pageId}/${serviceId}`, {
+      headers: { hideLoadingIndicator: "true" },
+    })
+  }
+
+  uploadImage(grandParentId: string, parentId: string, childId: string, parent: string, blobData): Observable<any> {
     const formData = new FormData();
     formData.append('image', blobData);
-    formData.append('values', JSON.stringify(values));
 
-    return this.http.post(`${this.apiUrl}/addComponentWithMedia/${parentId}`, formData, {
+    const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
+    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
   }
 
-  uploadImageFile(parentId: string, file: File, values: ElementValues) {
+  uploadImageFile(grandParentId: string, parentId: string, childId: string, parent: string, file: File) {
     const ext = file.name.split('.').pop();
     const formData = new FormData();
     formData.append('image', file, `myimage.${ext}`);
-    formData.append('values', JSON.stringify(values));
 
-    return this.http.post(`${this.apiUrl}/addComponentWithMedia/${parentId}`, formData, {
+    const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
+    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
     });
   }
 
-  deleteImage(parentId: string, componentId: string, imageUrl: string, imageId: string) {
-    return this.http.post(`${this.apiUrl}/deleteImage/${parentId}`,
-      { imageUrl: imageUrl,componentId: componentId, imageId: imageId }, {
+  deleteImage(grandParentId: string, parentId: string, parent: string, componentId: string, imageUrl: string, imageId: string) {
+
+    const componentGroup = parent == "page" ? "deleteImage" : "deleteItemImage";
+    const params = parent == "page" ? `${parentId}` : `${this.currentPageId}/${grandParentId}/${parentId}`;
+
+    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`,
+      { imageUrl: imageUrl, componentId: componentId, imageId: imageId }, {
       headers: { hideLoadingIndicator: "" },
     });
   }
@@ -109,7 +138,7 @@ export class PageCreatorService {
     return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
   }
 
-  applyStyle(styles:any, style:string) {
+  applyStyle(styles: any, style: string) {
     let type = style.split("-")[0];
 
     styles = styles.filter(stl => stl.split("-")[0] != type);
