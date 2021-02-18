@@ -14,6 +14,8 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 export class TextComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
+  @Input() parent: string;
+  @Input() grandParentId: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
   public hasChanges: boolean = false;
@@ -41,43 +43,45 @@ export class TextComponent implements OnInit {
       this.footerData.isDefault = this.values.default;
       this.oldStyles = this.values.styles;
     } else {
-      this.values = { _id: "", type: "text", styles: ["bg-light", "font-normal", "color-light", "text-left"], data: { placeholder: "Enter text here", text: null }, default: false };
+      this.values = { _id: "", type: "text", styles: ["bg-light", "font-medium", "color-light", "text-left", "fontStyle-normal"], data: { placeholder: "Enter text here", text: null }, default: false };
       this.footerData.message = "Adding Field..."
-      this.addComponent(false);
+      this.addComponent(false, this.parent);
     }
   }
+  
 
   renderText() {
-    // this.values.data.text = this.values.data.text.trim();
-    if (this.values.data.text) {
-      console.log((JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles)))
-      console.log(this.values.styles)
-      console.log(this.oldStyles)
-      if (this.hasChanges || (JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles))) {
-        this.footerData.saving = true;
-        this.creator.editComponent(this.values, this.parentId).subscribe(
-          (response) => {
-            // this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.done();
-          }
-        )
-      } else {
-        this.footerData.done = true;
-      }
-      this.footerData.hasValue = true; 
+    let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
+    if (this.values.data.text && this.hasChanges || styleChanged) {
+      this.saveChanges(!styleChanged);
+      this.showStylePopup = false;
     } else {
-      this.footerData.hasValue = false;
+      if (this.showStylePopup) {
+         this.showStylePopup = false;
+      } else {
+        this.footerData.done = this.values.data.text ? true : false;
+      }
     }
   }
 
-  addComponent(isDone:boolean = true) {
+  saveChanges(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.creator.saveComponent(this.values,this.parentId).subscribe(
+    this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      (response) => { 
+        // this.values = response this is the rivas branch 2 and another changes to commit;
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.done(isDone);
+      }
+    )
+  }
+
+  addComponent(isDone: boolean = true, parent: string) {
+    this.footerData.saving = true;
+    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
@@ -91,7 +95,7 @@ export class TextComponent implements OnInit {
     )
   }
 
-  done(done:boolean = true) {
+  done(done: boolean = true) {
     this.footerData.done = done;
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
@@ -110,15 +114,19 @@ export class TextComponent implements OnInit {
   }
   changeStyle() {
     this.oldStyles = this.values.styles;
-    this.showStylePopup = true;
-    console.log("oldstyles", this.oldStyles);
+    this.showStylePopup = !this.showStylePopup;
+  }
+
+  cancelStyles() {
+    this.showStylePopup = false
+    this.values.styles = this.oldStyles;
   }
 
   delete() {
     if (this.values._id) {
       this.footerData.saving = true;
       this.footerData.message = "Deleting..."
-      this.creator.deleteComponent( this.parentId, this.values._id, null).subscribe(
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

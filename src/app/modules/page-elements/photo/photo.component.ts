@@ -20,6 +20,8 @@ export interface dataToDelete {
 export class PhotoComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
+  @Input() parent: string;
+  @Input() grandParentId: string;
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
@@ -52,10 +54,10 @@ export class PhotoComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: null, type: "photo", styles: [], data: [], default: false}
+      this.values = { _id: null, type: "photo", styles: [], data: [], default: false }
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
-      this.creator.saveComponent(this.values, this.parentId).subscribe(
+      this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response) => {
           this.values = response;
           this.footerData.hasId = true;
@@ -87,7 +89,6 @@ export class PhotoComponent implements OnInit {
       }
     ];
 
-    // Only allow file selection inside a browser
     if (!this.plt.is('hybrid')) {
       buttons.push({
         text: 'Choose a File',
@@ -116,7 +117,7 @@ export class PhotoComponent implements OnInit {
 
       const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
       this.footerData.saving = true;
-      this.creator.uploadImage(this.parentId, blobData, this.values).subscribe((data: ElementValues) => {
+      this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -132,7 +133,7 @@ export class PhotoComponent implements OnInit {
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
     this.footerData.saving = true;
-    this.creator.uploadImageFile(this.parentId, file, this.values).subscribe((data: ElementValues) => {
+    this.creator.uploadImageFile(this.grandParentId, this.parentId, this.values._id, this.parent, file).subscribe((data: ElementValues) => {
       this.getResponseData(data);
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -140,9 +141,7 @@ export class PhotoComponent implements OnInit {
   }
 
   getResponseData(data) {
-    this.values._id = data._id;
-    this.values.data = this.images;
-    this.values.data.push(data.data[0])
+    this.values.data.push(data)
     this.images = this.values.data;
     this.footerData.saving = false;
     this.footerData.hasValue = true;
@@ -150,14 +149,14 @@ export class PhotoComponent implements OnInit {
   }
 
   removeData(image: Image) {
-    const img = {...image}
+    const img = { ...image }
     this.dataToDelete = img;
   }
 
   deleteImage() {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    this.creator.deleteImage(this.parentId, this.values._id,
+    this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,
       this.dataToDelete.url,
       this.dataToDelete._id).subscribe(
         (response) => {
@@ -184,7 +183,7 @@ export class PhotoComponent implements OnInit {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
       const images = this.images.map(img => img.url);
-      this.creator.deleteComponent(this.parentId, this.values._id, images).subscribe(
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, images, this.parent).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

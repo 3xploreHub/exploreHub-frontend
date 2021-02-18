@@ -15,6 +15,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "service-provider",
+    loadChildren: () =>
+      import("./service-provider/service-provider.module").then((m) => m.ServiceProviderPageModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: "",
     redirectTo: "login",
     pathMatch: "full",

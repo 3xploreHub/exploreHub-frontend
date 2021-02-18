@@ -44,21 +44,22 @@
     </div>
     <div class="destination">
         <ion-grid>
-            <ion-row class="post">
+            <ion-row class="post" *ngFor="let item of touristSpotList">
                 <ion-col size="3">
                     <div>
-                        <img src="../../../assets/sample.jpg">
+                        <img [src]="item.image">
+                        <!-- <img src="../../../assets/sample.jpg"> -->
                     </div>
                 </ion-col>
                 <ion-col>
                     <div size="7">
-                        <ion-label>{{ allTouristSpots.name }}</ion-label>
-                        <p>{{ allTouristSpots.address }}</p>
+                        <ion-label>{{item.name}}</ion-label>
+                        <p>{{ item.location }}</p>
                     </div>
                 </ion-col>
                 <ion-col size="2">
                     <div>
-                        <ion-label [routerLink]="['/tourist/tourist-spots']" color="secondary" class="select">Select</ion-label>
+                        <ion-label [routerLink]="['/tourist/tourist-spots', item._id]" color="secondary" class="select">Select</ion-label>
                     </div>
                 </ion-col>
             </ion-row>

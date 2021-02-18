@@ -12,6 +12,8 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 export class LabelledTextComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
+  @Input() parent: string;
+  @Input() grandParentId: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
   public lastValue: string = null;
@@ -42,9 +44,9 @@ export class LabelledTextComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null }, default:false };
+      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null }, default: false };
       this.footerData.message = "Adding Field..."
-      this.addComponent(false);
+      this.addComponent(false, this.parent);
     }
   }
 
@@ -56,13 +58,13 @@ export class LabelledTextComponent implements OnInit {
 
 
   renderText() {
-    this.values.data.label = this.values.data.label.trim();
-    this.values.data.text = this.values.data.text.trim();
+    this.values.data.label = this.values.data.label ? this.values.data.label.trim() : null;
+    this.values.data.text = this.values.data.text ? this.values.data.text.trim() : null;
     this.detectTyping();
     if (this.footerData.hasValue) {
       if (this.hasChanges && this.footerData.hasValue) {
         this.footerData.saving = true;
-        this.creator.editComponent(this.values, this.parentId).subscribe(
+        this.creator.editComponent(this.values,this.grandParentId, this.parentId, this.parent).subscribe(
           (response) => {
             // this.values = response;
           },
@@ -76,15 +78,15 @@ export class LabelledTextComponent implements OnInit {
       } else {
         this.footerData.done = true;
       }
-      this.footerData.hasValue = true; 
+      this.footerData.hasValue = true;
     } else {
       this.footerData.hasValue = false;
     }
   }
 
-  addComponent(isDone: boolean = true) {
+  addComponent(isDone: boolean = true, parent: string) {
     this.footerData.saving = true;
-    this.creator.saveComponent(this.values, this.parentId).subscribe(
+    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
@@ -114,7 +116,7 @@ export class LabelledTextComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteComponent(this.parentId, this.values._id, null).subscribe(
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

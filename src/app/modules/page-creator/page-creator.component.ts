@@ -7,7 +7,6 @@ import { ElementValues } from '../interfaces/ElementValues';
 import { TouristSpotPage } from '../interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
-import { TitleComponent } from '../page-elements/title/title.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 @Component({
@@ -22,7 +21,6 @@ export class PageCreatorComponent implements OnInit {
   components = {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
-    'title': TitleComponent,
     'photo': PhotoComponent,
   }
 

@@ -17,5 +17,4 @@ export class TouristServicesService {
   retrieveAllTouristSpotPage():Observable<any>{
       return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotPage`)
     }
- 
 }

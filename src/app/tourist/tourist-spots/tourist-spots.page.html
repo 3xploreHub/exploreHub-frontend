@@ -8,11 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+    <ng-template #pageElement></ng-template>
 
     <!-- <div>
-      <img src="" alt="">
-    </div> -->
-    <div>
         <ion-slides [options]="option" class="ion-margin-top">
             <ion-slide>
                 <ion-card>
@@ -52,7 +50,7 @@
             <ion-label>{{ selectedSpot.address }}</ion-label>
         </div>
         <p>{{selectedSpot.description}}</p>
-    </div>
+    </div> -->
     <div class="description">
         <ion-label>Rules & Regulation</ion-label>
         <ion-icon name="caret-down-outline" (click)="hideAndShow()"></ion-icon>

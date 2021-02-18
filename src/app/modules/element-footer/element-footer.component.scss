@@ -1,21 +1,21 @@
-
 .footerDiv {
-    padding:10px 15px;
+    padding: 10px 15px;
     font-size: 18px;
 }
 
 .saving {
-    text-align:center;
-    padding:8px;
+    text-align: center;
+    padding: 8px;
 }
 
 .footer {
     // border-top:1px solid #ffffff;
-    background-color:lightgray;
+    background-color: lightgray;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    height: 35px;
 }
 
 .isDefaultMode {
@@ -24,7 +24,7 @@
 
 .footerIcon {
     font-size: 20px;
-    padding-right:3px;
+    padding-right: 3px;
     vertical-align: middle;
     margin-top: 0;
     padding-top: 0;

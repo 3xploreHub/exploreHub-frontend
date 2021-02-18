@@ -43,7 +43,7 @@ const routes: Routes = [
           loadChildren: () => import('./notification/notification.module').then( m => m.NotificationPageModule)
         },
         {
-          path: 'tourist-spots',
+          path: 'tourist-spots/:id',
           loadChildren: () => import('./tourist-spots/tourist-spots.module').then( m => m.TouristSpotsPageModule)
         },
         {

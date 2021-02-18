@@ -1,6 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import Swal from 'sweetalert2'
-import 'sweetalert2/src/sweetalert2.scss'
 import {booking} from '../data/data'
 @Component({
   selector: 'app-booking-review',
@@ -15,24 +13,24 @@ export class BookingReviewPage implements OnInit {
   }
 
 
-  handleSubmit(){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You want to submit this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Successfully sent!',
-          'Kindly wait for the response which will appear in your notification',
-          'success'
-        )
-      }
-    })
-  }
+  // handleSubmit(){
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You want to submit this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire(
+  //         'Successfully sent!',
+  //         'Kindly wait for the response which will appear in your notification',
+  //         'success'
+  //       )
+  //     }
+  //   })
+  // }
 
 }
