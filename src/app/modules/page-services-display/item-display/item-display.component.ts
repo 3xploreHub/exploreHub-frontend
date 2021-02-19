@@ -1,13 +1,12 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
 import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
 import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
-import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
-import { PhotoComponent } from '../../page-elements/photo/photo.component';
-import { TextComponent } from '../../page-elements/text/text.component';
+
 
 @Component({
   selector: 'app-item-display',
@@ -17,6 +16,9 @@ import { TextComponent } from '../../page-elements/text/text.component';
 export class ItemDisplayComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @Input() values: ElementValues;
+  @Input() parentId: string;
+  @Input() onEditing: boolean = false;
+  @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
 
   components = {
     'text': TextDisplayComponent,
@@ -24,12 +26,11 @@ export class ItemDisplayComponent implements OnInit {
     'photo': PhotoDisplayComponent,
   }
 
-
   constructor(
-    private cdr: ChangeDetectorRef,
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-  ) { 
+    public creator: PageCreatorService
+  ) {
     this.values = {
       data: [],
       _id: null,
@@ -40,16 +41,27 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    setTimeout(() => {
-      if (this.values.data.length > 0) {
-        this.setPage(this.values.data)
-      }
-    }, 500);
+    if (this.onEditing) {
+      this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
+        this.values = updatedData[0].services[0].data[0]
+        setTimeout(() => {
+          if (this.values.data.length > 0) {
+            this.setPage(this.values.data)
+            this.onHasUpdate.emit(this.values)
+          }
+        }, 100);
+      })
+    } else {
+      setTimeout(() => {
+        if (this.values.data.length > 0) {
+          this.setPage(this.values.data)
+        }
+      }, 500);
+    }
   }
 
 
-  
+
   setPage(component) {
     component.forEach((component: any) => {
       this.renderComponent(component.type, component)

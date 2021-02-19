@@ -1,4 +1,4 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
@@ -17,7 +17,8 @@ export class ItemListComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
   public footerData: FooterData;
-
+  public showPopup: boolean = false;
+  public onEditing: boolean = false;
   components = {
     'item': ItemComponent
   }
@@ -27,7 +28,6 @@ export class ItemListComponent implements OnInit {
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
     public alert: AlertController,
-    private cdr: ChangeDetectorRef
   ) {
     this.footerData = {
       done: false,
@@ -50,14 +50,7 @@ export class ItemListComponent implements OnInit {
       this.footerData.isDefault = this.values.default;
       this.footerData.saving = true;
       this.footerData.message = "Loading..."
-      setTimeout(() => {
-        this.footerData.saving = false;
-        this.footerData.message = "Saving Changes..."
-        if (this.values.data.length > 0) {
-          this.footerData.done = true;
-          this.setPage(this.values.data)
-        }
-      }, 1000);
+      this.renderChildren()
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
@@ -66,17 +59,16 @@ export class ItemListComponent implements OnInit {
     }
   }
 
-  // ngAfterContentChecked() {
-  //   setTimeout(() => {
-  //     this.cdr.detectChanges();
-  //     this.footerData.saving = false;
-  //     this.footerData.message = "Saving Changes..."
-  //     if (this.values.data.length > 0) {
-  //       this.footerData.done = true;
-  //       this.setPage(this.values.data)
-  //     }
-  //   }, 1000);
-  // }
+  renderChildren(isEditing: boolean = true) {
+    setTimeout(() => {
+      this.footerData.saving = false;
+      this.footerData.message = "Saving Changes..."
+      if (this.values.data.length > 0) {
+        this.footerData.done = isEditing;
+        this.setPage(this.values.data)
+      }
+    }, 1000);
+  }
 
   setPage(component) {
     component.forEach((component: any) => {
@@ -84,20 +76,22 @@ export class ItemListComponent implements OnInit {
     })
   }
 
-  // async showComponentList() {
-  //   const modal = await this.modalController.create({
-  //     component: PageElementListComponent,
-  //     cssClass: 'componentListModal'
-  //   });
-  //   const present = await modal.present();
-  //   const { data } = await modal.onWillDismiss();
-  //   this.renderComponent(data, null);
-
-  //   return present;
-  // }
-
   addItem(){
     this.renderComponent("item", null);
+  }
+
+  edit() {
+    this.footerData.done = false;
+    this.renderChildren(false)
+  }
+  getUpdates(newData) {
+    this.values = newData;
+  }
+
+  renderItemList() {
+    this.onEditing = true;
+    this.showPopup = false;
+    this.footerData.done = true;
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -126,9 +120,7 @@ export class ItemListComponent implements OnInit {
     )
   }
 
-  renderService() {
-    alert("render")
-  }
+
   delete() {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
@@ -153,7 +145,6 @@ export class ItemListComponent implements OnInit {
     this.footerData.done = done;
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
-    // this.hasChanges = false;
   }
 
   async presentAlert(message) {

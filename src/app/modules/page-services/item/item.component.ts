@@ -23,6 +23,7 @@ export class ItemComponent implements OnInit {
   @Input() parent: string;
   public footerData: FooterData;
   public showPopup: boolean;
+  public onEditing: boolean = false;
 
   components = {
     'text': TextComponent,
@@ -133,7 +134,12 @@ export class ItemComponent implements OnInit {
   }
 
   renderService() {
+    this.onEditing = true;
     this.footerData.done = true;
+  }
+
+  getUpdates(newData) {
+    this.values = newData;
   }
 
   addChild(newChild) {

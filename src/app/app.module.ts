@@ -28,6 +28,7 @@ import { StylePopupComponent } from "./modules/style-popup/style-popup.component
 import { ItemComponent } from "./modules/page-services/item/item.component";
 import { ItemListComponent } from "./modules/page-services/item-list/item-list.component";
 import { ItemDisplayComponent } from "./modules/page-services-display/item-display/item-display.component";
+import { ItemListDisplayComponent } from "./modules/page-services-display/item-list-display/item-list-display.component";
 
 @NgModule({
   declarations: [
@@ -46,8 +47,7 @@ import { ItemDisplayComponent } from "./modules/page-services-display/item-displ
     PhotoDisplayComponent,
     LabelledTextDisplayComponent,
     ItemDisplayComponent,
-    
-
+    ItemListDisplayComponent
   ],
   entryComponents: [],
   imports: [

@@ -135,6 +135,18 @@ export class PageCreatorService {
     });
   }
 
+  getItemUpdatedData(serviceId: string, itemId: string) {
+    return this.http.get(`${this.apiUrl}/getItemUpdatedData/${this.currentPageId}/${serviceId}/${itemId}`, {
+      headers: { hideLoadingIndicator: "" }
+    })
+  }
+
+  getUpdatedItemListData(itemListId) {
+    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}`, {
+      headers: { hideLoadingIndicator: "" }
+    })
+  }
+
   createTouristSpotPage() {
     return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
   }
