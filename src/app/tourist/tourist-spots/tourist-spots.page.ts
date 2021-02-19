@@ -1,6 +1,6 @@
-import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
-import { LabelledTextComponent } from './../../modules/page-elements/labelled-text/labelled-text.component';
-import { TextComponent } from './../../modules/page-elements/text/text.component';
+import { PhotoDisplayComponent } from './../../modules/page-elements-display/photo-display/photo-display.component';
+import {TextDisplayComponent} from './../../modules/page-elements-display/text-display/text-display.component';
+import {LabelledTextDisplayComponent} from './../../modules/page-elements-display/labelled-text-display/labelled-text-display.component';
 import { ElementComponent } from './../../modules/interfaces/element-component';
 import { ActivatedRoute } from '@angular/router';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
@@ -8,6 +8,8 @@ import { ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/
 import { Component, OnInit } from '@angular/core';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
 import { TouristSpotPage } from '../../modules/interfaces/tourist-spot-page';
+
+
 
 @Component({
   selector: 'app-tourist-spots',
@@ -18,11 +20,11 @@ export class TouristSpotsPage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   public pageCreator: PageCreatorComponent;
   public rules:boolean = true;
-  touristSpot: TouristSpotPage = {_id: null, components: []}
+  touristSpot: TouristSpotPage = {_id: null, components: [],services:[]}
   components = {
-    'text': TextComponent,
-    'labelled-text': LabelledTextComponent,
-    'photo': PhotoComponent,
+    'text': TextDisplayComponent,
+    'labelled-text': LabelledTextDisplayComponent,
+    'photo': PhotoDisplayComponent,
   }
 
   constructor(
@@ -81,7 +83,7 @@ export class TouristSpotsPage implements OnInit {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
-      comp.instance.parentId = this.touristSpot._id;
+      // comp.instance.parentId = this.touristSpot._id;
     }
   }
 }

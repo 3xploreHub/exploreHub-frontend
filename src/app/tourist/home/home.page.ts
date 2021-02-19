@@ -33,9 +33,10 @@ export class HomePage implements OnInit {
 
   touristSpots() {
     this.touristService.retrieveAllTouristSpotPage().subscribe((data) => {
-      data[0].components[0].data.push({ url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVEar6kOEyRzcdOFlxULS1aZNmvnYqEUzrg&usqp=CAU" })
-      data[0].components[1].data["text"] = "this is the title here"
-      data[0].components[2].data["text"] = "this is the location here"
+      // console.log("data: ",data)
+      // data[0].components[0].data.push({ url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVEar6kOEyRzcdOFlxULS1aZNmvnYqEUzrg&usqp=CAU" })
+      // data[0].components[1].data["text"] = "this is the title here"
+      // data[0].components[2].data["text"] = "this is the location here"
       data.forEach(element => { 
         const elem = element.components;
         let touristspotpage: touristSpot = {
@@ -50,10 +51,4 @@ export class HomePage implements OnInit {
     console.log("spots: ",this.touristSpotList)
   }
 
-  select(id){
-    // this.touristSpotList.forEach(element => {
-     
-      alert(id)
-    // });
-  }
 }

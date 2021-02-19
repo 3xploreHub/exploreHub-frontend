@@ -58,17 +58,17 @@
             ullamcorper. Maecenas porttitor urna turpis, sed elementum neque faucibus a.</p>
         <hr>
         <ion-button class="book" [routerLink]="['/tourist/tourist-spot-booking']">Book Now</ion-button>
-        <hr>
+
     </div>
-    <div class="description">
-        <ion-label>Other services</ion-label>
-        <p>Click category to view other available services in the area</p>
-    </div>
+
 </ion-content>
 
 <ion-footer>
     <ion-toolbar>
-        <!-- <ion-icon name="chevron-up"></ion-icon> -->
+        <div class="description">
+            <ion-label>Other services</ion-label>
+            <p>Click category to view other available services in the area</p>
+        </div>
         <app-service-tabs></app-service-tabs>&nbsp;
     </ion-toolbar>
 

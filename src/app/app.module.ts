@@ -12,15 +12,47 @@ import { IonicStorageModule } from "@ionic/storage";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
-import { LoadingPage } from "./loading/loading.page";
-
-
+import { LoadingPage } from "./modules/loading/loading.page";
+import { CommonModule } from '@angular/common';
+import { TextComponent } from "./modules/page-elements/text/text.component";
+import { FormsModule } from "@angular/forms";
+import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
+import { ElementFooterComponent } from "./modules/element-footer/element-footer.component";
+import { EditOrDeletePopupComponent } from "./modules/edit-or-delete-popup/edit-or-delete-popup.component";
+import { TextDisplayComponent } from "./modules/page-elements-display/text-display/text-display.component";
+import { PhotoDisplayComponent } from "./modules/page-elements-display/photo-display/photo-display.component";
+import { LabelledTextComponent } from "./modules/page-elements/labelled-text/labelled-text.component";
+import { LabelledTextDisplayComponent } from "./modules/page-elements-display/labelled-text-display/labelled-text-display.component";
+import { DeleteDataComponent } from "./modules/delete-data/delete-data.component";
+import { StylePopupComponent } from "./modules/style-popup/style-popup.component";
+import { ItemComponent } from "./modules/page-services/item/item.component";
+import { ItemListComponent } from "./modules/page-services/item-list/item-list.component";
+import { ItemDisplayComponent } from "./modules/page-services-display/item-display/item-display.component";
 
 @NgModule({
-  declarations: [AppComponent, LoadingPage],
+  declarations: [
+    AppComponent,
+    LoadingPage,
+    TextComponent,
+    PhotoComponent,
+    LabelledTextComponent,
+    ElementFooterComponent,
+    DeleteDataComponent,
+    StylePopupComponent,
+    ItemComponent,
+    ItemDisplayComponent,
+    ItemListComponent,
+    EditOrDeletePopupComponent,
+    TextDisplayComponent,
+    PhotoDisplayComponent,
+    LabelledTextDisplayComponent,
+
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -43,4 +75,4 @@ import { LoadingPage } from "./loading/loading.page";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }                        

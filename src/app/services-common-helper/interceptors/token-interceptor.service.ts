@@ -23,13 +23,13 @@ export class TokenInterceptorService implements HttpInterceptor {
     public authServices: AuthService,
     public route: Router,
     public alertController: AlertController
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!request.headers.has("check_availability")) {
+    if (!request.headers.has("hideLoadingIndicator")) {
       this.loadingService.show();
     }
     return from(this.authServices.get("currentUser")).pipe(
@@ -43,9 +43,11 @@ export class TokenInterceptorService implements HttpInterceptor {
         }
 
         if (!request.headers.has("Content-Type")) {
-          request = request.clone({
-            headers: request.headers.set("Content-Type", "application/json"),
-          });
+          if (!request.headers.has("containsFiles")) {
+            request = request.clone({
+              headers: request.headers.set("Content-Type", "application/json"),
+            });
+          }
         }
 
         return next.handle(request).pipe(

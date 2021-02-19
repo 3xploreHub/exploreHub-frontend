@@ -50,3 +50,153 @@ $flex: flex;
 $column: column;
 $none: none;
 $solid: solid;
+
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+.componentListModal {
+    --background: rgba(49, 49, 49, 0.1);
+    --margin-top: 100px;
+}
+
+.dangerColor {
+    color: rgb(230, 8, 8) !important;
+}
+
+.primColor {
+    color: rgb(8, 121, 233);
+}
+
+.componentWrapper {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.componentPopup {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    display: flex;
+    z-index: inherit;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.font-normal {
+    font-size: 16px !important;
+}
+
+.font-title {
+    font-size: 22px !important;
+}
+
+.color-red {
+    color: rgb(192, 5, 5) !important;
+}
+
+.color-blue {
+    color: rgb(2, 89, 175) !important;
+}
+
+.color-green {
+    color: rgb(1, 158, 69) !important;
+}
+
+.color-lighter {
+    color: rgb(104, 104, 104) !important;
+}
+
+.color-light {
+    color: rgb(87, 87, 87) !important;
+}
+
+.color-dark {
+    color: rgb(43, 43, 43) !important;
+}
+
+.color-darker {
+    color: rgb(10, 10, 10) !important;
+}
+
+.font-extraLarge {
+    font-size: 23px !important;
+}
+
+.font-large {
+    font-size: 20px !important;
+}
+
+.font-medium {
+    font-size: 17px !important;
+}
+
+.font-small {
+    font-size: 15px !important;
+}
+
+.fontStyle-bolder {
+    font-weight: 800 !important;
+}
+
+.fontStyle-bold {
+    font-weight: 600 !important;
+}
+
+.fontStyle-italic {
+    font-style: italic !important;
+}
+
+.fontStyle-normal {
+    font-style: normal !important;
+}
+
+.bg-light {
+    background-color: rgba(206, 206, 206, 0.2) !important;
+    // background-color: rgb(209, 217, 224);
+}
+
+.bg-white {
+    background-color: transparent !important;
+}

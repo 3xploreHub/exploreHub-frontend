@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TouristSpotPage } from 'src/app/modules/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
 import { TouristPage } from 'src/app/tourist/tourist.page';
@@ -12,7 +13,7 @@ import { TouristPage } from 'src/app/tourist/tourist.page';
 export class CreateTouristSpotPagePage implements OnInit {
   @ViewChild(PageCreatorComponent)
   public pageCreator: PageCreatorComponent;
-  public touristSpot: TouristPage;
+  public touristSpot: TouristSpotPage;
 
   constructor(
     public creator: PageCreatorService,
@@ -25,9 +26,9 @@ export class CreateTouristSpotPagePage implements OnInit {
       console.log("id:", id)
       if (id) {
         this.creator.retrieveToristSpotPage(id).subscribe(
-          (response: TouristPage) => {
+          (response: TouristSpotPage) => {
             this.touristSpot = response;
-            this.pageCreator.setPage(this.touristSpot)
+            this.pageCreator.setPage(this.touristSpot)  
           },
           error => {
             console.log("error in getting tourist spot: ", error)

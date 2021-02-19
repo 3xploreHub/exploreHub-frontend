@@ -31,7 +31,7 @@ export class AppEntryGuard implements CanActivate {
         if (!resp) {
           return true;
         }
-        this.router.navigate(["/tourist"]);
+        this.router.navigate(["/service-provider"]);
         return false;
       });
   }

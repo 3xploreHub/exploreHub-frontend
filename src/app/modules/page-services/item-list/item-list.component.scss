@@ -1,0 +1,28 @@
+.outerWrapper {
+    background: rgb(238, 238, 238);
+    padding:5px;
+    margin: 10px 0;
+}
+.serviceContainer {
+    padding:5px;
+    margin:5px;
+    // height: 200px;
+    box-sizing: border-box;
+    overflow: visible;
+} 
+
+.wrapper {
+    background:lightgray;
+    margin:20px 0;
+}
+
+.serviceFooter {
+    height: 40px;
+}
+
+.addComp {
+    padding:10px;
+    background: rgba(129, 133, 136, 0.2);
+    color: rgb(4, 106, 209);
+    text-align: center;
+}

@@ -10,7 +10,6 @@ import { TouristPageRoutingModule } from './tourist-routing.module';
 
 import { TouristPage } from './tourist.page';
 
-
 @NgModule({
   imports: [
     CommonModule,

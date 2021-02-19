@@ -104,7 +104,7 @@ export class ResetPasswordPage implements OnInit, OnDestroy {
       const reset = this.authService.changePassword(this.form.value);
       reset.subscribe(
         (resp) => {
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/service-provider"]);
         },
         (error) => {
           console.log(error);
