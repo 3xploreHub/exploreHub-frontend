@@ -1,13 +1,17 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
- <div *ngIf="!footerData.done; else itemDisplay">
+  <div *ngIf="!footerData.done; else displayBlock">
 
-   <div class="serviceContainer">
-     <ng-template #pageElement></ng-template>
-     <p class="addComp" (click)="showComponentList()">Add info about this service</p>
+    <div class="serviceContainer">
+      <ng-template #pageElement></ng-template>
+      <p class="addComp" (click)="showComponentList()">Add info about this service</p>
     </div>
     <app-element-footer [data]="footerData" (render)="renderService()" (delete)="delete()"></app-element-footer>
   </div>
-  <ng-template #itemDisplay>
-    <app-item-diplay [values]="values"></app-item-diplay>
+  <ng-template #displayBlock>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+        (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-item-display (click)="showPopup = true" [values]="values"></app-item-display>
+    </div>
   </ng-template>
 </div>

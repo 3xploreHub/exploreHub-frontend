@@ -41,11 +41,9 @@ export class PageCreatorComponent implements OnInit {
     this.page = page;
     this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
-      console.log(component)
       this.renderComponent(this.pageElement, component.type, component)
     })
     this.page.services.forEach((component: any) => {
-      console.log(component)
       this.renderComponent(this.pageService, component.type, component)
     })
   }
@@ -71,7 +69,6 @@ export class PageCreatorComponent implements OnInit {
   }
 
   renderComponent(type: ViewContainerRef, componentName: string, componentValues: any) {
-    console.log(this.pageElement)
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = type.createComponent<ElementComponent>(factory);

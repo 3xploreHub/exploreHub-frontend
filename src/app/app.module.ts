@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule} from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 import { PusherService } from "./services-common-helper/PushNotification/pusher.service";
@@ -40,12 +40,13 @@ import { ItemDisplayComponent } from "./modules/page-services-display/item-displ
     DeleteDataComponent,
     StylePopupComponent,
     ItemComponent,
-    ItemDisplayComponent,
     ItemListComponent,
     EditOrDeletePopupComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,
     LabelledTextDisplayComponent,
+    ItemDisplayComponent,
+    
 
   ],
   entryComponents: [],

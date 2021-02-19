@@ -23,7 +23,6 @@ export class CreateTouristSpotPagePage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id'); 
-      console.log("id:", id)
       if (id) {
         this.creator.retrieveToristSpotPage(id).subscribe(
           (response: TouristSpotPage) => {

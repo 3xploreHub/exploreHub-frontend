@@ -71,10 +71,8 @@ export class LoginPage implements OnInit {
       const login = this.authservice.login(this.form.value);
       login.subscribe(
         (resp) => {
-          console.log("at log in page");
           this.loading = false;
           this.setForm();
-          console.log(resp);
           if (resp.unfinished_registration) {
             this.router.navigate(["/verification"]);
           } else {
@@ -148,7 +146,6 @@ export class LoginPage implements OnInit {
     } else if (numPattern.test(value)) {
       this.form.controls["credentialUsed"].value = "contactNumber";
     }
-    console.log(this.form.value.credentialUsed);
   }
 
   async presentAlert(message) {

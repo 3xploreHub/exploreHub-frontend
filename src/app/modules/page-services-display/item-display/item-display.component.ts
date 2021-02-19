@@ -1,7 +1,10 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
+import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
+import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
+import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
@@ -16,28 +19,35 @@ export class ItemDisplayComponent implements OnInit {
   @Input() values: ElementValues;
 
   components = {
-    'text': TextComponent,
-    'labelled-text': LabelledTextComponent,
-    'photo': PhotoComponent,
-    // 'item-list': ItemComponent
+    'text': TextDisplayComponent,
+    'labelled-text': LabelledTextDisplayComponent,
+    'photo': PhotoDisplayComponent,
   }
 
 
   constructor(
+    private cdr: ChangeDetectorRef,
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-  ) { }
+  ) { 
+    this.values = {
+      data: [],
+      _id: null,
+      styles: [],
+      default: false,
+      type: null
+    }
+  }
 
   ngOnInit() {
-
-  // ngOnAfterInit() {
+    
     setTimeout(() => {
       if (this.values.data.length > 0) {
-        console.log("chld value: ",this.values)
         this.setPage(this.values.data)
       }
-    }, 1000);
+    }, 500);
   }
+
 
   
   setPage(component) {

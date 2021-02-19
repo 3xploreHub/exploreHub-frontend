@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
@@ -26,7 +26,8 @@ export class ItemListComponent implements OnInit {
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
-    public alert: AlertController
+    public alert: AlertController,
+    private cdr: ChangeDetectorRef
   ) {
     this.footerData = {
       done: false,
@@ -41,7 +42,6 @@ export class ItemListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.values)
     if (this.values) {
       let data = this.values.data
       this.footerData.done = data.text && data.label ? true : false;
@@ -65,6 +65,18 @@ export class ItemListComponent implements OnInit {
       this.addComponent(false);
     }
   }
+
+  // ngAfterContentChecked() {
+  //   setTimeout(() => {
+  //     this.cdr.detectChanges();
+  //     this.footerData.saving = false;
+  //     this.footerData.message = "Saving Changes..."
+  //     if (this.values.data.length > 0) {
+  //       this.footerData.done = true;
+  //       this.setPage(this.values.data)
+  //     }
+  //   }, 1000);
+  // }
 
   setPage(component) {
     component.forEach((component: any) => {
@@ -98,7 +110,7 @@ export class ItemListComponent implements OnInit {
     }
   }
 
-  addComponent(isDone: boolean = true) { 
+  addComponent(isDone: boolean = true) {
     this.footerData.saving = true;
     this.creator.saveServiceComponent(this.values, this.parentId).subscribe(
       (response) => {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { doesNotReject } from 'assert';
 import { filter } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
   styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnInit {
+  @Output() passValues: EventEmitter<any> = new EventEmitter();
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() parent: string;
@@ -101,6 +102,7 @@ export class TextComponent implements OnInit {
     this.footerData.message = "Saving  Changes...";
     this.hasChanges = false;
     this.oldStyles = this.values.styles;
+    this.passValues.emit(this.values);
   }
 
   edit() {
@@ -112,6 +114,7 @@ export class TextComponent implements OnInit {
   applyStyle(style) {
     this.values.styles = this.creator.applyStyle(this.values.styles, style);
   }
+  
   changeStyle() {
     this.oldStyles = this.values.styles;
     this.showStylePopup = !this.showStylePopup;

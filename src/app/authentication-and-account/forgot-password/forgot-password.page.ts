@@ -36,7 +36,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
     public router: Router,
     public pusher: PusherService,
     public formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnDestroy() {
     this.codeHandler.unSubscribePusher();
@@ -48,7 +48,6 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.get("frgtnAccountId").then((id) => {
       this.codeHandler.id = id;
-      console.log("at the beginning", id);
       this.authService
         .findAccountById({ _id: id, purpose: userTokenType.passwordReset })
         .subscribe(
@@ -57,7 +56,6 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
             this.contactNumber = "+" + resp.contactNumber;
             this.email = resp.email;
             if (resp.codeSent.length > 0) {
-              console.log("CODE SENT ====", resp.codeSent);
               this.codeHandler.codeSent = resp.codeSent;
               this.codeHandler.subscribePusher();
               this.authService.save("pendingCode", true);
@@ -95,7 +93,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
         this.codeHandler.codeSent = response.codeSent;
         this.presentAlert(
           "A code is successfully sent to " +
-            (this.useContactNumber ? this.contactNumber : this.email)
+          (this.useContactNumber ? this.contactNumber : this.email)
         );
         this.codeHandler.subscribePusher();
 
@@ -123,7 +121,6 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
         this.pendingCode = false;
         this.authService.removeItem("frgtnAccountId");
         this.codeHandler.correctCode();
-        console.log(res.unfinishedRegistration);
         let nextPage = "/reset-password";
         if (res.unfinishedRegistration) {
           nextPage = "/add-account-info";
