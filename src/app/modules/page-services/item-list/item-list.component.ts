@@ -1,9 +1,12 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AlertController, IonContent, ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
 import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
+import { PhotoComponent } from '../../page-elements/photo/photo.component';
+import { TextComponent } from '../../page-elements/text/text.component';
 import { ItemComponent } from '../item/item.component';
 
 @Component({
@@ -13,7 +16,8 @@ import { ItemComponent } from '../item/item.component';
 })
 
 export class ItemListComponent implements OnInit {
-  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
+  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;//listInfo
+  @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @ViewChild('itemList') itemList;
   @Input() values: ElementValues;
   @ViewChild('newItem') newItemAdded: ElementRef;
@@ -21,7 +25,10 @@ export class ItemListComponent implements OnInit {
   public footerData: FooterData;
   public showPopup: boolean = false;
   components = {
-    'item': ItemComponent
+    'item': ItemComponent,
+    'text': TextComponent,
+    'labelled-text': LabelledTextComponent,
+    'photo': PhotoComponent,
   }
 
   constructor(
@@ -48,7 +55,7 @@ export class ItemListComponent implements OnInit {
       this.renderChildren()
       // this.footerData.done = this.values.data? true: false;
       this.footerData.done = false;
-      this.footerData.hasValue = this.values.data? true: false;
+      this.footerData.hasValue = this.values.data ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -59,7 +66,7 @@ export class ItemListComponent implements OnInit {
     }
   }
 
-  renderChildren(isEditing: boolean = true) {
+  renderChildren() {
     this.footerData.saving = true;
     this.footerData.message = "Loading..."
     setTimeout(() => {
@@ -72,7 +79,7 @@ export class ItemListComponent implements OnInit {
   }
 
   setPage(component) {
-      if (component.length > 0) {
+    if (component.length > 0) {
       component.forEach((component: any) => {
         this.renderComponent(component.type, component)
       })
@@ -88,10 +95,10 @@ export class ItemListComponent implements OnInit {
 
   edit() {
     this.footerData.done = false;
-    this.renderChildren(false)
+    this.renderChildren()
   }
-    
-  
+
+
 
   renderItemList() {
     this.showPopup = false;
@@ -100,18 +107,20 @@ export class ItemListComponent implements OnInit {
       console.log(newData);
       this.values = newData[0].services[0]
       this.footerData.saving = false
-        if (this.checkIfHasItems(this.values.data)) {
-          this.footerData.done = true;
-        } 
+      if (this.checkIfHasItems(this.values.data)) {
+        this.footerData.done = true;
+      }
     })
   }
 
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
-      console.log(this.pageElement);
-      
+      let domRef = this.pageElement;
+      if (componentName != "item") {
+        domRef = this.listInfo;
+      }
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageElement.createComponent<ElementComponent>(factory);
+      const comp = domRef.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
       comp.instance.parent = "component";
@@ -174,12 +183,19 @@ export class ItemListComponent implements OnInit {
   checkIfHasItems(items) {
     let values = [];
     if (items.length == 0) {
-      this.presentAlert("No data to display")
-      return false 
+      this.presentAlert("Please add info about this service")
+      return false
     }
 
+
     items.forEach(item => {
-      if (item.data.length > 0) {
+      if (items.type != "item") {
+        if (this.creator.checkIfHasValue([items])) {
+          values.push(item);
+          console.log("default: ", this.creator.checkIfHasValue([items]))
+        }
+      }
+      else if (item.data.length > 0) {
         if (this.creator.checkIfHasValue(item.data)) values.push(item.data)
       }
     });

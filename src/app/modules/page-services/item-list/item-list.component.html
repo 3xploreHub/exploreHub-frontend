@@ -1,9 +1,8 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
   <div *ngIf="!footerData.done">
+    <ng-template #listInfo></ng-template>
     <div class="serviceContainer" #newItem>
-      <!-- <ion-content> -->
         <ng-template #pageElement></ng-template>
-      <!-- </ion-content> -->
     </div>
     <p class="addComp" (click)="addItem()">Add new item</p>
     <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()"></app-element-footer>

@@ -140,7 +140,7 @@ export class ItemComponent implements OnInit {
         this.footerData.done = true;
       } else {
         if (this.values.data.length == 0) {
-          this.presentAlert("No data to display");
+          this.presentAlert("Please add info about this service");
         } else {
           this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
         }
