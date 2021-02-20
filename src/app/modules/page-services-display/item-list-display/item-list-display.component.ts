@@ -26,30 +26,29 @@ export class ItemListDisplayComponent implements OnInit {
       this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
         console.log(newData);
         this.values = newData[0].services[0]
-        setTimeout(() => {
           if (this.values.data.length > 0) {
             this.setService(this.values.data)
             this.onHasUpdate.emit(this.values)
           }
-        }, 200);
       })
     } else {
-      setTimeout(() => {
         if (this.values.data.length > 0) {
           this.setService(this.values.data)
         }
-      }, 1000);
     }
   }
 
   setService(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
+    if (component.length > 0) {
+      component.forEach((component: any) => {
+        this.renderComponent(component.type, component)
+      })
+    }
   }
 
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
+      console.log(componentName)
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.serviceElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;

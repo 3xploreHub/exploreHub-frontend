@@ -43,7 +43,7 @@ export class ItemComponent implements OnInit {
       deleted: false,
       saving: false,
       message: "Saving Changes...",
-      hasValue: false,
+      hasValue: true,
       hasId: false,
       isDefault: false,
       hasStyle: false
@@ -53,8 +53,7 @@ export class ItemComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true : false;
-      this.footerData.hasValue = data.text != null && data.label != null;
+      // this.footerData.done = this.values.data? true: false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
       this.renderChildren(); 
@@ -93,16 +92,15 @@ export class ItemComponent implements OnInit {
       this.footerData.saving = false;
       this.footerData.message = "Saving Changes..."
       if (this.values.data.length > 0) {
-        this.footerData.done = isEditing;
         this.setPage(this.values.data)
       }
     }, 1000);
   }
 
   setPage(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
+      component.forEach((component: any) => {
+        this.renderComponent(component.type, component)
+      })
   }
 
   renderComponent(componentName: string, componentValues: any, isNew: boolean = false) {
@@ -122,6 +120,7 @@ export class ItemComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.renderChildren();
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")

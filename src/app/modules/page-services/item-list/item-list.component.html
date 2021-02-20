@@ -6,7 +6,7 @@
       <!-- </ion-content> -->
     </div>
     <p class="addComp" (click)="addItem()">Add new item</p>
-    <app-element-footer [data]="footerData" (render)="renderItemList()" (delete)="delete()"></app-element-footer>
+    <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()"></app-element-footer>
   </div>
   <div *ngIf="footerData.done">
     <div class="componentWrapper">

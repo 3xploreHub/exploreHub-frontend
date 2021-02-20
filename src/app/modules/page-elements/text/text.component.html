@@ -2,7 +2,7 @@
   <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
     <ion-textarea [ngClass]="values.styles" auto-grow="true" (change)="hasChanges = true"
       (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving"
-      [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder">
+      [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder? values.data.placeholder: 'Enter text here'">
     </ion-textarea>
     <app-element-footer [data]="footerData" (render)="renderText()" (openStylePopup)="changeStyle()"
       (selectStyle)="applyStyle($event)" (delete)="delete()">

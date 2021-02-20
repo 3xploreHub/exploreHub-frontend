@@ -45,6 +45,9 @@ export class TextComponent implements OnInit {
       this.oldStyles = this.values.styles;
     } else {
       this.values = { _id: "", type: "text", styles: ["bg-light", "font-medium", "color-light", "text-left", "fontStyle-normal"], data: { placeholder: "Enter text here", text: null }, default: false };
+      if (this.parent == "component") {
+        this.values.styles = this.creator.applyStyle(this.values.styles, "font-small");
+      }
       this.footerData.message = "Adding Field..."
       this.addComponent(false, this.parent);
     }
@@ -82,6 +85,7 @@ export class TextComponent implements OnInit {
 
   addComponent(isDone: boolean = true, parent: string) {
     this.footerData.saving = true;
+    this.values.styles
     this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;

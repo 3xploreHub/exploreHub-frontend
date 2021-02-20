@@ -46,11 +46,12 @@ export class ItemListComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true : false;
-      this.footerData.hasValue = data.text != null && data.label != null;
+      this.renderChildren()
+      // this.footerData.done = this.values.data? true: false;
+      this.footerData.done = false;
+      this.footerData.hasValue = this.values.data? true: false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      this.renderChildren()
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
@@ -66,23 +67,24 @@ export class ItemListComponent implements OnInit {
       this.footerData.saving = false;
       this.footerData.message = "Saving Changes..."
       if (this.values.data.length > 0) {
-        this.footerData.done = isEditing;
         this.setPage(this.values.data)
       }
     }, 1000);
   }
 
   setPage(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
+      if (component.length > 0) {
+      component.forEach((component: any) => {
+        this.renderComponent(component.type, component)
+      })
+    }
   }
 
   addItem() {
     this.renderComponent("item", null);
-    setTimeout(() => { 
+    setTimeout(() => {
       this.newItemAdded.nativeElement.scrollLeft = this.newItemAdded.nativeElement.scrollWidth + 350;
-    }, 200);
+    }, 300);
   }
 
   edit() {
@@ -101,6 +103,8 @@ export class ItemListComponent implements OnInit {
 
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
+      console.log(this.pageElement);
+      
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
@@ -115,6 +119,7 @@ export class ItemListComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.renderChildren();
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
