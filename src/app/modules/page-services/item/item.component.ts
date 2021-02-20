@@ -132,18 +132,21 @@ export class ItemComponent implements OnInit {
   }
 
   renderService() {
-    
+    this.footerData.saving = true;
     this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
       this.values = updatedData[0].services[0].data[0]
+      this.footerData.saving = false;
       if (this.creator.checkIfHasValue(this.values.data)) {
         this.footerData.done = true;
       } else {
-        this.presentAlert("Please fill up every fields, or press 'done' if you have given them some value already.")
+        if (this.values.data.length == 0) {
+          this.presentAlert("No data to display");
+        } else {
+          this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+        }
       }
     })
   }
-
-
 
   getUpdates(newData) {
     this.values = newData;

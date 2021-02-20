@@ -35,7 +35,7 @@ export class ItemListComponent implements OnInit {
       deleted: false,
       saving: false,
       message: "Saving Changes...",
-      hasValue: false,
+      hasValue: true,
       hasId: false,
       isDefault: false,
       hasStyle: false
@@ -95,14 +95,14 @@ export class ItemListComponent implements OnInit {
 
   renderItemList() {
     this.showPopup = false;
+    this.footerData.saving = true;
     this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
       console.log(newData);
       this.values = newData[0].services[0]
+      this.footerData.saving = false
         if (this.checkIfHasItems(this.values.data)) {
           this.footerData.done = true;
-        } else {
-          this.presentAlert("Please fill up every fields, or press 'done' if you have given them some value already.")
-        }
+        } 
     })
   }
 
@@ -173,12 +173,21 @@ export class ItemListComponent implements OnInit {
 
   checkIfHasItems(items) {
     let values = [];
+    if (items.length == 0) {
+      this.presentAlert("No data to display")
+      return false 
+    }
+
     items.forEach(item => {
       if (item.data.length > 0) {
         if (this.creator.checkIfHasValue(item.data)) values.push(item.data)
       }
     });
-    return values.length == items.length
+    if (values.length != items.length) {
+      this.presentAlert("Please fill up each field and hit 'done' to save the changes.")
+      return false;
+    }
+    return true
   }
 
 }

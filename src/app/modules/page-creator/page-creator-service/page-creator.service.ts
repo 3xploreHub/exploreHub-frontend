@@ -168,6 +168,7 @@ export class PageCreatorService {
 
   checkIfHasValue(data) {
     let items = [];
+    if (data.length == 0) return false
     data.forEach(item => {
       switch (item.type) {
         case "text":
