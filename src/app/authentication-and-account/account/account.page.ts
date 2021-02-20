@@ -16,7 +16,6 @@ export class AccountPage implements OnInit {
     this.authService.getUserInfo().subscribe(
       (resp) => {
         this.user = resp;
-        console.log("at account: ", resp);
       },
       (err) => {
         if (err.status == 401) {

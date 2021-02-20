@@ -1,5 +1,8 @@
-import { Element } from "./Element";
+import { ElementValues } from "./ElementValues";
 
 export interface ElementComponent {
-    values: Element;
+    values: ElementValues;
+    parentId: string;
+    parent: string;
+    grandParentId: string;
 }

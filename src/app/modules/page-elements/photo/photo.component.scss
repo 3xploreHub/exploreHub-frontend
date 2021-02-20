@@ -1,0 +1,61 @@
+.container {
+    padding:0;
+    background-color: lightgray;
+    margin:10px 0;
+}
+
+.innerWrapper {
+    height: 180px;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.shrink {
+    height: unset !important;
+    flex-direction: row;
+
+    .buttonDiv {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .imageIcon {
+        vertical-align: middle;
+        font-size: 21px;
+    }
+}
+
+.fileInput {
+    // width:101px;
+    background-color: rgb(179, 176, 176);
+    text-align: center;
+}
+
+.imageIcon {
+    font-size: 50px;
+    margin:8px;
+}
+
+.buttonDiv {
+    text-align: center;
+}
+
+.imageContainer {
+    // background-color: lightgray;
+}
+
+.imageGrid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.singleCol {
+    display: block !important;
+}
+
+.imageCont {
+    margin:0;
+}

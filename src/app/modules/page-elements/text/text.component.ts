@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Element } from '../../interfaces/Element';
+import { doesNotReject } from 'assert';
+import { filter } from 'rxjs/operators';
+import { ElementValues } from '../../interfaces/ElementValues';
+import { FooterData } from '../../interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
@@ -9,87 +12,137 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
   styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnInit {
-  @Input() values: Element;
-  public done: boolean = false;
-  public deleted: boolean = false;
-  public saving: boolean = false;
-  public oldText: string = "";
-  public message:string = "Saving Changes..."
+  @Output() passValues: EventEmitter<any> = new EventEmitter();
+  @Input() values: ElementValues;
+  @Input() parentId: string;
+  @Input() parent: string;
+  @Input() grandParentId: string;
+  public footerData: FooterData;
+  public showPopup: boolean = false;
+  public hasChanges: boolean = false;
+  public oldStyles: string[] = [];
+  public showStylePopup: boolean = false;
 
-  constructor(public creator: PageCreatorService,public alert: AlertController,) {
+  constructor(public creator: PageCreatorService, public alert: AlertController) {
+    this.footerData = {
+      done: false,
+      deleted: false,
+      saving: false,
+      message: "Saving Changes...",
+      hasValue: false,
+      hasId: false,
+      isDefault: false,
+      hasStyle: true
+    }
   }
 
   ngOnInit() {
     if (this.values) {
-      console.log(this.values.data)
-      this.done = true;
-      this.values = this.values;
+      this.footerData.done = this.values.data.text != null;
+      this.footerData.hasValue = this.values.data.text != null;
+      this.footerData.hasId = true;
+      this.footerData.isDefault = this.values.default;
+      this.oldStyles = this.values.styles;
     } else {
-      this.values = { id: null, type: "text", styles: [], data: { text: null } }
+      this.values = { _id: "", type: "text", styles: ["bg-light", "font-medium", "color-light", "text-left", "fontStyle-normal"], data: { placeholder: "Enter text here", text: null }, default: false };
+      this.footerData.message = "Adding Field..."
+      this.addComponent(false, this.parent);
     }
   }
+  
 
   renderText() {
-    if (this.values.data.text) {
-      if (this.oldText && this.oldText != this.values.data.text) {
-        this.saving = true;
-        this.creator.editComponent(this.values).subscribe(
-          (response) => {
-            this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.done = true;
-            this.saving = false;
-          }
-        )
-      } else if (!this.oldText) {
-        this.saving = true;
-        this.creator.saveComponent(this.values).subscribe(
-          (response) => {
-            this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.done = true;
-            this.saving = false;
-          }
-        )
+    let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
+    if (this.values.data.text && this.hasChanges || styleChanged) {
+      this.saveChanges(!styleChanged);
+      this.showStylePopup = false;
+    } else {
+      if (this.showStylePopup) {
+         this.showStylePopup = false;
       } else {
-        this.done = true;
+        this.footerData.done = this.values.data.text ? true : false;
       }
     }
   }
 
+  saveChanges(isDone: boolean = true) {
+    this.footerData.saving = true;
+    this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      (response) => { 
+        // this.values = response this is the rivas branch 2 and another changes to commit;
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.done(isDone);
+      }
+    )
+  }
+
+  addComponent(isDone: boolean = true, parent: string) {
+    this.footerData.saving = true;
+    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
+      (response) => {
+        this.values = response;
+        this.footerData.hasId = true;
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.done(isDone);
+      }
+    )
+  }
+
+  done(done: boolean = true) {
+    this.footerData.done = done;
+    this.footerData.saving = false;
+    this.footerData.message = "Saving  Changes...";
+    this.hasChanges = false;
+    this.oldStyles = this.values.styles;
+    this.passValues.emit(this.values);
+  }
+
   edit() {
-    this.oldText = this.values.data.text;
-    this.done = false;
+    this.showPopup = false;
+    this.hasChanges = false;
+    this.footerData.done = false;
+  }
+
+  applyStyle(style) {
+    this.values.styles = this.creator.applyStyle(this.values.styles, style);
+  }
+  
+  changeStyle() {
+    this.oldStyles = this.values.styles;
+    this.showStylePopup = !this.showStylePopup;
+  }
+
+  cancelStyles() {
+    this.showStylePopup = false
+    this.values.styles = this.oldStyles;
   }
 
   delete() {
-    if (this.values.id) {
-      this.message = "Deleting..."
-      this.saving = true;
-      this.creator.deleteComponent(this.values.id).subscribe(
+    if (this.values._id) {
+      this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
         (response) => {
-          this.deleted = true;
+          this.footerData.deleted = true;
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
-          this.saving = false;
-          this.message = "Saving Changes..."
+          this.done(false)
         }
       )
     } else {
-      this.deleted = true;
+      this.footerData.deleted = true;
     }
-    
   }
 
   async presentAlert(message) {

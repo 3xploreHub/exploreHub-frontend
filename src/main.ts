@@ -11,4 +11,8 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => {
     console.log("AT STARTING...")
-    console.log(err)});
+    console.log(err)
+  });
+
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);

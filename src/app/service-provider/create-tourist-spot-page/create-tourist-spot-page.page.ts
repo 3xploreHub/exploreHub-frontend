@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TouristSpotPage } from 'src/app/modules/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
+import { TouristPage } from 'src/app/tourist/tourist.page';
 
 @Component({
   selector: 'app-create-tourist-spot-page',
@@ -14,16 +16,18 @@ export class CreateTouristSpotPagePage implements OnInit {
   public touristSpot: TouristSpotPage;
 
   constructor(
-    public creator: PageCreatorService
+    public creator: PageCreatorService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.creator.get("touristSpotId").then(id => {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id'); 
       if (id) {
-        this.creator.getDraftTouristSpotPage(id).subscribe(
-          response => {
+        this.creator.retrieveToristSpotPage(id).subscribe(
+          (response: TouristSpotPage) => {
             this.touristSpot = response;
-            this.pageCreator.setPage(this.touristSpot)
+            this.pageCreator.setPage(this.touristSpot)  
           },
           error => {
             console.log("error in getting tourist spot: ", error)

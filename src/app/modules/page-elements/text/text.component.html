@@ -1,42 +1,23 @@
-<div *ngIf="!deleted">
-  <div *ngIf="!done; else doneBlock" class="textAreaWrapper">
-    <ion-textarea auto-grow="true" [readonly]="saving" [(ngModel)]="values.data.text" class="textarea" rows="1"
-      placeholder="Enter text here">
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
+    <ion-textarea [ngClass]="values.styles" auto-grow="true" (change)="hasChanges = true"
+      (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving"
+      [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder">
     </ion-textarea>
-    <div *ngIf="saving; else manageTextBlock" class="footer">
-      <div class="saving">{{message}}</div>
+    <app-element-footer [data]="footerData" (render)="renderText()" (openStylePopup)="changeStyle()"
+      (selectStyle)="applyStyle($event)" (delete)="delete()">
+    </app-element-footer>
+    <div class="componentWrapper" *ngIf="showStylePopup">
+      <app-style-popup *ngIf="footerData.hasStyle" (cancel)="cancelStyles()" (save)="renderText()"
+        (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-style-popup>
     </div>
-    <ng-template #manageTextBlock>
-      <div *ngIf="!delClicked; else confirmDelete" class="footer">
-        <div (click)="values.data.text? delClicked = true: deleted = true" class="footerDiv">
-          <ion-icon class="delete" name="trash-outline"></ion-icon><span class="delete">Delete</span>
-        </div>
-        <div class="footerDiv">
-          <ion-icon name="color-wand-outline"></ion-icon>
-          <span>Style</span>
-        </div>
-
-        <div (click)="renderText()" class="footerDiv">
-          <ion-icon name="checkmark-outline"></ion-icon>
-          <span>Done</span>
-        </div>
-      </div>
-      <ng-template #confirmDelete>
-        <div class="footer">
-          <div class="footerDiv">
-            Are you sure?
-          </div>
-          <div (click)="delete()" class="footerDiv">
-            Yes
-          </div>
-          <div (click)="delClicked = false" class="footerDiv">
-            No
-          </div>
-        </div>
-      </ng-template>
-    </ng-template>
   </div>
+
   <ng-template #doneBlock>
-    <p (click)="edit()" class="renderedText">{{values.data.text}}</p>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+        (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-text-display [ngClass]="values.styles" (click)="showPopup = true" [values]="values"></app-text-display>
+    </div>
   </ng-template>
 </div>

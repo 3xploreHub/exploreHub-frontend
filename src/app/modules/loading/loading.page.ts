@@ -11,13 +11,10 @@ export class LoadingPage implements OnInit {
   constructor(public loadingService: LoadingService) {}
 
   ngOnInit() {
-    console.log("LOADING INDICATOR");
     this.loadingService.isLoading.subscribe((isLoading) => {
       if (isLoading) {
-        console.log("at loading");
         this.isLoading = true;
       } else {
-        console.log("At close loading");
         this.isLoading = false;
       }
     });

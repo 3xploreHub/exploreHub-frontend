@@ -29,3 +29,112 @@
     --background: rgba(49, 49, 49, 0.1);
     --margin-top:100px;
 }
+
+
+.dangerColor {
+    color: rgb(230, 8, 8) !important;
+}
+
+.primColor {
+    color:rgb(8, 121, 233);
+}
+
+.componentWrapper {
+    position: relative !important;
+    overflow: visible !important;
+}
+ 
+.componentPopup {
+    position: absolute;
+    width:100%;
+    top:0;
+    height: 100%;
+    display: flex;
+    z-index: inherit;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.font-normal {
+    font-size: 16px !important;
+}
+
+.font-title {
+    font-size: 22px !important;
+}
+
+.color-red {
+    color:rgb(192, 5, 5) !important;
+}
+.color-blue {
+    color:rgb(2, 89, 175) !important;
+}
+
+.color-green {
+    color:rgb(1, 158, 69) !important;
+}
+
+.color-lighter {
+    color: rgb(104, 104, 104) !important;
+}
+.color-light {
+    color: rgb(87, 87, 87) !important;
+}
+
+.color-dark {
+    color:rgb(43, 43, 43) !important;
+}
+
+.color-darker {
+    color:rgb(10, 10, 10) !important;
+}
+
+.font-extraLarge {
+    font-size: 23px !important;
+}
+.font-large {
+    font-size: 20px !important;
+}
+.font-medium {
+    font-size: 17px !important;
+}
+.font-small {
+    font-size: 15px !important;
+}
+.fontStyle-bolder {
+    font-weight: 800 !important;
+}
+.fontStyle-bold {
+    font-weight: 600 !important;
+}
+.fontStyle-italic {
+    font-style: italic !important;
+}
+
+.fontStyle-normal {
+    font-style: normal !important;
+}
+
+.bg-light {
+    background-color: rgba(206, 206, 206, 0.2) !important;
+    // background-color: rgb(209, 217, 224);
+}
+
+.bg-white {
+    background-color: transparent !important;
+}

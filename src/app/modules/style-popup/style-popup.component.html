@@ -1,0 +1,36 @@
+<div class="popupOverlay">
+  <div class="rowWrapper">
+    <div class="styleOption">
+      <p [ngClass]="style('font-extraLarge')" (click)="select.emit('font-extraLarge')">Extra-large</p>
+      <p [ngClass]="style('font-large')" (click)="select.emit('font-large')">Large</p>
+      <p [ngClass]="style('font-medium')" (click)="select.emit('font-medium')">Medium</p>
+      <p [ngClass]="style('font-small')" (click)="select.emit('font-small')">Small</p>
+    </div>
+    <div class="styleOption">
+      <p [ngClass]="style('fontStyle-bolder')" (click)="select.emit('fontStyle-bolder')">Bolder</p>
+      <p [ngClass]="style('fontStyle-bold')" (click)="select.emit('fontStyle-bold')">Bold</p>
+      <p [ngClass]="style('fontStyle-normal')" (click)="select.emit('fontStyle-normal')">Normal</p>
+    </div>
+    <div class="styleOption">
+      <p [ngClass]="style('bg-white')" (click)="select.emit('bg-white')">No-background</p>
+      <p [ngClass]="style('bg-light')" (click)="select.emit('bg-light')">Light-backround</p>
+    </div>
+    <div class="styleOption">
+      <p [ngClass]="style('text-left')" (click)="select.emit('text-left')">Left</p>
+      <p [ngClass]="style('text-center')" (click)="select.emit('text-center')">Center</p>
+      <p [ngClass]="style('text-right')" (click)="select.emit('text-right')">Right</p>
+      <p [ngClass]="style('text-justify')" (click)="select.emit('text-justify')">Justify</p>
+    </div>
+    <div class="styleOption">
+      <p [ngClass]="style('color-darker')" (click)="select.emit('color-darker')">Darker</p>
+      <p [ngClass]="style('color-dark')" (click)="select.emit('color-dark')">Dark</p>
+      <p [ngClass]="style('color-light')" (click)="select.emit('color-light')">Light</p>
+      <p [ngClass]="style('color-lighter')" (click)="select.emit('color-lighter')">Lighter</p>
+      <p [ngClass]="style('color-blue')" (click)="select.emit('color-blue')">Blue</p>
+    </div>
+    <div class="styleOption">
+      <p (click)="cancel.emit()" class="option dangerColor">Cancel</p>
+      <p (click)="save.emit()" class="option primColor">Save</p>
+    </div>
+  </div>
+</div>
