@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AlertController, IonContent, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
 import { ElementValues } from '../../interfaces/ElementValues';
 import { FooterData } from '../../interfaces/footer-data';
@@ -14,7 +14,9 @@ import { ItemComponent } from '../item/item.component';
 
 export class ItemListComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
+  @ViewChild('itemList') itemList;
   @Input() values: ElementValues;
+  @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
@@ -48,8 +50,6 @@ export class ItemListComponent implements OnInit {
       this.footerData.hasValue = data.text != null && data.label != null;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      this.footerData.saving = true;
-      this.footerData.message = "Loading..."
       this.renderChildren()
     } else {
       this.footerData.done = false;
@@ -60,6 +60,8 @@ export class ItemListComponent implements OnInit {
   }
 
   renderChildren(isEditing: boolean = true) {
+    this.footerData.saving = true;
+    this.footerData.message = "Loading..."
     setTimeout(() => {
       this.footerData.saving = false;
       this.footerData.message = "Saving Changes..."
@@ -76,8 +78,11 @@ export class ItemListComponent implements OnInit {
     })
   }
 
-  addItem(){
+  addItem() {
     this.renderComponent("item", null);
+    setTimeout(() => { 
+      this.newItemAdded.nativeElement.scrollLeft = this.newItemAdded.nativeElement.scrollWidth + 350;
+    }, 200);
   }
 
   edit() {

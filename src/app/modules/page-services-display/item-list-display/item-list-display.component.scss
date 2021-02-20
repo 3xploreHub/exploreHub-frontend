@@ -1,8 +1,10 @@
 .serviceContainer {
-    padding:5px;
-    margin:5px;
+    padding:5px 0;
+    margin:50px 0;
     // height: 200px;
     box-sizing: border-box;
-    overflow: visible;
-    background-color: red;
+    overflow-y: visible;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
 } 

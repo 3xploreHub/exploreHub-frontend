@@ -1,16 +1,19 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
   <div *ngIf="!footerData.done">
-    <div class="serviceContainer">
-      <ng-template #pageElement></ng-template>
-      <p class="addComp" (click)="addItem()">Add info about this service</p>
+    <div class="serviceContainer" #newItem>
+      <!-- <ion-content> -->
+        <ng-template #pageElement></ng-template>
+      <!-- </ion-content> -->
     </div>
+    <p class="addComp" (click)="addItem()">Add new item</p>
     <app-element-footer [data]="footerData" (render)="renderItemList()" (delete)="delete()"></app-element-footer>
   </div>
   <div *ngIf="footerData.done">
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-item-list-display (click)="showPopup = true" (onHasUpdate)="getUpdates($event)"  [onEditing]="onEditing" [values]="values"></app-item-list-display>
+      <app-item-list-display (click)="showPopup = true" (onHasUpdate)="getUpdates($event)" [onEditing]="onEditing"
+        [values]="values"></app-item-list-display>
     </div>
   </div>
 </div>

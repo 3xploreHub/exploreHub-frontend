@@ -29,7 +29,6 @@ export class ItemComponent implements OnInit {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
-    // 'item-list': ItemComponent
   }
 
   constructor(
@@ -58,8 +57,6 @@ export class ItemComponent implements OnInit {
       this.footerData.hasValue = data.text != null && data.label != null;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      this.footerData.saving = true;
-      this.footerData.message = "Loading..."
       this.renderChildren(); 
     } else {
       this.footerData.done = false;
@@ -90,6 +87,8 @@ export class ItemComponent implements OnInit {
   }
 
   renderChildren(isEditing: boolean = true) {
+    this.footerData.saving = true;
+    this.footerData.message = "Loading..."
     setTimeout(() => {
       this.footerData.saving = false;
       this.footerData.message = "Saving Changes..."
