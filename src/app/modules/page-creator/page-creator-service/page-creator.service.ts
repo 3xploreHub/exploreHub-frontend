@@ -165,4 +165,24 @@ export class PageCreatorService {
     }
     return styles;
   }
+
+  checkIfHasValue(data) {
+    let items = [];
+    data.forEach(item => {
+      switch (item.type) {
+        case "text":
+          if (item.data.text) items.push(item.data);
+          break;
+        case "photo":
+          if (item.data.length > 0) items.push(item.data);
+          break;
+        case "labelled-text":
+          if (item.data.label && item.data.text) items.push(item.data);
+          break;
+        default:
+          break;
+      }
+    });
+    return items.length == data.length;
+  }
 }

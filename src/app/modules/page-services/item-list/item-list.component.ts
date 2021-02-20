@@ -20,7 +20,6 @@ export class ItemListComponent implements OnInit {
   @Input() parentId: string;
   public footerData: FooterData;
   public showPopup: boolean = false;
-  public onEditing: boolean = false;
   components = {
     'item': ItemComponent
   }
@@ -91,14 +90,20 @@ export class ItemListComponent implements OnInit {
     this.footerData.done = false;
     this.renderChildren(false)
   }
-  getUpdates(newData) {
-    this.values = newData;
-  }
+    
+  
 
   renderItemList() {
-    this.onEditing = true;
     this.showPopup = false;
-    this.footerData.done = true;
+    this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
+      console.log(newData);
+      this.values = newData[0].services[0]
+        if (this.checkIfHasItems(this.values.data)) {
+          this.footerData.done = true;
+        } else {
+          this.presentAlert("Please fill up every fields, or press 'done' if you have given them some value already.")
+        }
+    })
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -164,6 +169,16 @@ export class ItemListComponent implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  checkIfHasItems(items) {
+    let values = [];
+    items.forEach(item => {
+      if (item.data.length > 0) {
+        if (this.creator.checkIfHasValue(item.data)) values.push(item.data)
+      }
+    });
+    return values.length == items.length
   }
 
 }

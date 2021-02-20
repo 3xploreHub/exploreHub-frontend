@@ -13,7 +13,6 @@ export class ItemListDisplayComponent implements OnInit {
   @ViewChild('serviceElement', { read: ViewContainerRef }) serviceElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
-  @Input() onEditing: boolean = false;
   components = {
     'item': ItemDisplayComponent
   }
@@ -22,20 +21,11 @@ export class ItemListDisplayComponent implements OnInit {
     public creator: PageCreatorService,) { }
 
   ngOnInit() {
-    if (this.onEditing) {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        console.log(newData);
-        this.values = newData[0].services[0]
-          if (this.values.data.length > 0) {
-            this.setService(this.values.data)
-            this.onHasUpdate.emit(this.values)
-          }
-      })
-    } else {
-        if (this.values.data.length > 0) {
-          this.setService(this.values.data)
-        }
-    }
+    setTimeout(() => {
+      if (this.values.data.length > 0) {
+        this.setService(this.values.data)
+      }
+    }, 400);
   }
 
   setService(component) {

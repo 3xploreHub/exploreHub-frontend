@@ -41,23 +41,11 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.onEditing) {
-      this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
-        this.values = updatedData[0].services[0].data[0]
-        // setTimeout(() => {
-          if (this.values.data.length > 0) {
-            this.setPage(this.values.data)
-            this.onHasUpdate.emit(this.values)
-          }
-        // }, 100);
-      })
-    } else {
-      // setTimeout(() => {
-        if (this.values.data.length > 0) {
-          this.setPage(this.values.data)
-        }
-      // }, 500);
-    }
+    setTimeout(() => {
+      if (this.values.data.length > 0) {
+        this.setPage(this.values.data)
+      }
+    }, 400);
   }
 
 
@@ -68,7 +56,7 @@ export class ItemDisplayComponent implements OnInit {
         this.renderComponent(component.type, component)
       })
     }, 500);
-   
+
   }
 
   renderComponent(componentName: string, componentValues: any) {

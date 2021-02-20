@@ -1,3 +1,4 @@
+import { RecursiveAstVisitor } from '@angular/compiler/src/output/output_ast';
 import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../interfaces/element-component';
@@ -23,7 +24,6 @@ export class ItemComponent implements OnInit {
   @Input() parent: string;
   public footerData: FooterData;
   public showPopup: boolean;
-  public onEditing: boolean = false;
 
   components = {
     'text': TextComponent,
@@ -56,7 +56,7 @@ export class ItemComponent implements OnInit {
       // this.footerData.done = this.values.data? true: false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      this.renderChildren(); 
+      this.renderChildren();
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item", styles: [], data: [], default: false };
@@ -65,7 +65,7 @@ export class ItemComponent implements OnInit {
     }
   }
 
- 
+
 
   async showComponentList() {
     const modal = await this.modalController.create({
@@ -98,9 +98,9 @@ export class ItemComponent implements OnInit {
   }
 
   setPage(component) {
-      component.forEach((component: any) => {
-        this.renderComponent(component.type, component)
-      })
+    component.forEach((component: any) => {
+      this.renderComponent(component.type, component)
+    })
   }
 
   renderComponent(componentName: string, componentValues: any, isNew: boolean = false) {
@@ -132,9 +132,18 @@ export class ItemComponent implements OnInit {
   }
 
   renderService() {
-    this.onEditing = true;
-    this.footerData.done = true;
+    
+    this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
+      this.values = updatedData[0].services[0].data[0]
+      if (this.creator.checkIfHasValue(this.values.data)) {
+        this.footerData.done = true;
+      } else {
+        this.presentAlert("Please fill up every fields, or press 'done' if you have given them some value already.")
+      }
+    })
   }
+
+
 
   getUpdates(newData) {
     this.values = newData;
