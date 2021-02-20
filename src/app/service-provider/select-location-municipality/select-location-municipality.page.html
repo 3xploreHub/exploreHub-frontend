@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>select-location-municipality</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div class="location-container" *ngFor="let location of sampleSpotLocation">
+    <div class="location" (click)="selectLocation(location)">
+      <h2 class="location-name">{{location.name}}</h2>
+    </div>
+  </div>
+  <!-- <ion-item>
+    <a [routerLink]="['/service-provider/select-host-tourist-spot']">
+      <p>Select Host Spot/Spots</p>
+    </a>
+  </ion-item> -->
+</ion-content>
+

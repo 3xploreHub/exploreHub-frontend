@@ -5,9 +5,113 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <a [routerLink]="['/service-provider/create-service-contribution']">
-      <p>Create tourist spot</p>
-    </a>
-  </ion-item>
+  <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
+      service?</i></div>
+  <div class="select-spot-note">
+    <h2 *ngIf="selectedSpots.length == 0">Select the spots below you want to offer your service/services.</h2>
+  </div>
+  <div class="selected-spot">
+    <ion-slides [options]="option" class="ion-margin-top">
+      <ion-slide *ngFor="let spot of selectedSpots">
+        <ion-card style="display: block;">
+          <ion-icon name="close" class="cancel-btn" (click)="cancelSelectedSpot(spot)"></ion-icon>
+          <img src="{{spot.image}}">
+          <p><b>{{spot.name}}</b>
+            <p>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div>
+
+  </div>
+  <ion-button expand="block" (click)="submitSelectedHostSpots()" [disabled]="selectedSpots.length == 0">Next
+  </ion-button>
+
+  <div>
+    <ion-searchbar name="searchInput" [(ngModel)]="searchInput" placeholder="suggestions based on location">
+    </ion-searchbar>
+  </div>
+  <div>
+    <ul>
+      <!-- <li *ngFor="let programmingLanguage of programmingLanguages | search: searchInput">
+        {{programmingLanguage}}
+      </li> -->
+
+      <li *ngFor="let spotName of allSpotsName | search: searchInput">
+        {{spotName}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="nav-spot-category">
+    <ion-label class="item-spot-category" *ngFor="let category of sampleCategory"
+      (click)="displayListOfSpotsInCategory(category)">{{category.name}}</ion-label>
+  </div>
+  
+  <div class="item-spot">
+    <ion-grid>
+      <ion-row style="border-bottom: 1px solid rgb(173, 173, 173);" *ngFor="let spot of spotsListCategory">
+        <ion-col>
+          <img src="{{spot.image}}" alt="Host Tourist Spot" class="spot-image-in-list">
+        </ion-col>
+        <ion-col size="8">
+          <!-- <ion-icon *ngIf="selected" name="information-circle" style="float: right; font-size: 18px; color: green;" (click)="showDetails(spot)"></ion-icon> -->
+          <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)">
+          </ion-icon>
+          <div class="spot-name-description">
+            <b>{{spot.name}}</b><br>{{spot.description}}
+          </div>
+          <!-- <button style="height: 10px;">select</button>
+          <button style="height: 10px;">details</button> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div id="spot-details" *ngIf="show === true">
+    <div class="spot-details-2">
+      <div>
+        <img src="../../../assets/images/host-tourist-spot.jpg" alt="Host Tourist Spot" class="spot-image-in-list">
+        <p><b>{{hostSpot.name}}</b></p>
+      </div>
+      <div class="primary-spot-details">
+        <div>
+          <ion-label>Location: {{hostSpot.location}}</ion-label>
+        </div>
+        <div>
+          <ion-label>Description: {{hostSpot.description}}</ion-label>
+        </div>
+      </div>
+      <div>
+        <ion-row class="select-cancel-btn">
+          <ion-col>
+            <ion-button *ngIf="hostSpot.selected == true" expand="block" (click)="selectTouristSpot()"
+              [disabled]="hostSpot.selected == true" color="success">Selected</ion-button>
+            <ion-button *ngIf="hostSpot.selected == false" expand="block" (click)="selectTouristSpot()">Select
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="closeSpotDetails()" color="warning">Close</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id="menu"> -->
+
+  <!-- Selected by default -->
+
+  <!-- <input id="1" name="r" type="radio" checked/>
+    <label class="collapse" for="1">tab1</label>
+    <div>111111111111111111111</div>
+
+    <input id="2" name="r" type="radio"/>
+    <label class="collapse" for="2">tab2</label>
+    <div>2222222222222222222222</div>
+
+    <input id="3" name="r" type="radio" />
+    <label class="collapse" for="3">tab3</label>
+    <div>333333333333333333333</div>
+</div> -->
 </ion-content>

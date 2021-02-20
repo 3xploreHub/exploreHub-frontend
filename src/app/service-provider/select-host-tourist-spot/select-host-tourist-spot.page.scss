@@ -1,0 +1,204 @@
+.selected-spot
+{
+    margin-top: 15px !important;
+    // margin-top: -.5px !important;
+    margin: 10px;
+    // padding: 10px;
+}
+.spot-name
+{
+    // margin:5px;
+    font-weight: bold;
+    text-align: center;
+}
+.spot-name-button-row
+{
+    margin-top: -1px;
+    border-bottom: 1px solid gray;
+}
+.next-btn
+{
+    float: right;
+    height: 35px;
+    padding: 0px 5px 0px 5px;
+    background-color: #018786;
+    color: white;
+}
+.no-page-notifier
+{
+    // margin-top: 5px;
+    padding-top: 20px;
+}
+.nav-spot-category
+{
+    display: flex;
+    text-align: center;
+    overflow: auto;
+    scrollbar-width: none;  
+    // background-color: rgb(109, 179, 179);
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+.item-spot-category 
+{
+    // padding-left: 20px;
+    // padding-right: 20px;
+    white-space: nowrap;
+    padding: 10px 20px 10px 20px;
+    border-right: 1px solid gray;
+    scrollbar-width: none;
+    // overflow: hidden !important;
+}
+.spot-image
+{
+    width: 167px;
+    height: 111px;
+}
+
+.spot-image-and-name
+{
+    border-radius: 5px;
+    border: 1px solid gray;
+    // box-shadow: 2px 3px 2px 1px black;
+}
+.spot-name-description
+{
+    height: 73px;
+    overflow: hidden;
+    // background-color: green;
+    // display: flex;
+}
+.spot-image-in-list
+{
+    height: 100%;
+    width: 100%;
+    // background-color: darkkhaki;
+}
+
+.swiper-slide-active {
+    transform: scale(1.05, 1.05);
+
+    ion-card {
+        border-radius: 6px;
+        img {
+            transform: scale(0.75, 1.0);
+        }
+    }
+}
+
+.swiper-slide {
+    transition: 400ms all ease-in-out;
+}
+
+.cancel-btn {
+    padding: 10px;
+    float: right;
+}
+
+#spot-details {
+    text-align: center;
+    background-color: rgba(87, 87, 87, .85);
+    position: fixed;
+    // display: none;
+//   width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1
+}
+
+.spot-details-2 {
+    margin-top: 25%;
+    // margin-bottom: 25%;
+    width: 80%; display: inline-block; 
+    text-align: left; 
+    background-color:rgb(173, 173, 173); 
+    padding: 18px;
+    border-radius: 5px;
+    height: 500px;
+    overflow: auto;
+}
+
+// .cancel-btn {
+//     background-color: darksalmon;
+//     color: darksalmon;
+// }
+
+// .select-cancel-btn {
+//     position: fixed;
+//     bottom: 85px;
+//     background-color: darkcyan;
+//     width: 70%;
+// }
+
+
+
+
+// #menu {
+//     padding-left: 20px;
+// }
+// #menu label {
+//     height: 30px;
+//     background-color: #d1ecee;
+//     width: 75px;
+//     color: #2cb674;
+//     font-size: 12px;
+//     line-height: 30px;
+//     text-align: center;
+//     float: left;
+//     position: relative;
+//     margin-left: 2px;
+//     display:block;
+//     margin-right: 20px;
+// }
+// #menu label:before {
+//     content: "";
+//     position: absolute;
+//     left: -20px;
+//     width: 0;
+//     height: 0;
+//     border-top: 30px solid #d1ecee;
+//     border-left: 20px solid transparent;
+//     display:block;
+// }
+// #menu label:after {
+//     content: "";
+//     position: absolute;
+//     right: -20px;
+//     width: 0;
+//     height: 0;
+//     border-bottom: 30px solid #d1ecee;
+//     border-right: 20px solid transparent;
+// }
+// #menu input:checked + label {
+//     background-color: #2cb674;
+//     color: white;
+// }
+// #menu input:checked + label:before {
+//     border-top: 30px solid #2cb674;
+// }
+
+// #menu input:checked + label:after {
+//     border-bottom: 30px solid #2cb674;
+// }
+
+// /* Hide radio buttons */
+// #menu input[type=radio]{
+//     opacity:0;
+//     position:absolute;
+//     left:-200%;
+// }
+
+// /* Hide all tab divs and keep them below the tab buttons */
+// #menu > div {
+//     display:none;
+//     top:5em;
+//     position:absolute;
+//     max-width:100%;
+// }
+
+// /* Show the tab whose sibling radio button is checked */
+// #menu input:checked + label + div{
+//     display:block;
+// }
