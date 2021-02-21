@@ -2,8 +2,8 @@ import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { Platform, ActionSheetController, AlertController } from '@ionic/angular';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService, Image } from '../../page-creator/page-creator-service/page-creator.service';
 const { Camera } = Plugins;
 

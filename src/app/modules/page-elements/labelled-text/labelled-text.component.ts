@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({

@@ -1,7 +1,10 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
+import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
+import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
 import { ItemDisplayComponent } from '../item-display/item-display.component';
 
 @Component({
@@ -13,8 +16,13 @@ export class ItemListDisplayComponent implements OnInit {
   @ViewChild('serviceElement', { read: ViewContainerRef }) serviceElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
+  @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
+
   components = {
-    'item': ItemDisplayComponent
+    'item': ItemDisplayComponent,
+    'text': TextDisplayComponent,
+    'labelled-text': LabelledTextDisplayComponent,
+    'photo': PhotoDisplayComponent,
   }
 
   constructor(public componentFactoryResolver: ComponentFactoryResolver,
@@ -38,12 +46,17 @@ export class ItemListDisplayComponent implements OnInit {
 
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
-      console.log(componentName)
+      let domRef = this.serviceElement
+      let parent = "component";
+      if (componentName != "item") {
+        domRef = this.listInfo;
+        parent = "service"
+      }
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.serviceElement.createComponent<ElementComponent>(factory);
+      const comp = domRef.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component";
+      comp.instance.parent = parent;
     }
   }
 

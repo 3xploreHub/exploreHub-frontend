@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TouristSpotPage } from 'src/app/modules/interfaces/tourist-spot-page';
+import { TouristSpotPage } from 'src/app/modules/elementTools/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { TouristPage } from 'src/app/tourist/tourist.page';
 

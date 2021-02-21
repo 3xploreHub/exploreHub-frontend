@@ -2,9 +2,9 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRe
 import { ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
-import { ElementComponent } from '../interfaces/element-component';
-import { ElementValues } from '../interfaces/ElementValues';
-import { TouristSpotPage } from '../interfaces/tourist-spot-page';
+import { ElementComponent } from '../elementTools/interfaces/element-component';
+import { ElementValues } from '../elementTools/interfaces/ElementValues';
+import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';

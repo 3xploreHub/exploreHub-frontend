@@ -1,9 +1,9 @@
 import { RecursiveAstVisitor } from '@angular/compiler/src/output/output_ast';
 import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
@@ -116,7 +116,7 @@ export class ItemComponent implements OnInit {
 
   addComponent(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.creator.saveItemComponent(this.values, this.parentId, this.parent).subscribe(
+    this.creator.saveItem(this.values, this.parentId).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
@@ -161,7 +161,7 @@ export class ItemComponent implements OnInit {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteItemComponent(this.parentId, this.values._id).subscribe(
+      this.creator.deleteItem(this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },

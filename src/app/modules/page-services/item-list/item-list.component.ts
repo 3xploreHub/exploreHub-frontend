@@ -1,9 +1,10 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
@@ -16,7 +17,7 @@ import { ItemComponent } from '../item/item.component';
 })
 
 export class ItemListComponent implements OnInit {
-  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;//listInfo
+  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @ViewChild('itemList') itemList;
   @Input() values: ElementValues;
@@ -116,14 +117,16 @@ export class ItemListComponent implements OnInit {
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
       let domRef = this.pageElement;
+      let parent = "component"
       if (componentName != "item") {
         domRef = this.listInfo;
+        parent = "service"
       }
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = domRef.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component";
+      comp.instance.parentId = this.values._id;  
+      comp.instance.parent = parent;
     }
   }
 
@@ -142,6 +145,19 @@ export class ItemListComponent implements OnInit {
         this.done(isDone);
       }
     )
+  }
+
+  
+  async showComponentList() {
+    const modal = await this.modalController.create({
+      component: PageElementListComponent,
+      cssClass: 'componentListModal'
+    });
+    const present = await modal.present();
+    const { data } = await modal.onWillDismiss();
+    this.renderComponent(data, null);
+
+    return present;
   }
 
 
@@ -188,15 +204,14 @@ export class ItemListComponent implements OnInit {
     }
 
 
-    items.forEach(item => {
-      if (items.type != "item") {
-        if (this.creator.checkIfHasValue([items])) {
-          values.push(item);
-          console.log("default: ", this.creator.checkIfHasValue([items]))
+    items.forEach(service => {
+      if (service.type != "item") {
+        if (this.creator.checkIfHasValue([service])) {
+          values.push(service);
         }
       }
-      else if (item.data.length > 0) {
-        if (this.creator.checkIfHasValue(item.data)) values.push(item.data)
+      else if (service.data.length > 0) {
+        if (this.creator.checkIfHasValue(service.data)) values.push(service.data)
       }
     });
     if (values.length != items.length) {

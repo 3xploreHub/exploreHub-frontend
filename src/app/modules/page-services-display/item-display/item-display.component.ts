@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
 import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';

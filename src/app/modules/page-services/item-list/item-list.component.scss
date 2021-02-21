@@ -2,19 +2,20 @@
     margin: 10px 0;
 }
 .serviceContainer {
-    margin:5px;
+    margin-top: 15px;
     box-sizing: border-box;
     overflow-y: visible;
     overflow-x: scroll;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
     transition: .5s;
-    padding: 10px 0;
+    padding: 1px 0;
 } 
 
 .wrapper {
     background-color: rgb(167, 182, 199);
-
+    padding:10px 0;
     margin:20px 0;
 }
 

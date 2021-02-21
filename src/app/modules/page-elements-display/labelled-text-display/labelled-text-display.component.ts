@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ElementValues } from '../../interfaces/ElementValues';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 
 @Component({
   selector: 'app-labelled-text-display',

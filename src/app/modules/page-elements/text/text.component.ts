@@ -2,8 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { doesNotReject } from 'assert';
 import { filter } from 'rxjs/operators';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
