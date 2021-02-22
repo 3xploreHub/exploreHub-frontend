@@ -57,7 +57,7 @@ export class PageCreatorService {
   }
 
   saveItem(component: ElementValues, parentId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addChildComponent/${this.currentPageId}/${parentId}`, component, {
+    return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
@@ -74,6 +74,8 @@ export class PageCreatorService {
   }
 
   editServiceInfo(component: ElementValues, serviceId: string, infoId: string): Observable<any> {
+    console.log(component);
+    
     return this.http.put(`${this.apiUrl}/editServiceInfo/${this.currentPageId}/${serviceId}/${infoId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
