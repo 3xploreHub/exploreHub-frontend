@@ -8,7 +8,7 @@
       (selectStyle)="applyStyle($event)" (delete)="delete()">
     </app-element-footer>
     <div class="componentWrapper" *ngIf="showStylePopup">
-      <app-style-popup *ngIf="footerData.hasStyle" (cancel)="cancelStyles()" (save)="renderText()"
+      <app-style-popup *ngIf="footerData.hasStyle" (cancel)="cancelStyles()"
         (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-style-popup>
     </div>
   </div>

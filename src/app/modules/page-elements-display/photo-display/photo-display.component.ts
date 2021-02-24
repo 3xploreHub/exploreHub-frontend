@@ -6,15 +6,15 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
   templateUrl: './photo-display.component.html',
   styleUrls: ['./photo-display.component.scss'],
 })
+
 export class PhotoDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() parent: string;
   images: any;
-  constructor() {
 
-  }
+  constructor() {}
 
   ngOnInit() {
     this.images = this.values.data;
   }
-
 }

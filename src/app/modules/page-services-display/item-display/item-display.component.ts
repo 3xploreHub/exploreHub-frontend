@@ -65,6 +65,7 @@ export class ItemDisplayComponent implements OnInit {
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
+      comp.instance.parent = "component"
     }
   }
 }

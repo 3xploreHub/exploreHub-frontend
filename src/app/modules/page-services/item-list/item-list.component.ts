@@ -151,7 +151,10 @@ export class ItemListComponent implements OnInit {
   async showComponentList() {
     const modal = await this.modalController.create({
       component: PageElementListComponent,
-      cssClass: 'componentListModal'
+      cssClass: 'componentListModal',
+      componentProps: { 
+        isInItemList: true,
+      }
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();

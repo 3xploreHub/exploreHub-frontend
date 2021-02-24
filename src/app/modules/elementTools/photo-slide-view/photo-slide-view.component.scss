@@ -1,0 +1,16 @@
+ion-slides {
+    height: 300px;
+    background-color: rgb(124, 122, 122);
+}
+
+.imageHolder {
+    height: 300px;
+    display: flex;
+    // background-color: blue;
+    justify-content: center;
+    align-items: center;
+}
+
+.small {
+    height: 200px !important;
+}

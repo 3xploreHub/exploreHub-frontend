@@ -29,6 +29,8 @@ import { ItemComponent } from "./modules/page-services/item/item.component";
 import { ItemListComponent } from "./modules/page-services/item-list/item-list.component";
 import { ItemDisplayComponent } from "./modules/page-services-display/item-display/item-display.component";
 import { ItemListDisplayComponent } from "./modules/page-services-display/item-list-display/item-list-display.component";
+import { PhotoStyleComponent } from "./modules/elementTools/photo-style/photo-style.component";
+import { PhotoSlideViewComponent } from "./modules/elementTools/photo-slide-view/photo-slide-view.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { ItemListDisplayComponent } from "./modules/page-services-display/item-l
     PhotoDisplayComponent,
     LabelledTextDisplayComponent,
     ItemDisplayComponent,
-    ItemListDisplayComponent
+    ItemListDisplayComponent,
+    PhotoStyleComponent,
+    PhotoSlideViewComponent
   ],
   entryComponents: [],
   imports: [

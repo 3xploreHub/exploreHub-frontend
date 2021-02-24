@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="itemWrapper" (click)="addComponent('photo')">
+        <div [class.hidden]="isInItemList" class="itemWrapper" (click)="addComponent('photo')">
           <div class="itemTitle">Add Photo</div>
           <div class="itemSample imgHolder">
             <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
@@ -40,7 +40,7 @@
           </div>
         </div> -->
 
-        <div class="itemWrapper" (click)="addComponent('item-list')">
+        <div class="itemWrapper" (click)="addComponent('text')">
           <div class="itemTitle">Add bullet form text</div>
           <div class="itemSample imgHolder">
             <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">

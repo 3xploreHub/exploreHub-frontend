@@ -1,19 +1,38 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done; else imageDisplay" class="container">
-    <ion-row>
-      <ion-col [size]="images.length > 1? 6: 12" *ngFor="let img of images" class="ion-text-center">
-        <div class="componentWrapper">
-          <img [src]="img.url" />
-          <ion-fab *ngIf="dataToDelete._id != img._id" vertical="bottom" horizontal="end">
-            <ion-fab-button color="danger" size="small" (click)="removeData(img)">
-              <ion-icon name="trash-outline"></ion-icon>
-            </ion-fab-button>
-          </ion-fab>
-          <app-delete-data *ngIf="dataToDelete._id === img._id" (delete)="deleteImage()" (close)="dataToDelete._id = null"
-            [deleting]="footerData.saving" class="componentPopup"></app-delete-data>
-        </div>
-      </ion-col>
-    </ion-row>
+    <div class="imgWrapper" *ngIf="values.styles[0] == 'view-grid'; else viewSlide">
+      <ion-row>
+        <ion-col [size]="images.length > 2? 6: 12" *ngFor="let img of images" class="ion-text-center">
+          <div class="componentWrapper">
+            <img [src]="img.url" />
+            <ion-fab *ngIf="dataToDelete._id != img._id" vertical="bottom" horizontal="end">
+              <ion-fab-button color="danger" size="small" (click)="removeData(img)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+            <app-delete-data *ngIf="dataToDelete._id === img._id" (delete)="deleteImage()"
+              (close)="dataToDelete._id = null" [deleting]="footerData.saving" class="componentPopup"></app-delete-data>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </div>
+    <ng-template #viewSlide>
+      <ion-slides *ngIf="images.length > 0" scrollbar="true" pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let img of images">
+          <div class="imageHolder componentWrapper">
+            <img [src]="img.url" />
+            <ion-fab *ngIf="dataToDelete._id != img._id" vertical="bottom" horizontal="end">
+              <ion-fab-button color="danger" size="small" (click)="removeData(img)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+            <app-delete-data *ngIf="dataToDelete._id === img._id" (delete)="deleteImage()"
+              (close)="dataToDelete._id = null" [deleting]="footerData.saving" class="componentPopup"></app-delete-data>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ng-template>
 
     <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
     <div class="innerWrapper primColor" [class.shrink]="images.length > 0">
@@ -22,14 +41,20 @@
         <div>{{images.length > 0 ? "Add another photo": "Select Photo"}}</div>
       </div>
     </div>
-    <app-element-footer [data]="footerData" (render)="footerData.done = this.images.length > 0" (delete)="delete()">
+
+    <app-element-footer [data]="footerData" (openStylePopup)="showStylePopup = !showStylePopup"
+      (render)="footerData.done = this.images.length > 0" (delete)="delete()">
     </app-element-footer>
+    <div class="componentWrapper" *ngIf="showStylePopup">
+      <app-photo-style *ngIf="footerData.hasStyle" (cancel)="showStylePopup = false" (save)="renderText()"
+        (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-photo-style>
+    </div>
   </div>
 
   <ng-template #imageDisplay>
     <div class="componentWrapper imageContainer">
-      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="showPopup = false"
-        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+        (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-photo-display (click)="showPopup = true" [values]="values"></app-photo-display>
     </div>
   </ng-template>

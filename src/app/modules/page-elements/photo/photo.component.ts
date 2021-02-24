@@ -27,6 +27,7 @@ export class PhotoComponent implements OnInit {
   public images: Image[] = [];
   public showPopup: boolean = false;
   public dataToDelete: dataToDelete;
+  public showStylePopup: boolean = false;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
 
   constructor(private creator: PageCreatorService,
@@ -45,6 +46,10 @@ export class PhotoComponent implements OnInit {
     }
     this.dataToDelete = { _id: null, url: null }
   }
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
 
   ngOnInit() {
     if (this.values) {
@@ -54,7 +59,7 @@ export class PhotoComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: null, type: "photo", styles: [], data: [], default: false }
+      this.values = { _id: null, type: "photo", styles: ["view-grid"], data: [], default: false }
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -127,6 +132,11 @@ export class PhotoComponent implements OnInit {
     }
   }
 
+  applyStyle(style) {
+    this.values.styles = this.creator.applyStyle(this.values.styles, style);
+    this.saveChanges();
+  }
+
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
@@ -154,6 +164,7 @@ export class PhotoComponent implements OnInit {
   }
 
   deleteImage() {
+    this.dataToDelete._id = null
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
     this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,
@@ -176,6 +187,23 @@ export class PhotoComponent implements OnInit {
           this.footerData.message = "Uploading image..."
         }
       );
+  }
+
+  saveChanges() {
+    this.footerData.saving = true;
+    this.footerData.message = "Saving Changes..."
+    this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      (response) => {
+
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.footerData.saving = false;
+        this.footerData.message = "Uploading image..."
+      }
+    )
   }
 
   delete() {

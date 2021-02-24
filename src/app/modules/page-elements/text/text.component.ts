@@ -58,13 +58,8 @@ export class TextComponent implements OnInit {
     let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
     if (this.values.data.text && this.hasChanges || styleChanged) {
       this.saveChanges(!styleChanged);
-      this.showStylePopup = false;
     } else {
-      if (this.showStylePopup) {
-         this.showStylePopup = false;
-      } else {
         this.footerData.done = this.values.data.text ? true : false;
-      }
     }
   }
 
@@ -72,7 +67,6 @@ export class TextComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
       (response) => { 
-        // this.values = response this is the rivas branch 2 and another changes to commit;
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -117,6 +111,7 @@ export class TextComponent implements OnInit {
 
   applyStyle(style) {
     this.values.styles = this.creator.applyStyle(this.values.styles, style);
+    this.renderText();
   }
   
   changeStyle() {

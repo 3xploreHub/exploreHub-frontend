@@ -1,9 +1,19 @@
 .imageGrid {
     display: grid;
     grid-template-columns: 50% 50%;
+    background-color: rgb(124, 122, 122);
+
+    div {
+        margin:3px;
+    }
 }
 
 .singleCol {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(124, 122, 122);
     display: block !important;
+}
+
+.image {
+    height: 200px !important;
+    width:auto;
 }
