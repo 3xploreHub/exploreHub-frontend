@@ -56,6 +56,12 @@ export class PageCreatorService {
     });
   }
 
+  saveInputField(component: ElementValues, grandParentId: string, parentId: string, parent: string) {
+    return this.http.post(`${this.apiUrl}/saveInputField/${this.currentPageId}/${grandParentId}/${parentId}`, component, {
+      headers: {  hideLoadingIndicator: "true"},
+    })
+  }
+
   saveItem(component: ElementValues, parentId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },

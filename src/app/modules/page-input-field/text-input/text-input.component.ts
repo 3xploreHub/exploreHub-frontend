@@ -48,8 +48,8 @@ export class TextInputComponent implements OnInit {
       console.log(test.split("-"));
       console.log(test.split("-").length);
       
-      this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
-        (response) => {
+      this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+        (response: ElementValues) => {
           this.values = response;
           this.footerData.hasId = true;
         },
