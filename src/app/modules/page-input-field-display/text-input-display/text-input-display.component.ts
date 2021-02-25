@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 
 @Component({
   selector: 'app-text-input-display',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-input-display.component.scss'],
 })
 export class TextInputDisplayComponent implements OnInit {
-
+  @Input() values: ElementValues;
   constructor() { }
 
   ngOnInit() {}

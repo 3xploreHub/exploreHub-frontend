@@ -1,8 +1,8 @@
 <div>
   <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
-    <ion-textarea class="inputLabel" (change)="saveChanges(false)" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
+    <ion-textarea class="inputLabel" (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
     </ion-textarea>
-    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges(false)" [(ngModel)]="values.data.instructions" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.instructions" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
     <ion-item color="transparent">
       <div class="options" slot="end">Required<ion-toggle checked></ion-toggle></div>
@@ -15,7 +15,7 @@
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-text-input-display (click)="showPopup = true"></app-text-input-display>
+      <app-text-input-display [values]="values" (click)="showPopup = true"></app-text-input-display>
     </div>
   </ng-template>
 </div>

@@ -41,4 +41,9 @@ export class ElementFooterComponent implements OnInit {
     }
   }
 
+  cancelDelete() {
+    this.openDeleteCon.emit();
+    this.delClicked = false
+  }
+
 }

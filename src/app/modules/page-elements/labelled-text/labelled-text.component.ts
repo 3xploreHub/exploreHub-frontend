@@ -18,7 +18,6 @@ export class LabelledTextComponent implements OnInit {
   public showPopup: boolean = false;
   public lastValue: string = null;
   public hasChanges: boolean = false;
-  public clickOtherFunction: boolean = false;
   public clickedDone: boolean = false;
   public pending: boolean = false;
 
@@ -81,12 +80,10 @@ export class LabelledTextComponent implements OnInit {
               this.presentAlert("Oops! Something went wrong. Please try again later!")
             },
             () => {
-              let hasValue = this.values.data.label && this.values.data.text ? true : false;
-              let done = hasChanges && hasValue ? true : false
-              this.footerData.hasValue = hasValue
-              this.clickedDone = false
+              this.footerData.hasValue = this.values.data.label && this.values.data.text ? true : false;
               this.pending = false
-              done = this.clickedDone? true: done;
+              let done = this.clickedDone ? true : false;
+              this.clickedDone = false
               this.done(done);
             }
           )
@@ -124,13 +121,10 @@ export class LabelledTextComponent implements OnInit {
   }
 
   done(done: boolean = true) {
-    if (!this.clickOtherFunction) {
-      this.footerData.done = done;
-    }
+    this.footerData.done = done;
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
     this.hasChanges = false;
-    this.clickOtherFunction = false;
   }
 
   edit() {

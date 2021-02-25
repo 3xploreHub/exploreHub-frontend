@@ -15,7 +15,6 @@ export class TextInputComponent implements OnInit {
   @Input() parentId: string;
   @Input() parent: string;
   @Input() grandParentId: string;
-  public clickOtherFunction: boolean = false;
   public pending: boolean = false;
   public clickedDone: boolean = false;
 
@@ -73,11 +72,8 @@ export class TextInputComponent implements OnInit {
   }
 
   done(done: boolean = true) {
-    if (!this.clickOtherFunction) {
-      this.footerData.done = done;
-    }
+    this.footerData.done = done;
     this.footerData.saving = false;
-    this.clickOtherFunction = false;
     this.clickedDone = false;
   }
 
@@ -86,26 +82,24 @@ export class TextInputComponent implements OnInit {
     this.showPopup = false;
   }
 
-  saveChanges(isDone: boolean = true) {
+  saveChanges() {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label ? true : false
-    if (this.footerData.hasValue) {
-      setTimeout(() => {
-        this.footerData.saving = true;
-        this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
-          (response) => {
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.pending = false;
-            isDone = this.clickedDone ? true : isDone;
-            this.done(isDone);
-          }
-        )
-      }, 300);
-    }
+    setTimeout(() => {
+      this.footerData.saving = true;
+      this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+        (response) => {
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.pending = false;
+          let isDone = this.clickedDone ? true : false;
+          this.done(isDone);
+        }
+      )
+    }, 300);
   }
 
   async presentAlert(message) {
