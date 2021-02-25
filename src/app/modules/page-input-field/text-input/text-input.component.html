@@ -5,7 +5,7 @@
     <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.instructions" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
     <ion-item color="transparent">
-      <div class="options" slot="end">Required<ion-toggle checked></ion-toggle></div>
+      <div class="options" slot="end">Required<ion-toggle (click)="saveChanges()"  [(ngModel)]="values.data.required" checked></ion-toggle></div>
     </ion-item>
     <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
       (openStylePopup)="changeStyle()" (selectStyle)="applyStyle($event)" (delete)="delete()">
