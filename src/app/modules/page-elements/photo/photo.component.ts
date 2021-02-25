@@ -164,9 +164,9 @@ export class PhotoComponent implements OnInit {
   }
 
   deleteImage() {
-    this.dataToDelete._id = null
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
+    alert(this.dataToDelete._id)
     this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,
       this.dataToDelete.url,
       this.dataToDelete._id).subscribe(
