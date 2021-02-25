@@ -1,7 +1,7 @@
 <div class="creator">
     <ng-template #pageElement></ng-template>
     <br />
-    <div class="addInfo">
+    <div *ngIf="!preview" class="addInfo">
         <h6>Add other information.</h6>
         <p>Click <b>Add Field</b> to select component that you can use to present other information about the tourist
             spot.</p>
@@ -16,7 +16,7 @@
         </div>
         <ng-template #pageService></ng-template>
 
-        <div class="addInfo">
+        <div *ngIf="!preview" class="addInfo">
             <h6>Add services or something you offer.</h6>
             <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities that
                 you
@@ -27,10 +27,10 @@
     </div>
     <div class="servicesSection bookingInfoSection">
         <div class="divider">
-            <h4>Booking Info</h4>
+            <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
         </div>
         <ng-template #pageInputField></ng-template>
-        <div class="addInfo">
+        <div *ngIf="!preview" class="addInfo">
             <h6>Add needed informations for booking.</h6>
 
             <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information that they need to provide to make an arrangement.</p>
@@ -39,4 +39,5 @@
             </div>
         </div>
     </div>
+    <div class="preview" (click)="preview = !preview">{{preview ? "Edit Page": "Preview | hide add fields button"}}</div>
 </div>

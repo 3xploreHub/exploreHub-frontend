@@ -28,6 +28,7 @@ export class PageCreatorComponent implements OnInit {
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   public page: TouristSpotPage;
+  public preview: boolean = false;
   components = {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
@@ -51,44 +52,48 @@ export class PageCreatorComponent implements OnInit {
     this.page = page;
     this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
-      this.renderComponent(this.pageElement, component.type, component)
+      this.renderComponent(this.pageElement, component, "page")
     })
     this.page.services.forEach((component: any) => {
-      this.renderComponent(this.pageService, component.type, component)
+      this.renderComponent(this.pageService, component, "page")
+    })
+
+    this.page.bookingInfo.forEach((component: any) => {
+      this.renderComponent(this.pageInputField, component, "page_booking_info")
     })
   }
 
   showComponentList() {
-    return this.showModal(this.pageElement, PageElementListComponent);
+    return this.showModal(this.pageElement, PageElementListComponent, "page");
   }
 
   showServicesComponentList() {
-    return this.showModal(this.pageService, PageServicesListComponent);
+    return this.showModal(this.pageService, PageServicesListComponent, "page");
   }
 
   showInputFieldList() {
-    return this.showModal(this.pageInputField, PageInputFieldListComponent);
+    return this.showModal(this.pageInputField, PageInputFieldListComponent, "page_booking_info");
   }
 
-  async showModal(type: ViewContainerRef, List: any) {
+  async showModal(type: ViewContainerRef, List: any, parent: string) {
     const modal = await this.modalController.create({
       component: List,
       cssClass: 'componentListModal'
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(type, data, null);
+    this.renderComponent(type, {type: data, unSaved: true}, parent);
 
     return present;
   }
 
-  renderComponent(type: ViewContainerRef, componentName: string, componentValues: any) {
-    if (componentName) {
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+  renderComponent(type: ViewContainerRef, componentValues: any, parent) {
+    if (componentValues.type) {
+      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
       const comp = type.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
+      comp.instance.values = componentValues.unSaved ? null: componentValues;
       comp.instance.parentId = this.page._id;
-      comp.instance.parent = "page";
+      comp.instance.parent = parent;
     }
   }
 

@@ -1,3 +1,21 @@
-<p>
-  text-input works!
-</p>
+<div>
+  <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
+    <ion-textarea class="inputLabel" auto-grow="true" rows="1" placeholder="Enter label here">
+    </ion-textarea>
+    <ion-textarea class="inputLabel otherInfo" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    </ion-textarea>
+    <ion-item color="transparent">
+      <div class="options" slot="end">Required<ion-toggle checked></ion-toggle></div>
+    </ion-item>
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (openStylePopup)="changeStyle()" (selectStyle)="applyStyle($event)" (delete)="delete()">
+    </app-element-footer>
+  </div>
+  <ng-template #textInputDisplay>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+        (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-text-input-display (click)="showPopup = true"></app-text-input-display>
+    </div>
+  </ng-template>
+</div>

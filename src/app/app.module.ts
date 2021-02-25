@@ -31,6 +31,14 @@ import { ItemDisplayComponent } from "./modules/page-services-display/item-displ
 import { ItemListDisplayComponent } from "./modules/page-services-display/item-list-display/item-list-display.component";
 import { PhotoStyleComponent } from "./modules/elementTools/photo-style/photo-style.component";
 import { PhotoSlideViewComponent } from "./modules/elementTools/photo-slide-view/photo-slide-view.component";
+import { TextInputComponent } from "./modules/page-input-field/text-input/text-input.component";
+import { TextInputDisplayComponent } from "./modules/page-input-field-display/text-input-display/text-input-display.component";
+import { NumberInputComponent } from "./modules/page-input-field/number-input/number-input.component";
+import { NumberInputDisplayComponent } from "./modules/page-input-field-display/number-input-display/number-input-display.component";
+import { DateInputComponent } from "./modules/page-input-field/date-input/date-input.component";
+import { DateInputDisplayComponent } from "./modules/page-input-field-display/date-input-display/date-input-display.component";
+import { ChoicesInputComponent } from "./modules/page-input-field/choices-input/choices-input.component";
+import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display/choices-input-display/choices-input-display.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +59,15 @@ import { PhotoSlideViewComponent } from "./modules/elementTools/photo-slide-view
     ItemDisplayComponent,
     ItemListDisplayComponent,
     PhotoStyleComponent,
-    PhotoSlideViewComponent
+    PhotoSlideViewComponent,
+    TextInputComponent,
+    TextInputDisplayComponent,
+    NumberInputComponent,
+    NumberInputDisplayComponent,
+    DateInputComponent,
+    DateInputDisplayComponent,
+    ChoicesInputComponent,
+    ChoicesInputDisplayComponent
   ],
   entryComponents: [],
   imports: [

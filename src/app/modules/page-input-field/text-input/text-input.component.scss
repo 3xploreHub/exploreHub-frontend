@@ -1,0 +1,31 @@
+.inputWrapper {
+    margin:10px 0;
+    padding: 5px 10px 0px 10px;
+    background: lightgray;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.inputLabel {
+    box-sizing: border-box;
+    text-align: left;
+    padding:0 10px;
+    margin-top:5px;
+    // background-color: rgb(199, 199, 199);
+    background: #ffff;
+    font-size: 18px;
+    background-color: none;
+}
+
+.ion-item {
+    background-color: transparent !important;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+}
+
+.otherInfo {
+    font-size: 15px;
+}

@@ -51,22 +51,20 @@ export class TextComponent implements OnInit {
         this.values.styles = this.creator.applyStyle(this.values.styles, "font-small");
       }
       this.footerData.message = "Adding Field..."
-      this.addComponent(false, this.parent);
+      this.addComponent(false);
     }
   }
 
 
   renderText() {
-    // if (this.clickOtherFunction) {
-      let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
-      if (this.values.data.text && this.hasChanges || styleChanged) {
-        this.saveChanges(!styleChanged);
-      } else {
-        if (!this.pending) {
-          this.footerData.done = this.values.data.text ? true : false;
-        }
+    let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
+    if (this.values.data.text && this.hasChanges || styleChanged) {
+      this.saveChanges(!styleChanged);
+    } else {
+      if (!this.pending) {
+        this.footerData.done = this.values.data.text ? true : false;
       }
-    // }
+    }
   }
 
   saveChanges(isDone: boolean = true) {
@@ -87,10 +85,9 @@ export class TextComponent implements OnInit {
     }, 300);
   }
 
-  addComponent(isDone: boolean = true, parent: string) {
+  addComponent(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.values.styles
-    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
+    this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
