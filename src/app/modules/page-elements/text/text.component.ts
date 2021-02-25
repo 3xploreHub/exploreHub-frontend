@@ -69,20 +69,23 @@ export class TextComponent implements OnInit {
 
   saveChanges(isDone: boolean = true) {
     this.pending = true;
-    setTimeout(() => {
-      this.footerData.saving = true;
-      this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
-        (response) => {
-        },
-        (error) => {
-          this.presentAlert("Oops! Something went wrong. Please try again later!")
-        },
-        () => {
-          this.pending = false;
-          this.done(isDone);
-        }
-      )
-    }, 300);
+    this.footerData.hasValue = this.values.data.text ? true : false;
+    if (this.footerData.hasValue) {
+      setTimeout(() => {
+        this.footerData.saving = true;
+        this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+          (response) => {
+          },
+          (error) => {
+            this.presentAlert("Oops! Something went wrong. Please try again later!")
+          },
+          () => {
+            this.pending = false;
+            this.done(isDone);
+          }
+        )
+      }, 300);
+    }
   }
 
   addComponent(isDone: boolean = true) {

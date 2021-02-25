@@ -35,4 +35,10 @@ export class ElementFooterComponent implements OnInit {
     this.openDeleteCon.emit();
   }
 
+  done() {
+    if (this.data.hasValue) {
+      this.render.emit()
+    }
+  }
+
 }

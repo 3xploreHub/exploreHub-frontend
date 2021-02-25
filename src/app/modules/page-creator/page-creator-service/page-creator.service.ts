@@ -62,6 +62,12 @@ export class PageCreatorService {
     })
   }
 
+  editInputField(inputField: ElementValues, grandParentId: string, parentId: string, parent: string) {
+    return this.http.put(`${this.apiUrl}/editInputField/${this.currentPageId}/${grandParentId}/${parentId}`, inputField, {
+      headers: { hideLoadingIndicator: "true" },
+    })
+  }
+
   saveItem(component: ElementValues, parentId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
@@ -71,7 +77,7 @@ export class PageCreatorService {
   editComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
     if (parent == "service") {
       return this.editServiceInfo(component, parentId, component._id)
-    } 
+    }
     const componentGroup = parent == "page" ? "editComponent" : "editChildComponent";
     const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.put(`${this.apiUrl}/${componentGroup}/${params}`, component, {

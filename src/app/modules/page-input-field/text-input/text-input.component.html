@@ -1,8 +1,8 @@
 <div>
   <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
-    <ion-textarea class="inputLabel" auto-grow="true" rows="1" placeholder="Enter label here">
+    <ion-textarea class="inputLabel" (change)="saveChanges(false)" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
     </ion-textarea>
-    <ion-textarea class="inputLabel otherInfo" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges(false)" [(ngModel)]="values.data.instructions" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
     <ion-item color="transparent">
       <div class="options" slot="end">Required<ion-toggle checked></ion-toggle></div>

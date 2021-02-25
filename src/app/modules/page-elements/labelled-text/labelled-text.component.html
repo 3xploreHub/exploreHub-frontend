@@ -16,7 +16,7 @@
           placeholder="Enter text here">
         </ion-textarea>
       </div>
-      <app-element-footer [data]="footerData" (render)="renderText()" (delete)="delete()"></app-element-footer>
+      <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="clickFooterDone()" (delete)="delete()"></app-element-footer>
     </div>
   </div>
   <ng-template #display>

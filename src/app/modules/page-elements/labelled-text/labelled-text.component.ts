@@ -18,6 +18,9 @@ export class LabelledTextComponent implements OnInit {
   public showPopup: boolean = false;
   public lastValue: string = null;
   public hasChanges: boolean = false;
+  public clickOtherFunction: boolean = false;
+  public clickedDone: boolean = false;
+  public pending: boolean = false;
 
   constructor(
     public creator: PageCreatorService,
@@ -59,31 +62,39 @@ export class LabelledTextComponent implements OnInit {
 
   renderText(hasChanges = false) {
     this.hasChanges = hasChanges;
-    this.values.data.label = this.values.data.label ? this.values.data.label.trim() : null;
-    this.values.data.text = this.values.data.text ? this.values.data.text.trim() : null;
-    if (hasChanges) {
-      this.footerData.hasValue = this.values.data.label || this.values.data.text ? true: false;
-    }
+    let label = this.values.data.label;
+    let text = this.values.data.text;
+    this.values.data.label = label ? label.trim() : null;
+    this.values.data.text = text ? text.trim() : null;
+    this.footerData.hasValue = (label || text) || (label && text) ? true : false;
+    this.pending = true;
     if (this.footerData.hasValue) {
-      if (this.hasChanges) {
-        this.footerData.saving = true;
-        this.creator.editComponent(this.values,this.grandParentId, this.parentId, this.parent).subscribe(
-          (response) => {
-            // this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            let hasValue = this.values.data.label && this.values.data.text;
-            let done = hasChanges && hasValue? true: false
-            this.footerData.hasValue = hasValue
-            this.done(done);
-          }
-        )
-      } else {
-        this.footerData.done = true;
-      }
+      setTimeout(() => {
+
+        if (this.hasChanges) {
+          this.footerData.saving = true;
+          this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+            (response) => {
+              // this.values = response;
+            },
+            (error) => {
+              this.presentAlert("Oops! Something went wrong. Please try again later!")
+            },
+            () => {
+              let hasValue = this.values.data.label && this.values.data.text ? true : false;
+              let done = hasChanges && hasValue ? true : false
+              this.footerData.hasValue = hasValue
+              this.clickedDone = false
+              this.pending = false
+              done = this.clickedDone? true: done;
+              this.done(done);
+            }
+          )
+        } else {
+          this.footerData.done = true;
+        }
+      }, 300);
+
     } else {
       this.footerData.hasValue = false;
     }
@@ -105,11 +116,21 @@ export class LabelledTextComponent implements OnInit {
     )
   }
 
+  clickFooterDone() {
+    this.clickedDone = true
+    if (!this.pending) {
+      this.footerData.done = true;
+    }
+  }
+
   done(done: boolean = true) {
-    this.footerData.done = done;
+    if (!this.clickOtherFunction) {
+      this.footerData.done = done;
+    }
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
     this.hasChanges = false;
+    this.clickOtherFunction = false;
   }
 
   edit() {
