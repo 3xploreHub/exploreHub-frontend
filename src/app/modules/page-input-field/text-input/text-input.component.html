@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!footerData.deleted">
   <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
     <ion-textarea class="inputLabel" (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
     </ion-textarea>
@@ -7,8 +7,7 @@
     <ion-item color="transparent">
       <div class="options" slot="end">Required<ion-toggle (click)="saveChanges()"  [(ngModel)]="values.data.required" checked></ion-toggle></div>
     </ion-item>
-    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
-      (openStylePopup)="changeStyle()" (selectStyle)="applyStyle($event)" (delete)="delete()">
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()" (delete)="delete()">
     </app-element-footer>
   </div>
   <ng-template #textInputDisplay>

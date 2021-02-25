@@ -93,6 +93,12 @@ export class PageCreatorService {
     });
   }
 
+  deleteInputField(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deleteInputField/${this.currentPageId}/${grandParentId}/${parentId}/${childId}`, { images: images }, {
+      headers: { hideLoadingIndicator: "true" },
+    })
+  }
+
   deleteComponent(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
     if (parent == "service") return this.deleteItem(parentId, childId)
     const componentGroup = parent == "page" ? "deleteComponent" : "deleteItemChild";

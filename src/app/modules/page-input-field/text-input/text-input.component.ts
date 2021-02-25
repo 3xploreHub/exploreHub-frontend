@@ -42,13 +42,6 @@ export class TextInputComponent implements OnInit {
       this.values = { _id: "", type: "text-input", styles: [], data: { label: null, instructions: null, required: true, value: null }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
-      alert(this.parent)
-      console.log("grand: ", this.grandParentId);
-      console.log("grand: ", this.parentId);
-      let test = "test"
-      console.log(test.split("-"));
-      console.log(test.split("-").length);
-
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response: ElementValues) => {
           this.values = response;
@@ -100,6 +93,26 @@ export class TextInputComponent implements OnInit {
         }
       )
     }, 300);
+  }
+
+  delete() {
+    if (this.values._id) {
+      this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
+      this.creator.deleteInputField(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done(false)
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
   }
 
   async presentAlert(message) {

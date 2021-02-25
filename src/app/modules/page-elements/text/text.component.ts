@@ -40,8 +40,8 @@ export class TextComponent implements OnInit {
 
   ngOnInit() {
     if (this.values) {
-      this.footerData.done = this.values.data.text != null;
-      this.footerData.hasValue = this.values.data.text != null;
+      this.footerData.done =this.values.data.text? true : false;
+      this.footerData.hasValue = this.values.data.text? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
       this.oldStyles = this.values.styles;
@@ -70,7 +70,6 @@ export class TextComponent implements OnInit {
   saveChanges(isDone: boolean = true) {
     this.pending = true;
     this.footerData.hasValue = this.values.data.text ? true : false;
-    if (this.footerData.hasValue) {
       setTimeout(() => {
         this.footerData.saving = true;
         this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -81,11 +80,12 @@ export class TextComponent implements OnInit {
           },
           () => {
             this.pending = false;
+            isDone = this.footerData.hasValue;
             this.done(isDone);
           }
         )
       }, 300);
-    }
+    
   }
 
   addComponent(isDone: boolean = true) {
