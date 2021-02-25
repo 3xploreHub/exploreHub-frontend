@@ -7,6 +7,11 @@ import { ElementValues } from '../elementTools/interfaces/ElementValues';
 import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
+import { PageInputFieldListComponent } from '../page-input-field-list/page-input-field-list.component';
+import { ChoicesInputComponent } from '../page-input-field/choices-input/choices-input.component';
+import { DateInputComponent } from '../page-input-field/date-input/date-input.component';
+import { NumberInputComponent } from '../page-input-field/number-input/number-input.component';
+import { TextInputComponent } from '../page-input-field/text-input/text-input.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';
 import { ItemListComponent } from '../page-services/item-list/item-list.component';
 import { ItemComponent } from '../page-services/item/item.component';
@@ -21,12 +26,17 @@ import { PageCreatorService } from './page-creator-service/page-creator.service'
 export class PageCreatorComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
+  @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   public page: TouristSpotPage;
   components = {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
-    'item-list': ItemListComponent
+    'item-list': ItemListComponent,
+    'text-input': TextInputComponent,
+    'number-input':NumberInputComponent,
+    'date-input': DateInputComponent,
+    'choices-input': ChoicesInputComponent
   }
 
   constructor(public modalController: ModalController,
@@ -48,12 +58,16 @@ export class PageCreatorComponent implements OnInit {
     })
   }
 
-  async showComponentList() {
+  showComponentList() {
     return this.showModal(this.pageElement, PageElementListComponent);
   }
 
   showServicesComponentList() {
     return this.showModal(this.pageService, PageServicesListComponent);
+  }
+
+  showInputFieldList() {
+    return this.showModal(this.pageInputField, PageInputFieldListComponent);
   }
 
   async showModal(type: ViewContainerRef, List: any) {

@@ -166,7 +166,6 @@ export class PhotoComponent implements OnInit {
   deleteImage() {
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
-    alert(this.dataToDelete._id)
     this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,
       this.dataToDelete.url,
       this.dataToDelete._id).subscribe(
@@ -232,7 +231,6 @@ export class PhotoComponent implements OnInit {
     this.showPopup = false;
     this.footerData.done = false;
   }
-
 
   // Helper function
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript

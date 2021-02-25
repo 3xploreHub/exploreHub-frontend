@@ -12,6 +12,8 @@ export class ElementFooterComponent implements OnInit {
   @Output() delete: EventEmitter<any> = new EventEmitter();
   @Output() selectStyle: EventEmitter<string> = new EventEmitter();
   @Output() openStylePopup: EventEmitter<any> = new EventEmitter();
+  @Output() openDeleteCon: EventEmitter<any> = new EventEmitter();
+  delClicked = false;
 
   constructor() {
     this.data = {
@@ -27,5 +29,10 @@ export class ElementFooterComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  clickDelete() {
+    this.delClicked = true;
+    this.openDeleteCon.emit();
+  }
 
 }
