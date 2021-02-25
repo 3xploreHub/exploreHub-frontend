@@ -10,11 +10,13 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 export class PhotoDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parent: string;
+  public gridStyle;
   images: any;
 
   constructor() {}
 
   ngOnInit() {
     this.images = this.values.data;
+    this.gridStyle = this.values.data.length == 1? true: this.values.styles[0] == 'view-grid'
   }
 }
