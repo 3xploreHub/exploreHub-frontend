@@ -14,3 +14,11 @@ ion-slides {
 .small {
     height: 200px !important;
 }
+
+.imageCont {
+    height:180px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

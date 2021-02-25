@@ -3,8 +3,8 @@
     <div class="imgWrapper" *ngIf="values.styles[0] == 'view-grid'; else viewSlide">
       <ion-row>
         <ion-col [size]="images.length > 2? 6: 12" *ngFor="let img of images" class="ion-text-center">
-          <div class="componentWrapper">
-            <img [src]="img.url" />
+          <div class="componentWrapper imageCont" style="background-image: url({{img.url}})">
+            <!-- <img [src]="img.url" /> -->
             <ion-fab *ngIf="dataToDelete._id != img._id" vertical="bottom" horizontal="end">
               <ion-fab-button color="danger" size="small" (click)="removeData(img)">
                 <ion-icon name="trash-outline"></ion-icon>

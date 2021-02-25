@@ -72,3 +72,12 @@ ion-slides {
     justify-content: center;
     align-items: center;
 }
+
+.imageCont {
+    box-sizing: border-box;
+    height:180px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

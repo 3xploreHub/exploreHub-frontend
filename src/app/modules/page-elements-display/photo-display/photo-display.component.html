@@ -1,7 +1,7 @@
 <div *ngIf="values.data.length > 0">
   <div class="imageGrid" [class.singleCol]="values.data.length <= 2" *ngIf="values.styles[0] == 'view-grid'; else slide">
-    <div *ngFor="let img of values.data; let i = index;" class="ion-text-center">
-      <img class="image" [src]="img.url" />
+    <div style="background-image: url({{img.url}})" *ngFor="let img of values.data; let i = index;" class="imageCont ion-text-center">
+      <!-- <img class="image" [src]="img.url" /> -->
     </div>
   </div>
   <ng-template #slide>
