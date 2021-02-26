@@ -61,6 +61,7 @@ export class TextInputComponent implements OnInit {
     this.clickedDone = true;
     if (!this.pending) {
       this.footerData.done = true;
+      this.clickedDone = false;
     }
   }
 

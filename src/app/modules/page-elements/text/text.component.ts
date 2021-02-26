@@ -81,6 +81,7 @@ export class TextComponent implements OnInit {
           () => {
             this.pending = false;
             isDone = this.footerData.hasValue;
+            isDone = this.showStylePopup? false: isDone;
             this.done(isDone);
           }
         )
