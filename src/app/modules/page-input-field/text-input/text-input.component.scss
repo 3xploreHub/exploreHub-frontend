@@ -21,11 +21,24 @@
     background-color: transparent !important;
 }
 
+
+.otherInfo {
+    font-size: 15;
+}
+
+.off {
+    color: gray !important;
+}
+
 .options {
     display: flex;
     align-items: center;
 }
 
-.otherInfo {
-    font-size: 15px;
+.required {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    margin:5px 0;
+    background-color: rgb(199, 199, 199);
 }

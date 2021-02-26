@@ -29,3 +29,59 @@
 .otherInfo {
     font-size: 15px;
 }
+
+.limitValue {
+    background-color: #ffff;
+    box-sizing: border-box;
+    padding: 3px 10px !important;
+    width: 100%;
+}
+
+.off {
+    color:gray !important;
+}
+
+.row {
+    border-color: transparent !important;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.limitOpt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 15px;
+    margin:5px 0;
+    flex-flow: 1;
+
+    background-color: rgb(199, 199, 199);
+
+}
+
+.switchLimit {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.required {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    margin:5px 0;
+    background-color: rgb(199, 199, 199);
+}

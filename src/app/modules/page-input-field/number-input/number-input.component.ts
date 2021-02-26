@@ -34,12 +34,13 @@ export class NumberInputComponent implements OnInit {
 
   ngOnInit() {
     if (this.values) {
-      this.footerData.done = this.values.data.label;
+      let result = this.validateLimitRange();
+      this.footerData.done = result == "valid" ? this.values.data.label ? true : false : false;
       this.footerData.hasValue = this.values.data.label;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "text-input", styles: [], data: { label: null, instructions: null, required: true, value: null }, default: false };
+      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, required: true, value: null, min: { on: false, value: null }, max: { on: false, value: null } }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -60,7 +61,11 @@ export class NumberInputComponent implements OnInit {
   render() {
     this.clickedDone = true;
     if (!this.pending) {
-      this.footerData.done = true;
+      if (this.validateLimitRange() == "valid") {
+        this.footerData.done = true;
+      } else {
+        this.presentAlert(this.validateLimitRange());
+      }
     }
   }
 
@@ -78,21 +83,41 @@ export class NumberInputComponent implements OnInit {
   saveChanges() {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label ? true : false
-    setTimeout(() => {
-      this.footerData.saving = true;
-      this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
-        (response) => {
-        },
-        (error) => {
-          this.presentAlert("Oops! Something went wrong. Please try again later!")
-        },
-        () => {
-          this.pending = false;
-          let isDone = this.clickedDone ? true : false;
-          this.done(isDone);
-        }
-      )
-    }, 300);
+    let result = this.validateLimitRange()
+    if (result == "valid") {
+      setTimeout(() => {
+        this.footerData.saving = true;
+        this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+          (response) => {
+          },
+          (error) => {
+            this.presentAlert("Oops! Something went wrong. Please try again later!")
+          },
+          () => {
+            this.pending = false;
+            let isDone = this.clickedDone ? true : false;
+            this.done(isDone);
+          }
+        )
+      }, 300);
+    }
+    else {
+      this.presentAlert(result);
+    }
+  }
+
+  validateLimitRange() {
+    let data = this.values.data;
+    if ((data.min.value && data.max.value) && (data.min.value > data.max.value)) {
+      return "Invalid limit range!"
+    } else if (data.max.on && !data.max.value && data.min.on && !data.min.value) {
+      return "Please provide min and max value"
+    } else if (data.min.on && !data.min.value) {
+      return "Please provide min value"
+    } else if (data.max.on && !data.max.value) {
+      return "Please provide max value"
+    }
+    return "valid"
   }
 
   delete() {

@@ -1,13 +1,18 @@
 <div *ngIf="!footerData.deleted">
   <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
-    <ion-textarea class="inputLabel" (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
+    <ion-textarea class="inputLabel" (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1"
+      placeholder="Enter label here">
     </ion-textarea>
-    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.instructions" auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.instructions"
+      auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
-    <ion-item color="transparent">
-      <div class="options" slot="end">Required<ion-toggle (click)="saveChanges()"  [(ngModel)]="values.data.required" checked></ion-toggle></div>
-    </ion-item>
-    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()" (delete)="delete()">
+    <div class="required">
+      <div [class.off]="!values.data.required" class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()" [(ngModel)]="values.data.required"
+          checked></ion-toggle>
+      </div>
+    </div>
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
     </app-element-footer>
   </div>
   <ng-template #textInputDisplay>
