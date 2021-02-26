@@ -17,6 +17,9 @@ export class NumberInputComponent implements OnInit {
   @Input() grandParentId: string;
   public pending: boolean = false;
   public clickedDone: boolean = false;
+  public MinError: boolean = false;
+  public rangeError: boolean = false;
+  public erroredAlready: boolean = false;
 
   public showPopup: boolean = false;
   constructor(public creator: PageCreatorService, public alert: AlertController) {
@@ -40,7 +43,7 @@ export class NumberInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, required: true, value: null, min: { on: false, value: null }, max: { on: false, value: null } }, default: false };
+      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, required: true, value: null, min:  null , max:  null} , default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -56,6 +59,7 @@ export class NumberInputComponent implements OnInit {
         }
       )
     }
+
   }
 
   render() {
@@ -64,15 +68,35 @@ export class NumberInputComponent implements OnInit {
       if (this.validateLimitRange() == "valid") {
         this.footerData.done = true;
       } else {
-        this.presentAlert(this.validateLimitRange());
+        if (!this.erroredAlready) {
+          this.presentAlert(this.validateLimitRange());
+          this.erroredAlready = true;
+        } else {
+          this.erroredAlready = false;
+        }
       }
+      this.clickedDone = false;
+
     }
   }
 
   done(done: boolean = true) {
+    if (this.clickedDone) {
+      let result = this.validateLimitRange()
+      if (result != "valid") {
+        done = false;
+        if (!this.erroredAlready) {
+          this.presentAlert(result);
+          this.erroredAlready = true;
+        } else {
+          this.erroredAlready = true;
+        }
+      }
+    }
     this.footerData.done = done;
     this.footerData.saving = false;
     this.clickedDone = false;
+    this.erroredAlready = false;
   }
 
   edit() {
@@ -83,40 +107,36 @@ export class NumberInputComponent implements OnInit {
   saveChanges() {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label ? true : false
-    let result = this.validateLimitRange()
-    if (result == "valid") {
-      setTimeout(() => {
-        this.footerData.saving = true;
-        this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
-          (response) => {
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.pending = false;
-            let isDone = this.clickedDone ? true : false;
-            this.done(isDone);
-          }
-        )
-      }, 300);
-    }
-    else {
-      this.presentAlert(result);
-    }
+
+    setTimeout(() => {
+
+      this.footerData.saving = true;
+      this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+        (response) => {
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+
+          this.pending = false;
+          let isDone = this.clickedDone ? true : false;
+          this.done(isDone);
+
+        }
+      )
+
+    }, 300);
+
   }
 
   validateLimitRange() {
     let data = this.values.data;
-    if ((data.min.value && data.max.value) && (data.min.value > data.max.value)) {
+    this.rangeError = false
+    if ((data.min && data.max || data.max == 0) && (data.min > data.max)) {
+      this.rangeError = true;
       return "Invalid limit range!"
-    } else if (data.max.on && !data.max.value && data.min.on && !data.min.value) {
-      return "Please provide min and max value"
-    } else if (data.min.on && !data.min.value) {
-      return "Please provide min value"
-    } else if (data.max.on && !data.max.value) {
-      return "Please provide max value"
-    }
+    } 
     return "valid"
   }
 

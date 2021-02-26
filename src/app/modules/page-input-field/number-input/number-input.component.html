@@ -8,22 +8,20 @@
     </ion-textarea>
     <div class="row">
       <div class="limitOpt">
-        <div [class.off]="!values.data.min.on" class="options">
-          Minimum<ion-toggle (click)="saveChanges()" [(ngModel)]="values.data.min.on" [checked]="values.data.min.on">
-          </ion-toggle>
+        <div  class="options">
+          Minimum
         </div>
-        <ion-input (change)="saveChanges()" [disabled]="!values.data.min.on" type="number" class="limitValue"
-          [(ngModel)]="values.data.min.value" placeholder="Enter minimum">
+        <ion-input [class.error]="rangeError" (change)="saveChanges()"  type="number" class="limitValue"
+          [(ngModel)]="values.data.min" placeholder="Enter minimum">
         </ion-input>
         
       </div>
       <div class="limitOpt">
-        <div [class.off]="!values.data.max.on" class="options">
-          Maximum<ion-toggle (click)="saveChanges()" [(ngModel)]="values.data.max.on" [checked]="values.data.max.on">
-          </ion-toggle>
+        <div class="options">
+          Maximum
         </div>
-        <ion-input (change)="saveChanges()" [disabled]="!values.data.max.on" type="number" class="limitValue"
-          [(ngModel)]="values.data.max.value" placeholder="Enter maximum"></ion-input>
+        <ion-input [class.error]="rangeError" (change)="saveChanges()"  type="number" class="limitValue"
+          [(ngModel)]="values.data.max" placeholder="Enter maximum"></ion-input>
       </div>
 
     </div>

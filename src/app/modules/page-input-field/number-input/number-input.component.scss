@@ -71,6 +71,10 @@
     flex-direction: row;
 }
 
+.error {
+    border:1px solid red;
+    background-color: rgb(255, 246, 246) !important;
+}
 
 .options {
     display: flex;
