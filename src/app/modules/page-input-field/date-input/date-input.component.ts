@@ -12,6 +12,7 @@ export class DateInputComponent implements OnInit {
   selectedMonths = [];
   selectedDays = []
   selectedYears = []
+  selectedDates = []
   customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
   customPickerOptions: any;
 
@@ -41,26 +42,26 @@ export class DateInputComponent implements OnInit {
   }
 
   selectMonth(item) {
-    if (this.selectedMonths.includes(item)) {
-      this.selectedMonths = this.selectedMonths.filter(m => m != item)
-    } else {
-      this.selectedMonths.push(item)
-    }
+    this.selectedMonths = this.addOrRemove(this.selectedMonths,item)
   }
 
   selectDay(item) {
-    if (this.selectedDays.includes(item)) {
-      this.selectedDays = this.selectedDays.filter(m => m != item)
-    } else {
-      this.selectedDays.push(item)
-    }
+    this.selectedDays = this.addOrRemove(this.selectedDays,item)
   }
 
   selectYear(item) {
-    if (this.selectedYears.includes(item)) {
-      this.selectedYears = this.selectedYears.filter(m => m != item)
+    this.selectedYears = this.addOrRemove(this.selectedYears,item)
+  }
+  selectDate(item) {
+    this.selectedDates = this.addOrRemove(this.selectedDates,item)
+  }
+
+  addOrRemove(list, item) {
+    if (list.includes(item)) {
+      list = list.filter(m => m != item)
     } else {
-      this.selectedYears.push(item)
+      list.push(item)
     }
+    return list
   }
 }
