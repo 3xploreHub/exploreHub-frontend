@@ -65,9 +65,7 @@
       </div>
     </div>
 
-    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
-      (delete)="delete()">
-    </app-element-footer>
+    
 
     <div *ngIf="customize" class="settings inner">
       <div class="customSetting">
@@ -77,16 +75,16 @@
           </div>
           <div class="selector">
             <div class="dateOption opt2"
-              (click)="showList = !showList; !showList? values.data.customMonths = []: ''; saveChanges()">
-              <ion-checkbox [checked]="values.data.customMonths.length == 0 && !showList"></ion-checkbox>
+              (click)="showMonths = !showMonths; !showMonths? values.data.customMonths = []: ''; saveChanges()">
+              <ion-checkbox [checked]="values.data.customMonths.length == 0 && !showMonths"></ion-checkbox>
               All <br> months
             </div>
             <div class="dateOption opt2"
-              (click)="showList = !showList; !showList? values.data.customMonths = []: ''; saveChanges()">
-              <ion-checkbox [checked]="showList || values.data.customMonths.length > 0"></ion-checkbox>
+              (click)="!showMonths? values.data.customMonths = []: ''; saveChanges()">
+              <ion-checkbox  [(ngModel)]="showMonths" [checked]="showMonths || values.data.customMonths.length > 0"></ion-checkbox>
               Custom
             </div>
-            <div *ngIf="showList || values.data.customMonths.length > 0" class="optList">
+            <div *ngIf="showMonths || values.data.customMonths.length > 0" class="optList">
               <div *ngFor="let month of months" (click)="selectMonth(month); saveChanges()" class="opt">
                 <ion-checkbox [checked]="values.data.customMonths.includes(month)"></ion-checkbox>
                 {{month}}
@@ -102,16 +100,16 @@
           </div>
           <div class="selector">
             <div class="dateOption opt2"
-              (click)="showList2 = !showList2; !showList2? values.data.customYears = []: ''; saveChanges()">
-              <ion-checkbox [checked]="values.data.customYears.length == 0 && !showList2"></ion-checkbox>
+              (click)="showYears = !showYears; !showYears? values.data.customYears = []: ''; saveChanges()">
+              <ion-checkbox [checked]="values.data.customYears.length == 0 && !showYears"></ion-checkbox>
               All <br> Years
             </div>
             <div class="dateOption opt2"
-              (click)="!showList2? values.data.customYears = []: ''; saveChanges()">
-              <ion-checkbox [(ngModel)]="showList2" [checked]="showList2 || values.data.customYears.length > 0"></ion-checkbox>
+              (click)="!showYears? values.data.customYears = []: ''; saveChanges()">
+              <ion-checkbox [(ngModel)]="showYears" [checked]="showYears || values.data.customYears.length > 0"></ion-checkbox>
               Custom
             </div>
-            <div *ngIf="showList2 || values.data.customYears.length > 0" class="optList">
+            <div *ngIf="showYears || values.data.customYears.length > 0" class="optList">
               <div (click)="selectYear(currentYear+1); saveChanges()" class="opt">
                 <ion-checkbox [checked]="values.data.customYears.includes(currentYear+1)"></ion-checkbox>
                 {{currentYear+1}}
@@ -131,16 +129,16 @@
           </div>
           <div class="selector">
             <div class="dateOption opt2"
-              (click)="showList1 = !showList1; !showList1? values.data.customDays = []: ''; saveChanges()">
-              <ion-checkbox [checked]="values.data.customDays.length == 0 && !showList1"></ion-checkbox>
+              (click)="showDays = !showDays; !showDays? values.data.customDays = []: ''; saveChanges()">
+              <ion-checkbox [checked]="values.data.customDays.length == 0 && !showDays"></ion-checkbox>
               All <br> days
             </div>
             <div class="dateOption opt2"
-              (click)="showList1 = !showList1; !showList1? values.data.customDays = []: ''; saveChanges()">
-              <ion-checkbox [checked]="showList1 || values.data.customDays.length > 0"></ion-checkbox>
+              (click)="!showDays? values.data.customDays = []: ''; saveChanges()">
+              <ion-checkbox [(ngModel)]="showDays"  [checked]="showDays || values.data.customDays.length > 0"></ion-checkbox>
               Custom
             </div>
-            <div *ngIf="showList1 || values.data.customDays.length > 0" class="optList">
+            <div *ngIf="showDays || values.data.customDays.length > 0" class="optList">
               <div *ngFor="let day of days" (click)="selectDay(day); saveChanges()" class="opt">
                 <ion-checkbox [checked]="values.data.customDays.includes(day)"></ion-checkbox>
                 {{day}}
@@ -155,16 +153,16 @@
           </div>
           <div class="selector">
             <div class="dateOption opt2"
-              (click)="showList3 = !showList3; !showList3? values.data.customDates = []: ''; saveChanges()">
-              <ion-checkbox [checked]="values.data.customDates.length == 0 && !showList3"></ion-checkbox>
+              (click)="showDates = !showDates; !showDates? values.data.customDates = []: ''; saveChanges()">
+              <ion-checkbox [checked]="values.data.customDates.length == 0 && !showDates"></ion-checkbox>
               All <br> dates
             </div>
             <div class="dateOption opt2"
-              (click)="showList3 = !showList3; !showList3? values.data.customDates = []: ''; saveChanges()">
-              <ion-checkbox [checked]="showList3 || values.data.customDates.length > 0"></ion-checkbox>
+              (click)="!showDates? values.data.customDates = []: ''; saveChanges()">
+              <ion-checkbox [(ngModel)]="showDates" [checked]="showDates || values.data.customDates.length > 0"></ion-checkbox>
               Custom
             </div>
-            <div *ngIf="showList3 || values.data.customDates.length > 0" class="optList">
+            <div *ngIf="showDates || values.data.customDates.length > 0" class="optList">
 
               <div *ngFor="let item of [].constructor(31); let i = index" (click)="selectDate(i); saveChanges()"
                 class="opt">
@@ -176,6 +174,10 @@
         </div>
       </div>
     </div>
+
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
 
   </div>
   <ng-template #display>

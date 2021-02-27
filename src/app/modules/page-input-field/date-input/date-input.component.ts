@@ -20,7 +20,10 @@ export class DateInputComponent implements OnInit {
   public footerData: FooterData;
   erroredAlready = false;
   clickedDone = false;
-  showList2 = false;
+  showYears = false;
+  showMonths = false;
+  showDays = false;
+  showDates = false;
   showPopup = false;
   pending: boolean = false;
   currentYear = new Date().getFullYear()
@@ -71,7 +74,10 @@ export class DateInputComponent implements OnInit {
         }
       )
     }
-    this.showList2 = this.values.data.customYears.length > 0;
+    this.showYears = this.values.data.customYears.length > 0;
+    this.showMonths = this.values.data.customMonths.length > 0;
+    this.showDays = this.values.data.customDays.length > 0;
+    this.showDates = this.values.data.customDates.length > 0;
   }
   done(done: boolean = true) {
     if (this.clickedDone) {
