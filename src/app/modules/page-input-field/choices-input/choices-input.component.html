@@ -1,3 +1,30 @@
-<p>
-  choices-input works!
-</p>
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done; else display" class="wrapper">
+
+    <ion-textarea class="inputLabel" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
+      placeholder="Enter label here">
+    </ion-textarea>
+    <ion-textarea class="inputLabel otherInfo" [(ngModel)]="values.data.instructions" (change)="saveChanges()"
+      auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    </ion-textarea>
+
+    <div class="settings">
+      <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()"
+          [(ngModel)]="values.data.required" [checked]="values.data.required"></ion-toggle>
+      </div>
+    </div>
+
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
+
+  </div>
+  <ng-template #display>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default"
+        (edit)="footerData.done = false; showPopup = false" (delete)="delete()" (close)="showPopup = false"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-choices-input-display (click)="showPopup = true" [values]="values"></app-choices-input-display>
+    </div>
+  </ng-template>
+</div>

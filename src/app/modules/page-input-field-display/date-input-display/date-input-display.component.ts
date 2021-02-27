@@ -34,10 +34,7 @@ export class DateInputDisplayComponent implements OnInit {
       },{
         text: 'Done',
         handler: (date) => {
-          
           const datepicked = new Date(date.year.value, date.month.value-1, date.day.value)
-          console.log(datepicked);
-          console.log(date);
           
           const day = datepicked.getDay();
           if (!this.values.data.customDays.includes(this.allDays[day])) {
@@ -67,11 +64,11 @@ export class DateInputDisplayComponent implements OnInit {
         }
       }
     } else {
-      months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      months = null
     }
     this.months = months;
     this.days = this.values.data.customDates;
-    this.years = this.years.length > 0 ? this.years.sort(function (a, b) { return b - a }) : defaultYears;
+    this.years = this.years.length > 0 ? this.years.sort(function (a, b) { return b - a }) : null;
     this.days = this.days.length > 0 ? this.days.sort(function (a, b) { return a - b }) : null;
   }
 
