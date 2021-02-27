@@ -45,129 +45,137 @@
   <ion-label>D MMM YYYY H:mm</ion-label>
   <ion-datetime displayFormat="D MMM YYYY H:mm" min="1997" max="2010" value="2005-06-17T11:06Z"></ion-datetime>
 </ion-item> -->
-<div>
-<div class="inputWrapper">
-  <ion-textarea class="inputLabel" (change)="saveChanges()" auto-grow="true" rows="1" placeholder="Enter label here">
-  </ion-textarea>
-  <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" auto-grow="true" rows="1"
-    placeholder="Enter other info or instructions here (optional)">
-  </ion-textarea>
+<div *ngIf="!footerData.deleted">
+  <!-- *ngIf="!footerData.done; else display" -->
+  <div  class="inputWrapper">
+    <ion-textarea class="inputLabel" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1" placeholder="Enter label here">
+    </ion-textarea>
+    <ion-textarea class="inputLabel otherInfo" [(ngModel)]="values.data.instructions" (change)="saveChanges()" auto-grow="true" rows="1"
+      placeholder="Enter other info or instructions here (optional)">
+    </ion-textarea>
 
-  <div class="settings">
-    <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()" checked></ion-toggle>
+    <div class="settings">
+      <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()" [(ngModel)]="values.data.required" [checked]="values.data.required"></ion-toggle>
+      </div>
     </div>
+    <div (click)="customize = !customize; saveChanges()" class="settings optBtn">
+      <div class="optionBtn" slot="end">{{customize ? 'Save and close': 'Customize date'}}
+      </div>
+    </div>
+
+
+    <div *ngIf="customize" class="settings inner">
+      <div class="customSetting">
+        <div class="custom">
+          <div class="selected">
+            <div>Months</div>
+          </div>
+          <div class="selector">
+            <div class="dateOption opt2" (click)="showList = !showList; !showList? customMonths = []: ''; saveChanges()">
+              <ion-checkbox [checked]="customMonths.length == 0 && !showList"></ion-checkbox>
+              All <br> months
+            </div>
+            <div class="dateOption opt2" (click)="showList = !showList; !showList? customMonths = []: ''; saveChanges()">
+              <ion-checkbox [checked]="showList || customMonths.length > 0"></ion-checkbox>
+              Custom
+            </div>
+            <div *ngIf="showList" class="optList">
+              <div *ngFor="let month of months" (click)="selectMonth(month); saveChanges()" class="opt">
+                <ion-checkbox [checked]="customMonths.includes(month)"></ion-checkbox>
+                {{month}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="custom">
+          <div class="selected">
+            <div>Years</div>
+
+          </div>
+          <div class="selector">
+            <div class="dateOption opt2" (click)="showList2 = !showList2; !showList2? customYears = []: ''; saveChanges()">
+              <ion-checkbox [checked]="customYears.length == 0 && !showList2"></ion-checkbox>
+              All <br> Years
+            </div>
+            <div class="dateOption opt2" (click)="showList2 = !showList2; !showList2? customYears = []: ''; saveChanges()">
+              <ion-checkbox [checked]="showList2"></ion-checkbox>
+              Custom
+            </div>
+            <div *ngIf="showList2" class="optList">
+              <div (click)="selectYear('next'); saveChanges()" class="opt">
+                <ion-checkbox [checked]="customYears.includes('next')"></ion-checkbox>
+                Next
+              </div>
+              <div *ngFor="let year of years" (click)="selectYear(year); saveChanges()" class="opt">
+                <ion-checkbox [checked]="customYears.includes(year)"></ion-checkbox>
+                {{year}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="customSetting">
+
+        <div class="custom">
+          <div class="selected">
+            <div>Days</div>
+
+          </div>
+          <div class="selector">
+            <div class="dateOption opt2" (click)="showList1 = !showList1; !showList1? customDays = []: ''; saveChanges()">
+              <ion-checkbox [checked]="customDays.length == 0 && !showList1"></ion-checkbox>
+              All <br> days
+            </div>
+            <div class="dateOption opt2" (click)="showList1 = !showList1; !showList1? customDays = []: ''; saveChanges()">
+              <ion-checkbox [checked]="showList1"></ion-checkbox>
+              Custom
+            </div>
+            <div *ngIf="showList1" class="optList">
+              <div *ngFor="let day of days" (click)="selectDay(day); saveChanges()" class="opt">
+                <ion-checkbox [checked]="customDays.includes(day)"></ion-checkbox>
+                {{day}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="custom">
+          <div class="selected">
+            <div>Dates</div>
+
+          </div>
+          <div class="selector">
+            <div class="dateOption opt2" (click)="showList3 = !showList3; !showList3? customDates = []: ''; saveChanges()">
+              <ion-checkbox [checked]="customDates.length == 0 && !showList3"></ion-checkbox>
+              All <br> dates
+            </div>
+            <div class="dateOption opt2" (click)="showList3 = !showList3; !showList3? customDates = []: ''; saveChanges()">
+              <ion-checkbox [checked]="showList3"></ion-checkbox>
+              Custom
+            </div>
+            <div *ngIf="showList3" class="optList">
+
+              <div *ngFor="let item of [].constructor(31); let i = index" (click)="selectDate(i); saveChanges()" class="opt">
+                <ion-checkbox [checked]="customDates.includes(i)"></ion-checkbox>
+                {{i+1}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
   </div>
-  <div class="settings">
-    <div class="options" slot="end">Customize date<ion-toggle (click)="customize = !customize"></ion-toggle>
-    </div>
-  </div>
-</div>
-
-  <div *ngIf="customize" class="settings inner">
-    <div class="customSetting">
-      <div class="custom">
-        <div class="selected">
-          <div>Months</div>
-        </div>
-        <div class="selector">
-          <div class="dateOption opt2" (click)="showList = !showList; !showList? selectedMonths = []: ''">
-            <ion-checkbox [checked]="selectedMonths.length == 0 && !showList"></ion-checkbox>
-            ALL
-          </div>
-          <div class="dateOption opt2" (click)="showList = !showList; !showList? selectedMonths = []: ''">
-            <ion-checkbox [checked]="showList"></ion-checkbox>
-            Custom
-          </div>
-          <div *ngIf="showList" class="optList">
-            <div *ngFor="let month of months" (click)="selectMonth(month)" class="opt">
-              <ion-checkbox [checked]="selectedMonths.includes(month)"></ion-checkbox>
-              {{month}}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="custom">
-        <div class="selected">
-          <div>Years</div>
-
-        </div>
-        <div class="selector">
-          <div class="dateOption opt2" (click)="showList2 = !showList2; !showList2? selectedYears = []: ''">
-            <ion-checkbox [checked]="selectedYears.length == 0 && !showList2"></ion-checkbox>
-            ALL
-          </div>
-          <div class="dateOption opt2" (click)="showList2 = !showList2; !showList2? selectedYears = []: ''">
-            <ion-checkbox [checked]="showList2"></ion-checkbox>
-            Custom
-          </div>
-          <div *ngIf="showList2" class="optList">
-            <div (click)="selectYear('next')" class="opt">
-              <ion-checkbox [checked]="selectedYears.includes('next')"></ion-checkbox>
-              Next
-            </div>
-            <div *ngFor="let year of years" (click)="selectYear(year)" class="opt">
-              <ion-checkbox [checked]="selectedYears.includes(year)"></ion-checkbox>
-              {{year}}
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="customSetting">
-
-      <div class="custom">
-        <div class="selected">
-          <div>Days</div>
-
-        </div>
-        <div class="selector">
-          <div class="dateOption opt2" (click)="showList1 = !showList1; !showList1? selectedDays = []: ''">
-            <ion-checkbox [checked]="selectedDays.length == 0 && !showList1"></ion-checkbox>
-            ALL
-          </div>
-          <div class="dateOption opt2" (click)="showList1 = !showList1; !showList1? selectedDays = []: ''">
-            <ion-checkbox [checked]="showList1"></ion-checkbox>
-            Custom
-          </div>
-          <div *ngIf="showList1" class="optList">
-            <div *ngFor="let day of days" (click)="selectDay(day)" class="opt">
-              <ion-checkbox [checked]="selectedDays.includes(day)"></ion-checkbox>
-              {{day}}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="custom">
-        <div class="selected">
-          <div>Dates</div>
-
-        </div>
-        <div class="selector">
-          <div class="dateOption opt2" (click)="showList3 = !showList3; !showList3? selectedDates = []: ''">
-            <ion-checkbox [checked]="selectedDates.length == 0 && !showList3"></ion-checkbox>
-            ALL
-          </div>
-          <div class="dateOption opt2" (click)="showList3 = !showList3; !showList3? selectedDates = []: ''">
-            <ion-checkbox [checked]="showList3"></ion-checkbox>
-            Custom
-          </div>
-          <div *ngIf="showList3" class="optList">
-
-            <div *ngFor="let item of [].constructor(31); let i = index" (click)="selectDate(i)" class="opt">
-              <ion-checkbox [checked]="selectedDates.includes(i)"></ion-checkbox>
-              {{i+1}}
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <ng-template #display>
+    display
+  </ng-template>
 </div>
 <!-- <ion-item>
   <ion-datetime displayFormat="DDDD MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>

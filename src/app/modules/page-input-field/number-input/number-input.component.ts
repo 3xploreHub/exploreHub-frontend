@@ -17,11 +17,10 @@ export class NumberInputComponent implements OnInit {
   @Input() grandParentId: string;
   public pending: boolean = false;
   public clickedDone: boolean = false;
-  public MinError: boolean = false;
   public rangeError: boolean = false;
   public erroredAlready: boolean = false;
-
   public showPopup: boolean = false;
+
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
       done: false,
@@ -59,7 +58,6 @@ export class NumberInputComponent implements OnInit {
         }
       )
     }
-
   }
 
   render() {
@@ -127,7 +125,6 @@ export class NumberInputComponent implements OnInit {
       )
 
     }, 300);
-
   }
 
   validateLimitRange() {
