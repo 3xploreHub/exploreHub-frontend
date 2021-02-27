@@ -1,3 +1,10 @@
-<p>
-  date-input-display works!
-</p>
+<div class="textInputHolder">
+  <ion-item>
+    <ion-label>{{values.data.label}}</ion-label>
+    <!-- <ion-input class="inputField" type="number" placeholder="Type here"></ion-input> -->
+    <ion-datetime displayFormat="DDDD MMM D, YYYY"
+      [yearValues]="years"
+     ></ion-datetime>
+    <p class="instructions">{{values.data.instructions}}</p>
+  </ion-item>
+</div>

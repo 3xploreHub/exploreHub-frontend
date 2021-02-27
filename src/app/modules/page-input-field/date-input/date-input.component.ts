@@ -17,33 +17,18 @@ export class DateInputComponent implements OnInit {
   days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
   years = [];
-  customMonths = [];
-  customDays = []
-  customYears = []
-  customDates = []
   public footerData: FooterData;
   erroredAlready = false;
   clickedDone = false;
+  showList2 = false;
   showPopup = false;
   pending: boolean = false;
+  currentYear = new Date().getFullYear()
 
   // customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
   // customPickerOptions: any;
 
-  // constructor() {
-  // this.customPickerOptions = {
-  //   buttons: [{
-  //     text: 'Save',
-  //     handler: () => console.log('Clicked Save!')
-  //   }, {
-  //     text: 'Log',
-  //     handler: () => {
-  //       console.log('Clicked Log. Do not Dismiss.');
-  //       return false;
-  //     }
-  //   }]
-  // }
-  // }
+
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -58,7 +43,7 @@ export class DateInputComponent implements OnInit {
     }
     let currentDate = new Date();
 
-    for (let year = 1950; year <= currentDate.getFullYear(); year++) {
+    for (let year = 1920; year <= currentDate.getFullYear(); year++) {
       this.years.unshift(year)
     }
   }
@@ -70,7 +55,7 @@ export class DateInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "date-input", styles: [], data: { label: null, instructions: null, required: true, value: null, customYears: [], customMonths: [], customDays: [], customDates: [] }, default: false };
+      this.values = { _id: "", type: "date-input", styles: [], data: { label: null, instructions: null, required: true, value: null, customYears: [this.currentYear+1, this.currentYear], customMonths: [], customDays: [], customDates: [] }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -86,14 +71,11 @@ export class DateInputComponent implements OnInit {
         }
       )
     }
-    this.customMonths = this.values.data.customMonths;
-    this.customDays = this.values.data.customDays;
-    this.customYears = this.values.data.customYears;
-    this.customDates = this.values.data.customDates;
+    this.showList2 = this.values.data.customYears.length > 0;
   }
   done(done: boolean = true) {
     if (this.clickedDone) {
-        done = true;
+      done = true;
     }
     this.footerData.done = done;
     this.footerData.saving = false;
@@ -103,9 +85,9 @@ export class DateInputComponent implements OnInit {
 
   saveChanges() {
     this.pending = true;
-    this.footerData.hasValue = this.values.data.label ? true : false
-    this.footerData.saving = true;
+    this.footerData.hasValue = this.values.data.label ? true : false;
     setTimeout(() => {
+      this.footerData.saving = true;
       this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response) => {
         },
@@ -122,18 +104,18 @@ export class DateInputComponent implements OnInit {
   }
 
   selectMonth(item) {
-    this.customMonths = this.addOrRemove(this.customMonths, item)
+    this.values.data.customMonths = this.addOrRemove(this.values.data.customMonths, item)
   }
 
   selectDay(item) {
-    this.customDays = this.addOrRemove(this.customDays, item)
+    this.values.data.customDays = this.addOrRemove(this.values.data.customDays, item)
   }
 
   selectYear(item) {
-    this.customYears = this.addOrRemove(this.customYears, item)
+    this.values.data.customYears = this.addOrRemove(this.values.data.customYears, item)
   }
   selectDate(item) {
-    this.customDates = this.addOrRemove(this.customDates, item)
+    this.values.data.customDates = this.addOrRemove(this.values.data.customDates, item)
   }
 
   addOrRemove(list, item) {
@@ -143,6 +125,34 @@ export class DateInputComponent implements OnInit {
       list.push(item)
     }
     return list
+  }
+
+  render() {
+    this.clickedDone = true;
+    if (!this.pending) {
+      this.footerData.done = true;
+      this.clickedDone = false;
+    }
+  }
+
+  delete() {
+    if (this.values._id) {
+      this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
+      this.creator.deleteInputField(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done(false)
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
   }
 
 

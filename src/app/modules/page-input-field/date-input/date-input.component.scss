@@ -24,14 +24,12 @@
 .settings {
     padding:3px;
     margin-top:5px;
-    // font-size: 18px;
     background-color: #ffff;
     justify-content: flex-end;
     display: flex;
     align-items: center;
     background-color: rgb(199, 199, 199);
 }
-
 
 .options {
     display: flex;
@@ -45,12 +43,10 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    // flex-wrap: wrap;
 }
 
 .dateOption {
     padding: 8px 0;
-    // color: rgb(11, 102, 192);
 }
 .custom {
     background-color: #ffff;
@@ -72,13 +68,10 @@
     }
 
     .selector {
-        // padding: 10px 13px;
         text-align: center;
         width:100%;
-        position: relative;
 
         .select {
-            // background-color: dodgerblue;
             color:rgb(13, 126, 238);
             padding:10px 0;
             font-size: 16px;
@@ -86,23 +79,18 @@
         }
 
         .optList {
-            background-color: #ffff;
+            background-color: rgb(231, 228, 228);
             text-align: left;
-            height: 300px;
-            // box-shadow: 0px 4px 10px #333333;
+            height: 200px;
             overflow:auto;
-            position: absolute;
             z-index: 99;
             min-width: 100%;
             left:0;
-
-            background-color: #ffff;
             padding: 8px 0;
 
             .opt {
                 padding: 10px;
                 padding-left:8px;
-                background-color: #ffff;
             }
         }
     }
@@ -117,7 +105,6 @@
     flex-direction: column;
     align-items: center;
     font-size: 13px !important;
-    
 }
 
 .optionBtn {

@@ -105,10 +105,8 @@ export class NumberInputComponent implements OnInit {
   saveChanges() {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label ? true : false
-    this.footerData.saving = true;
-
     setTimeout(() => {
-
+    this.footerData.saving = true;
       this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response) => {
         },
