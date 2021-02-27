@@ -10,11 +10,12 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 export class DateInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   currentYear = new Date().getFullYear()
-  days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  allDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
   years = []
   date:any;
+  days = []
   months = []
   customPickerOptions: any;
 
@@ -39,7 +40,7 @@ export class DateInputDisplayComponent implements OnInit {
           console.log(date);
           
           const day = datepicked.getDay();
-          if (!this.values.data.customDays.includes(this.days[day])) {
+          if (!this.values.data.customDays.includes(this.allDays[day])) {
             this.presentAlert("Service is not available every "+this.daysName[day])
             this.date = null;
             return false;
@@ -69,7 +70,9 @@ export class DateInputDisplayComponent implements OnInit {
       months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     }
     this.months = months;
+    this.days = this.values.data.customDates;
     this.years = this.years.length > 0 ? this.years.sort(function (a, b) { return b - a }) : defaultYears;
+    this.days = this.days.length > 0 ? this.days.sort(function (a, b) { return a - b }) : null;
   }
 
   async presentAlert(message) {

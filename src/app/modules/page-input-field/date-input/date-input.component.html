@@ -163,9 +163,9 @@
             </div>
             <div *ngIf="showDates || values.data.customDates.length > 0" class="optList">
 
-              <div *ngFor="let item of [].constructor(31); let i = index" (click)="selectDate(i); saveChanges()"
+              <div *ngFor="let item of [].constructor(31); let i = index" (click)="selectDate(i+1); saveChanges()"
                 class="opt">
-                <ion-checkbox [checked]="values.data.customDates.includes(i)"></ion-checkbox>
+                <ion-checkbox [checked]="values.data.customDates.includes(i+1)"></ion-checkbox>
                 {{i+1}}
               </div>
             </div>
