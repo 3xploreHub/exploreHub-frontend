@@ -1,11 +1,13 @@
 <div class="textInputHolder">
+  <div>{{values.data.label}}</div>
   <ion-item>
-    <ion-label>{{values.data.label}}</ion-label>
-    <!-- <ion-input class="inputField" type="number" placeholder="Type here"></ion-input> -->
     <ion-datetime displayFormat="DDDD MMM D, YYYY"
       [yearValues]="years"
       [monthValues]="months"
+      [(ngModel)]="date"
+      [pickerOptions]="customPickerOptions"
      ></ion-datetime>
-    <p class="instructions">{{values.data.instructions}}</p>
   </ion-item>
+  <p class="instructions">{{values.data.instructions}}</p>
+
 </div>

@@ -28,10 +28,6 @@ export class DateInputComponent implements OnInit {
   pending: boolean = false;
   currentYear = new Date().getFullYear()
 
-  // customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
-  // customPickerOptions: any;
-
-
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -49,7 +45,9 @@ export class DateInputComponent implements OnInit {
     for (let year = 1920; year <= currentDate.getFullYear(); year++) {
       this.years.unshift(year)
     }
+
   }
+
 
   ngOnInit() {
     if (this.values) {
