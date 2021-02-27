@@ -34,7 +34,7 @@ export class DateInputDisplayComponent implements OnInit {
         text: 'Done',
         handler: (date) => {
           
-          const datepicked = new Date(date.year.value, date.month.value, date.day.value)
+          const datepicked = new Date(date.year.value, date.month.value-1, date.day.value)
           console.log(datepicked);
           console.log(date);
           
