@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-text-input-display',
@@ -8,7 +9,7 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class TextInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
-  constructor() { }
+  constructor(public creator: PageCreatorService) { }
 
   ngOnInit() {}
 

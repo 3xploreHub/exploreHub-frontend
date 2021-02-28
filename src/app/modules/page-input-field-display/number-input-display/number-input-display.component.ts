@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-number-input-display',
@@ -14,7 +15,7 @@ export class NumberInputDisplayComponent implements OnInit {
   number = null
   hasError = false;
   message = null
-  constructor(public toastController: ToastController, public alert: AlertController) { }
+  constructor(public toastController: ToastController, public alert: AlertController,public creator:PageCreatorService) { }
 
   ngOnInit() {
     let data = this.values.data;
@@ -34,7 +35,7 @@ export class NumberInputDisplayComponent implements OnInit {
 
 
   validate() {
-    if (this.number > this.max || (this.min != null && this.number < this.min)) {
+    if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentToast(this.message)
       this.hasError = true;
     }
@@ -44,7 +45,7 @@ export class NumberInputDisplayComponent implements OnInit {
   }
 
   finalValidation() {
-    if (this.number > this.max || (this.min != null && this.number < this.min)) {
+    if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentAlert(this.message)
       this.hasError = true;
     } else {

@@ -1,11 +1,13 @@
 <div class="creator">
     <ng-template #pageElement></ng-template>
     <br />
-    <div *ngIf="!preview" class="addInfo">
+    <div *ngIf="!creator.preview" class="addInfo">
         <h6>Add other information.</h6>
         <p>Click <b>Add Field</b> to select component that you can use to present other information about the tourist
             spot.</p>
-        <div class="addComponentBtn" (click)="showComponentList()">Add Field</div>
+        <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Field
+            <ion-ripple-effect></ion-ripple-effect>
+        </div>
 
     </div>
     <br />
@@ -16,12 +18,14 @@
         </div>
         <ng-template #pageService></ng-template>
 
-        <div *ngIf="!preview" class="addInfo">
+        <div *ngIf="!creator.preview" class="addInfo">
             <h6>Add services or something you offer.</h6>
             <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities that
                 you
                 offer that tourists can avail.</p>
-            <div class="addComponentBtn services" (click)="showServicesComponentList()">Add Field</div>
+            <div class="addComponentBtn services ion-activatable ripple-parent" (click)="showServicesComponentList()">Add Field
+                <ion-ripple-effect></ion-ripple-effect>
+            </div>
 
         </div>
     </div>
@@ -30,14 +34,17 @@
             <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
         </div>
         <ng-template #pageInputField></ng-template>
-        <div *ngIf="!preview" class="addInfo">
+        <div *ngIf="!creator.preview" class="addInfo">
             <h6>Add needed informations for booking.</h6>
 
             <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information that they need to provide to make an arrangement.</p>
-            <div class="addComponentBtn bookingBtn" (click)="showInputFieldList()">
+            <div class="addComponentBtn bookingBtn ion-activatable ripple-parent" (click)="showInputFieldList()">
                 Add Field
+                <ion-ripple-effect></ion-ripple-effect>
             </div>
         </div>
     </div>
-    <div class="preview" (click)="preview = !preview">{{preview ? "Edit Page": "Preview | hide add fields button"}}</div>
+    <div class="preview ion-activatable ripple-parent" (click)="creator.preview = !creator.preview">{{preview ? "Edit Page": "Preview | hide add fields button"}}
+        <ion-ripple-effect></ion-ripple-effect>
+    </div>
 </div>

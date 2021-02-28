@@ -18,6 +18,7 @@ export interface Image {
 export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPageId: string;
+  public preview:boolean = false;
 
   constructor(
     public lStorage: Storage,

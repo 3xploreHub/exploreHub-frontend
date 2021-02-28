@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-date-input-display',
@@ -19,7 +20,7 @@ export class DateInputDisplayComponent implements OnInit {
   months = []
   customPickerOptions: any;
 
-  constructor(public alert: AlertController) {
+  constructor(public alert: AlertController, public creator: PageCreatorService) {
     this.customPickerOptions = {
       buttons: [{
         text: 'Cancel',

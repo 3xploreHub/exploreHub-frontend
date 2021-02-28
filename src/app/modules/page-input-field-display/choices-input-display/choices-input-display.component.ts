@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-choices-input-display',
@@ -10,7 +11,7 @@ export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   selected = null
   showChoices = false;
-  constructor() { }
+  constructor(public creator: PageCreatorService) { }
 
   ngOnInit() {
     
