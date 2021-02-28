@@ -40,7 +40,7 @@ export class ChoicesInputComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       this.footerData.done = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
-      this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
+      this.footerData.hasValue = this.values.data.label != null && this.values.data.choices.length > 0 ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -74,7 +74,7 @@ export class ChoicesInputComponent implements OnInit {
             this.values.data.choices = this.values.data.choices.filter(item => item._id != id)
           });
           this.deletedChoice = []
-
+          this.footerData.hasValue = this.values.data.label != null && this.values.data.choices.length > 0
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")

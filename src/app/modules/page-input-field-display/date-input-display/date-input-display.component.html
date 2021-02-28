@@ -8,6 +8,7 @@
       [dayValues]="days"
       class="inputField"
      ></ion-datetime>
-     <ion-input type="text" disabled *ngIf="!creator.preview" class="inputField"></ion-input>
+     <ion-input class="default" [(ngModel)]="date" *ngIf="!creator.preview" class="inputField">
+     </ion-input>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>
