@@ -39,6 +39,7 @@ import { DateInputComponent } from "./modules/page-input-field/date-input/date-i
 import { DateInputDisplayComponent } from "./modules/page-input-field-display/date-input-display/date-input-display.component";
 import { ChoicesInputComponent } from "./modules/page-input-field/choices-input/choices-input.component";
 import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display/choices-input-display/choices-input-display.component";
+import { BulletFormTextComponent } from "./modules/page-elements/bullet-form-text/bullet-form-text.component";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display
     LabelledTextComponent,
     ElementFooterComponent,
     DeleteDataComponent,
+    BulletFormTextComponent,
     StylePopupComponent,
     ItemComponent,
     ItemListComponent,

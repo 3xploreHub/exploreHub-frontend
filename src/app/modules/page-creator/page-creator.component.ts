@@ -6,6 +6,7 @@ import { ElementComponent } from '../elementTools/interfaces/element-component';
 import { ElementValues } from '../elementTools/interfaces/ElementValues';
 import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
+import { BulletFormTextComponent } from '../page-elements/bullet-form-text/bullet-form-text.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
 import { PageInputFieldListComponent } from '../page-input-field-list/page-input-field-list.component';
 import { ChoicesInputComponent } from '../page-input-field/choices-input/choices-input.component';
@@ -31,6 +32,7 @@ export class PageCreatorComponent implements OnInit {
   public preview: boolean = false;
   components = {
     'text': TextComponent,
+    'bullet-form-text': BulletFormTextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
     'item-list': ItemListComponent,

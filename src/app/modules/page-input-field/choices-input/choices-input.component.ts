@@ -1,11 +1,9 @@
-import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { throttleTime } from 'rxjs/operators';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { v4 as uuidv4 } from 'uuid';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-choices-input',

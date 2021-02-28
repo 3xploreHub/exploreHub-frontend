@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-bullet-form-text',
@@ -17,11 +18,25 @@ export class BulletFormTextComponent implements OnInit {
   public footerData: FooterData;
   public clickedDone: boolean = false;
   public pending: boolean = false;
+  public item:string= null
+  public newlyAddedItem: string[] = [];
+  public deletedItem: string[] = [];
 
   constructor(
     public creator: PageCreatorService,
     public alert: AlertController
-  ) { }
+  ) {
+    this.footerData = {
+      done: false,
+      deleted: false,
+      saving: false,
+      message: "Saving Changes...",
+      hasValue: false,
+      hasId: false,
+      isDefault: false,
+      hasStyle: true
+    }
+   }
 
 
   ngOnInit() {
@@ -32,7 +47,7 @@ export class BulletFormTextComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "bullet-form-text", styles: [], data: { label: null, list: null }, default: false };
+      this.values = { _id: "", type: "bullet-form-text", styles: [], data: { label: null, list: [], orderedList: false }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -50,20 +65,26 @@ export class BulletFormTextComponent implements OnInit {
     }
   }
 
-  saveChanges(isDone: boolean = true) {
+  saveChanges(values = null) {
     this.pending = true;
-    this.footerData.hasValue = this.values.data.text ? true : false;
+    this.footerData.hasValue = this.values.data.text && this.values.data.list ? true : false;
       setTimeout(() => {
-        this.footerData.saving = true;
-        this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+        this.footerData.saving = values != null || this.newlyAddedItem.length > 0? false: true;
+        this.creator.editComponent(values ? values : this.values, this.grandParentId, this.parentId, this.parent).subscribe(
           (response) => {
+            this.newlyAddedItem = [];
+            this.deletedItem.forEach(id => {
+              this.values.data.list = this.values.data.list.filter(item => item._id != id)
+            });
+            this.deletedItem = []
+            this.footerData.hasValue = this.values.data.label != null && this.values.data.list.length > 0
           },
           (error) => {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
           },
           () => {
             this.pending = false;
-            this.done(this.footerData.hasValue);
+            this.done(this.clickedDone);
           }
         )
       }, 300);
@@ -75,6 +96,26 @@ export class BulletFormTextComponent implements OnInit {
     this.footerData.message = "Saving  Changes...";
   }
 
+  delete() {
+    if (this.values._id) {
+      this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
+      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done(false)
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
+  }
+
   async presentAlert(message) {
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
@@ -82,6 +123,26 @@ export class BulletFormTextComponent implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  addChoice() {
+    if (this.item) {
+    const newId = uuidv4();
+    const newItem = { _id: newId, text: this.item }
+    this.newlyAddedItem.push(newId);
+    this.values.data.list.push(newItem)
+
+    this.saveChanges()
+    this.item = null;
+    }
+  }
+
+  removeChoice(id) {
+      this.deletedItem.push(id);
+      let values = { _id: this.values._id, styles: this.values.styles, type: "bullet-form-text", data: { ...this.values.data } }
+      values.data.list = [...this.values.data.list];
+      values.data.list = values.data.list.filter(i => i._id != id)
+      this.saveChanges(values);
   }
 
 }
