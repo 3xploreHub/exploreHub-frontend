@@ -137,7 +137,6 @@ export class ChoicesInputComponent implements OnInit {
 
   addChoice() {
     if (this.choiceInput) {
-
     const newId = uuidv4();
     const newChoice = { _id: newId, text: this.choiceInput }
     this.newlyAddedChoice.push(newId);

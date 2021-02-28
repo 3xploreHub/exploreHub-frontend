@@ -1,6 +1,11 @@
 .inputField {
     background-color: #ffff;
     border: 1px solid lightgray;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px;
 }
 .textInputHolder {
     padding: 10px 5px;
@@ -28,13 +33,17 @@
     position: absolute;
     left:0;
     width:100%;
-    padding:0 10px;
     background-color: #ffff;
     box-shadow: 0px 2px 5px #505050;
-    top:40px;
+    top:45px;
     
     .option {
         padding:10px;
         border-top: 1px solid lightgray;
     }
 }
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+  }

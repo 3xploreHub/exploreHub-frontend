@@ -1,9 +1,12 @@
 <div [class.hasError]="hasError" class="textInputHolder">
   <ion-label>{{values.data.label}}</ion-label>
-  <ion-input class="inputField" type="selected" [(ngModel)]="selected">
-   <div class="options">
-     <div class="option" *ngFor="let option of values.data.choices">{{option.text}}</div>
+  <div (click)="showChoices = true" class="inputField" type="selected">
+    {{selected}}
+   <div *ngIf="showChoices" class="options">
+     <div class="option ion-activatable ripple-parent" (click)="select(option)" *ngFor="let option of values.data.choices">{{option.text}}
+      <ion-ripple-effect></ion-ripple-effect>
+     </div>
    </div>
-  </ion-input>
+  </div>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>

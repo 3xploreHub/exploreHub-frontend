@@ -9,10 +9,18 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   selected = null
+  showChoices = false;
   constructor() { }
 
   ngOnInit() {
     
+  }
+
+  select(option) {
+    this.selected = option.text;
+    setTimeout(() => {
+      this.showChoices = false;
+    }, 300);
   }
 
 }
