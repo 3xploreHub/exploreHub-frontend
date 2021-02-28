@@ -44,8 +44,6 @@ export class NumberInputDisplayComponent implements OnInit {
   }
 
   finalValidation() {
-    console.log(this.min > this.number);
-    
     if (this.number > this.max || (this.min != null && this.number < this.min)) {
       this.presentAlert(this.message)
       this.hasError = true;

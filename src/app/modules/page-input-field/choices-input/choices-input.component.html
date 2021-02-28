@@ -8,16 +8,20 @@
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
 
-
     <div class="inputChoice">
       <div class="choices">
         <p *ngIf="values.data.choices.length == 0" class="noChoice">
           No choices yet
         </p>
-        <div [class.deleting]="deletedChoice.includes(choice._id)"  [class.adding]="newlyAddedChoice.includes(choice._id)" *ngFor="let choice of values.data.choices; let i = index">
-          <div  class="choiceText">{{deletedChoice.includes(choice._id) ? "Deleting...": newlyAddedChoice.includes(choice._id)? "Adding..." : choice.text}}</div>
-          <div  [class.adding]="newlyAddedChoice.includes(choice._id)" class="removeChoice">
-            <ion-spinner *ngIf="newlyAddedChoice.includes(choice._id) || deletedChoice.includes(choice._id); else remove"  class="popupIcon" name="lines-small"></ion-spinner>
+        <div [class.deleting]="deletedChoice.includes(choice._id)"
+          [class.adding]="newlyAddedChoice.includes(choice._id)"
+          *ngFor="let choice of values.data.choices; let i = index">
+          <div class="choiceText">{{deletedChoice.includes(choice._id) ? "Deleting...":
+            newlyAddedChoice.includes(choice._id)? "Adding..." : choice.text}}</div>
+          <div [class.adding]="newlyAddedChoice.includes(choice._id)" class="removeChoice">
+            <ion-spinner
+              *ngIf="newlyAddedChoice.includes(choice._id) || deletedChoice.includes(choice._id); else remove"
+              class="popupIcon" name="lines-small"></ion-spinner>
             <ng-template #remove>
               <ion-icon (click)="removeChoice(choice._id)" name="close-outline" class="popupIcon"></ion-icon>
             </ng-template>
@@ -29,14 +33,19 @@
         placeholder="Enter option here">
       </ion-textarea>
       <div class="addChoice">
-        <p [class.disabledBtn]="!choiceInput" (click)="addChoice()"
-            >Add Choice</p>
+        <p [class.disabledBtn]="!choiceInput" (click)="addChoice()">Add Choice</p>
       </div>
     </div>
 
     <div class="settings">
-      <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()"
-          [(ngModel)]="values.data.required" [checked]="values.data.required"></ion-toggle>
+      <div (click)="values.data.required = !values.data.required; saveChanges()" class="options" slot="end">Required for
+        submission<ion-toggle [checked]="values.data.required"></ion-toggle>
+      </div>
+    </div>
+
+    <div class="settings">
+      <div class="options" (click)="values.data.selectMultiple = !values.data.selectMultiple; saveChanges()" slot="end">
+        Enable select multiple<ion-toggle [checked]="values.data.selectMultiple"></ion-toggle>
       </div>
     </div>
 

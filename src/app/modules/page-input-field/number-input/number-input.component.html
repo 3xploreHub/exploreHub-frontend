@@ -29,8 +29,7 @@
 
     </div>
     <div class="required">
-      <div [class.off]="!values.data.required" class="options" slot="end">Required for submission<ion-toggle
-          (click)="saveChanges()" [(ngModel)]="values.data.required" checked></ion-toggle>
+      <div [class.off]="!values.data.required" (click)="values.data.required = !values.data.required; saveChanges()" class="options" slot="end">Required for submission<ion-toggle [checked]="values.data.required"></ion-toggle>
       </div>
     </div>
     <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"

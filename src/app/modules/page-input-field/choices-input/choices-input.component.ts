@@ -40,12 +40,12 @@ export class ChoicesInputComponent implements OnInit {
 
   ngOnInit() {
     if (this.values) {
-      this.footerData.done = this.values.data.label ? true : false;
+      this.footerData.done = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
       this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "choices-input", styles: [], data: { label: null, instructions: null, required: true, choices: [], selectMany: false }, default: false };
+      this.values = { _id: "", type: "choices-input", styles: [], data: { label: null, instructions: null, required: true, choices: [], selectMultiple: false }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -148,16 +148,11 @@ export class ChoicesInputComponent implements OnInit {
     }
   }
 
-
   removeChoice(id) {
       this.deletedChoice.push(id);
-      let values = { _id: this.values._id, styles: this.values.styles, data: { ...this.values.data } }
+      let values = { _id: this.values._id, styles: this.values.styles, type: "choices-input", data: { ...this.values.data } }
       values.data.choices = [...this.values.data.choices];
-      console.log("first:", values.data.choices);
-
       values.data.choices = values.data.choices.filter(i => i._id != id)
-      console.log(values.data.choices);
-
-      this.saveChanges();
+      this.saveChanges(values);
   }
 }
