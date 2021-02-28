@@ -8,8 +8,11 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  selected = null
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

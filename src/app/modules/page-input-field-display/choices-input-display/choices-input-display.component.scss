@@ -1,0 +1,40 @@
+.inputField {
+    background-color: #ffff;
+    border: 1px solid lightgray;
+}
+.textInputHolder {
+    padding: 10px 5px;
+    margin: 5px 0;
+    position: relative;
+}
+
+.instructions {
+    font-size:14px;
+    margin:3px;
+    color: gray;
+}
+
+.hasError {
+    ion-label {
+        color: red !important;
+    }
+    ion-input {
+        position: relative;
+        border:1px solid red !important;
+    }
+}
+
+.options {
+    position: absolute;
+    left:0;
+    width:100%;
+    padding:0 10px;
+    background-color: #ffff;
+    box-shadow: 0px 2px 5px #505050;
+    top:40px;
+    
+    .option {
+        padding:10px;
+        border-top: 1px solid lightgray;
+    }
+}
