@@ -31,5 +31,6 @@ export class ChoicesInputDisplayComponent implements OnInit {
     } else {
       this.listOfSelected.push(option);
     }
+
   }
 }

@@ -17,10 +17,12 @@
 <ng-template #multiple>
   <div class="textInputHolder">
     <div class="optionList">
-      <p>{{values.data.label}}</p>
-
+      <p class="label">{{values.data.label}}</p>
+      <p class="instructions">{{values.data.label}}</p>
       <div (click)="check(option)" class="option ion-activatable ripple-parent" *ngFor="let option of values.data.choices">
-        <ion-checkbox [checked]="listOfSelected.includes(option)"></ion-checkbox>
+        <div class="checkbox">
+          <ion-checkbox [checked]="listOfSelected.includes(option)"></ion-checkbox>
+        </div>
         {{option.text}}
         <ion-ripple-effect type="unbounded"></ion-ripple-effect>
       </div>

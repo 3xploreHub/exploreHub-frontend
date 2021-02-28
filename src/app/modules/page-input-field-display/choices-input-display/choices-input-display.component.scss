@@ -53,12 +53,28 @@
 .optionList {
     border-bottom: 1px solid gray;
     border-top: 1px solid gray;
+  
 
-    p {
+    .label {
         margin-bottom: 3px;
     }
+
+    .instructions {
+        margin:3px;
+        font-size: 12px !important;
+        color:gray;
+    }
     .option {
+        display: flex;
+        flex-direction: row;
         padding: 8px;
+        font-size: 15px !important;
         color: rgb(82, 80, 80);
+
+        
+    .checkbox {
+        width:30px;
+        margin-right: 8px;
+      }
     }
 }
