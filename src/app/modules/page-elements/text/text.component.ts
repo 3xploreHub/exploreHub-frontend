@@ -86,7 +86,6 @@ export class TextComponent implements OnInit {
           }
         )
       }, 300);
-    
   }
 
   addComponent(isDone: boolean = true) {

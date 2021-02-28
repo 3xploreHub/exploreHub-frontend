@@ -24,7 +24,7 @@
           <ion-checkbox [checked]="listOfSelected.includes(option)"></ion-checkbox>
         </div>
         {{option.text}}
-        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        <ion-ripple-effect *ngIf="creator.preview" type="unbounded"></ion-ripple-effect>
       </div>
     </div>
   </div>

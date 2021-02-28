@@ -40,8 +40,8 @@ export class LabelledTextComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true : false;
-      this.footerData.hasValue = data.text != null && data.label != null;
+      this.footerData.done = data.text && data.label ? true: false
+      this.footerData.hasValue = data.text && data.label ? true: false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -64,7 +64,7 @@ export class LabelledTextComponent implements OnInit {
     let text = this.values.data.text;
     this.values.data.label = label ? label.trim() : null;
     this.values.data.text = text ? text.trim() : null;
-    this.footerData.hasValue = (label || text) || (label && text) ? true : false;
+    this.footerData.hasValue = (label || text) || (label && text)
     this.pending = true;
     if (this.footerData.hasValue) {
       setTimeout(() => {
@@ -79,9 +79,9 @@ export class LabelledTextComponent implements OnInit {
               this.presentAlert("Oops! Something went wrong. Please try again later!")
             },
             () => {
-              this.footerData.hasValue = this.values.data.label && this.values.data.text ? true : false;
+              this.footerData.hasValue = this.values.data.label && this.values.data.text? true: false;
               this.pending = false
-              let done = this.clickedDone ? true : false;
+              let done = this.footerData.hasValue && this.clickedDone
               this.clickedDone = false
               this.done(done);
             }

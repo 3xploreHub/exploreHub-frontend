@@ -26,11 +26,12 @@ export class ChoicesInputDisplayComponent implements OnInit {
   }
 
   check(option) {
-    if (this.listOfSelected.includes(option)) {
-      this.listOfSelected = this.listOfSelected.filter(choice => choice._id != option._id)
-    } else {
-      this.listOfSelected.push(option);
+    if (this.creator.preview) {
+      if (this.listOfSelected.includes(option)) {
+        this.listOfSelected = this.listOfSelected.filter(choice => choice._id != option._id)
+      } else {
+        this.listOfSelected.push(option);
+      }
     }
-
   }
 }

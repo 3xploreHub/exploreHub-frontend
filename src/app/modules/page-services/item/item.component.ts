@@ -132,19 +132,21 @@ export class ItemComponent implements OnInit {
 
   renderService() {
     this.footerData.saving = true;
-    this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
-      this.values = updatedData[0].services[0].data[0]
-      this.footerData.saving = false;
-      if (this.creator.checkIfHasValue(this.values.data)) {
-        this.footerData.done = true;
-      } else {
-        if (this.values.data.length == 0) {
-          this.presentAlert("Please add info about this service");
+    setTimeout(() => {
+      this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
+        this.values = updatedData[0].services[0].data[0]
+        this.footerData.saving = false;
+        if (this.creator.checkIfHasValue(this.values.data)) {
+          this.footerData.done = true;
         } else {
-          this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+          if (this.values.data.length == 0) {
+            this.presentAlert("Please add info about this service");
+          } else {
+            this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+          }
         }
-      }
-    })
+      })
+    }, 300);
   }
 
   getUpdates(newData) {

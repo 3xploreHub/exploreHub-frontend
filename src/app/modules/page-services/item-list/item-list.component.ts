@@ -103,14 +103,16 @@ export class ItemListComponent implements OnInit {
   renderItemList() {
     this.creator.clickedComponent = null
     this.footerData.saving = true;
-    this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-      console.log(newData);
-      this.values = newData[0].services[0]
-      this.footerData.saving = false
-      if (this.checkIfHasItems(this.values.data)) {
-        this.footerData.done = true;
-      }
-    })
+    setTimeout(() => {
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
+        console.log(newData);
+        this.values = newData[0].services[0]
+        this.footerData.saving = false
+        if (this.checkIfHasItems(this.values.data)) {
+          this.footerData.done = true;
+        }
+      })
+    }, 300);
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -124,7 +126,7 @@ export class ItemListComponent implements OnInit {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = domRef.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;  
+      comp.instance.parentId = this.values._id;
       comp.instance.parent = parent;
     }
   }
@@ -146,12 +148,12 @@ export class ItemListComponent implements OnInit {
     )
   }
 
-  
+
   async showComponentList() {
     const modal = await this.modalController.create({
       component: PageElementListComponent,
       cssClass: 'componentListModal',
-      componentProps: { 
+      componentProps: {
         isInItemList: true,
       }
     });
