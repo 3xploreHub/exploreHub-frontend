@@ -40,36 +40,34 @@
 }
 
 .choices {
-    margin-top:5px;
-    padding:2px 0;
-    background-color: #ffff;
-
-   
 
     div {
-        background-color: lightgray;
-        margin:8px;
+        background-color: rgb(236, 236, 236);
+        margin:8px 0;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: stretch;
 
         .choiceText {
             width: 100%;
             margin:0;
-            padding:0 10px;
+            height: 100%;
+            background-color: transparent !important;
+            padding:13px;
         }
 
         .removeChoice {
             background-color: rgb(245, 178, 178);
             margin:0;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
             padding:0;
 
             .popupIcon {
-                vertical-align: middle;
+                // vertical-align: middle;
+                // height: 100%;
                 margin:8px;
                 padding:0;
                 font-size: 30px !important;
@@ -97,7 +95,7 @@
     
     p {
         padding:10px 15px;
-        background-color: dodgerblue;
+        background-color: rgb(8, 121, 235);
         color: #ffff;
         border-radius: 4px;
         margin:10px 0;
@@ -107,6 +105,13 @@
 
 }
 
+.deleting {
+    background-color: rgb(245, 178, 178) !important;
+}
 .disabledBtn {
     opacity: .5;
+}
+
+.adding {
+    background-color: rgb(200, 226, 248) !important;
 }

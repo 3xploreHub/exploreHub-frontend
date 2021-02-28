@@ -1,8 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { throttleTime } from 'rxjs/operators';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { v4 as uuidv4 } from 'uuid';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-choices-input',
@@ -19,6 +22,8 @@ export class ChoicesInputComponent implements OnInit {
   showPopup = false;
   clickedDone = false;
   choiceInput = null;
+  deletedChoice = [];
+  newlyAddedChoice = []
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -31,7 +36,7 @@ export class ChoicesInputComponent implements OnInit {
       isDefault: false,
       hasStyle: false
     }
-   }
+  }
 
   ngOnInit() {
     if (this.values) {
@@ -40,7 +45,7 @@ export class ChoicesInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "choices-input", styles: [], data: { label: null, instructions: null, required: true, choices:[], selectMany: false}, default: false };
+      this.values = { _id: "", type: "choices-input", styles: [], data: { label: null, instructions: null, required: true, choices: [], selectMany: false }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -58,18 +63,25 @@ export class ChoicesInputComponent implements OnInit {
     }
   }
 
-  saveChanges() {
+  saveChanges(values = null) {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
     setTimeout(() => {
-      this.footerData.saving = true;
-      this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      this.footerData.saving = values != null || this.newlyAddedChoice.length > 0? false: true;
+      this.creator.editInputField(values ? values : this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response) => {
+          this.newlyAddedChoice = [];
+          this.deletedChoice.forEach(id => {
+            this.values.data.choices = this.values.data.choices.filter(item => item._id != id)
+          });
+          this.deletedChoice = []
+
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
+
           this.pending = false;
           let isDone = this.clickedDone ? true : false;
           this.done(isDone);
@@ -96,4 +108,49 @@ export class ChoicesInputComponent implements OnInit {
     await alert.present();
   }
 
+  delete() {
+    if (this.values._id) {
+      this.footerData.saving = true;
+      this.footerData.message = "Deleting..."
+      this.creator.deleteInputField(this.grandParentId, this.parentId, this.values._id, null, this.parent).subscribe(
+        (response) => {
+          this.footerData.deleted = true;
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.done(false)
+        }
+      )
+    } else {
+      this.footerData.deleted = true;
+    }
+  }
+
+  addChoice() {
+    if (this.choiceInput) {
+
+    const newId = uuidv4();
+    const newChoice = { _id: newId, text: this.choiceInput }
+    this.newlyAddedChoice.push(newId);
+    this.values.data.choices.push(newChoice)
+
+    this.saveChanges()
+    this.choiceInput = null;
+    }
+  }
+
+
+  removeChoice(id) {
+      this.deletedChoice.push(id);
+      let values = { _id: this.values._id, styles: this.values.styles, data: { ...this.values.data } }
+      values.data.choices = [...this.values.data.choices];
+      console.log("first:", values.data.choices);
+
+      values.data.choices = values.data.choices.filter(i => i._id != id)
+      console.log(values.data.choices);
+
+      this.saveChanges();
+  }
 }

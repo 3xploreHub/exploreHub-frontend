@@ -14,7 +14,7 @@ export class DateInputDisplayComponent implements OnInit {
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
   years = []
-  date:any;
+  date: any;
   days = []
   months = []
   customPickerOptions: any;
@@ -24,27 +24,29 @@ export class DateInputDisplayComponent implements OnInit {
       buttons: [{
         text: 'Cancel',
         handler: () => console.log('cancelled')
-        
+
       }, {
         text: 'Clear',
         handler: () => {
           this.date = null;
           return false
         }
-      },{
+      }, {
         text: 'Done',
         handler: (date) => {
-          const datepicked = new Date(date.year.value, date.month.value-1, date.day.value)
-          
+          const datepicked = new Date(date.year.value, date.month.value - 1, date.day.value)
+
           const day = datepicked.getDay();
-          if (!this.values.data.customDays.includes(this.allDays[day])) {
-            this.presentAlert("Service is not available every "+this.daysName[day])
-            this.date = null;
-            return false;
+          if (this.values.data.customDays.length > 0) {
+            if (!this.values.data.customDays.includes(this.allDays[day])) {
+              this.presentAlert("Service is not available every " + this.daysName[day])
+              this.date = null;
+              return false;
+            }
           }
 
           this.date = date
-          
+
         }
       }]
     }
