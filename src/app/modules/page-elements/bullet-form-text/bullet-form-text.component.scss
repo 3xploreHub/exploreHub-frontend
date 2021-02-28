@@ -47,13 +47,14 @@
         display: flex;
         flex-direction: row;
         align-items: stretch;
+        border-bottom: 1px solid gray;
 
         .choiceText {
             width: 100%;
             margin:0;
             height: 100%;
             background-color: transparent !important;
-            padding:13px;
+            padding:8px;
         }
 
         .removeChoice {
@@ -70,7 +71,7 @@
                 // height: 100%;
                 margin:8px;
                 padding:0;
-                font-size: 30px !important;
+                font-size: 20px !important;
             }
         }
 

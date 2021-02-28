@@ -72,15 +72,14 @@ export class ChoicesInputComponent implements OnInit {
             this.values.data.choices = this.values.data.choices.filter(item => item._id != id)
           });
           this.deletedChoice = []
-          this.footerData.hasValue = this.values.data.label != null && this.values.data.choices.length > 0
+          this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true: false
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
           this.pending = false;
-          let isDone = this.clickedDone ? true : false;
-          this.done(isDone);
+          this.done(this.clickedDone);
         }
       )
     }, 300);
