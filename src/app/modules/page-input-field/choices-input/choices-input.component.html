@@ -8,6 +8,29 @@
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
 
+    
+
+
+    <div class="inputChoice">
+      <div class="choices">
+        <p *ngIf="values.data.choices.length == 0" class="noChoice">
+          No choices yet
+        </p>
+        <div *ngFor="let choice of values.data.choices">
+          <div class="choiceText">{{choice}}</div>
+          <div class="removeChoice">
+            <ion-icon name="close-outline" class="popupIcon"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <ion-textarea class="inputLabel" [(ngModel)]="choiceInput" auto-grow="true" rows="1" placeholder="Enter option here">
+      </ion-textarea>
+      <div class="addChoice">
+        <p (click)="values.data.choices.push(choiceInput); choiceInput = null">Add Choice</p>
+      </div>
+    </div>
+
     <div class="settings">
       <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()"
           [(ngModel)]="values.data.required" [checked]="values.data.required"></ion-toggle>

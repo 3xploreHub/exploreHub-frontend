@@ -18,6 +18,7 @@ export class ChoicesInputComponent implements OnInit {
   pending: boolean = false;
   showPopup = false;
   clickedDone = false;
+  choiceInput = null;
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
