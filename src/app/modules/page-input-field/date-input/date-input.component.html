@@ -1,12 +1,20 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done; else display" class="inputWrapper">
 
-    <ion-textarea class="inputLabel" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
+    <ion-textarea class="inputLabel" (keyup)="footerData.hasValue = values.data.label ? true : false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
       placeholder="Enter label here">
     </ion-textarea>
     <ion-textarea class="inputLabel otherInfo" [(ngModel)]="values.data.instructions" (change)="saveChanges()"
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
+
+      <div class="inputLabel">
+
+        <ion-datetime class="inputLabel" displayFormat="DDDD MMM D, YYYY"
+        placeholder="Enter default value here"
+        [(ngModel)]="values.data.defaultValue"
+         ></ion-datetime>
+      </div>
 
     <div class="settings">
       <div class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()"

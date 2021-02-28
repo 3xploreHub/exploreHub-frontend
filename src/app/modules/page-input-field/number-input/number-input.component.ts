@@ -42,7 +42,7 @@ export class NumberInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, required: true, value: null, min:  null , max:  null} , default: false };
+      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, defaultValue: null, required: true, value: null, min:  null , max:  null} , default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(

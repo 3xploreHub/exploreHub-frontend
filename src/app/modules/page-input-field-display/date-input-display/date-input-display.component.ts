@@ -14,7 +14,7 @@ export class DateInputDisplayComponent implements OnInit {
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
   years = []
-  date: any;
+  date: any
   days = []
   months = []
   customPickerOptions: any;
@@ -53,6 +53,7 @@ export class DateInputDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.date = this.values.data.defaultValue
     this.years = this.values.data.customYears;
     let defaultYears = []
     for (let index = 1920; index <= this.currentYear + 1; index++) {
@@ -68,6 +69,7 @@ export class DateInputDisplayComponent implements OnInit {
     } else {
       months = null
     }
+
     this.months = months;
     this.days = this.values.data.customDates;
     this.years = this.years.length > 0 ? this.years.sort(function (a, b) { return b - a }) : null;
@@ -82,4 +84,5 @@ export class DateInputDisplayComponent implements OnInit {
     });
     await alert.present();
   }
+
 }

@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { DateInputDisplayComponent } from '../../page-input-field-display/date-input-display/date-input-display.component';
 
 @Component({
   selector: 'app-date-input',
@@ -45,7 +46,6 @@ export class DateInputComponent implements OnInit {
     for (let year = 1920; year <= currentDate.getFullYear(); year++) {
       this.years.unshift(year)
     }
-
   }
 
 
@@ -56,7 +56,7 @@ export class DateInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "date-input", styles: [], data: { label: null, instructions: null, required: true, value: null, customYears: [this.currentYear+1, this.currentYear], customMonths: [], customDays: [], customDates: [] }, default: false };
+      this.values = { _id: "", type: "date-input", styles: [], data: { label: null, instructions: null, required: true, defaultValue: null, value: null, customYears: [this.currentYear+1, this.currentYear], customMonths: [], customDays: [], customDates: [] }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -72,6 +72,7 @@ export class DateInputComponent implements OnInit {
         }
       )
     }
+    
     this.showYears = this.values.data.customYears.length > 0;
     this.showMonths = this.values.data.customMonths.length > 0;
     this.showDays = this.values.data.customDays.length > 0;

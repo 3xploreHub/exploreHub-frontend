@@ -81,7 +81,6 @@ export class ChoicesInputComponent implements OnInit {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
         },
         () => {
-
           this.pending = false;
           let isDone = this.clickedDone ? true : false;
           this.done(isDone);
@@ -97,6 +96,14 @@ export class ChoicesInputComponent implements OnInit {
     this.footerData.done = done;
     this.footerData.saving = false;
     this.clickedDone = false;
+  }
+
+  render() {
+    this.clickedDone = true;
+    if (!this.pending) {
+      this.footerData.done = true;
+      this.clickedDone = false;
+    }
   }
 
   async presentAlert(message) {

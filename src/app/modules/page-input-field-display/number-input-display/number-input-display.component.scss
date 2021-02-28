@@ -12,3 +12,12 @@
     margin:3px;
     color: gray;
 }
+
+.hasError {
+    ion-label {
+        color: red !important;
+    }
+    ion-input {
+        border:1px solid red !important;
+    }
+}

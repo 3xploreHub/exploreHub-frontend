@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 
 @Component({
@@ -8,8 +9,60 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class NumberInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
-  constructor() { }
+  min = null;
+  max = null;
+  number = null
+  hasError = false;
+  message = null
+  constructor(public toastController: ToastController, public alert: AlertController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let data = this.values.data;
+    this.min = data.min ? data.min : null;
+    this.max = data.max ? data.max : null;
+    this.number = this.values.data.defaultValue
+    this.message = "Only accepts value";
+    if (this.min && this.max) {
+      this.message += ` between ${this.min} and ${this.max}`
+    } else if (this.min) {
+      this.message += ` above ${this.min}`
+    } else if (this.max) {
+      this.message += ` below ${this.max}`
+    }
+  
+  }
 
+
+  validate() {
+    if (this.number > this.max || this.number < this.min) {
+      this.presentToast(this.message)
+    }
+  }
+
+  finalValidation() {
+    if (this.number > this.max || this.number < this.min) {
+      this.presentAlert(this.message)
+      this.hasError = true;
+    } else {
+      this.hasError = false;
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
+  }
 }
