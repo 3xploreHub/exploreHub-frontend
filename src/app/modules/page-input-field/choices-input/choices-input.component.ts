@@ -19,7 +19,6 @@ export class ChoicesInputComponent implements OnInit {
   @Input() grandParentId: string;
   footerData: FooterData;
   pending: boolean = false;
-  showPopup = false;
   clickedDone = false;
   choiceInput = null;
   deletedChoice = [];

@@ -18,7 +18,6 @@ export class TextInputComponent implements OnInit {
   public pending: boolean = false;
   public clickedDone: boolean = false;
 
-  public showPopup: boolean = false;
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
       done: false,
@@ -73,7 +72,7 @@ export class TextInputComponent implements OnInit {
 
   edit() {
     this.footerData.done = false;
-    this.showPopup = false;
+    this.creator.clickedComponent = null
   }
 
   saveChanges() {

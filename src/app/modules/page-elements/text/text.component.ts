@@ -118,7 +118,7 @@ export class TextComponent implements OnInit {
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.hasChanges = false;
     this.footerData.done = false;
   }

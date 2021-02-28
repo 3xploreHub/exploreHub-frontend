@@ -19,6 +19,7 @@ export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPageId: string;
   public preview:boolean = false;
+  public clickedComponent:string;
 
   constructor(
     public lStorage: Storage,

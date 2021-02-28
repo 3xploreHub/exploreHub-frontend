@@ -25,7 +25,6 @@ export class PhotoComponent implements OnInit {
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
-  public showPopup: boolean = false;
   public dataToDelete: dataToDelete;
   public showStylePopup: boolean = false;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
@@ -228,7 +227,7 @@ export class PhotoComponent implements OnInit {
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.footerData.done = false;
   }
 

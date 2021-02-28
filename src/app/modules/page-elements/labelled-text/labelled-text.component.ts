@@ -15,7 +15,6 @@ export class LabelledTextComponent implements OnInit {
   @Input() parent: string;
   @Input() grandParentId: string;
   public footerData: FooterData;
-  public showPopup: boolean = false;
   public lastValue: string = null;
   public hasChanges: boolean = false;
   public clickedDone: boolean = false;
@@ -128,7 +127,7 @@ export class LabelledTextComponent implements OnInit {
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.footerData.done = false;
   }
 

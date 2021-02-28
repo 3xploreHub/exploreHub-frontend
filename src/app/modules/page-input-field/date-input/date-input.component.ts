@@ -25,7 +25,6 @@ export class DateInputComponent implements OnInit {
   showMonths = false;
   showDays = false;
   showDates = false;
-  showPopup = false;
   pending: boolean = false;
   currentYear = new Date().getFullYear()
 

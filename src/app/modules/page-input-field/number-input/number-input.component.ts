@@ -19,7 +19,6 @@ export class NumberInputComponent implements OnInit {
   public clickedDone: boolean = false;
   public rangeError: boolean = false;
   public erroredAlready: boolean = false;
-  public showPopup: boolean = false;
 
   constructor(public creator: PageCreatorService, public alert: AlertController) {
     this.footerData = {
@@ -99,7 +98,7 @@ export class NumberInputComponent implements OnInit {
 
   edit() {
     this.footerData.done = false;
-    this.showPopup = false;
+    this.creator.clickedComponent = null
   }
 
   saveChanges() {

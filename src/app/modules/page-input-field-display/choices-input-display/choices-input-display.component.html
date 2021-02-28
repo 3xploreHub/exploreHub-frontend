@@ -1,4 +1,4 @@
-<div [class.hasError]="hasError" class="textInputHolder">
+<div *ngIf="!values.data.selectMultiple; else multiple" [class.hasError]="hasError" class="textInputHolder">
   <ion-label>{{values.data.label}}</ion-label>
   <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent" type="selected">
     {{selected}}
@@ -14,3 +14,6 @@
     </div>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>
+<ng-template #multiple>
+ multilple
+</ng-template>

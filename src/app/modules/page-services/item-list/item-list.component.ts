@@ -24,7 +24,6 @@ export class ItemListComponent implements OnInit {
   @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
   public footerData: FooterData;
-  public showPopup: boolean = false;
   components = {
     'item': ItemComponent,
     'text': TextComponent,
@@ -102,7 +101,7 @@ export class ItemListComponent implements OnInit {
 
 
   renderItemList() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.footerData.saving = true;
     this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
       console.log(newData);
