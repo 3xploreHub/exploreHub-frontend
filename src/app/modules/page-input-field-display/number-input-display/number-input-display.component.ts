@@ -34,13 +34,19 @@ export class NumberInputDisplayComponent implements OnInit {
 
 
   validate() {
-    if (this.number > this.max || this.number < this.min) {
+    if (this.number > this.max || (this.min != null && this.number < this.min)) {
       this.presentToast(this.message)
+      this.hasError = true;
+    }
+    else {
+      this.hasError = false
     }
   }
 
   finalValidation() {
-    if (this.number > this.max || this.number < this.min) {
+    console.log(this.min > this.number);
+    
+    if (this.number > this.max || (this.min != null && this.number < this.min)) {
       this.presentAlert(this.message)
       this.hasError = true;
     } else {
