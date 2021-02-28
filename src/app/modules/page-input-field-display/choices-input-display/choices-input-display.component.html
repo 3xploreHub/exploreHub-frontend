@@ -5,15 +5,25 @@
     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </div>
 
-    <div *ngIf="showChoices && creator.preview" class="options">
-      <div class="option ion-activatable ripple-parent" (click)="select(option)"
-        *ngFor="let option of values.data.choices">
+  <div *ngIf="showChoices && creator.preview" class="options">
+    <div class="option ion-activatable ripple-parent" (click)="select(option)"
+      *ngFor="let option of values.data.choices">
+      {{option.text}}
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </div>
+  </div>
+  <p class="instructions">{{values.data.instructions}}</p>
+</div>
+<ng-template #multiple>
+  <div class="textInputHolder">
+    <div class="optionList">
+      <p>{{values.data.label}}</p>
+
+      <div (click)="check(option)" class="option ion-activatable ripple-parent" *ngFor="let option of values.data.choices">
+        <ion-checkbox [checked]="listOfSelected.includes(option)"></ion-checkbox>
         {{option.text}}
         <ion-ripple-effect type="unbounded"></ion-ripple-effect>
       </div>
     </div>
-  <p class="instructions">{{values.data.instructions}}</p>
-</div>
-<ng-template #multiple>
- multilple
+  </div>
 </ng-template>

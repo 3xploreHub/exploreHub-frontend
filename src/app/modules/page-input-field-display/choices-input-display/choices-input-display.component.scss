@@ -49,3 +49,16 @@
     position: relative;
     overflow: hidden;
 }
+
+.optionList {
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+
+    p {
+        margin-bottom: 3px;
+    }
+    .option {
+        padding: 8px;
+        color: rgb(82, 80, 80);
+    }
+}

@@ -11,10 +11,11 @@ export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   selected = null
   showChoices = false;
+  listOfSelected = []
   constructor(public creator: PageCreatorService) { }
 
   ngOnInit() {
-    
+
   }
 
   select(option) {
@@ -24,4 +25,11 @@ export class ChoicesInputDisplayComponent implements OnInit {
     }, 300);
   }
 
+  check(option) {
+    if (this.listOfSelected.includes(option)) {
+      this.listOfSelected = this.listOfSelected.filter(choice => choice._id != option._id)
+    } else {
+      this.listOfSelected.push(option);
+    }
+  }
 }
