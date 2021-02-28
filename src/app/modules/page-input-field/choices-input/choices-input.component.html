@@ -8,7 +8,7 @@
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
 
-    
+
 
 
     <div class="inputChoice">
@@ -16,18 +16,22 @@
         <p *ngIf="values.data.choices.length == 0" class="noChoice">
           No choices yet
         </p>
-        <div *ngFor="let choice of values.data.choices">
+        <div *ngFor="let choice of values.data.choices; let i = index">
           <div class="choiceText">{{choice}}</div>
-          <div class="removeChoice">
+          <div (click)="values.data.choices = values.data.choices.splice(i, 1);saveChanges()" class="removeChoice">
             <ion-icon name="close-outline" class="popupIcon"></ion-icon>
           </div>
         </div>
       </div>
 
-      <ion-textarea class="inputLabel" [(ngModel)]="choiceInput" auto-grow="true" rows="1" placeholder="Enter option here">
+      <ion-textarea class="inputLabel" [(ngModel)]="choiceInput" auto-grow="true" rows="1"
+        placeholder="Enter option here">
       </ion-textarea>
       <div class="addChoice">
-        <p (click)="values.data.choices.push(choiceInput); choiceInput = null">Add Choice</p>
+        <p [class.disabledBtn]="!choiceInput" (click)="enteredText = choiceInput; 
+            enteredText? values.data.choices.push(enteredText): '';
+            choiceInput = null; 
+            enteredText? saveChanges(): ''">Add Choice</p>
       </div>
     </div>
 

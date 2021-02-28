@@ -36,7 +36,7 @@ export class ChoicesInputComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       this.footerData.done = this.values.data.label ? true : false;
-      this.footerData.hasValue = this.values.data.label ? true : false;
+      this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -56,6 +56,26 @@ export class ChoicesInputComponent implements OnInit {
         }
       )
     }
+  }
+
+  saveChanges() {
+    this.pending = true;
+    this.footerData.hasValue = this.values.data.label && this.values.data.choices.length > 0 ? true : false;
+    setTimeout(() => {
+      this.footerData.saving = true;
+      this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+        (response) => {
+        },
+        (error) => {
+          this.presentAlert("Oops! Something went wrong. Please try again later!")
+        },
+        () => {
+          this.pending = false;
+          let isDone = this.clickedDone ? true : false;
+          this.done(isDone);
+        }
+      )
+    }, 300);
   }
 
   done(done: boolean = true) {
