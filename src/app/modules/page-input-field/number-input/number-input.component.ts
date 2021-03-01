@@ -36,7 +36,8 @@ export class NumberInputComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let result = this.validateLimitRange();
-      this.footerData.done = result == "valid" ? this.values.data.label ? true : false : false;
+      let validDefault = this.validateDefault(false);
+      this.footerData.done = result == "valid" && validDefault ? this.values.data.label ? true : false : false;
       this.footerData.hasValue = this.values.data.label;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
@@ -79,16 +80,20 @@ export class NumberInputComponent implements OnInit {
     }
   }
 
-  validateDefault() {
+  validateDefault(alert = true) {
     if (this.values.data.defaultValue) {
       const defaultValue = this.values.data.defaultValue
       const min = this.values.data.min;
       const max = this.values.data.max;
       if (min && defaultValue < min) {
-        this.presentAlert("The default value is lesser than the minimum!")
+        if (alert) {
+          this.presentAlert("The default value is lesser than the minimum!")
+        }
         return false;
       } else if (max && defaultValue > max) {
-        this.presentAlert("The default value is greater than the maximum!")
+        if (alert) {
+          this.presentAlert("The default value is greater than the maximum!")
+        }
         return false
       }
     }
