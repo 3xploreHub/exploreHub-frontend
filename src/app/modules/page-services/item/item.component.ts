@@ -51,8 +51,7 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.values) {
-      let data = this.values.data
-      // this.footerData.done = this.values.data? true: false;
+      this.footerData.done = this.creator.checkIfHasValue(this.values.data)
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
       this.renderChildren();

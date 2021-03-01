@@ -98,8 +98,6 @@ export class ItemListComponent implements OnInit {
     this.renderChildren()
   }
 
-
-
   renderItemList() {
     this.creator.clickedComponent = null
     this.footerData.saving = true;
