@@ -1,0 +1,80 @@
+.inputField {
+    background-color: #ffff;
+    border: 1px solid lightgray;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+    overflow: visible;
+}
+.textInputHolder {
+    // padding: 10px 5px;
+    margin: 10px;
+    position: relative;
+}
+
+.instructions {
+    font-size:14px;
+    margin:3px;
+    color: gray;
+}
+
+.hasError {
+    ion-label {
+        color: red !important;
+    }
+    ion-input {
+        position: relative;
+        border:1px solid red !important;
+    }
+}
+
+.options {
+    position: absolute;
+    left:0;
+    width:100%;
+    z-index: 99;
+    background-color: #ffff;
+    box-shadow: 0px 2px 5px #505050;
+    top:60px;
+    
+    .option {
+        padding:10px;
+        border-top: 1px solid lightgray;
+    }
+}
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+}
+
+.optionList {
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+  
+
+    .label {
+        margin-bottom: 3px;
+    }
+
+    .instructions {
+        margin:3px;
+        font-size: 12px !important;
+        color:gray;
+    }
+    .option {
+        display: flex;
+        flex-direction: row;
+        padding: 8px;
+        font-size: 15px !important;
+        color: rgb(82, 80, 80);
+
+        
+    .checkbox {
+        width:30px;
+        margin-right: 8px;
+      }
+    }
+}

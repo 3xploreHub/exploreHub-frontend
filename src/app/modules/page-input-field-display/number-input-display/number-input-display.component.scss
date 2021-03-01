@@ -1,0 +1,23 @@
+.inputField {
+    background-color: #ffff;
+    border: 1px solid lightgray;
+}
+.textInputHolder {
+    padding: 10px 0;
+    margin: 10px;
+}
+
+.instructions {
+    font-size:13px;
+    margin:3px;
+    color: gray;
+}
+
+.hasError {
+    ion-label {
+        color: red !important;
+    }
+    ion-input {
+        border:1px solid red !important;
+    }
+}

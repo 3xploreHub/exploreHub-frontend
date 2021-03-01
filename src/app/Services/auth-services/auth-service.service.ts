@@ -11,16 +11,11 @@ import userTokenType from "../../services-common-helper/constantValue/user-token
 @Injectable({
   providedIn: "root",
 })
+
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/account`;
   attemptedUrl: string;
   token = null;
-
-  httpOption = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-    }),
-  };
 
   constructor(
     private http: HttpClient,
@@ -37,7 +32,6 @@ export class AuthService {
   }
 
   addAccountInformation(data: user): Observable<any> {
-    console.log(data);
     return this.http.post(`${this.apiUrl}/addAccountInformation`, data);
   }
 
@@ -118,7 +112,7 @@ export class AuthService {
   }
 
   hasAttemptedUrl() {
-    return this.attemptedUrl ? this.attemptedUrl : "/home";
+    return this.attemptedUrl ? this.attemptedUrl : "/service-provider";
   }
 
   isLoggedIn(type: string) {

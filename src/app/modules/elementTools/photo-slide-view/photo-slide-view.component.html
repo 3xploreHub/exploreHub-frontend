@@ -1,0 +1,7 @@
+<ion-slides [class.small]="parent == 'component'"  *ngIf="images.length > 0" pager="true" [options]="slideOpts">
+  <ion-slide *ngFor="let photo of images">
+    <div [class.small]="parent == 'component'" class="imageHolder">
+      <img [src]="photo.url" />
+    </div>
+  </ion-slide>
+</ion-slides>

@@ -34,7 +34,6 @@ export class FindAccountPage implements OnInit {
     if (this.form.value.credentialUsed == "contactNumber") {
       this.form.value.credential = this.completeNum(this.form.value.credential);
     }
-    console.log(this.form.value.credentialUsed);
     const res = this.authservice.findAccount(this.form.value);
     res.subscribe(
       (resp) => {
@@ -69,7 +68,6 @@ export class FindAccountPage implements OnInit {
     } else if (numPattern.test(value)) {
       this.form.controls["credentialUsed"].value = "contactNumber";
     }
-    console.log(this.form.value.credentialUsed);
   }
 
   async presentAlert(message) {

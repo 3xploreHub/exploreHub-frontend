@@ -1,0 +1,12 @@
+.serviceContainer {
+    padding:10px 0;
+    box-sizing: border-box;
+    overflow-y: visible;
+    overflow-x: scroll;
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+} 
+.outerWrapper {
+    padding: 10px 0;
+}

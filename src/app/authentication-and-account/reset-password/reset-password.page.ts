@@ -104,10 +104,9 @@ export class ResetPasswordPage implements OnInit, OnDestroy {
       const reset = this.authService.changePassword(this.form.value);
       reset.subscribe(
         (resp) => {
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/service-provider"]);
         },
         (error) => {
-          console.log(error);
           if (error.error.type == "old_password") {
             this.oldPass(
               "You have entered your old password! Do you want to continue using it?",
@@ -119,7 +118,6 @@ export class ResetPasswordPage implements OnInit, OnDestroy {
             );
           }
           if (error.status == 404) {
-            console.log("USER NOT FOUND");
             this.authService.logOut();
             this.router.navigate(["/login"]);
           }

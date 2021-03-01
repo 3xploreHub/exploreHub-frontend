@@ -23,13 +23,13 @@ export class TokenInterceptorService implements HttpInterceptor {
     public authServices: AuthService,
     public route: Router,
     public alertController: AlertController
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!request.headers.has("check_availability")) {
+    if (!request.headers.has("hideLoadingIndicator")) {
       this.loadingService.show();
     }
     return from(this.authServices.get("currentUser")).pipe(
@@ -43,14 +43,15 @@ export class TokenInterceptorService implements HttpInterceptor {
         }
 
         if (!request.headers.has("Content-Type")) {
-          request = request.clone({
-            headers: request.headers.set("Content-Type", "application/json"),
-          });
+          if (!request.headers.has("containsFiles")) {
+            request = request.clone({
+              headers: request.headers.set("Content-Type", "application/json"),
+            });
+          }
         }
 
         return next.handle(request).pipe(
           map((event: any) => {
-            console.log("at map ", event);
             if (event instanceof HttpResponse) {
               this.loadingService.hide();
               if (event.body.token) {
@@ -67,7 +68,6 @@ export class TokenInterceptorService implements HttpInterceptor {
           }),
           catchError((error) => {
             this.loadingService.hide();
-            console.log(error);
             if (error.status == 401) {
               this.authServices.logOut();
               this.route.navigate(["/login"]);

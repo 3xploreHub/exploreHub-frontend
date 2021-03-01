@@ -24,14 +24,13 @@ export class AppEntryGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log("at entry");
     return this.authService
       .isLoggedIn(userTokenType.accountAccess)
       .then((resp) => {
         if (!resp) {
           return true;
         }
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/service-provider"]);
         return false;
       });
   }

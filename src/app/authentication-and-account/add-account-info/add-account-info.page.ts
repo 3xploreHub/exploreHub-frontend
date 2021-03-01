@@ -59,7 +59,6 @@ export class AddAccountInfoPage implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
     if (this.form.valid) {
       const request = this.authService.addAccountInformation(this.form.value);
       request.subscribe(

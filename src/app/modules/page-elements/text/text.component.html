@@ -1,0 +1,23 @@
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
+    <ion-textarea [ngClass]="values.styles" auto-grow="true" (change)="saveChanges()"
+      (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving"
+      [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder? values.data.placeholder: 'Enter text here'">
+    </ion-textarea>
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="renderText()" (openStylePopup)="changeStyle()"
+      (selectStyle)="applyStyle($event)" (delete)="delete()">
+    </app-element-footer>
+    <div class="componentWrapper" *ngIf="showStylePopup">
+      <app-style-popup *ngIf="footerData.hasStyle" (cancel)="cancelStyles()"
+        (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-style-popup>
+    </div>
+  </div>
+
+  <ng-template #doneBlock>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+        (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-text-display [ngClass]="values.styles" (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-text-display>
+    </div>
+  </ng-template>
+</div>

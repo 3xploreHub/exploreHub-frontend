@@ -1,0 +1,10 @@
+<div *ngIf="values.data.length > 0">
+  <div class="imageGrid" [class.singleCol]="values.data.length <= 2" *ngIf="gridStyle; else slide">
+    <div [class.small]="parent == 'component' || (gridStyle && values.data.length > 1)" style="background-image: url({{img.url}})" *ngFor="let img of values.data; let i = index;" class="imageCont ion-text-center">
+      <!-- <img class="image" [src]="img.url" /> -->
+    </div>
+  </div>
+  <ng-template #slide>
+    <app-photo-slide-view [parent]="parent" [images]="values.data"></app-photo-slide-view>
+  </ng-template>
+</div>

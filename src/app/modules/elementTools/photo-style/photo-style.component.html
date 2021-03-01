@@ -1,0 +1,12 @@
+<div class="popupOverlay">
+  <div class="rowWrapper">
+    <div class="styleOption displayStyle">
+      <p [ngClass]="style('view-grid')" (click)="select.emit('view-grid')">Grid View</p>
+      <p [ngClass]="style('view-slide')" (click)="select.emit('view-slide')">Slide View</p>
+    </div>
+  
+    <div class="styleOption">
+      <p (click)="cancel.emit()" class="option dangerColor">Close</p>
+    </div>
+  </div>
+</div>

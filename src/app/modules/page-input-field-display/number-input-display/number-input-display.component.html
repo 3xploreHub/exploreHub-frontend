@@ -1,0 +1,5 @@
+<div [class.hasError]="hasError" class="textInputHolder">
+  <ion-label>{{values.data.label}}</ion-label>
+  <ion-input class="inputField" type="number" [disabled]="!creator.preview" [(ngModel)]="number" (change)="finalValidation()" (keyup)="validate()" [min]="min" [max]="max" placeholder="Type here"></ion-input>
+  <p class="instructions">{{values.data.instructions}}</p>
+</div>

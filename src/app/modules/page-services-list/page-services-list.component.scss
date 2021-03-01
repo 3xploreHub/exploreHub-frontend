@@ -1,0 +1,92 @@
+.modalFooter {
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.closeList {
+    font-size:31px;
+    color:#fff;
+    position: fixed;
+    top:0;
+    right:0;
+    padding:5px;
+    flex:1;
+}
+
+.listWrapper {
+    flex:1;
+    background: transparent;
+    overflow: auto;
+    text-align: center;
+
+}
+
+.modalWrapper {
+    display:flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.itemWrapper {
+    background: #fff;
+    margin: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // flex-wrap: wrap;
+    height:100px;
+    width:120px;
+    // padding:10px;
+}
+
+.itemTitle {
+    flex:1;
+    padding:8px;
+    align-self: center;
+}
+
+.itemSample {
+    flex:2;
+    background-color:lightgray;
+    padding:8px;
+}
+
+.paragraph {
+    font-size: 5px;
+    color:rgb(49, 47, 47);
+    text-align:left;
+    line-height: 8px;
+}
+
+.title {
+    font-size:15px !important;
+    color:rgb(105, 105, 105); 
+    padding-top:15px; 
+}
+
+.subText {
+    font-size: 5px !important;
+    color:rgb(167, 167, 167);
+}
+
+.imagePlaceholder {
+    width:80px;
+    vertical-align: middle;
+}
+
+.imgHolder {
+    text-align: center;
+}
+
+.listInnerWrapper {
+    // display: inline-block;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.closeModal {
+    padding:10px;
+    color:red;
+}

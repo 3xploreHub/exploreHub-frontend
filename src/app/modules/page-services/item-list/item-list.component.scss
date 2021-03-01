@@ -1,0 +1,42 @@
+.outerWrapper {
+    margin: 10px 0;
+}
+.serviceContainer {
+    margin-top: 15px;
+    box-sizing: border-box;
+    overflow-y: visible;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    transition: .5s;
+    padding: 1px 0;
+} 
+
+.wrapper {
+    background-color: rgb(167, 182, 199);
+    padding:10px 0;
+    margin:20px 0;
+}
+
+.serviceFooter {
+    height: 40px;
+}
+
+.listFooter {
+    padding:20px 0;
+    background-color: white !important;
+}
+
+.addComp {
+    padding:10px;
+    background: rgba(177, 205, 226, 0.5);
+    color:rgb(5, 104, 204);
+    text-align: center;
+    margin: 0 10px;
+}
+
+.newItem {
+    background-color: red;
+    padding:10px;
+}
