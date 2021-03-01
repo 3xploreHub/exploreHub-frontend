@@ -41,7 +41,7 @@ export class NumberInputComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, defaultValue: null, required: true, value: null, min:  null , max:  null} , default: false };
+      this.values = { _id: "", type: "number-input", styles: [], data: { label: null, instructions: null, defaultValue: null, required: true, value: null, min: null, max: null }, default: false };
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -63,7 +63,9 @@ export class NumberInputComponent implements OnInit {
     this.clickedDone = true;
     if (!this.pending) {
       if (this.validateLimitRange() == "valid") {
-        this.footerData.done = true;
+        if (this.validateDefault()) {
+          this.footerData.done = true;
+        }
       } else {
         if (!this.erroredAlready) {
           this.presentAlert(this.validateLimitRange());
@@ -77,20 +79,40 @@ export class NumberInputComponent implements OnInit {
     }
   }
 
-  done(done: boolean = true) {
-    if (this.clickedDone) {
-      let result = this.validateLimitRange()
-      if (result != "valid") {
-        done = false;
-        if (!this.erroredAlready) {
-          this.presentAlert(result);
-          this.erroredAlready = true;
-        } else {
-          this.erroredAlready = true;
-        }
+  validateDefault() {
+    if (this.values.data.defaultValue) {
+      const defaultValue = this.values.data.defaultValue
+      const min = this.values.data.min;
+      const max = this.values.data.max;
+      if (min && defaultValue < min) {
+        this.presentAlert("The default value is lesser than the minimum!")
+        return false;
+      } else if (max && defaultValue > max) {
+        this.presentAlert("The default value is greater than the maximum!")
+        return false
       }
     }
-    this.footerData.done = done;
+    return true
+  }
+
+  done(done: boolean = true) {
+    if (this.clickedDone) {
+
+      let result = this.validateLimitRange()
+      if (result != "valid") {
+        if (this.validateDefault()) {
+          done = false;
+          if (!this.erroredAlready) {
+            this.presentAlert(result);
+            this.erroredAlready = true;
+          } else {
+            this.erroredAlready = true;
+          }
+          this.footerData.done = done;
+        }
+
+      }
+    }
     this.footerData.saving = false;
     this.clickedDone = false;
     this.erroredAlready = false;
@@ -105,7 +127,7 @@ export class NumberInputComponent implements OnInit {
     this.pending = true;
     this.footerData.hasValue = this.values.data.label ? true : false
     setTimeout(() => {
-    this.footerData.saving = true;
+      this.footerData.saving = true;
       this.creator.editInputField(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
         (response) => {
         },
@@ -130,7 +152,7 @@ export class NumberInputComponent implements OnInit {
     if ((data.min && data.max || data.max == 0) && (data.min > data.max)) {
       this.rangeError = true;
       return "Invalid limit range!"
-    } 
+    }
     return "valid"
   }
 
