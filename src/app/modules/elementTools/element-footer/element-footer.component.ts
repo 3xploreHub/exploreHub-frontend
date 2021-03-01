@@ -13,6 +13,7 @@ export class ElementFooterComponent implements OnInit {
   @Output() selectStyle: EventEmitter<string> = new EventEmitter();
   @Output() openStylePopup: EventEmitter<any> = new EventEmitter();
   @Output() openDeleteCon: EventEmitter<any> = new EventEmitter();
+  @Input() noPreview: boolean = false;
   delClicked = false;
 
   constructor() {

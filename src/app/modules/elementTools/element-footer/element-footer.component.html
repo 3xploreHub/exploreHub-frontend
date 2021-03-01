@@ -15,7 +15,7 @@
         <span class="footerText">Style</span>
       </div>
 
-      <div (click)="done()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
+      <div *ngIf="!noPreview" (click)="done()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
         <ion-icon class="footerIcon" name="checkmark-circle-outline"></ion-icon>
         <span class="footerText">Done</span>
       </div>

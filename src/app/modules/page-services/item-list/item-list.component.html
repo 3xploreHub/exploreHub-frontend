@@ -2,27 +2,22 @@
   <div *ngIf="!footerData.done">
     <ng-template #listInfo></ng-template>
     <p class="addComp" (click)="showComponentList()">Add other more info</p>
-    
-    <!-- <div class="serviceContainer" #newItem>
-      <ng-template #pageElement></ng-template>
-    </div> -->
-    <!-- let parent = "component"
-    if (componentName != "item") {
-      domRef = this.listInfo;
-      parent = "service"
-    } -->
-    <div #newItem> 
-      <ion-slides  pager="true" [options]="slideOpts">
-        <ion-slide *ngFor="let item of items; let i = index" [class.deleted]="deletedItem.includes(item._id)" >
-          <app-item (passDataToParent)="getItemData($event)" (onDelete)="deleteItem($event)" [values]="item" [parentId]="values._id" [parent]="'component'"></app-item>
+
+
+    <div #newItem>
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let item of items; let i = index" [class.deleted]="deletedItem.includes(item._id)">
+          <app-item (passDataToParent)="getItemData($event)" (onDelete)="deleteItem($event)" [values]="item"
+            [parentId]="values._id" [parent]="'component'"></app-item>
         </ion-slide>
       </ion-slides>
     </div>
-  </div>
 
-  <p class="addComp" (click)="addItem()">Add new item</p>
-  <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()">
-  </app-element-footer>
+    <br>
+    <p class="addComp" (click)="addItem()">Add new item</p>
+    <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()">
+    </app-element-footer>
+  </div>
 
   <div *ngIf="footerData.done">
     <div class="componentWrapper">

@@ -68,7 +68,6 @@ export class ItemComponent implements OnInit {
   }
 
 
-
   async showComponentList() {
     const modal = await this.modalController.create({
       component: PageElementListComponent,

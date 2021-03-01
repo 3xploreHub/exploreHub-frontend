@@ -10,6 +10,7 @@ import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
 import { ItemComponent } from '../item/item.component';
 import { v4 as uuidv4 } from 'uuid';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-item-list',
@@ -27,11 +28,12 @@ export class ItemListComponent implements OnInit {
   public footerData: FooterData;
   public items: ElementValues[] = [];
   public newlyAdded: number;
-  public deletedItem: string[] =[]
+  public deletedItem: string[] = []
   slideOpts = {
     initialSlide: 1,
     speed: 400
   };
+
   components = {
     'item': ItemComponent,
     'text': TextComponent,
@@ -59,23 +61,18 @@ export class ItemListComponent implements OnInit {
 
   ngOnInit() {
     if (this.values) {
-      let data = this.values.data
       this.renderChildren()
-      // this.footerData.done = this.values.data? true: false;
       this.footerData.done = false;
       this.footerData.hasValue = this.values.data ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-       this.items = this.values.data.filter(item => item.type == 'item')
-
+      this.items = this.values.data.filter(item => item.type == 'item')
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
-
-    alert(this.items.length)
   }
 
   deleteItem(id) {
@@ -85,10 +82,13 @@ export class ItemListComponent implements OnInit {
 
   getItemData(data) {
     this.items = this.items.map(item => {
-      if (typeof item == "string" && item == data.tempId) item = data.values
+      if (typeof item == "string" && item == data.tempId) {
+        item = data.values
+      } else if (data._id == item._id) {
+        item = data
+      }
       return item;
     })
-    console.log(this.items);
   }
 
   setItems(data) {
@@ -109,16 +109,8 @@ export class ItemListComponent implements OnInit {
     }, 1000);
   }
 
-  // setPage(component) {
-  //   if (component.length > 0) {
-  //     component.forEach((component: any) => {
-  //       this.renderComponent(component.type, component)
-  //     })
-  //   }
-  // }
 
   addItem() {
-    // this.renderComponent("item", null);
     this.items.push(uuidv4())
     setTimeout(() => {
       this.newItemAdded.nativeElement.scrollLeft = this.newItemAdded.nativeElement.scrollWidth + 350;
@@ -126,13 +118,25 @@ export class ItemListComponent implements OnInit {
   }
 
   edit() {
-    this.footerData.done = false;
-    this.renderChildren()
+    this.footerData.saving = true;
+    this.footerData.message = "loading..."
+    setTimeout(() => {
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
+        this.values = newData[0].services[0]
+        this.footerData.done = false;
+        this.footerData.saving = false;
+        this.renderChildren()
+        this.items = this.values.data.filter(item => item.type == 'item')
+      })
+    }, 300)
   }
 
   renderItemList() {
     this.creator.clickedComponent = null
     this.footerData.saving = true;
+    const info = this.values.data.filter(data => data.type != "item")
+    this.values.data = [...info, ...this.items]
+
     setTimeout(() => {
       this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
         this.values = newData[0].services[0]
