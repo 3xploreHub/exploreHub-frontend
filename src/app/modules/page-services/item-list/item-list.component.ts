@@ -9,6 +9,7 @@ import { LabelledTextComponent } from '../../page-elements/labelled-text/labelle
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
 import { ItemComponent } from '../item/item.component';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-item-list',
@@ -24,6 +25,13 @@ export class ItemListComponent implements OnInit {
   @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
   public footerData: FooterData;
+  public items: ElementValues[] = [];
+  public newlyAdded: number;
+  public deletedItem: string[] =[]
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
   components = {
     'item': ItemComponent,
     'text': TextComponent,
@@ -58,12 +66,33 @@ export class ItemListComponent implements OnInit {
       this.footerData.hasValue = this.values.data ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
+       this.items = this.values.data.filter(item => item.type == 'item')
+
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
+
+    alert(this.items.length)
+  }
+
+  deleteItem(id) {
+    this.items = this.items.filter(item => item && item._id != id);
+    this.deletedItem.push(id)
+  }
+
+  getItemData(data) {
+    this.items = this.items.map(item => {
+      if (typeof item == "string" && item == data.tempId) item = data.values
+      return item;
+    })
+    console.log(this.items);
+  }
+
+  setItems(data) {
+    this.items = data.filter(item => item.type == 'item')
   }
 
   renderChildren() {
@@ -73,21 +102,24 @@ export class ItemListComponent implements OnInit {
       this.footerData.saving = false;
       this.footerData.message = "Saving Changes..."
       if (this.values.data.length > 0) {
-        this.setPage(this.values.data)
+        this.values.data.forEach((component: any) => {
+          this.renderComponent(component.type, component)
+        })
       }
     }, 1000);
   }
 
-  setPage(component) {
-    if (component.length > 0) {
-      component.forEach((component: any) => {
-        this.renderComponent(component.type, component)
-      })
-    }
-  }
+  // setPage(component) {
+  //   if (component.length > 0) {
+  //     component.forEach((component: any) => {
+  //       this.renderComponent(component.type, component)
+  //     })
+  //   }
+  // }
 
   addItem() {
-    this.renderComponent("item", null);
+    // this.renderComponent("item", null);
+    this.items.push(uuidv4())
     setTimeout(() => {
       this.newItemAdded.nativeElement.scrollLeft = this.newItemAdded.nativeElement.scrollWidth + 350;
     }, 300);
@@ -103,7 +135,6 @@ export class ItemListComponent implements OnInit {
     this.footerData.saving = true;
     setTimeout(() => {
       this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        console.log(newData);
         this.values = newData[0].services[0]
         this.footerData.saving = false
         if (this.checkIfHasItems(this.values.data)) {
@@ -114,18 +145,14 @@ export class ItemListComponent implements OnInit {
   }
 
   renderComponent(componentName: string, componentValues: any) {
-    if (componentName) {
-      let domRef = this.pageElement;
-      let parent = "component"
-      if (componentName != "item") {
-        domRef = this.listInfo;
-        parent = "service"
+    if (componentName && componentName != "item") {
+      if (this.listInfo) {
+        const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+        const comp = this.listInfo.createComponent<ElementComponent>(factory);
+        comp.instance.values = componentValues;
+        comp.instance.parentId = this.values._id;
+        comp.instance.parent = "service";
       }
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = domRef.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.parent = parent;
     }
   }
 
@@ -135,7 +162,9 @@ export class ItemListComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.items = this.values.data.filter(item => item.type == 'item')
         this.renderChildren();
+
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -158,7 +187,6 @@ export class ItemListComponent implements OnInit {
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
     this.renderComponent(data, null);
-
     return present;
   }
 

@@ -18,10 +18,13 @@ import { ItemDisplayComponent } from '../../page-services-display/item-display/i
 })
 
 export class ItemComponent implements OnInit {
-  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
+  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef = null;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter()
+  @Output() passDataToParent: EventEmitter<any> = new EventEmitter()
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() parent: string;
+  public tempId: any;
   public footerData: FooterData;
 
   components = {
@@ -50,12 +53,13 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.values) {
-      this.footerData.done = this.creator.checkIfHasValue(this.values.data)
+    if (this.values && typeof this.values != 'string') {
+      // this.footerData.done = this.creator.checkIfHasValue(this.values.data)
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
       this.renderChildren();
     } else {
+      this.tempId = this.values
       this.footerData.done = false;
       this.values = { _id: "", type: "item", styles: [], data: [], default: false };
       this.footerData.message = "Adding Field..."
@@ -104,11 +108,13 @@ export class ItemComponent implements OnInit {
   renderComponent(componentName: string, componentValues: any, isNew: boolean = false) {
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageElement.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.grandParentId = this.parentId;
-      comp.instance.parent = "component";
+      if (this.pageElement) {
+        const comp = this.pageElement.createComponent<ElementComponent>(factory);
+        comp.instance.values = componentValues;
+        comp.instance.parentId = this.values._id;
+        comp.instance.grandParentId = this.parentId;
+        comp.instance.parent = "component";
+      }
     }
   }
 
@@ -118,6 +124,7 @@ export class ItemComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.passDataToParent.emit({tempId: this.tempId, values: this.values});
         this.renderChildren();
       },
       (error) => {
@@ -164,6 +171,7 @@ export class ItemComponent implements OnInit {
       this.creator.deleteItem(this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
+          this.onDelete.emit(this.values._id)
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")
