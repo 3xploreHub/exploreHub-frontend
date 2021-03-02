@@ -1,14 +1,15 @@
 <div class="textInputHolder">
+  <div *ngIf="!creator.preview" class="overlay">
+  </div>
   <div>{{values.data.label}}</div>
-    <ion-datetime *ngIf="creator.preview" displayFormat="DDDD MMM D, YYYY"
+    <ion-datetime displayFormat="DDDD MMM D, YYYY"
       [yearValues]="years"
       [monthValues]="months"
       [(ngModel)]="date"
       [pickerOptions]="customPickerOptions"
       [dayValues]="days"
       class="inputField"
-     ></ion-datetime>
-     <ion-input class="default" [(ngModel)]="date" *ngIf="!creator.preview" class="inputField">
-     </ion-input>
+     >
+    </ion-datetime>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>

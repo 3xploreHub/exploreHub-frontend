@@ -5,6 +5,7 @@
 .textInputHolder {
     padding: 10px 0;
     margin: 10px;
+    position: relative;
 }
 
 .instructions {
@@ -12,6 +13,15 @@
     margin:3px;
     color: gray;
 }
+
+.overlay {
+    width:100%;
+    height: 100%;
+    position: absolute;
+    background-color:none;
+    z-index: 9999;
+}
+
 
 .hasError {
     ion-label {

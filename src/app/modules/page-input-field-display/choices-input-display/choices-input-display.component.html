@@ -2,20 +2,24 @@
   <ion-label>{{values.data.label}}</ion-label>
   <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent" type="selected">
     {{selected}}
-    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    <ion-ripple-effect *ngIf="creator.preview"  type="unbounded"></ion-ripple-effect>
   </div>
 
   <div *ngIf="showChoices && creator.preview" class="options">
     <div class="option ion-activatable ripple-parent" (click)="select(option)"
       *ngFor="let option of values.data.choices">
       {{option.text}}
-      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+      <ion-ripple-effect  *ngIf="creator.preview" type="unbounded"></ion-ripple-effect>
     </div>
   </div>
   <p class="instructions">{{values.data.instructions}}</p>
+  <div *ngIf="!creator.preview" class="overlay">
+  </div>
 </div>
 <ng-template #multiple>
   <div class="textInputHolder">
+    <div *ngIf="!creator.preview" class="overlay">
+    </div>
     <div class="optionList">
       <p class="label">{{values.data.label}}</p>
       <p class="instructions">{{values.data.label}}</p>
