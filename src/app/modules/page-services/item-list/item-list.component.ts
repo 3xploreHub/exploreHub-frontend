@@ -233,9 +233,9 @@ export class ItemListComponent implements OnInit {
 
   checkIfHasItems(items, alert = true) {
     let values = [];
-    if (items.length == 0) {
+    if (items.length == 1) {
       if (alert) {
-      this.presentAlert("Please add info about this service")
+        this.presentAlert("Please add info about this service")
       }
       return false
     }
