@@ -9,6 +9,7 @@
 
 .creator {
     margin-bottom: 150px;
+    padding-top:30px;
     background: #ffff;
     position: relative;
 }
@@ -76,17 +77,63 @@
     padding: 6px 10px;
     margin: 5px;
     font-size: 14px;
+    
+    background-color: none;
+    color: #ffff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    // width:90px;
+
+    // span {
+    //     font-size: 13px;
+    // }
+}
+
+.exit {
+    padding: 6px 10px;
+    margin: 5px;
+    font-size: 14px;
+    
+    background-color: none;
+    color: #ffff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.submit {
+    padding: 6px 10px;
+    padding-left:20px;
+    margin: 5px;
+    font-size: 18px;
+    
+    color: #ffff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.icons {
+    font-size:18px !important;
+}
+
+.menu {
     position: fixed;
     top: 0;
     right:0;
     z-index: 99999;
-    background-color: rgba(9, 114, 219, .7);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    background-color:rgba(42, 60, 78, .8);
     color: #ffff;
-    text-align: center;
-
-    span {
-        font-size: 13px;
-    }
 }
 
 .tabs {
@@ -117,7 +164,7 @@
 
 .boxHolder {
     z-index: 99998;
-    background-color: dodgerblue;
+    background-color: rgb(30, 144, 255);
     font-size: 14px;
     color:#ffff;
     position: fixed;

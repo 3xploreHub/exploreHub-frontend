@@ -1,4 +1,4 @@
-<ion-content padding [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, tab)">
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, tab)">
     <div class="creator">
         <div #info>
             <ng-template #pageElement></ng-template>
@@ -51,22 +51,35 @@
                     Add Field
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
-            </div>
-        </div>
-        <div class="preview ion-activatable ripple-parent" (click)="creator.preview = !creator.preview">
 
-            <span *ngIf="creator.preview">
-                <ion-icon name="create-outline"></ion-icon>&nbsp;Edit
-            </span>
-            <span *ngIf="!creator.preview">
-                <ion-icon name="eye-outline"></ion-icon>&nbsp;Preview
-            </span>
-            <ion-ripple-effect></ion-ripple-effect>
+            </div>
+
+
+        </div>
+        <div class="menu">
+            <div class="exit">
+                <ion-icon class="icons" name="arrow-back-circle-outline"></ion-icon>&nbsp;Back
+            </div>
+            <!-- Tourist Spot -->
+
+            <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
+                (click)="creator.preview = !creator.preview">
+                <ion-icon class="icons" name="create-outline"></ion-icon>&nbsp;Edit
+                <ion-ripple-effect></ion-ripple-effect>
+            </div>
+            <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent"
+                (click)="creator.preview = !creator.preview">
+                <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview / Test
+                <ion-ripple-effect></ion-ripple-effect>
+            </div>
+            <div class="submit">
+                Submit&nbsp;<ion-icon name="send-outline"></ion-icon>
+            </div>
         </div>
 
         <div class="tabs">
             <div class="tab" (click)="scroll(info,'info', tab)">
-                info
+                Info
             </div>
             <div class="tab" #tab (click)="scroll(services, 'services', tab)">
                 Services
