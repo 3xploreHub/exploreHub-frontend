@@ -26,14 +26,14 @@ export class PhotoComponent implements OnInit {
   public footerData: FooterData;
   public images: Image[] = [];
   public dataToDelete: dataToDelete;
-  slideOpts = {
+  public noActions: boolean = true;
+  public slideOpts: any = {
     initialSlide: 1,
     speed: 400
-  };;
-  currentPhotoVisible = 1
+  };
   public showStylePopup: boolean = false;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
-  @ViewChild(IonSlides) slides: IonSlides;
+  @ViewChild('slides', { static: false }) slides: IonSlides;
 
 
   constructor(private creator: PageCreatorService,
@@ -76,10 +76,15 @@ export class PhotoComponent implements OnInit {
         },
       )
     }
+
+   
+
   }
 
 
+
   async selectImageSource() {
+    this.noActions = false;
     const buttons = [
       {
         text: 'Take Photo',
@@ -115,6 +120,8 @@ export class PhotoComponent implements OnInit {
   }
 
   async addImage(source: CameraSource) {
+    this.noActions = false;
+
     try {
       const image = await Camera.getPhoto({
         quality: 60,
@@ -127,11 +134,14 @@ export class PhotoComponent implements OnInit {
       this.footerData.saving = true;
       this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);
+
         if (this.slides) {
           setTimeout(() => {
             this.slides.slideTo(this.values.data.length, 500);
           }, 100);
+
         }
+
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
       });
@@ -148,6 +158,8 @@ export class PhotoComponent implements OnInit {
 
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
+    this.noActions = false;
+
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
@@ -179,6 +191,8 @@ export class PhotoComponent implements OnInit {
   }
 
   deleteImage() {
+    this.noActions = false;
+
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
     this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,

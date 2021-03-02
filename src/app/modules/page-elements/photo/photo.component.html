@@ -17,7 +17,7 @@
 
     </div>
     <ng-template #viewSlide>
-      <ion-slides #slider *ngIf="images.length > 0" pager="true" initialSlide="currentPhotoVisible" [options]="slideOpts">
+      <ion-slides #slides *ngIf="images.length > 0" pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let img of images">
           <div class="imageHolder componentWrapper">
             <img class="image" [src]="img.url" />
