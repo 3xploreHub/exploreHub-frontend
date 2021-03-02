@@ -127,9 +127,11 @@ export class PhotoComponent implements OnInit {
       this.footerData.saving = true;
       this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);
-        setTimeout(() => {
-          this.slides.slideTo(this.values.data.length, 500);
-        }, 100);
+        if (this.slides) {
+          setTimeout(() => {
+            this.slides.slideTo(this.values.data.length, 500);
+          }, 100);
+        }
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
       });
@@ -143,13 +145,6 @@ export class PhotoComponent implements OnInit {
     this.saveChanges();
   }
 
-  showNewlyAdded(slides, index) {
-    setTimeout(() => {
-      slides._slides.slideTo(index, 2000)
-    }, 50);
-    console.log(slides);
-    
-  }
 
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
@@ -160,7 +155,9 @@ export class PhotoComponent implements OnInit {
     this.creator.uploadImageFile(this.grandParentId, this.parentId, this.values._id, this.parent, file).subscribe((data: ElementValues) => {
       this.getResponseData(data);
       setTimeout(() => {
-        this.slides.slideTo(this.values.data.length, 500);
+        if (this.slides) {
+          this.slides.slideTo(this.values.data.length, 500);
+        }
       }, 100);
 
     }, (error) => {

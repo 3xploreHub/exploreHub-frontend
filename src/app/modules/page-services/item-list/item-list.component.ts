@@ -114,9 +114,11 @@ export class ItemListComponent implements OnInit {
 
   addItem() {
     this.items.push(uuidv4())
-    setTimeout(() => {
-      this.slides.slideTo(this.items.length, 500);
-    }, 100);
+    if (this.slides) {
+      setTimeout(() => {
+        this.slides.slideTo(this.items.length, 500);
+      }, 100);
+    }
   }
 
   edit() {
@@ -254,8 +256,8 @@ export class ItemListComponent implements OnInit {
     });
     if (values.length != items.length) {
       if (alert) {
-      this.presentAlert("Please fill up each field and hit 'done' to save the changes.")
-      }return false;
+        this.presentAlert("Please fill up each field.")
+      } return false;
     }
     return true
   }
