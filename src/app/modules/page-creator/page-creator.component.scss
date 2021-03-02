@@ -78,7 +78,11 @@
     position: fixed;
     bottom: 0;
     z-index: 99999;
-    background-color: rgb(9, 114, 219);
+    background-color: rgba(9, 114, 219, .7);
     color: #ffff;
     text-align: center;
+
+    span {
+        font-size: 13px;
+    }
 }

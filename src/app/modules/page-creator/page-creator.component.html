@@ -44,7 +44,14 @@
             </div>
         </div>
     </div>
-    <div class="preview ion-activatable ripple-parent" (click)="creator.preview = !creator.preview">{{creator.preview ? "Edit Page": "Preview | hide add fields button"}}
+    <div class="preview ion-activatable ripple-parent" (click)="creator.preview = !creator.preview">
+        
+        <span *ngIf="creator.preview">
+            <ion-icon name="create-outline"></ion-icon>&nbsp;Edit
+        </span>
+        <span *ngIf="!creator.preview"> 
+            <ion-icon name="eye-outline"></ion-icon>&nbsp;Preview
+        </span>
         <ion-ripple-effect></ion-ripple-effect>
     </div>
 </div>
