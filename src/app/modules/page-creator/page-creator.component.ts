@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FindValueSubscriber } from 'rxjs/internal/operators/find';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
@@ -29,7 +30,9 @@ export class PageCreatorComponent implements OnInit {
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   public page: TouristSpotPage;
+  public clicked:string = ''
   public preview: boolean = false;
+  tabStyle:number;
   components = {
     'text': TextComponent,
     'bullet-form-text': BulletFormTextComponent,
@@ -37,7 +40,7 @@ export class PageCreatorComponent implements OnInit {
     'photo': PhotoComponent,
     'item-list': ItemListComponent,
     'text-input': TextInputComponent,
-    'number-input':NumberInputComponent,
+    'number-input': NumberInputComponent,
     'date-input': DateInputComponent,
     'choices-input': ChoicesInputComponent
   }
@@ -84,16 +87,23 @@ export class PageCreatorComponent implements OnInit {
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(type, {type: data, unSaved: true}, parent);
+    this.renderComponent(type, { type: data, unSaved: true }, parent);
 
     return present;
+  }
+
+  scroll(el: HTMLElement, tab: string, div:HTMLElement) {
+    this.clicked = tab;
+    const width = div.clientWidth;
+    this.tabStyle = tab == 'booking'? width: tab == 'info'? 0: -width;
+    el.scrollIntoView({ behavior: "smooth" });
   }
 
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {
     if (componentValues.type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
       const comp = type.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues.unSaved ? null: componentValues;
+      comp.instance.values = componentValues.unSaved ? null : componentValues;
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
     }
