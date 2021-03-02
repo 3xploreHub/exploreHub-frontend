@@ -1,7 +1,7 @@
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { Platform, ActionSheetController, AlertController } from '@ionic/angular';
+import { Platform, ActionSheetController, AlertController, IonSlides } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService, Image } from '../../page-creator/page-creator-service/page-creator.service';
@@ -26,8 +26,15 @@ export class PhotoComponent implements OnInit {
   public footerData: FooterData;
   public images: Image[] = [];
   public dataToDelete: dataToDelete;
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };;
+  currentPhotoVisible = 1
   public showStylePopup: boolean = false;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
+  @ViewChild(IonSlides) slides: IonSlides;
+
 
   constructor(private creator: PageCreatorService,
     private plt: Platform,
@@ -45,10 +52,6 @@ export class PhotoComponent implements OnInit {
     }
     this.dataToDelete = { _id: null, url: null }
   }
-  slideOpts = {
-    initialSlide: 1,
-    speed: 400
-  };
 
   ngOnInit() {
     if (this.values) {
@@ -74,6 +77,7 @@ export class PhotoComponent implements OnInit {
       )
     }
   }
+
 
   async selectImageSource() {
     const buttons = [
@@ -123,6 +127,9 @@ export class PhotoComponent implements OnInit {
       this.footerData.saving = true;
       this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);
+        setTimeout(() => {
+          this.slides.slideTo(this.values.data.length, 500);
+        }, 100);
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
       });
@@ -136,6 +143,14 @@ export class PhotoComponent implements OnInit {
     this.saveChanges();
   }
 
+  showNewlyAdded(slides, index) {
+    setTimeout(() => {
+      slides._slides.slideTo(index, 2000)
+    }, 50);
+    console.log(slides);
+    
+  }
+
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
@@ -144,6 +159,10 @@ export class PhotoComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.uploadImageFile(this.grandParentId, this.parentId, this.values._id, this.parent, file).subscribe((data: ElementValues) => {
       this.getResponseData(data);
+      setTimeout(() => {
+        this.slides.slideTo(this.values.data.length, 500);
+      }, 100);
+
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
     });

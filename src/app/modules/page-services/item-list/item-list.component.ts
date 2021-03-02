@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
@@ -23,6 +23,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @ViewChild('itemList') itemList;
   @Input() values: ElementValues;
+  @ViewChild(IonSlides) slides: IonSlides;
   @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
   public footerData: FooterData;
@@ -114,8 +115,8 @@ export class ItemListComponent implements OnInit {
   addItem() {
     this.items.push(uuidv4())
     setTimeout(() => {
-      this.newItemAdded.nativeElement.scrollLeft = this.newItemAdded.nativeElement.scrollWidth + 350;
-    }, 300);
+      this.slides.slideTo(this.items.length, 500);
+    }, 100);
   }
 
   edit() {

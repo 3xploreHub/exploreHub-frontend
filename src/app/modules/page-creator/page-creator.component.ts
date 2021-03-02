@@ -78,10 +78,10 @@ export class PageCreatorComponent implements OnInit {
     if (info.clientHeight >= scrolled) {
       this.boxPosition = 0;
     }
-    if (info.clientHeight < scrolled) {
+    if (info.clientHeight-300 < scrolled) {
       this.boxPosition = width;
     }
-    if (info.clientHeight + services.clientHeight < scrolled) {
+    if ((info.clientHeight + services.clientHeight)-300 < scrolled) {
       this.boxPosition = width*2;
     }
 
