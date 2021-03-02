@@ -62,7 +62,8 @@ export class ItemListComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       this.renderChildren()
-      this.footerData.done = false;
+      const res = this.checkIfHasItems(this.values.data, false)
+      this.footerData.done = res;
       this.footerData.hasValue = this.values.data ? true : false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
@@ -230,10 +231,12 @@ export class ItemListComponent implements OnInit {
     await alert.present();
   }
 
-  checkIfHasItems(items) {
+  checkIfHasItems(items, alert = true) {
     let values = [];
     if (items.length == 0) {
+      if (alert) {
       this.presentAlert("Please add info about this service")
+      }
       return false
     }
 
@@ -249,8 +252,9 @@ export class ItemListComponent implements OnInit {
       }
     });
     if (values.length != items.length) {
+      if (alert) {
       this.presentAlert("Please fill up each field and hit 'done' to save the changes.")
-      return false;
+      }return false;
     }
     return true
   }
