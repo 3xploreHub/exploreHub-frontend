@@ -5,13 +5,19 @@
 </ion-header>
 
 <ion-content>
-  <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
-      service?</i></div>
+  <!-- <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
+      service?</i>
+  </div> -->
   <div class="select-spot-note">
-    <h2 *ngIf="selectedSpots.length == 0">Select the spots below you want to offer your service/services.</h2>
+    <h3 *ngIf="selectedSpots.length == 0">Select the spot you want to offer your service.</h3>
   </div>
+
   <div class="selected-spot">
-    <ion-slides [options]="option" class="ion-margin-top">
+    <div *ngFor="let selectedSpot of selectedSpots">
+      <img src="{{selectedSpot.image}}" alt="Host Spot" style="width: 100%;">
+    </div>
+
+    <!-- <ion-slides [options]="option" class="ion-margin-top">
       <ion-slide *ngFor="let spot of selectedSpots">
         <ion-card style="display: block;">
           <ion-icon name="close" class="cancel-btn" (click)="cancelSelectedSpot(spot)"></ion-icon>
@@ -20,45 +26,69 @@
             <p>
         </ion-card>
       </ion-slide>
-    </ion-slides>
-  </div>
-  <div>
-
-  </div>
-  <ion-button expand="block" (click)="submitSelectedHostSpots()" [disabled]="selectedSpots.length == 0">Next
-  </ion-button>
-
-  <div>
-    <ion-searchbar name="searchInput" [(ngModel)]="searchInput" placeholder="suggestions based on location">
-    </ion-searchbar>
-  </div>
-  <div>
-    <ul>
-      <!-- <li *ngFor="let programmingLanguage of programmingLanguages | search: searchInput">
-        {{programmingLanguage}}
-      </li> -->
-
-      <li *ngFor="let spotName of allSpotsName | search: searchInput">
-        {{spotName}}
-      </li>
-    </ul>
+    </ion-slides> -->
   </div>
 
-  <div class="nav-spot-category">
-    <ion-label class="item-spot-category" *ngFor="let category of sampleCategory"
-      (click)="displayListOfSpotsInCategory(category)">{{category.name}}</ion-label>
+  <!-- STICKY POSITIONING FOR SEARCH BAR AND THE TAB FOR CATEGORY OF SPOTS -->
+  <div class="select-host-spot" style="
+  color: #1c2c41;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;">
+    <div class="host-spot-name">
+      <ion-label *ngIf="selectedSpots.length !== 0;">
+        {{selectedSpots[0].name}}</ion-label>
+      <ion-label *ngIf="selectedSpots.length == 0;">No selected spot yet!</ion-label>
+    </div>
+    <!-- <ion-label #noSpotSelected style="font-size: 18px;">No selected spot yet!</ion-label> -->
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="cancelSelectedHostSpot()" [disabled]="selectedSpots.length == 0"
+          color="warning">
+          Cancel&nbsp;<ion-icon name="close" style="font-size: 18px;"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="submitSelectedHostSpot()" [disabled]="selectedSpots.length == 0">
+          Next&nbsp;&nbsp;
+          <ion-icon name="send" style="font-size: 18px;"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <hr style="border-bottom: 1px solid gray;">
+
+    <div>
+      <ion-searchbar (keyup)="onKey($event)" name="searchInput" [(ngModel)]="searchInput" placeholder="search spot"
+        style="width:100%">
+      </ion-searchbar>
+    </div>
+    <div>
+      <ul>
+        <li *ngFor="let spotName of allSpotsName | search: searchInput">
+          {{spotName}}
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="nav-spot-category" style="background-color: rgb(194, 238, 207);box-shadow: 0 4px 2px -2px gray;">
+      <ion-label class="item-spot-category" *ngFor="let category of sampleCategory"
+        (click)="displayListOfSpotsInCategory(category)"
+        style="text-transform:uppercase !important; padding: 20px 15px; font-weight: bold;">{{category.name}}
+      </ion-label>
+    </div> -->
   </div>
-  
   <div class="item-spot">
-    <ion-grid>
-      <ion-row style="border-bottom: 1px solid rgb(173, 173, 173);" *ngFor="let spot of spotsListCategory">
+    <ion-grid *ngFor="let spot of spotsListCategory">
+      <ion-row style="border-bottom: 1px solid rgb(173, 173, 173);" (click)="showDetails(spot)">
         <ion-col>
           <img src="{{spot.image}}" alt="Host Tourist Spot" class="spot-image-in-list">
         </ion-col>
         <ion-col size="8">
           <!-- <ion-icon *ngIf="selected" name="information-circle" style="float: right; font-size: 18px; color: green;" (click)="showDetails(spot)"></ion-icon> -->
-          <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)">
-          </ion-icon>
+          <!-- <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)"></ion-icon> -->
+          <!-- <ion-icon *ngIf="hostSpot.selected == true" name="checkmark-circle" style="float: right; font-size: 18px;" color="success"></ion-icon> -->
           <div class="spot-name-description">
             <b>{{spot.name}}</b><br>{{spot.description}}
           </div>
@@ -72,22 +102,22 @@
     <div class="spot-details-2">
       <div>
         <img src="../../../assets/images/host-tourist-spot.jpg" alt="Host Tourist Spot" class="spot-image-in-list">
-        <p><b>{{hostSpot.name}}</b></p>
+        <p><b>{{yourHostSpot.name}}</b></p>
       </div>
       <div class="primary-spot-details">
         <div>
-          <ion-label>Location: {{hostSpot.location}}</ion-label>
+          <ion-label>Location: {{yourHostSpot.location}}</ion-label>
         </div>
         <div>
-          <ion-label>Description: {{hostSpot.description}}</ion-label>
+          <ion-label>Description: {{yourHostSpot.description}}</ion-label>
         </div>
       </div>
       <div>
         <ion-row class="select-cancel-btn">
           <ion-col>
-            <ion-button *ngIf="hostSpot.selected == true" expand="block" (click)="selectTouristSpot()"
+            <ion-button *ngIf="yourHostSpot.selected == true" expand="block" (click)="selectTouristSpot()"
               [disabled]="hostSpot.selected == true" color="success">Selected</ion-button>
-            <ion-button *ngIf="hostSpot.selected == false" expand="block" (click)="selectTouristSpot()">Select
+            <ion-button *ngIf="yourHostSpot.selected == false" expand="block" (click)="selectTouristSpot()">Select
             </ion-button>
           </ion-col>
           <ion-col>
@@ -97,21 +127,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <div id="menu"> -->
-
-  <!-- Selected by default -->
-
-  <!-- <input id="1" name="r" type="radio" checked/>
-    <label class="collapse" for="1">tab1</label>
-    <div>111111111111111111111</div>
-
-    <input id="2" name="r" type="radio"/>
-    <label class="collapse" for="2">tab2</label>
-    <div>2222222222222222222222</div>
-
-    <input id="3" name="r" type="radio" />
-    <label class="collapse" for="3">tab3</label>
-    <div>333333333333333333333</div>
-</div> -->
 </ion-content>

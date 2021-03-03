@@ -28,10 +28,6 @@ const routes: Routes = [
     path: 'create-service-page',
     loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule)
   },
-  {
-    path: 'select-location-municipality',
-    loadChildren: () => import('./select-location-municipality/select-location-municipality.module').then( m => m.SelectLocationMunicipalityPageModule)
-  },
 
 ];
 

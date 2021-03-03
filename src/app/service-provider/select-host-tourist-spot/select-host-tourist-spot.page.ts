@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { TouristSpotPage } from "src/app/modules/interfaces/tourist-spot-page";
+import { SelectHostTouristSpotService } from "./select-host-tourist-spot.service";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface Spot {
   id: number;
   category_id: number;
+  category_name: string;
   name: string;
   description: string;
   image: string;
@@ -12,9 +16,9 @@ interface Spot {
 }
 
 interface SpotCategory {
-  id: number;
+  _id: string;
   name: string;
-  description: string;
+  touristSpotTotalCount: number;
 }
 
 @Component({
@@ -23,83 +27,50 @@ interface SpotCategory {
   styleUrls: ["./select-host-tourist-spot.page.scss"],
 })
 
-// interface Spot {
-//   id: string;
-//   name: string;
-//   description: string;
-//   image: string;
-// }
 export class SelectHostTouristSpotPage implements OnInit {
-  sampleCategory = [
-    {
-      id: 1,
-      name: "Diving",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti? ",
-    },
-    {
-      id: 2,
-      name: "Horse Back Riding",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
-    },
-    {
-      id: 3,
-      name: "Mountaineering",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
-    },
-    {
-      id: 4,
-      name: "Canyoneering",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
-    },
-    {
-      id: 5,
-      name: "Boat Riding",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
-    },
-  ];
+ 
+  keyupValues = "";
+
+  sampleCategory;
 
   spots: Spot[] = [
     {
       id: 1,
       category_id: 1,
+      category_name: "kawasan falls",
       name: "Oslob whale shark watching and diving",
       description:
         "Lorem ipsum dolor sit amet consecteturadipisicingelit.Illum, deleniti?Lorem ipsumdolor sitamet consectetur adipisicing elit. Illum, deleniti?Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti? ",
       image: "assets/images/host-tourist-spot.jpg",
       location: "Oslob Cebu",
       selected: false,
-
     },
     {
       id: 2,
       category_id: 3,
+      category_name: "kawasan falls",
       name: "Osmena Peak Hiking",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
       image: "assets/images/host-tourist-spot.jpg",
       location: "Mantalongon Dalaguete Cebu",
       selected: false,
-
-    },  
+    },
     {
       id: 3,
       category_id: 4,
-      name: "Kawasan Falls Badian",
+      category_name: "kawasan falls",
+      name: "Kawasan Falls Badian Cebu Island Hopping In the Center of the cebu",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
       image: "assets/images/badian-canyoneering.jpg",
       location: "Matotinao Badian Cebu",
       selected: false,
-
     },
     {
       id: 4,
       category_id: 4,
+      category_name: "kawasan falls",
       name: "Canyoneering Alegria",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
@@ -110,9 +81,10 @@ export class SelectHostTouristSpotPage implements OnInit {
     {
       id: 4,
       category_id: 4,
+      category_name: "kawasan falls",
       name: "Cambais Alegria",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, delenitidsasda?",
       image: "../../../assets/images/host-tourist-spot.jpg",
       location: "Compostela, Alegria, Cebu",
       selected: false,
@@ -120,9 +92,10 @@ export class SelectHostTouristSpotPage implements OnInit {
     {
       id: 4,
       category_id: 4,
+      category_name: "kawasan falls",
       name: "Ligo Alegria",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, delenitifdshafklfdashlfdadflks?",
       image: "../../../assets/images/host-tourist-spot.jpg",
       location: "Compostela, Alegria, Cebu",
       selected: false,
@@ -130,80 +103,73 @@ export class SelectHostTouristSpotPage implements OnInit {
     {
       id: 4,
       category_id: 4,
+      category_name: "kawasan falls",
       name: "Canyo Alegria",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, deleniti?",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, delenitidasdasdadasadsaqs?",
       image: "../../../assets/images/host-tourist-spot.jpg",
       location: "Compostela, Alegria, Cebu",
       selected: false,
     },
   ];
 
-  programmingLanguages = [
-    "Python",
-    "TypeScript",
-    "C",
-    "C++",
-    "Java",
-    "Go",
-    "JavaScript",
-    "PHP",
-    "Ruby",
-    "Swift",
-    "Kotlin",
-  ];
-
-  constructor() {}
+  constructor(
+    private router: Router,
+    private selectHostTouristSpotService: SelectHostTouristSpotService
+  ) {}
 
   spotsListCategory: Spot[] = [];
   selectedSpots: Spot[] = [];
-
+  yourHostSpot: Spot;
   spotsLocation = [];
   allSpotsName = [];
-
-  searchInput: string;
-
   show = false;
   buttonSelectWord = "Select";
-
-  option = {
-    slidesPerView: 1.5,
-    centeredSlides: true,
-    // loop: true,
-    // spaceBetween: 40,
-    // autoplay:true,
-  }
-
-  hostSpot: Spot = {
-    id: null,
-    category_id: null,
-    name: null,
-    description: null,
-    image: null,
-    location: null,
-    selected: null,  };
-
+  searchInput: string;
+  
   ngOnInit() {
     this.getAllSpotsLocation();
     this.getAllSpotNames();
+
+    this.getAllTouristSpot();
+    this.retreiveAllTouristSpotCategory();
   }
 
-  selectTouristSpot() {
-    if(!this.selectedSpots.includes(this.hostSpot)){
-      this.hostSpot.selected = true;
-      this.selectedSpots.push(this.hostSpot);
-      // this.buttonSelectWord = "Selected";
-      this.show = false;
-      console.log(this.hostSpot)
-    }else{
-      console.log("Spot is already selected!")
+  onKey(event: any) { // without type info
+    this.keyupValues += event.target.value + ' | ';
+    console.log(this.keyupValues)
+  }
+
+  retreiveAllTouristSpotCategory() {
+    return this.selectHostTouristSpotService
+      .retreiveAllTouristSpotCategories()
+      .subscribe((categories) => {
+          console.log("Categories: " +  categories)
+          this.sampleCategory = categories;
+          console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
+      });
+  }
+
+  getAllTouristSpot() {
+    for(var i = 0; i<this.spots.length; i++) {
+      this.spotsListCategory.push(this.spots[i]);
     }
   }
 
+  displayListOfSpotsInCategory(category: SpotCategory) {
+    for (var i = 0; i < this.spots.length; i++) {
+      if (this.spots[i].category_name == category.name) {
+        this.spotsListCategory.push(this.spots[i]);
+      }
+    }
+    console.log("Category Selected: " , JSON.stringify(category))
+  }
+
   showDetails(spot: Spot) {
-    this.hostSpot = spot;
+    this.yourHostSpot = spot;
+    // this.hostSpotName = spot.name.toUpperCase();
     this.show = true;
-    console.log(this.hostSpot)
+    console.log("Selected Spot: ", this.selectedSpots)
 
     //set the style of the details container to show in the page
     // console.log("Show details spot: " + spot)
@@ -213,15 +179,25 @@ export class SelectHostTouristSpotPage implements OnInit {
     this.show = false;
   }
 
-  displayListOfSpotsInCategory(category: SpotCategory) {
-    this.spotsListCategory = [];
-    for (var i = 0; i < this.spots.length; i++) {
-      if (this.spots[i].category_id == category.id) {
-        this.spotsListCategory.push(this.spots[i]);
-        // console.log(this.spotsListCategory);
-        // console.log(this.spots[i]);
-      }
+  selectTouristSpot() {
+    console.log("Before Selected Spot: ", this.selectedSpots)
+    this.selectedSpots = [];
+    if(!this.selectedSpots.includes(this.yourHostSpot)) {
+      this.selectedSpots.push(this.yourHostSpot);
+      console.log("Sseeeeeeeeeeee", this.selectedSpots)
+    }else{
+      console.log("Spot is already selected: ", this.selectedSpots)
     }
+      this.show = false;
+  }
+
+  submitSelectedHostSpot() {
+    console.log("Selected Host Spot: " + JSON.stringify(this.selectedSpots));
+    this.router.navigate(["/service-provider/select-host-tourist-spot"]);
+  }
+
+  cancelSelectedHostSpot() {
+    this.selectedSpots = [];
   }
 
   getAllSpotsLocation() {
@@ -237,28 +213,23 @@ export class SelectHostTouristSpotPage implements OnInit {
 
   getAllSpotsBasedOnSearch() {}
 
-  cancelSelectedSpot(spot) {
-    this.spots[this.spots.indexOf(spot)].selected = false;
-    this.selectedSpots.splice(this.selectedSpots.indexOf(spot), 1)
-  }
+  
 
-  submitSelectedHostSpots() {
-    console.log("Selected Host Spots: " + JSON.stringify(this.selectedSpots))
-  }  
+ 
 
   getAllSpotNames() {
-    // this.spotsListCategory = []; 
-    for(var i = 0; i < this.spots.length; i++) {
-      this.allSpotsName.push(this.spots[i].name.toLowerCase())
+    // this.spotsListCategory = [];
+    for (var i = 0; i < this.spots.length; i++) {
+      this.allSpotsName.push(this.spots[i].name.toLowerCase());
     }
-    console.log("All Spots' Name: " +this.allSpotsName)
+    console.log("All Spots' Name: " + this.allSpotsName);
   }
 
   getAllSpotBasedOnSearchInput() {
-    this.spotsListCategory = []; 
-    for(var i = 0; i < this.allSpotsName.length; i++) {
-      for(var j = 0; j < this.spots.length; j++) {
-        if(this.allSpotsName[i] === this.spots[j].name.toLowerCase()) {
+    this.spotsListCategory = [];
+    for (var i = 0; i < this.allSpotsName.length; i++) {
+      for (var j = 0; j < this.spots.length; j++) {
+        if (this.allSpotsName[i] === this.spots[j].name.toLowerCase()) {
           this.spotsListCategory.push(this.spots[j]);
         }
       }
