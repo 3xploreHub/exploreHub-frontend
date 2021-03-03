@@ -1,8 +1,33 @@
 .imageGrid {
     display: grid;
     grid-template-columns: 50% 50%;
+    background-color: rgb(233, 232, 232);
+
+    div {
+        margin:3px;
+    }
 }
 
 .singleCol {
+    // background-color: rgb(124, 122, 122);
+    background-color: rgb(233, 232, 232);
     display: block !important;
+}
+
+.image {
+    // height: 100%;
+    width:auto;
+}
+
+.imageCont {
+    height:250px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    // box-shadow: 0px 2px 5px gray;
+}
+
+.small {
+    height: 180px !important;
 }

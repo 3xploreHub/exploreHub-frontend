@@ -13,6 +13,11 @@
     align-items: center;
 }
 
+.imgWrapper {
+    // background-color: rgb(124, 122, 122);
+    background-color: rgb(233, 232, 232);
+}
+
 .shrink {
     height: unset !important;
     flex-direction: row;
@@ -26,6 +31,10 @@
         vertical-align: middle;
         font-size: 21px;
     }
+}
+
+.image {
+    height: 250px;
 }
 
 .fileInput {
@@ -43,10 +52,6 @@
     text-align: center;
 }
 
-.imageContainer {
-    // background-color: lightgray;
-}
-
 .imageGrid {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -58,4 +63,26 @@
 
 .imageCont {
     margin:0;
+}
+
+ion-slides {
+    height: 300px;
+    // background-color: rgb(124, 122, 122);
+    background-color: rgb(233, 232, 232);
+}
+
+.imageHolder {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageCont {
+    box-sizing: border-box;
+    height:180px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

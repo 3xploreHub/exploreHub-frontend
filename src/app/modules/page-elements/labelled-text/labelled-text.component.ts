@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
@@ -15,9 +15,10 @@ export class LabelledTextComponent implements OnInit {
   @Input() parent: string;
   @Input() grandParentId: string;
   public footerData: FooterData;
-  public showPopup: boolean = false;
   public lastValue: string = null;
   public hasChanges: boolean = false;
+  public clickedDone: boolean = false;
+  public pending: boolean = false;
 
   constructor(
     public creator: PageCreatorService,
@@ -39,8 +40,8 @@ export class LabelledTextComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true : false;
-      this.footerData.hasValue = data.text != null && data.label != null;
+      this.footerData.done = data.text && data.label ? true: false
+      this.footerData.hasValue = data.text && data.label ? true: false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -57,28 +58,39 @@ export class LabelledTextComponent implements OnInit {
   }
 
 
-  renderText() {
-    this.values.data.label = this.values.data.label ? this.values.data.label.trim() : null;
-    this.values.data.text = this.values.data.text ? this.values.data.text.trim() : null;
-    this.detectTyping();
+  renderText(hasChanges = false) {
+    this.hasChanges = hasChanges;
+    let label = this.values.data.label;
+    let text = this.values.data.text;
+    this.values.data.label = label ? label.trim() : null;
+    this.values.data.text = text ? text.trim() : null;
+    this.footerData.hasValue = (label || text) || (label && text)
+    this.pending = true;
     if (this.footerData.hasValue) {
-      if (this.hasChanges && this.footerData.hasValue) {
-        this.footerData.saving = true;
-        this.creator.editComponent(this.values,this.grandParentId, this.parentId, this.parent).subscribe(
-          (response) => {
-            // this.values = response;
-          },
-          (error) => {
-            this.presentAlert("Oops! Something went wrong. Please try again later!")
-          },
-          () => {
-            this.done();
-          }
-        )
-      } else {
-        this.footerData.done = true;
-      }
-      this.footerData.hasValue = true;
+      setTimeout(() => {
+
+        if (this.hasChanges) {
+          this.footerData.saving = true;
+          this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+            (response) => {
+              // this.values = response;
+            },
+            (error) => {
+              this.presentAlert("Oops! Something went wrong. Please try again later!")
+            },
+            () => {
+              this.footerData.hasValue = this.values.data.label && this.values.data.text? true: false;
+              this.pending = false
+              let done = this.footerData.hasValue && this.clickedDone
+              this.clickedDone = false
+              this.done(done);
+            }
+          )
+        } else {
+          this.footerData.done = true;
+        }
+      }, 300);
+
     } else {
       this.footerData.hasValue = false;
     }
@@ -100,6 +112,13 @@ export class LabelledTextComponent implements OnInit {
     )
   }
 
+  clickFooterDone() {
+    this.clickedDone = true
+    if (!this.pending) {
+      this.footerData.done = true;
+    }
+  }
+
   done(done: boolean = true) {
     this.footerData.done = done;
     this.footerData.saving = false;
@@ -108,7 +127,7 @@ export class LabelledTextComponent implements OnInit {
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.footerData.done = false;
   }
 

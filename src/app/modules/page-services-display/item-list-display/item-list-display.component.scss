@@ -1,10 +1,12 @@
 .serviceContainer {
-    padding:5px 0;
-    margin:50px 0;
-    // height: 200px;
     box-sizing: border-box;
     overflow-y: visible;
     overflow-x: scroll;
     display: flex;
+    align-items: stretch;
     flex-direction: row;
 } 
+.outerWrapper {
+    padding: 10px 0;
+    background-color: rgba(167, 182, 199, 0.1);
+}

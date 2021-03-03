@@ -1,7 +1,10 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
+import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
+import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
 import { ItemDisplayComponent } from '../item-display/item-display.component';
 
 @Component({
@@ -13,48 +16,49 @@ export class ItemListDisplayComponent implements OnInit {
   @ViewChild('serviceElement', { read: ViewContainerRef }) serviceElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
-  @Input() onEditing: boolean = false;
+  @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
+
   components = {
-    'item': ItemDisplayComponent
+    'item': ItemDisplayComponent,
+    'text': TextDisplayComponent,
+    'labelled-text': LabelledTextDisplayComponent,
+    'photo': PhotoDisplayComponent,
   }
 
   constructor(public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,) { }
 
   ngOnInit() {
-    if (this.onEditing) {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        console.log(newData);
-        this.values = newData[0].services[0]
-        setTimeout(() => {
-          if (this.values.data.length > 0) {
-            this.setService(this.values.data)
-            this.onHasUpdate.emit(this.values)
-          }
-        }, 200);
-      })
-    } else {
-      setTimeout(() => {
-        if (this.values.data.length > 0) {
-          this.setService(this.values.data)
-        }
-      }, 1000);
-    }
+    setTimeout(() => {
+      if (this.values.data.length > 0) {
+        this.setService(this.values.data)
+      }
+    }, 400);
   }
 
   setService(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
+    if (component.length > 0) {
+      component.forEach((component: any) => {
+        this.renderComponent(component.type, component)
+      })
+    }
   }
 
   renderComponent(componentName: string, componentValues: any) {
     if (componentName) {
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.serviceElement.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component";
+      let domRef = this.serviceElement
+      let parent = "component";
+      if (componentName != "item") {
+        domRef = this.listInfo;
+        parent = "service"
+      }
+      if (domRef) {
+        const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+        const comp = domRef.createComponent<ElementComponent>(factory);
+        comp.instance.values = componentValues;
+        comp.instance.parentId = this.values._id;
+        comp.instance.parent = parent;
+      }
     }
   }
 

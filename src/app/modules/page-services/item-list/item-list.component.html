@@ -1,19 +1,36 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
-  <div *ngIf="!footerData.done">
-    <div class="serviceContainer" #newItem>
-      <!-- <ion-content> -->
-        <ng-template #pageElement></ng-template>
-      <!-- </ion-content> -->
+  <div class="editBox" *ngIf="!footerData.done">
+    <ng-template #listInfo></ng-template>
+    <p class="addComp" (click)="showComponentList()">Add other more info</p>
+
+
+    <div #newItem>
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let item of items; let i = index" [class.deleted]="deletedItem.includes(item._id)">
+          <app-item (passDataToParent)="getItemData($event)" (onDelete)="deleteItem($event)" [values]="item"
+            [parentId]="values._id" [parent]="'component'"></app-item>
+        </ion-slide>
+        <ion-slide *ngIf="items.length == 0">
+          <div class="noItem">
+          No item in this list
+        </div>
+        </ion-slide>
+      </ion-slides>
     </div>
+
+    <br>
     <p class="addComp" (click)="addItem()">Add new item</p>
-    <app-element-footer [data]="footerData" (render)="renderItemList()" (delete)="delete()"></app-element-footer>
+    <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()">
+    </app-element-footer>
   </div>
+
   <div *ngIf="footerData.done">
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="showPopup" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
-        (close)="showPopup = false" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-item-list-display (click)="showPopup = true" (onHasUpdate)="getUpdates($event)" [onEditing]="onEditing"
-        [values]="values"></app-item-list-display>
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+        (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
+        class="componentPopup"></app-edit-or-delete-popup>
+      <app-item-list-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values">
+      </app-item-list-display>
     </div>
   </div>
 </div>

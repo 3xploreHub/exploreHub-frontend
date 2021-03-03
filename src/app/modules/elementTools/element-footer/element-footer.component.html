@@ -1,0 +1,39 @@
+<div *ngIf="!data.done">
+  <div *ngIf="data.saving; else manageTextBlock" class="footer saving">
+    <ion-spinner name="lines-small"></ion-spinner>
+    <div class="saving">{{data.message}}</div>
+  </div>
+  <ng-template #manageTextBlock>
+    <div *ngIf="!delClicked; else confirmDelete" [class.isDefaultMode]="data.isDefault" class="footer componentWrapper">
+      <div *ngIf="!data.isDefault" (click)="clickDelete()" class="footerDiv dangerColor">
+        <ion-icon class="footerIcon dangerColor" name="trash-outline"></ion-icon>
+        <span class="footerText">Delete</span>
+      </div>
+
+      <div *ngIf="data.hasStyle" (click)="openStylePopup.emit()" class="footerDiv primColor">
+        <ion-icon class="footerIcon " name="color-wand-outline"></ion-icon>
+        <span class="footerText">Style</span>
+      </div>
+
+      <div *ngIf="!noPreview" (click)="done()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
+        <ion-icon class="footerIcon" name="checkmark-circle-outline"></ion-icon>
+        <span class="footerText">Done</span>
+      </div>
+    </div>
+    <ng-template #confirmDelete>
+      <div class="footer">
+        <div class="footerDiv">
+          Are you sure?
+        </div>
+        <div (click)="delete.emit()" class="footerDiv dangerColor">
+          <ion-icon class="footerIcon dangerColor" name="checkmark-circle-outline"></ion-icon>
+          Yes
+        </div>
+        <div (click)="cancelDelete()" class="footerDiv primColor">
+          <ion-icon class="footerIcon" name="close-circle-outline"></ion-icon>
+          No
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

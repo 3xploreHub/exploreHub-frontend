@@ -1,0 +1,7 @@
+<ion-slides (ionSlideReachStart)="forward = true" (ionSlideReachEnd)="forward = false" #slides [class.small]="parent == 'component'"  pager="true" [options]="slideOpts">
+  <ion-slide *ngFor="let photo of images">
+    <div [class.small]="parent == 'component'" class="imageHolder">
+      <img class="image" [src]="photo.url" />
+    </div>
+  </ion-slide>
+</ion-slides>

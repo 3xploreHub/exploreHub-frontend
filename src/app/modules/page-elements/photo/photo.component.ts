@@ -1,9 +1,9 @@
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { Platform, ActionSheetController, AlertController } from '@ionic/angular';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { Platform, ActionSheetController, AlertController, IonSlides } from '@ionic/angular';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService, Image } from '../../page-creator/page-creator-service/page-creator.service';
 const { Camera } = Plugins;
 
@@ -25,9 +25,16 @@ export class PhotoComponent implements OnInit {
   public previewImage: string;
   public footerData: FooterData;
   public images: Image[] = [];
-  public showPopup: boolean = false;
   public dataToDelete: dataToDelete;
+  public noActions: boolean = true;
+  public slideOpts: any = {
+    initialSlide: 1,
+    speed: 400
+  };
+  public showStylePopup: boolean = false;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+
 
   constructor(private creator: PageCreatorService,
     private plt: Platform,
@@ -54,7 +61,7 @@ export class PhotoComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: null, type: "photo", styles: [], data: [], default: false }
+      this.values = { _id: null, type: "photo", styles: ["view-grid"], data: [], default: false }
       this.footerData.message = "Adding Field..."
       this.footerData.saving = true;
       this.creator.saveComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
@@ -69,9 +76,15 @@ export class PhotoComponent implements OnInit {
         },
       )
     }
+
+   
+
   }
 
+
+
   async selectImageSource() {
+    this.noActions = false;
     const buttons = [
       {
         text: 'Take Photo',
@@ -107,6 +120,8 @@ export class PhotoComponent implements OnInit {
   }
 
   async addImage(source: CameraSource) {
+    this.noActions = false;
+
     try {
       const image = await Camera.getPhoto({
         quality: 60,
@@ -119,6 +134,14 @@ export class PhotoComponent implements OnInit {
       this.footerData.saving = true;
       this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);
+
+        if (this.slides) {
+          setTimeout(() => {
+            this.slides.slideTo(this.values.data.length, 500);
+          }, 100);
+
+        }
+
       }, (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
       });
@@ -127,14 +150,28 @@ export class PhotoComponent implements OnInit {
     }
   }
 
+  applyStyle(style) {
+    this.values.styles = this.creator.applyStyle(this.values.styles, style);
+    this.saveChanges();
+  }
+
+
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
+    this.noActions = false;
+
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
     this.footerData.saving = true;
     this.creator.uploadImageFile(this.grandParentId, this.parentId, this.values._id, this.parent, file).subscribe((data: ElementValues) => {
       this.getResponseData(data);
+      setTimeout(() => {
+        if (this.slides) {
+          this.slides.slideTo(this.values.data.length, 500);
+        }
+      }, 100);
+
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
     });
@@ -154,6 +191,8 @@ export class PhotoComponent implements OnInit {
   }
 
   deleteImage() {
+    this.noActions = false;
+
     this.footerData.message = "Removing image..."
     this.footerData.saving = true;
     this.creator.deleteImage(this.grandParentId, this.parentId, this.parent, this.values._id,
@@ -176,6 +215,23 @@ export class PhotoComponent implements OnInit {
           this.footerData.message = "Uploading image..."
         }
       );
+  }
+
+  saveChanges() {
+    this.footerData.saving = true;
+    this.footerData.message = "Saving Changes..."
+    this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
+      (response) => {
+
+      },
+      (error) => {
+        this.presentAlert("Oops! Something went wrong. Please try again later!")
+      },
+      () => {
+        this.footerData.saving = false;
+        this.footerData.message = "Uploading image..."
+      }
+    )
   }
 
   delete() {
@@ -201,10 +257,9 @@ export class PhotoComponent implements OnInit {
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null
     this.footerData.done = false;
   }
-
 
   // Helper function
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript

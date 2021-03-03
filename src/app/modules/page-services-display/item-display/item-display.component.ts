@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
 import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
@@ -41,31 +41,22 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.onEditing) {
-      this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
-        this.values = updatedData[0].services[0].data[0]
-        setTimeout(() => {
-          if (this.values.data.length > 0) {
-            this.setPage(this.values.data)
-            this.onHasUpdate.emit(this.values)
-          }
-        }, 100);
-      })
-    } else {
-      setTimeout(() => {
-        if (this.values.data.length > 0) {
-          this.setPage(this.values.data)
-        }
-      }, 500);
-    }
+    setTimeout(() => {
+      if (this.values.data.length > 0) {
+        this.setPage(this.values.data)
+      }
+    }, 400);
   }
 
 
 
   setPage(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
+    setTimeout(() => {
+      component.forEach((component: any) => {
+        this.renderComponent(component.type, component)
+      })
+    }, 500);
+
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -74,6 +65,7 @@ export class ItemDisplayComponent implements OnInit {
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
+      comp.instance.parent = "component"
     }
   }
 }
