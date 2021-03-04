@@ -29,7 +29,6 @@ const routes: Routes = [
     loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule)
   },
 
-
 ];
 
 @NgModule({

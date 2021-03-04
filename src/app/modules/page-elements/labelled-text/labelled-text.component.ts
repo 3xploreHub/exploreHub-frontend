@@ -19,6 +19,7 @@ export class LabelledTextComponent implements OnInit {
   public hasChanges: boolean = false;
   public clickedDone: boolean = false;
   public pending: boolean = false;
+  public showDefaults: boolean = false;
 
   constructor(
     public creator: PageCreatorService,
@@ -161,5 +162,14 @@ export class LabelledTextComponent implements OnInit {
   }
 
 
+  select(category) {
+    alert(category);
+  }
 
+  focusOut() {
+    setTimeout(() => {
+      
+      this.showDefaults = false
+    }, 300);
+  }
 }

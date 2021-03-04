@@ -14,7 +14,7 @@ export class ServiceProviderPage implements OnInit {
   }
 
   goto() {
-    this.router.navigate(["/service-provider/select-service-type"]);
+    this.router.navigate(["/service-provider/select-host-tourist-spot"]);
   }
 
 
