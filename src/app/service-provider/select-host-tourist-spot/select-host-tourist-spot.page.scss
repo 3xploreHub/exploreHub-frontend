@@ -1,0 +1,126 @@
+.spot-name {
+    // margin:5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.spot-name-button-row {
+    margin-top: -1px;
+    border-bottom: 1px solid gray;
+}
+
+.next-btn {
+    float: right;
+    height: 35px;
+    padding: 0px 5px 0px 5px;
+    background-color: #018786;
+    color: white;
+}
+
+.no-page-notifier {
+    // margin-top: 5px;
+    padding-top: 20px;
+}
+
+.nav-spot-category {
+    display: flex;
+    text-align: center;
+    overflow: auto;
+    scrollbar-width: none;
+    // background-color: rgb(109, 179, 179);
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.item-spot-category {
+    // padding-left: 20px;
+    // padding-right: 20px;
+    white-space: nowrap;
+    padding: 10px 20px 10px 20px;
+    border-right: 1px solid gray;
+    scrollbar-width: none;
+    // overflow: hidden !important;
+}
+
+.spot-image {
+    width: 167px;
+    height: 111px;
+}
+
+.spot-image-and-name {
+    color: #1c2c41;
+    border-radius: 5px;
+    border: 1px solid gray;
+    // box-shadow: 2px 3px 2px 1px black;
+}
+
+.spot-name-description {
+    height: 73px;
+    overflow: hidden;
+    color: #1c2c41;
+
+    // background-color: green;
+    // display: flex;
+}
+
+.spot-image-in-list {
+    height: 100%;
+    width: 100%;
+    // background-color: darkkhaki;
+}
+
+.cancel-btn {
+    padding: 10px;
+    float: right;
+}
+
+#spot-details {
+    text-align: center;
+    background-color: rgba(87, 87, 87, .85);
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    color: #1c2c41;
+
+}
+
+.spot-details-2 {
+    margin-top: 25%;
+    // margin-bottom: 25%;
+    width: 85%;
+    display: inline-block;
+    text-align: left;
+    background-color: rgb(240, 240, 240);
+    padding: 18px;
+    border-radius: 5px;
+    height: 530px;
+    overflow: auto;
+}
+
+.select-host-spot {
+    color: #1c2c41;
+}
+
+.select-spot-note {
+    padding: 0px 20px;
+    color: #1c2c41;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+}
+
+.host-spot-name {
+    text-align: center;
+    padding: 8px 5px;
+    font-weight: bold;
+    background-color: rgb(194, 238, 207);
+
+    ion-label {
+        font-size: 18px; text-transform: uppercase;
+    }
+}
