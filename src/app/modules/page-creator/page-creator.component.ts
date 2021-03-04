@@ -1,5 +1,7 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FindValueSubscriber } from 'rxjs/internal/operators/find';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
@@ -28,8 +30,10 @@ export class PageCreatorComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
+  // @HostListener('window:scroll', ['$event'])
   public page: TouristSpotPage;
   public preview: boolean = false;
+  boxPosition: number;
   components = {
     'text': TextComponent,
     'bullet-form-text': BulletFormTextComponent,
@@ -37,7 +41,7 @@ export class PageCreatorComponent implements OnInit {
     'photo': PhotoComponent,
     'item-list': ItemListComponent,
     'text-input': TextInputComponent,
-    'number-input':NumberInputComponent,
+    'number-input': NumberInputComponent,
     'date-input': DateInputComponent,
     'choices-input': ChoicesInputComponent
   }
@@ -65,6 +69,25 @@ export class PageCreatorComponent implements OnInit {
     })
   }
 
+  onScroll(event, info: HTMLElement, services: HTMLElement, div: HTMLElement) {
+
+    const width = div.clientWidth;
+
+    const scrolled = event.detail.scrollTop;
+
+    if (info.clientHeight >= scrolled) {
+      this.boxPosition = 0;
+    }
+    if (info.clientHeight < scrolled) {
+      this.boxPosition = width;
+    }
+    if ((info.clientHeight + services.clientHeight) < scrolled) {
+      this.boxPosition = width*2;
+    }
+
+
+  }
+
   showComponentList() {
     return this.showModal(this.pageElement, PageElementListComponent, "page");
   }
@@ -84,16 +107,32 @@ export class PageCreatorComponent implements OnInit {
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(type, {type: data, unSaved: true}, parent);
+    this.renderComponent(type, { type: data, unSaved: true }, parent);
 
     return present;
+  }
+
+  scroll(el: HTMLElement, tab: string, div: HTMLElement) {
+    const width = div.clientWidth;
+    switch (tab) {
+      case 'booking':
+        this.boxPosition = width*2;
+        break;
+      case 'services':
+        this.boxPosition = width;
+        break;
+      default:
+        this.boxPosition = 0
+        break;
+    }
+    el.scrollIntoView();
   }
 
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {
     if (componentValues.type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
       const comp = type.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues.unSaved ? null: componentValues;
+      comp.instance.values = componentValues.unSaved ? null : componentValues;
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
     }

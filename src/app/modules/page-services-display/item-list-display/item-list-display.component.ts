@@ -52,11 +52,13 @@ export class ItemListDisplayComponent implements OnInit {
         domRef = this.listInfo;
         parent = "service"
       }
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = domRef.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.parent = parent;
+      if (domRef) {
+        const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+        const comp = domRef.createComponent<ElementComponent>(factory);
+        comp.instance.values = componentValues;
+        comp.instance.parentId = this.values._id;
+        comp.instance.parent = parent;
+      }
     }
   }
 

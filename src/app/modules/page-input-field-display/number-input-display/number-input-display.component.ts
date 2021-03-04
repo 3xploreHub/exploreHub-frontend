@@ -8,19 +8,23 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
   templateUrl: './number-input-display.component.html',
   styleUrls: ['./number-input-display.component.scss'],
 })
+
 export class NumberInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   min = null;
   max = null;
-  number = null
+  number = null;
   hasError = false;
   message = null
-  constructor(public toastController: ToastController, public alert: AlertController,public creator:PageCreatorService) { }
+  constructor(
+    public toastController: ToastController,
+    public alert: AlertController,
+    public creator: PageCreatorService) { }
 
   ngOnInit() {
     let data = this.values.data;
-    this.min = data.min ? data.min : null;
-    this.max = data.max ? data.max : null;
+    this.min = data.min != null ? data.min : null;
+    this.max = data.max != null ? data.max : null;
     this.number = this.values.data.defaultValue
     this.message = "Only accepts value";
     if (this.min && this.max) {
@@ -30,7 +34,7 @@ export class NumberInputDisplayComponent implements OnInit {
     } else if (this.max) {
       this.message += ` below ${this.max}`
     }
-  
+
   }
 
 
