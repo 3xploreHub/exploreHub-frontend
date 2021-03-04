@@ -28,16 +28,16 @@ export class CreateTouristSpotPagePage implements OnInit {
           (response: TouristSpotPage) => {
             this.touristSpot = response;
             this.pageCreator.setPage(this.touristSpot)  
-            this.creator.addDefaultCategories().subscribe(
-              (resp: any) => {
-                console.log(resp);
+            // this.creator.addDefaultCategories().subscribe(
+            //   (resp: any) => {
+            //     console.log(resp);
                 
-              },
-              error => {
-                console.log(error);
+            //   },
+            //   error => {
+            //     console.log(error);
                 
-              }
-            )
+            //   }
+            // )
           },
           error => {
             console.log("error in getting tourist spot: ", error)
