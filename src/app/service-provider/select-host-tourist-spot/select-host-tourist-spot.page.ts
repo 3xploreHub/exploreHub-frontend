@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { TouristSpotPage } from "src/app/modules/interfaces/tourist-spot-page";
+// import { TouristSpotPage } from "src/app/modules/interfaces/tourist-spot-page";
 import { SelectHostTouristSpotService } from "./select-host-tourist-spot.service";
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
