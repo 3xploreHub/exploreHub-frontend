@@ -1,6 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, ComponentFactoryResolver, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FindValueSubscriber } from 'rxjs/internal/operators/find';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
@@ -48,13 +49,16 @@ export class PageCreatorComponent implements OnInit {
 
   constructor(public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-    public creator: PageCreatorService
+    public creator: PageCreatorService,
+    public alert: AlertController,
+    public router: Router,
   ) { }
 
   ngOnInit() {
   }
 
   setPage(page) {
+    this.creator.canLeave = false;
     this.page = page;
     this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
@@ -136,6 +140,19 @@ export class PageCreatorComponent implements OnInit {
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
     }
+  }
+
+  exit() {
+    this.router.navigate(['/service-provider'])
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
 }

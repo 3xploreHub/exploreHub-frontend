@@ -44,7 +44,7 @@ textarea {
     .option {
         padding:10px;
         background-color:#ffff;
-        box-shadow: 0px 2px 5px #505050;
+        
         border-top: 1px solid lightgray;
     }
 }
@@ -52,4 +52,8 @@ textarea {
 .ripple-parent {
     position: relative;
     overflow: hidden;
+}
+
+.innerHolder {
+    box-shadow: 0px 2px 5px #505050;
 }

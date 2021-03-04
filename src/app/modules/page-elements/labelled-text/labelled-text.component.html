@@ -15,16 +15,17 @@
           (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
           [(ngModel)]="values.data.text" class="text" rows="1" placeholder="Enter text here">
         </ion-textarea>
+        
         <div *ngIf="values.data.defaults && values.data.defaults.length > 0 && showDefaults" class="options">
-          <div class="option ion-activatable ripple-parent" *ngFor="let option of values.data.defaults"
-            (click)="values.data.text = option; renderText(true)">
-            {{option}}
-            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+          <div class="innerHolder">
+            <div class="option ion-activatable ripple-parent" *ngFor="let option of values.data.defaults"
+              (click)="values.data.text = option; renderText(true)">
+              {{option}}
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+            </div>
           </div>
         </div>
       </div>
-
-
 
       <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="clickFooterDone()"
         (delete)="delete()"></app-element-footer>

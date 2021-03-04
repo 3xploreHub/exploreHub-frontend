@@ -20,6 +20,7 @@ export class PageCreatorService {
   public currentPageId: string;
   public preview:boolean = false;
   public clickedComponent:string;
+  public canLeave: boolean = false;
 
   constructor(
     public lStorage: Storage,
@@ -171,6 +172,10 @@ export class PageCreatorService {
 
   createTouristSpotPage() {
     return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
+  }
+
+  addDefaultCategories() {
+    return this.http.post(`${this.apiUrl}/addDefaultCategories`, {})
   }
 
   retrieveToristSpotPage(id) {
