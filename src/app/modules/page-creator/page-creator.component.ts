@@ -1,12 +1,10 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, ComponentFactoryResolver, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Filesystem } from '@capacitor/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { FindValueSubscriber } from 'rxjs/internal/operators/find';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
-import { ElementValues } from '../elementTools/interfaces/ElementValues';
 import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { BulletFormTextComponent } from '../page-elements/bullet-form-text/bullet-form-text.component';
@@ -18,7 +16,6 @@ import { NumberInputComponent } from '../page-input-field/number-input/number-in
 import { TextInputComponent } from '../page-input-field/text-input/text-input.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';
 import { ItemListComponent } from '../page-services/item-list/item-list.component';
-import { ItemComponent } from '../page-services/item/item.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 @Component({
@@ -161,44 +158,58 @@ export class PageCreatorComponent implements OnInit {
           console.log(response);
 
           //check components
-          valid.push(this.creator.checkIfHasValue(this.page.components))
-          this.getUnfilledFields();
+          const checkingResult = this.creator.checkIfHasValue(this.page.components)
+          if (!checkingResult) {
+            valid.push(checkingResult)
+            this.getUnfilledFields();
+          }
 
           //check services
-          this.page.services.forEach(item_list => {
-            if (item_list.data.length == 1) {
-              console.log('here false');
 
-              valid.push(false)
-            } else {
-              item_list.data.forEach(item => {
-                if (item.type == "item") {
-                  valid.push(this.creator.checkIfHasValue(item.data, true))
-                } else {
-                  valid.push(this.creator.checkIfHasValue([item], true))
-                }
-              });
-            }
-          })
-          this.getUnfilledFields()
+          if (this.page.services.length > 0) {
+            this.page.services.forEach(item_list => {
+              if (item_list.data.length == 1) {
+                valid.push(false)
+              } else {
+                item_list.data.forEach(item => {
+                  let data = item.data;
+                  if (item.type != "item") {
+                    data = [item]
+                  }
+                  valid.push(this.creator.checkIfHasValue(data, true))
+
+                });
+              }
+            })
+            this.getUnfilledFields()
+          }
 
           //check bookinginfo input fields
-          valid.push(this.creator.checkIfHasValue(this.page.bookingInfo))
-          this.getUnfilledFields()
-
+          if (this.page.bookingInfo.length > 0) {
+            const result = this.creator.checkIfHasValue(this.page.bookingInfo)
+            if (!result) {
+              valid.push(result)
+              this.getUnfilledFields()
+            }
+          }
           valid = valid.filter(i => !i);
-          console.log(this.unfilledFields);
-          
+
+          let fields = { components: [], services: [], bookingInfo: [] }
+
+          fields.components = this.countFields(this.unfilledFields.components);
+          fields.services = this.countFields(this.unfilledFields.services);
+          fields.bookingInfo = this.countFields(this.unfilledFields.bookingInfo);
+
+          this.unfilledFields = fields;
 
           if (valid.length > 0) {
             this.creator.preview = false;
-            // this.presentAlert("Please fill up or finish this <b>following</b> fields");
             this.showUnfilled = true;
 
           } else {
             this.creator.preview = true;
           }
-          
+
           this.loading = false;
         },
         (error) => {
@@ -219,6 +230,23 @@ export class PageCreatorComponent implements OnInit {
     }
   }
 
+  countFields(list) {
+    let fields = []
+    let finalList = []
+    list.forEach(f => {
+      if (!fields.includes(f)) {
+        let count = 0;
+        list.forEach(i => {
+          if (f == i) {
+            count++
+          }
+        })
+        fields.push(f);
+        finalList.push(`${f} (${count})`);
+      }
+    })
+    return finalList;
+  }
   async presentAlert(message) {
     const alert = await this.alert.create({
       cssClass: "my-custom-class",

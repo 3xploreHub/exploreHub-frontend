@@ -263,7 +263,8 @@ export class PageCreatorService {
           break;
       }
     });
-
+    console.log(data, " ==== ", items.length == data.length);
+    
     return items.length == data.length;
   }
 

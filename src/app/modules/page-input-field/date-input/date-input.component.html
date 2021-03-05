@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else display" class="inputWrapper">
+  <div *ngIf="!footerData.done  && !creator.preview; else display" class="inputWrapper">
 
     <ion-textarea class="inputLabel" (keyup)="footerData.hasValue = values.data.label ? true : false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
       placeholder="Enter label here">

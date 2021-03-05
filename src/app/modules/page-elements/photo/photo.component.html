@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else imageDisplay" class="container">
+  <div *ngIf="!footerData.done  && !creator.preview; else imageDisplay" class="container">
     <div class="imgWrapper" *ngIf="values.styles[0] == 'view-grid'; else viewSlide">
       <ion-row>
         <ion-col [size]="images.length > 2? 6: 12" *ngFor="let img of images" class="ion-text-center">

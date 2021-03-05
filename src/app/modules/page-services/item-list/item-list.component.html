@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
-  <div class="editBox" *ngIf="!footerData.done">
+  <div class="editBox" *ngIf="!footerData.done && !creator.preview">
     <ng-template #listInfo></ng-template>
     <p class="addComp" (click)="showComponentList()">Add other more info</p>
 

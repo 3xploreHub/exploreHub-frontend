@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else display">
+  <div *ngIf="!footerData.done  && !creator.preview; else display">
     <div class="container">
       <div class="fieldsHolder">
 

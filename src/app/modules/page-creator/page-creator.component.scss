@@ -243,15 +243,17 @@
          justify-content: space-evenly;
 
          .holder {
-             margin-top: 5px;
-             padding: 5px 0;
-             text-align: center;
-            border-left:1px solid lightgray;
+            margin-top: 5px;
+            padding: 5px 0;
+            text-align: center;
+            
             .fieldHolder {
                 text-align: center;
                 color:rgb(199, 2, 12);
                 padding:4px 8px;
                 margin:5px 10px;
+                max-height: 200px;
+                overflow: auto;
 
                 .field {
                     background-color: rgb(247, 208, 208);
