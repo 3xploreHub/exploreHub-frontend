@@ -148,6 +148,27 @@ export class PageCreatorComponent implements OnInit {
   }
 
   previewPage() {
+    this.validatePage();    
+  }
+
+  submit() {
+    this.validatePage();
+    if (this.creator.preview) {
+      this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
+      this.creator.canLeave = true;
+      this.router.navigate(["/service-provider"])
+    }
+  }
+
+  getUnfilledFields() {
+    this.unfilledFields = {
+      components: [...this.unfilledFields.components, ...this.creator.unfilledFields.components],
+      services: [...this.unfilledFields.services, ...this.creator.unfilledFields.services],
+      bookingInfo: [...this.unfilledFields.bookingInfo, ...this.creator.unfilledFields.bookingInfo],
+    }
+  }
+
+  validatePage() {
     let valid = [];
     this.unfilledFields = { components: [], services: [], bookingInfo: [] }
     this.loading = true;
@@ -219,15 +240,6 @@ export class PageCreatorComponent implements OnInit {
         })
     }, 500);
 
-
-  }
-
-  getUnfilledFields() {
-    this.unfilledFields = {
-      components: [...this.unfilledFields.components, ...this.creator.unfilledFields.components],
-      services: [...this.unfilledFields.services, ...this.creator.unfilledFields.services],
-      bookingInfo: [...this.unfilledFields.bookingInfo, ...this.creator.unfilledFields.bookingInfo],
-    }
   }
 
   countFields(list) {

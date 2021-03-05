@@ -46,6 +46,7 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
           text: "Save",
           handler: () => {
             this.creator.canLeave = true;
+            this.creator.preview = false;
             this.router.navigate(["/service-provider"])
           },
         },
@@ -74,6 +75,7 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
             this.creator.deleteTouristSpotPage().subscribe(
               (response) => {
                 this.creator.canLeave = true;
+                this.creator.preview = false;
                 this.router.navigate(["/service-provider"])
               }
             )
