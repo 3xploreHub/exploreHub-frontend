@@ -7,7 +7,7 @@
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
     <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.defaultValue"
-    auto-grow="true" rows="1" placeholder="Enter default value here">
+    auto-grow="true" rows="1" placeholder="Enter default value here (optional)">
   </ion-textarea>
     <div class="required">
       <div (click)="values.data.required = !values.data.required; saveChanges()" [class.off]="!values.data.required" class="options" slot="end">Required for submission<ion-toggle (click)="saveChanges()"

@@ -17,7 +17,8 @@
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-text-display [ngClass]="values.styles" (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-text-display>
+      <app-text-display [ngClass]="values.styles" (click)="creator.clickedComponent = !creator.preview? values._id: null;
+      creator.preview? presentToast('Preview'):null" [values]="values"></app-text-display>
     </div>
   </ng-template>
 </div>

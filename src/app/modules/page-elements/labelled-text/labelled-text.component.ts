@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -23,7 +23,8 @@ export class LabelledTextComponent implements OnInit {
 
   constructor(
     public creator: PageCreatorService,
-    public alert: AlertController
+    public alert: AlertController,
+    public toastController: ToastController,
   ) {
     this.footerData = {
       done: false,
@@ -164,6 +165,29 @@ export class LabelledTextComponent implements OnInit {
 
   select(category) {
     alert(category);
+  }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
+  }
+
+  editField() {
+    this.creator.clickedComponent = !this.creator.preview && !this.values.data.fixed? this.values._id: null;
+    if (!this.creator.preview) {
+      if (!this.values.data.fixed) {
+        this.creator.clickedComponent = this.values._id;
+      }
+      else {
+        this.presentToast("Municipality cannot be changed!")
+      }
+    } else {
+      this. presentToast('Preview');
+    }
   }
 
   focusOut() {

@@ -54,7 +54,7 @@
     <div class="componentWrapper imageContainer">
       <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-photo-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-photo-display>
+      <app-photo-display (click)="creator.clickedComponent = !creator.preview? values._id: null; creator.preview? presentToast('Preview'): null" [values]="values"></app-photo-display>
     </div>
   </ng-template>
 </div>

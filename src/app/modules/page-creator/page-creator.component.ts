@@ -205,8 +205,8 @@ export class PageCreatorComponent implements OnInit {
           if (valid.length > 0) {
             this.creator.preview = false;
             this.showUnfilled = true;
-
           } else {
+            this.showUnfilled = false;
             this.creator.preview = true;
           }
 

@@ -6,6 +6,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
 import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
 import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ItemDisplayComponent implements OnInit {
     'text': TextDisplayComponent,
     'labelled-text': LabelledTextDisplayComponent,
     'photo': PhotoDisplayComponent,
+    'bullet-form-text': BulletFormTextComponent,
   }
 
   constructor(
