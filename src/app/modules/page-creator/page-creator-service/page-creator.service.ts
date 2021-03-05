@@ -178,6 +178,10 @@ export class PageCreatorService {
     return this.http.post(`${this.apiUrl}/addDefaultCategories`, {})
   }
 
+  deleteTouristSpotPage() {
+    return this.http.delete(`${this.apiUrl}/deleteTouristSpotPage/${this.currentPageId}`);
+  }
+
   retrieveToristSpotPage(id) {
     return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
   }

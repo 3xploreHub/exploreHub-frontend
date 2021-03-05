@@ -71,8 +71,12 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
         {
           text: "Yes",
           handler: () => {
-            this.creator.canLeave = true;
-            this.router.navigate(["/service-provider"])
+            this.creator.deleteTouristSpotPage().subscribe(
+              (response) => {
+                this.creator.canLeave = true;
+                this.router.navigate(["/service-provider"])
+              }
+            )
           },
         },
         {
