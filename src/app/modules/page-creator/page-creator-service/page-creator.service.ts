@@ -264,15 +264,11 @@ export class PageCreatorService {
           break;
       }
     });
-    console.log(data, " ==== ", items.length == data.length);
-    
     return items.length == data.length;
   }
 
   addUnfilledField(onService, type) {
     if (onService) {
-      console.log("hererrrrrrrrrrrrrr: ", type, " ", onService);
-      
       this.unfilledFields.services.push(type)
     } else {
       this.unfilledFields.components.push(type)
