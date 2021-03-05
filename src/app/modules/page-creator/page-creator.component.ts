@@ -34,6 +34,10 @@ export class PageCreatorComponent implements OnInit {
   // @HostListener('window:scroll', ['$event'])
   public page: TouristSpotPage;
   public preview: boolean = false;
+  public loading: boolean = false;
+  public showUnfilled: boolean = false;
+  public unfilledFields = { components: [], services: [], bookingInfo: [] }
+
   boxPosition: number;
   components = {
     'text': TextComponent,
@@ -86,7 +90,7 @@ export class PageCreatorComponent implements OnInit {
       this.boxPosition = width;
     }
     if ((info.clientHeight + services.clientHeight) < scrolled) {
-      this.boxPosition = width*2;
+      this.boxPosition = width * 2;
     }
 
 
@@ -120,7 +124,7 @@ export class PageCreatorComponent implements OnInit {
     const width = div.clientWidth;
     switch (tab) {
       case 'booking':
-        this.boxPosition = width*2;
+        this.boxPosition = width * 2;
         break;
       case 'services':
         this.boxPosition = width;
@@ -144,6 +148,75 @@ export class PageCreatorComponent implements OnInit {
 
   exit() {
     this.router.navigate(['/service-provider'])
+  }
+
+  previewPage() {
+    let valid = [];
+    this.unfilledFields = { components: [], services: [], bookingInfo: [] }
+    this.loading = true;
+    setTimeout(() => {
+      this.creator.retrieveToristSpotPage(this.page._id).subscribe(
+        (response: TouristSpotPage) => {
+          this.page = response;
+          console.log(response);
+
+          //check components
+          valid.push(this.creator.checkIfHasValue(this.page.components))
+          this.getUnfilledFields();
+
+          //check services
+          this.page.services.forEach(item_list => {
+            if (item_list.data.length == 1) {
+              console.log('here false');
+
+              valid.push(false)
+            } else {
+              item_list.data.forEach(item => {
+                if (item.type == "item") {
+                  valid.push(this.creator.checkIfHasValue(item.data, true))
+                } else {
+                  valid.push(this.creator.checkIfHasValue([item], true))
+                }
+              });
+            }
+          })
+          this.getUnfilledFields()
+
+          //check bookinginfo input fields
+          valid.push(this.creator.checkIfHasValue(this.page.bookingInfo))
+          this.getUnfilledFields()
+
+          valid = valid.filter(i => !i);
+          console.log(this.unfilledFields);
+          
+
+          if (valid.length > 0) {
+            this.creator.preview = false;
+            // this.presentAlert("Please fill up or finish this <b>following</b> fields");
+            this.showUnfilled = true;
+
+          } else {
+            this.creator.preview = true;
+          }
+          
+          this.loading = false;
+        },
+        (error) => {
+          if (error.status == 404) {
+            this.router.navigate(["/service-provider"])
+          }
+        })
+    }, 500);
+
+
+  }
+
+  getUnfilledFields() {
+    this.unfilledFields = {
+      components: [...this.unfilledFields.components, ...this.creator.unfilledFields.components],
+      services: [...this.unfilledFields.services, ...this.creator.unfilledFields.services],
+      bookingInfo: [...this.unfilledFields.bookingInfo, ...this.creator.unfilledFields.bookingInfo],
+    }
   }
 
   async presentAlert(message) {
