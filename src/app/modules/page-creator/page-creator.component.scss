@@ -58,19 +58,23 @@
 
     h4 {
         // margin:5px;
+        font-weight: bold;
         color:rgb(68, 77, 87);
         margin-bottom: 20px;
     }
 }
 
 .servicesSection {
-    background: rgb(232, 243, 243);
+    background: #ffff;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     padding: 20px 0;
     padding-bottom: 50px;
 }
 
 .bookingInfoSection {
-    background: rgb(219, 231, 235);
+    background: rgb(219, 225, 233);
+    padding:5px 15px;
 }
 
 .preview {
@@ -125,6 +129,8 @@
 .menu {
     position: fixed;
     top: 0;
+    left:0;
+    margin:0;
     height: 40px;
     right:0;
     z-index: 99999;

@@ -70,4 +70,10 @@ export class ItemDisplayComponent implements OnInit {
       comp.instance.parent = "component"
     }
   }
+
+  itemClicked() {
+    if (this.creator.preview) {
+      alert(this.values._id)
+    }
+  }
 }
