@@ -6,10 +6,11 @@
     </ion-textarea>
 
     <div class="inputChoice">
+      <p *ngIf="values.data.list.length == 0" class="noChoice">
+        No items added yet
+      </p>
       <ol *ngIf="values.data.orderedList; else unordered" class="choices">
-        <p *ngIf="values.data.list.length == 0" class="noChoice">
-          No items added yet
-        </p>
+        
         <div [class.deleting]="deletedItem.includes(item._id)"
           [class.adding]="newlyAddedItem.includes(item._id)"
           *ngFor="let item of values.data.list; let i = index">
@@ -29,9 +30,7 @@
 
       <ng-template #unordered>
         <ul class="choices">
-          <p *ngIf="values.data.list.length == 0" class="noChoice">
-            No items added yet
-          </p>
+  
           <div [class.deleting]="deletedItem.includes(item._id)"
             [class.adding]="newlyAddedItem.includes(item._id)"
             *ngFor="let item of values.data.list; let i = index">
