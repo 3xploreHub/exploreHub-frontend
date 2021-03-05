@@ -170,6 +170,7 @@ export class PageCreatorComponent implements OnInit {
             this.page.services.forEach(item_list => {
               if (item_list.data.length == 1) {
                 valid.push(false)
+                this.getUnfilledFields()
               } else {
                 item_list.data.forEach(item => {
                   let data = item.data;
@@ -177,11 +178,10 @@ export class PageCreatorComponent implements OnInit {
                     data = [item]
                   }
                   valid.push(this.creator.checkIfHasValue(data, true))
-
+                  this.getUnfilledFields()
                 });
               }
             })
-            this.getUnfilledFields()
           }
 
           //check bookinginfo input fields

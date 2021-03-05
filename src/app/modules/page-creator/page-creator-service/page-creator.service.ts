@@ -203,6 +203,7 @@ export class PageCreatorService {
     if (data.length == 0) return false
     data.forEach(item => {
       switch (item.type) {
+
         case "text":
           if (item.data.text) {
             items.push(item.data);
@@ -270,6 +271,8 @@ export class PageCreatorService {
 
   addUnfilledField(onService, type) {
     if (onService) {
+      console.log("hererrrrrrrrrrrrrr: ", type, " ", onService);
+      
       this.unfilledFields.services.push(type)
     } else {
       this.unfilledFields.components.push(type)

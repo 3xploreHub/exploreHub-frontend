@@ -24,7 +24,7 @@
     </app-element-footer>
   </div>
 
-  <div *ngIf="footerData.done">
+  <div *ngIf="footerData.done || creator.preview">
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
