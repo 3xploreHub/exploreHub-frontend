@@ -20,7 +20,7 @@
   </div>
   <ng-template #textInputDisplay>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-text-input-display [values]="values" (click)="creator.clickedComponent = !creator.preview? values._id: null"></app-text-input-display>
     </div>

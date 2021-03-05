@@ -26,7 +26,7 @@
 
   <div *ngIf="footerData.done">
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
         class="componentPopup"></app-edit-or-delete-popup>
       <app-item-list-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values">

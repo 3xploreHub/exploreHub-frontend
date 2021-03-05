@@ -33,7 +33,7 @@
   </div>
   <ng-template #display>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
         class="componentPopup"></app-edit-or-delete-popup>
       <app-labelled-text-display
