@@ -1,11 +1,10 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { FindValueSubscriber } from 'rxjs/internal/operators/find';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Filesystem } from '@capacitor/core';
+import { AlertController, ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
-import { ElementValues } from '../elementTools/interfaces/ElementValues';
 import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { BulletFormTextComponent } from '../page-elements/bullet-form-text/bullet-form-text.component';
@@ -17,7 +16,6 @@ import { NumberInputComponent } from '../page-input-field/number-input/number-in
 import { TextInputComponent } from '../page-input-field/text-input/text-input.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';
 import { ItemListComponent } from '../page-services/item-list/item-list.component';
-import { ItemComponent } from '../page-services/item/item.component';
 import { PageCreatorService } from './page-creator-service/page-creator.service';
 
 @Component({
@@ -33,6 +31,10 @@ export class PageCreatorComponent implements OnInit {
   // @HostListener('window:scroll', ['$event'])
   public page: TouristSpotPage;
   public preview: boolean = false;
+  public loading: boolean = false;
+  public showUnfilled: boolean = false;
+  public unfilledFields = { components: [], services: [], bookingInfo: [] }
+
   boxPosition: number;
   components = {
     'text': TextComponent,
@@ -48,13 +50,16 @@ export class PageCreatorComponent implements OnInit {
 
   constructor(public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-    public creator: PageCreatorService
+    public creator: PageCreatorService,
+    public alert: AlertController,
+    public router: Router,
   ) { }
 
   ngOnInit() {
   }
 
   setPage(page) {
+    this.creator.canLeave = false;
     this.page = page;
     this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
@@ -82,7 +87,7 @@ export class PageCreatorComponent implements OnInit {
       this.boxPosition = width;
     }
     if ((info.clientHeight + services.clientHeight) < scrolled) {
-      this.boxPosition = width*2;
+      this.boxPosition = width * 2;
     }
 
 
@@ -116,7 +121,7 @@ export class PageCreatorComponent implements OnInit {
     const width = div.clientWidth;
     switch (tab) {
       case 'booking':
-        this.boxPosition = width*2;
+        this.boxPosition = width * 2;
         break;
       case 'services':
         this.boxPosition = width;
@@ -136,6 +141,131 @@ export class PageCreatorComponent implements OnInit {
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
     }
+  }
+
+  exit() {
+    this.router.navigate(['/service-provider'])
+  }
+
+  previewPage() {
+    this.validatePage();    
+  }
+
+  submit() {
+    this.validatePage();
+    if (this.creator.preview) {
+      this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
+      this.creator.canLeave = true;
+      this.router.navigate(["/service-provider"])
+    }
+  }
+
+  getUnfilledFields() {
+    this.unfilledFields = {
+      components: [...this.unfilledFields.components, ...this.creator.unfilledFields.components],
+      services: [...this.unfilledFields.services, ...this.creator.unfilledFields.services],
+      bookingInfo: [...this.unfilledFields.bookingInfo, ...this.creator.unfilledFields.bookingInfo],
+    }
+  }
+
+  validatePage() {
+    let valid = [];
+    this.unfilledFields = { components: [], services: [], bookingInfo: [] }
+    this.loading = true;
+    setTimeout(() => {
+      this.creator.retrieveToristSpotPage(this.page._id).subscribe(
+        (response: TouristSpotPage) => {
+          this.page = response;
+          console.log(response);
+
+          //check components
+          const checkingResult = this.creator.checkIfHasValue(this.page.components)
+          if (!checkingResult) {
+            valid.push(checkingResult)
+            this.getUnfilledFields();
+          }
+
+          //check services
+
+          if (this.page.services.length > 0) {
+            this.page.services.forEach(item_list => {
+              if (item_list.data.length == 1) {
+                valid.push(false)
+                this.getUnfilledFields()
+              } else {
+                item_list.data.forEach(item => {
+                  let data = item.data;
+                  if (item.type != "item") {
+                    data = [item]
+                  }
+                  valid.push(this.creator.checkIfHasValue(data, true))
+                  this.getUnfilledFields()
+                });
+              }
+            })
+          }
+
+          //check bookinginfo input fields
+          if (this.page.bookingInfo.length > 0) {
+            const result = this.creator.checkIfHasValue(this.page.bookingInfo)
+            if (!result) {
+              valid.push(result)
+              this.getUnfilledFields()
+            }
+          }
+          valid = valid.filter(i => !i);
+
+          let fields = { components: [], services: [], bookingInfo: [] }
+
+          fields.components = this.countFields(this.unfilledFields.components);
+          fields.services = this.countFields(this.unfilledFields.services);
+          fields.bookingInfo = this.countFields(this.unfilledFields.bookingInfo);
+
+          this.unfilledFields = fields;
+
+          if (valid.length > 0) {
+            this.creator.preview = false;
+            this.showUnfilled = true;
+          } else {
+            this.showUnfilled = false;
+            this.creator.preview = true;
+          }
+
+          this.loading = false;
+        },
+        (error) => {
+          if (error.status == 404) {
+            this.router.navigate(["/service-provider"])
+          }
+        })
+    }, 500);
+
+  }
+
+  countFields(list) {
+    let fields = []
+    let finalList = []
+    list.forEach(f => {
+      if (!fields.includes(f)) {
+        let count = 0;
+        list.forEach(i => {
+          if (f == i) {
+            count++
+          }
+        })
+        fields.push(f);
+        finalList.push(`${f} (${count})`);
+      }
+    })
+    return finalList;
+  }
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
 }

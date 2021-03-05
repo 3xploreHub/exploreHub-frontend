@@ -2,6 +2,6 @@
   <div *ngIf="!creator.preview" class="overlay">
   </div>
   <ion-label>{{values.data.label}}</ion-label>
-  <ion-input class="inputField" type="number" [(ngModel)]="number" (change)="finalValidation()" (keyup)="validate()" [min]="min" [max]="max" placeholder="Type here"></ion-input>
+  <ion-input class="inputField" type="number" [(ngModel)]="number" (change)="finalValidation()" (keyup)="validate()" [min]="min" [max]="max" placeholder="Enter number here"></ion-input>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>

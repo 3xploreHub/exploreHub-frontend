@@ -51,29 +51,34 @@
                     Add Field
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
-
             </div>
-
 
         </div>
         <div class="menu">
-            <div class="exit">
+            <div class="exit ion-activatable ripple-parent" (click)="exit()">
                 <ion-icon class="icons" name="arrow-back-circle-outline"></ion-icon>&nbsp;Back
+                <ion-ripple-effect></ion-ripple-effect>
             </div>
             <!-- Tourist Spot -->
+            <div class="preview" *ngIf="loading; else doneLoading">
+                <ion-spinner color="white" name="lines-small"></ion-spinner>
+                <div class="saving">Loading...</div>
+            </div>
+            <ng-template #doneLoading>
+                <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
+                    (click)="creator.preview = !creator.preview">
+                    <ion-icon class="icons" name="create-outline"></ion-icon>&nbsp;Edit
+                    <ion-ripple-effect></ion-ripple-effect>
+                </div>
+                <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent" (click)="previewPage()">
+                    <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview / Test
+                    <ion-ripple-effect></ion-ripple-effect>
+                </div>
+            </ng-template>
 
-            <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
-                (click)="creator.preview = !creator.preview">
-                <ion-icon class="icons" name="create-outline"></ion-icon>&nbsp;Edit
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-            <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent"
-                (click)="creator.preview = !creator.preview">
-                <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview / Test
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-            <div class="submit">
+            <div class="submit ion-activatable ripple-parent" (click)="submit()">
                 Submit&nbsp;<ion-icon name="send-outline"></ion-icon>
+                <ion-ripple-effect></ion-ripple-effect>
             </div>
         </div>
 
@@ -91,8 +96,10 @@
 
         <div class="boxHolder">
             <div class="boxes">
-                <div #box class="box" [ngStyle]="{'left.px': boxPosition}">
+                <div #box class="box  ion-activatable ripple-parent" [ngStyle]="{'left.px': boxPosition}">
                     <div class="active"></div>
+                    <ion-ripple-effect></ion-ripple-effect>
+
                 </div>
             </div>
             <div class="boxes">
@@ -101,6 +108,39 @@
             <div class="boxes"></div>
         </div>
 
+        <div class="csmodal" *ngIf="showUnfilled">
+           
+            <div class="errHeader">
+                <span>Please fill up or finish the following field(s) to be able to preview</span>
+                <ion-icon name="close-outline" class="closeErr" (click)="showUnfilled = false"></ion-icon>
+            </div>
+            <div class="modalCont">
+                <div  class="holder" *ngIf="unfilledFields.components.length > 0">
+                    <b>
+                        Info
+                    </b>
+                    <div class="fieldHolder"> 
+                        <div class="field" *ngFor="let type of unfilledFields.components">{{type}}</div>
+                    </div>
+                </div>
+                <div class="holder" *ngIf="unfilledFields.services.length > 0">
+                    <b>
+                        Services
+                    </b>
+                    <div class="fieldHolder">
+                        <div class="field" *ngFor="let type of unfilledFields.services">{{type}}</div>
+                    </div>
+                </div>
+                <div class="holder" *ngIf="unfilledFields.bookingInfo.length > 0">
+                    <b>
+                        Booking
+                    </b>
+                    <div class="fieldHolder">
+                        <div class="field" *ngFor="let type of unfilledFields.bookingInfo">{{type}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </ion-content>

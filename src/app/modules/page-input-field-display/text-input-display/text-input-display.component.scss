@@ -1,6 +1,6 @@
 .inputField {
+    margin:0;
     background-color: #ffff;
-    border: 1px solid lightgray;
 }
 .textInputHolder {
     padding: 10px 0;
@@ -8,7 +8,10 @@
     position: relative;
 }   
 
-
+ion-label {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
 .overlay {
     width:100%;
     height: 100%;

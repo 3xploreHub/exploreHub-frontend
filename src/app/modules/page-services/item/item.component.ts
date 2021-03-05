@@ -6,6 +6,7 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
@@ -31,6 +32,7 @@ export class ItemComponent implements OnInit {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
+    'bullet-form-text': BulletFormTextComponent,
   }
 
   constructor(

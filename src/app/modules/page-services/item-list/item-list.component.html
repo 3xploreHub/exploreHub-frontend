@@ -1,7 +1,7 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
-  <div class="editBox" *ngIf="!footerData.done">
+  <div class="editBox" *ngIf="!footerData.done && !creator.preview">
     <ng-template #listInfo></ng-template>
-    <p class="addComp" (click)="showComponentList()">Add other more info</p>
+    <p class="addComp" (click)="showComponentList()">Add other info</p>
 
 
     <div #newItem>
@@ -24,12 +24,13 @@
     </app-element-footer>
   </div>
 
-  <div *ngIf="footerData.done">
+  <div *ngIf="footerData.done || creator.preview">
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
         class="componentPopup"></app-edit-or-delete-popup>
-      <app-item-list-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values">
+      <app-item-list-display (onRender)="renderItemList()" (click)="creator.clickedComponent = !creator.preview? values._id: null;
+      creator.preview? presentToast('Preview'): null" [values]="values">
       </app-item-list-display>
     </div>
   </div>

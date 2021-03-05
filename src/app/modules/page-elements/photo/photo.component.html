@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else imageDisplay" class="container">
+  <div *ngIf="!footerData.done  && !creator.preview; else imageDisplay" class="container">
     <div class="imgWrapper" *ngIf="values.styles[0] == 'view-grid'; else viewSlide">
       <ion-row>
         <ion-col [size]="images.length > 2? 6: 12" *ngFor="let img of images" class="ion-text-center">
@@ -52,9 +52,9 @@
 
   <ng-template #imageDisplay>
     <div class="componentWrapper imageContainer">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-photo-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-photo-display>
+      <app-photo-display (click)="creator.clickedComponent = !creator.preview? values._id: null; creator.preview? presentToast('Preview'): null" [values]="values"></app-photo-display>
     </div>
   </ng-template>
 </div>

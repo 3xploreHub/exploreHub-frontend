@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TouristSpotPage } from 'src/app/modules/elementTools/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
@@ -18,6 +18,7 @@ export class CreateTouristSpotPagePage implements OnInit {
   constructor(
     public creator: PageCreatorService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -28,9 +29,22 @@ export class CreateTouristSpotPagePage implements OnInit {
           (response: TouristSpotPage) => {
             this.touristSpot = response;
             this.pageCreator.setPage(this.touristSpot)  
+            // this.creator.addDefaultCategories().subscribe(
+            //   (resp: any) => {
+            //     console.log(resp);
+                
+            //   },
+            //   error => {
+            //     console.log(error);
+                
+            //   }
+            // )
           },
           error => {
-            console.log("error in getting tourist spot: ", error)
+            this.creator.canLeave = true;
+            if (error.status == 404) {
+              this.router.navigate(["/service-provider"])
+            }
           }
         )
       }

@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else display" class="inputWrapper">
+  <div *ngIf="!footerData.done  && !creator.preview; else display" class="inputWrapper">
 
     <ion-textarea class="inputLabel" (keyup)="footerData.hasValue = values.data.label ? true : false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
       placeholder="Enter label here">
@@ -10,7 +10,7 @@
 
       <div class="inputLabel">
         <ion-datetime class="defaultValue" displayFormat="DDDD MMM D, YYYY"
-        placeholder="Enter default value here"
+        placeholder="Enter default value here (optional)"
         [(ngModel)]="values.data.defaultValue"
          ></ion-datetime>
       </div>
@@ -141,7 +141,7 @@
   </div>
   <ng-template #display>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-date-input-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-date-input-display>
     </div>

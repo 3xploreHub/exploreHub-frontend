@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PageCreatorRouteManagerGuard } from './route-guards/route-page-creator/page-creator-route-manager.guard';
 
 import { ServiceProviderPage } from './service-provider.page';
 
@@ -22,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'create-tourist-spot-page/:id',
-    loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then( m => m.CreateTouristSpotPagePageModule)
+    loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then( m => m.CreateTouristSpotPagePageModule),
+    canDeactivate: [PageCreatorRouteManagerGuard],
   },
   {
     path: 'create-service-page',

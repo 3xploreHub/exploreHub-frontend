@@ -1,6 +1,6 @@
 .inputField {
     background-color: #ffff;
-    border: 1px solid lightgray;
+    border: 1px solid rgb(70, 88, 112);
     height: 44px;
     display: flex;
     align-items: center;
@@ -50,6 +50,7 @@
     height: 100%;
     position: absolute;
     background-color:none;
+    top:0;
     z-index: 9999;
 }
 

@@ -18,8 +18,10 @@ export interface Image {
 export class PageCreatorService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPageId: string;
-  public preview:boolean = false;
-  public clickedComponent:string;
+  public preview: boolean = false;
+  public clickedComponent: string;
+  public canLeave: boolean = false;
+  public unfilledFields = { components: [], services: [], bookingInfo: [] }
 
   constructor(
     public lStorage: Storage,
@@ -44,7 +46,7 @@ export class PageCreatorService {
   }
 
   saveComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
-    if (parent == "service")  return this.saveItem(component, parentId)
+    if (parent == "service") return this.saveItem(component, parentId)
     const componentGroup = parent == "page" ? "addComponent" : "addServiceChildComponent";
     const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
@@ -60,7 +62,7 @@ export class PageCreatorService {
 
   saveInputField(component: ElementValues, grandParentId: string, parentId: string, parent: string) {
     return this.http.post(`${this.apiUrl}/saveInputField/${this.currentPageId}/${grandParentId}/${parentId}`, component, {
-      headers: {  hideLoadingIndicator: "true"},
+      headers: { hideLoadingIndicator: "true" },
     })
   }
 
@@ -89,7 +91,7 @@ export class PageCreatorService {
 
   editServiceInfo(component: ElementValues, serviceId: string, infoId: string): Observable<any> {
     console.log(component);
-    
+
     return this.http.put(`${this.apiUrl}/editServiceInfo/${this.currentPageId}/${serviceId}/${infoId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
@@ -163,14 +165,21 @@ export class PageCreatorService {
     })
   }
 
-  getUpdatedItemListData(itemListId) {
-    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}`, {
-      headers: { hideLoadingIndicator: "" }
-    })
+  getUpdatedItemListData(itemListId, hideLoading = true) {
+    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}`,
+      hideLoading ? { headers: { hideLoadingIndicator: "" } } : {})
   }
 
   createTouristSpotPage() {
     return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
+  }
+
+  addDefaultCategories() {
+    return this.http.post(`${this.apiUrl}/addDefaultCategories`, {})
+  }
+
+  deleteTouristSpotPage() {
+    return this.http.delete(`${this.apiUrl}/deleteTouristSpotPage/${this.currentPageId}`);
   }
 
   retrieveToristSpotPage(id) {
@@ -188,24 +197,82 @@ export class PageCreatorService {
     return styles;
   }
 
-  checkIfHasValue(data) {
+  checkIfHasValue(data, onService = false) {
     let items = [];
+    this.unfilledFields = {components: [], services: [], bookingInfo: []}
     if (data.length == 0) return false
     data.forEach(item => {
       switch (item.type) {
+
         case "text":
-          if (item.data.text) items.push(item.data);
+          if (item.data.text) {
+            items.push(item.data);
+          } else {
+            this.addUnfilledField(onService, "Text")
+          }
           break;
         case "photo":
-          if (item.data.length > 0) items.push(item.data);
+          if (item.data.length > 0) {
+            items.push(item.data);
+          } else {
+            this.addUnfilledField(onService, "Photo")
+          }
+          break;
+        case "bullet-form-text":
+          if (item.data.list.length > 0 && item.data.label) {
+            items.push(item.data);
+          } else {
+            this.addUnfilledField(onService, "List")
+          }
           break;
         case "labelled-text":
-          if (item.data.label && item.data.text) items.push(item.data);
+          if (item.data.label && item.data.text) {
+            items.push(item.data);
+          } else {
+            this.addUnfilledField(onService, "Labelled Text")
+          }
+          break;
+        case "text-input":
+          if (item.data.label) {
+            items.push(item.data);
+          } else {
+            this.unfilledFields.bookingInfo.push("Text Input")
+          }
+          break;
+        case "date-input":
+          if (item.data.label) {
+            items.push(item.data);
+          } else {
+            this.unfilledFields.bookingInfo.push("Date Input")
+          }
+          break;
+        case "number-input":
+          if (item.data.label) {
+            items.push(item.data);
+          } else {
+            this.unfilledFields.bookingInfo.push("Number Input")
+          }
+          break;
+        case "choices-input":
+          if (item.data.label) {
+            items.push(item.data);
+          } else {
+            this.unfilledFields.bookingInfo.push("Choices Input")
+          }
           break;
         default:
           break;
       }
     });
     return items.length == data.length;
+  }
+
+  addUnfilledField(onService, type) {
+    if (onService) {
+      this.unfilledFields.services.push(type)
+    } else {
+      this.unfilledFields.components.push(type)
+    }
+
   }
 }

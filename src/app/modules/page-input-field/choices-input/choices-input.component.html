@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else display" class="wrapper">
+  <div *ngIf="!footerData.done  && !creator.preview; else display" class="wrapper">
 
     <ion-textarea class="inputLabel" (keyup)="values.data.label? footerData.hasValue = true: footerData.hasValue = false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
       placeholder="Enter label here">
@@ -58,7 +58,7 @@
   </div>
   <ng-template #display>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()" (close)="creator.clickedComponent = null"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-choices-input-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-choices-input-display>
