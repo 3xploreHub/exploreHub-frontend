@@ -17,7 +17,6 @@
 
 .boardHeader {
     background-color: #ffff;
-    box-shadow: 0px 1px 4px #a1a1a1;
     display: flex;
     flex-direction: row;
     padding:2px;
@@ -107,7 +106,7 @@
     flex-direction: row;
     align-items:center;
     height: 50px;
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(255, 255, 255, .3);
 
     .csTab {
         width:100%;
@@ -131,9 +130,12 @@
                 border-radius: 5px;
 
                 display: flex;
+                // color:#ffff;
+                color:rgb(3, 1, 133);
                 align-items:center;
                 justify-content: center;
-                background-color: rgba(164, 192, 221, .7);
+                background-color: rgba(76, 144, 218, 0.7);
+                // background-color: #ffff;
             }
         }
     }

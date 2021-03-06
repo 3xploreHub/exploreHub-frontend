@@ -2,28 +2,29 @@
   <ion-toolbar>
     <ion-title>Select Host Tourist Spot</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/find-account"
-        icon="chevron-back-outline"
-      ></ion-back-button>
+      <ion-back-button defaultHref="/find-account" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
+<ion-content class="mainLightBg">
+  <div style="height:100%;overflow: auto;" class="mainLightBg">
+    <!-- <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
       service?</i>
   </div> -->
-  <div class="select-spot-note" *ngIf="selectedPage == null">
-    <h3>Select the spot you want to offer your service.</h3>
-  </div>
+    <div class="select-spot-note" *ngIf="selectedPage == null">
+      <p>
+        Select the spot you want to offer your service.
 
-  <div class="selected-spot" *ngIf="selectedPage != null">
-    <div>
-      <img src="{{selectedPage? selectedPage.components[0].data[0].url: ''}}" alt="Host Spot" style="width: 100%;">
+      </p>
     </div>
 
-    <!-- <ion-slides [options]="option" class="ion-margin-top">
+    <div class="selected-spot" *ngIf="selectedPage != null">
+      <div>
+        <img src="{{selectedPage? selectedPage.components[0].data[0].url: ''}}" alt="Host Spot" style="width: 100%;">
+      </div>
+
+      <!-- <ion-slides [options]="option" class="ion-margin-top">
       <ion-slide *ngFor="let spot of selectedSpots">
         <ion-card style="display: block;">
           <ion-icon name="close" class="cancel-btn" (click)="cancelSelectedSpot(spot)"></ion-icon>
@@ -33,52 +34,50 @@
         </ion-card>
       </ion-slide>
     </ion-slides> -->
-  </div>
+    </div>
 
-  <!-- STICKY POSITIONING FOR SEARCH BAR AND THE TAB FOR CATEGORY OF SPOTS -->
-  <div class="select-host-spot" style="
+    <!-- STICKY POSITIONING FOR SEARCH BAR AND THE TAB FOR CATEGORY OF SPOTS -->
+    <div class="select-host-spot boxShadowed2" style="
   color: #1c2c41;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
   z-index: 1;
   background-color: white;">
-    <div class="host-spot-name">
-      <ion-label>
-        {{selectedPage ? selectedPage.components[1].data.text: 'No selected spot yet!'}}</ion-label>
-    </div>
-    <!-- <ion-label #noSpotSelected style="font-size: 18px;">No selected spot yet!</ion-label> -->
+      <div class="host-spot-name">
+        {{selectedPage ? selectedPage.components[1].data.text: 'No selected spot yet!'}}
+      </div>
+      <!-- <ion-label #noSpotSelected style="font-size: 18px;">No selected spot yet!</ion-label> -->
 
-    <ion-row>
-      <ion-col>
-        <ion-button expand="block" [disabled]="!selectedPage" (click)="selectedPage = null"
-          color="warning">
+      <div class="btnHolder">
+        <button class="btnStyle btns cancelBtn ion-activatable ripple-parent" [disabled]="!selectedPage"
+          (click)="selectedPage = null" color="warning">
           Cancel&nbsp;<ion-icon name="close" style="font-size: 18px;"></ion-icon>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button expand="block" [disabled]="!selectedPage" (click)="createServicePage()">
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+        <button class="btnStyle btns nextBtn ion-activatable ripple-parent" [disabled]="!selectedPage"
+          (click)="createServicePage()">
           Next&nbsp;&nbsp;
           <ion-icon name="send" style="font-size: 18px;"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <hr style="border-bottom: 1px solid gray;">
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+      <hr style="border-bottom: 1px solid gray;">
 
-    <div>
-      <ion-searchbar (keyup)="onKey($event)" name="searchInput" [(ngModel)]="searchInput" placeholder="search spot"
-        style="width:100%">
-      </ion-searchbar>
-    </div>
-    <div>
-      <ul>
-        <!-- <li *ngFor="let spotName of allSpotsName | search: searchInput">
+      <div>
+        <ion-searchbar (keyup)="onKey($event)" name="searchInput" [(ngModel)]="searchInput" placeholder="search spot"
+          style="width:100%">
+        </ion-searchbar>
+      </div>
+      <div>
+        <ul>
+          <!-- <li *ngFor="let spotName of allSpotsName | search: searchInput">
           {{spotName}}
         </li> -->
-        <!-- <li *ngFor="let spot.components[1].data.text of touristSpotPages | search: searchInput"></li> -->
-      </ul>
-    </div>
-    <!-- <div class="nav-spot-category" style="background-color: rgb(194, 238, 207);box-shadow: 0 4px 2px -2px gray;">
+          <!-- <li *ngFor="let spot.components[1].data.text of touristSpotPages | search: searchInput"></li> -->
+        </ul>
+      </div>
+      <!-- <div class="nav-spot-category" style="background-color: rgb(194, 238, 207);box-shadow: 0 4px 2px -2px gray;">
       <ion-label class="item-spot-category" *ngFor="let category of sampleCategory"
         (click)="displayListOfSpotsInCategory(category)"iiiiiiiiiiiiiiiiim,\
 
@@ -86,50 +85,57 @@
         style="text-transform:uppercase !important; padding: 20px 15px; font-weight: bold;">{{category.name}}
       </ion-label>
     </div> -->
-  </div>
-  <div class="item-spot">
+    </div>
+
     <ion-grid *ngFor="let spot of touristSpotPages">
-      <ion-row style="border-bottom: 1px solid rgb(173, 173, 173);" (click)="showDetails(spot)">
-        <ion-col>
-          <img [src]="spot.components[0].data.length > 0? spot.components[0].data[0].url : ''" alt="Host Tourist Spot" class="spot-image-in-list">
-        </ion-col>
-        <ion-col size="8">
-          <!-- <ion-icon *ngIf="selected" name="information-circle" style="float: right; font-size: 18px; color: green;" (click)="showDetails(spot)"></ion-icon> -->
-          <!-- <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)"></ion-icon> -->
-          <!-- <ion-icon *ngIf="hostSpot.selected == true" name="checkmark-circle" style="float: right; font-size: 18px;" color="success"></ion-icon> -->
-          <div class="spot-name-description">
-            <b>{{spot.components[1].data.text}}</b><br>{{spot.components[6].data.text}}
-          </div>
-          <!-- <button style="height: 10px;">select</button>
-          <button style="height: 10px;">details</button> -->
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-  <div id="spot-details" *ngIf="show === true">
-    <div class="spot-details-2">
-      <div>
-        <img [src]="yourHostSpot.components[0].data[0].url" alt="Host Tourist Spot" class="spot-image-in-list">
-        <p><b>{{yourHostSpot.components[1].data.text}}</b></p>
-      </div>
-      <div class="primary-spot-details">
-        <div>
-          <ion-label><b>Location:</b> {{yourHostSpot.components[2].data.text +', '+ yourHostSpot.components[3].data.text + ', ' + yourHostSpot.components[4].data.text }}</ion-label>
-        </div>
-        <div>
-          <ion-label><b>Description:</b> {{yourHostSpot.components[6].data.text}}</ion-label>
-        </div>
-      </div>
-      <div>
-        <ion-row class="select-cancel-btn">
-          <ion-col>
-            <ion-button expand="block" (click)="selectedPage = yourHostSpot; show = false">Select
-            </ion-button>
+      <div class="item-spot boxShadowed">
+        <ion-row style="padding:0;" (click)="showDetails(spot)">
+          <ion-col style="padding:4px">
+            <div class="imgHolder">
+              <img [src]="spot.components[0].data.length > 0? spot.components[0].data[0].url : ''"
+                alt="Host Tourist Spot" class="spot-image-in-list">
+            </div>
           </ion-col>
-          <ion-col>
-            <ion-button expand="block" (click)="yourHostSpot = null; show = false" color="warning">Close</ion-button>
+          <ion-col size="8">
+            <!-- <ion-icon *ngIf="selected" name="information-circle" style="float: right; font-size: 18px; color: green;" (click)="showDetails(spot)"></ion-icon> -->
+            <!-- <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)"></ion-icon> -->
+            <!-- <ion-icon *ngIf="hostSpot.selected == true" name="checkmark-circle" style="float: right; font-size: 18px;" color="success"></ion-icon> -->
+            <div class="spot-name-description">
+              <b>{{spot.components[1].data.text}}</b><br>{{spot.components[6].data.text}}
+            </div>
+            <!-- <button style="height: 10px;">select</button>
+          <button style="height: 10px;">details</button> -->
           </ion-col>
         </ion-row>
+      </div>
+    </ion-grid>
+
+    <div id="spot-details" *ngIf="show === true">
+      <div class="spot-details-2">
+        <div>
+          <img [src]="yourHostSpot.components[0].data[0].url" alt="Host Tourist Spot" class="spot-image-in-list">
+          <p><b>{{yourHostSpot.components[1].data.text}}</b></p>
+        </div>
+        <div class="primary-spot-details">
+          <div>
+            <ion-label><b>Location:</b> {{yourHostSpot.components[2].data.text +', '+
+              yourHostSpot.components[3].data.text + ', ' + yourHostSpot.components[4].data.text }}</ion-label>
+          </div>
+          <div>
+            <ion-label><b>Description:</b> {{yourHostSpot.components[6].data.text}}</ion-label>
+          </div>
+        </div>
+        <div>
+          <ion-row class="select-cancel-btn">
+            <ion-col>
+              <ion-button expand="block" (click)="selectedPage = yourHostSpot; show = false">Select
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="yourHostSpot = null; show = false" color="warning">Close</ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
       </div>
     </div>
   </div>
