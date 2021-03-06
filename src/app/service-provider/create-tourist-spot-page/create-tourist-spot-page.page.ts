@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TouristSpotPage } from 'src/app/modules/elementTools/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
-import { TouristPage } from 'src/app/tourist/tourist.page';
 
 @Component({
   selector: 'app-create-tourist-spot-page',
@@ -29,16 +28,6 @@ export class CreateTouristSpotPagePage implements OnInit {
           (response: TouristSpotPage) => {
             this.touristSpot = response;
             this.pageCreator.setPage(this.touristSpot)  
-            // this.creator.addDefaultCategories().subscribe(
-            //   (resp: any) => {
-            //     console.log(resp);
-                
-            //   },
-            //   error => {
-            //     console.log(error);
-                
-            //   }
-            // )
           },
           error => {
             this.creator.canLeave = true;

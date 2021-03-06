@@ -152,12 +152,13 @@ export class PageCreatorComponent implements OnInit {
   }
 
   submit() {
-    this.validatePage();
-    if (this.creator.preview) {
-      this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
-      this.creator.canLeave = true;
-      this.router.navigate(["/service-provider"])
-    }
+    // this.validatePage();
+    // if (this.creator.preview) {
+    //   this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
+    //   this.creator.canLeave = true;
+    //   this.creator.preview = false;
+    //   this.router.navigate(["/service-provider"])
+    // }
   }
 
   getUnfilledFields() {

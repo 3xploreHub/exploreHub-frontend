@@ -27,7 +27,7 @@ const routes: Routes = [
     canDeactivate: [PageCreatorRouteManagerGuard],
   },
   {
-    path: 'create-service-page',
+    path: 'create-service-page/:id',
     loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule)
   },
 

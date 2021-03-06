@@ -8,6 +8,7 @@ import { SelectHostTouristSpotPageRoutingModule } from './select-host-tourist-sp
 
 import { SelectHostTouristSpotPage } from './select-host-tourist-spot.page';
 import { SearchPipe } from './search.pipe';
+import { PhotoDisplayComponent } from 'src/app/modules/page-elements-display/photo-display/photo-display.component';
 
 @NgModule({
   imports: [

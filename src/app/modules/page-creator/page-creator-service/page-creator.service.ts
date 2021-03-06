@@ -183,7 +183,19 @@ export class PageCreatorService {
   }
 
   retrieveToristSpotPage(id) {
-    return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
+    return this.http.get(`${this.apiUrl}/retrievePage/${id}/tourist_spot`)
+  }
+
+  retrieveServicePage(id) {
+    return this.http.get(`${this.apiUrl}/retrievePage/${id}/service`)
+  }
+
+  retrieveAllTouristSpotsPage() {
+     return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
+  }
+
+  createService(hostTouristSpot) {
+    return this.http.post(`${this.apiUrl}/createService`, hostTouristSpot)
   }
 
   applyStyle(styles: any, style: string) {

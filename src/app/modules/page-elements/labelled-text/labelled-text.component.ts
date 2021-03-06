@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
@@ -47,7 +47,7 @@ export class LabelledTextComponent implements OnInit {
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null }, default: false };
+      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null, defaults: null, referenceId: null }, default: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false, this.parent);
     }
@@ -59,6 +59,12 @@ export class LabelledTextComponent implements OnInit {
     this.footerData.hasValue = data.label && data.text ? true : false;
   }
 
+  enterOtherCategory() {
+    setTimeout(() => {
+      this.showDefaults = false;
+      this.values.data.text = null;
+    }, 300);
+  }
 
   renderText(hasChanges = false) {
     this.hasChanges = hasChanges;
