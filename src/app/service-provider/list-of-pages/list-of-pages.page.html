@@ -17,7 +17,7 @@
           <p class="title">{{page.components[1].data.text && page.components[1].data.text.length > 30? page.components[1].data.text.substring(0,30)+'...': page.components[1].data.text}}</p>
           <p class="description">{{page.components[6].data.text && page.components[6].data.text.length > 100? page.components[6].data.text.substring(0,100)+"...": page.components[6].data.text}}</p>
           <div class="status" [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
-            <div class="circle"></div>
+            <div class="statusCircle"></div>
             {{page.status == 'approved'? 'Online': 'Pending'}}
           </div>
         </div>

@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done  && !creator.preview; else doneBlock" class="textAreaWrapper">
+  <div *ngIf="!footerData.done  && !creator.preview; else doneBlock" class="textAreaWrapper boxShadowed mainLightBg">
     <ion-textarea [ngClass]="values.styles" auto-grow="true" (change)="saveChanges()"
       (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving"
       [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder? values.data.placeholder: 'Enter text here'">

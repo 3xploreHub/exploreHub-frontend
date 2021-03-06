@@ -40,7 +40,7 @@ export class ListOfPagesPage implements OnInit {
 
   goToDashBoard(page) {
     const type = page.hostTouristSpot ? "service": "tourist_spot"
-    this.router.navigate(["/service-provider/dashboard",  page._id, type])
+    this.router.navigate(["/service-provider/dashboard", type, page._id])
   }
 
 }

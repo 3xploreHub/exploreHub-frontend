@@ -1,5 +1,5 @@
 <div class="wrapper" *ngIf="!footerData.deleted">
-    <div  *ngIf="!footerData.done; else displayBlock" class="serviceContainer">
+    <div  *ngIf="!footerData.done; else displayBlock" class="serviceContainer boxShadowed">
       <ng-template #pageElement></ng-template>
       <p class="addComp" (click)="showComponentList()">Add info about this service</p>
       <app-element-footer [noPreview]="true"  [data]="footerData" (render)="renderService()" (delete)="delete()"></app-element-footer>

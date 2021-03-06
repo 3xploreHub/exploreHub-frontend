@@ -7,8 +7,10 @@
     <div #newItem>
       <ion-slides pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let item of items; let i = index" [class.deleted]="deletedItem.includes(item._id)">
+          <div class="itemHolder">
           <app-item (passDataToParent)="getItemData($event)" (onDelete)="deleteItem($event)" [values]="item"
             [parentId]="values._id" [parent]="'component'"></app-item>
+          </div>
         </ion-slide>
         <ion-slide *ngIf="items.length == 0">
           <div class="noItem">

@@ -1,5 +1,5 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, tab)">
-    <div class="creator">
+    <div class="creator mainLightBg2">
         <div #info>
             <ng-template #pageElement></ng-template>
             <br />
@@ -53,13 +53,20 @@
 
         </div>
 
-        <div class="btnHolder">
+        <div class="btnHolder" *ngIf="page && page.status == 'unfinished'; else submitted">
             <div (click)="submit()" class="submitPage btnStyle ion-activatable ripple-parent">
                 Submit Page
                 <ion-ripple-effect></ion-ripple-effect>
             </div>
-            <!-- <ion-button class="submitPage" expand="full">Submit Page</ion-button> -->
         </div>
+        <ng-template #submitted>
+            <div class="submitted">
+               
+               <div [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
+                   <b>Status:</b>{{page.status}}
+               </div> 
+            </div>
+        </ng-template>
         <div class="menu">
             <div class="exit ion-activatable ripple-parent" (click)="exit()">
                 <ion-icon class="icons" name="chevron-back-outline"></ion-icon>&nbsp;Back
@@ -119,7 +126,8 @@
         <div class="csmodal" *ngIf="showUnfilled">
 
             <div class="errHeader">
-                <span>Please fill up or finish the following field(s) to be able to {{submitting? 'submit' : 'preview'}}</span>
+                <span>Please fill up or finish the following field(s) to be able to {{submitting? 'submit' :
+                    'preview'}}</span>
                 <ion-icon name="close-outline" class="closeErr" (click)="showUnfilled = false"></ion-icon>
             </div>
             <div class="modalCont">

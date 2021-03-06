@@ -11,7 +11,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </div>&nbsp;&nbsp;
         <div class="topCol ion-activatable ripple-parent">
-          <ion-icon class="topIcon" name="create-outline"></ion-icon><span>Edit</span>
+          <ion-icon (click)="editPage()" class="topIcon" name="create-outline"></ion-icon><span>Edit</span>
           <ion-ripple-effect></ion-ripple-effect>
         </div>
       </div>
@@ -27,7 +27,7 @@
           page.components[1].data.text.substring(0,70)+'...': page.components[1].data.text: ''}}</div>
         <div class="status"
           [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
-          <div class="circle"></div>
+          <div class="statusCircle"></div>
           {{page.status == 'approved'? 'Online': 'Pending'}}
         </div>
       </div>
@@ -36,7 +36,7 @@
       <div class="csTab">Booked
       </div>
       <div class="csTab">Pending</div>
-      <div class="csTab">Available</div>
+      <div class="csTab">Statistics</div>
 
       <div class="activeIndicator">
         <div (click)="goToSection('Booked', tab)" class="csTab">
@@ -45,7 +45,7 @@
           </div>
         </div>
         <div (click)="goToSection('Pending', tab)" class="csTab"></div>
-        <div (click)="goToSection('Available', tab)" class="csTab"></div>
+        <div (click)="goToSection('Statistics', tab)" class="csTab"></div>
       </div>
 
     </div>

@@ -11,8 +11,9 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class DashboardPage implements OnInit {
   public page: Page;
-  clickedTab: string = 'Booked'
-  boxPosition: number;
+  public clickedTab: string = 'Booked'
+  public boxPosition: number;
+  public pageType: string;
 
   constructor(public router: Router,
     public mainService: MainServicesService,
@@ -25,9 +26,9 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
-      const pageType = params.get('pageType');
-      if (pageId && pageType) {
-        this.mainService.getPage(pageId, pageType).subscribe(
+      this.pageType = params.get('pageType');
+      if (pageId && this.pageType) {
+        this.mainService.getPage(pageId, this.pageType).subscribe(
           (response: Page) => {
             this.page = response;
           },
@@ -76,5 +77,10 @@ export class DashboardPage implements OnInit {
         this.boxPosition = width * 2
         break;
     }
+  }
+
+  editPage() {
+    const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";
+    this.router.navigate([`/service-provider/${type}`, this.page._id])
   }
 }

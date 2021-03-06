@@ -53,7 +53,9 @@ export class PageCreatorComponent implements OnInit {
     public creator: PageCreatorService,
     public alert: AlertController,
     public router: Router,
-  ) { }
+  ) { 
+    this.page = {_id: null, creator: null, status: "",components: [], services:[], bookingInfo:[], hostTouristSpot: null}
+  }
 
   ngOnInit() {
   }
@@ -145,7 +147,12 @@ export class PageCreatorComponent implements OnInit {
   }
 
   exit() {
-    this.router.navigate(['/service-provider'])
+    if (this.page.status != 'unfinished') {
+      this.creator.canLeave = true;
+      this.router.navigate(["/service-provider/dashboard",  this.creator.pageType, this.page._id])
+    } else {
+      this.router.navigate(['/service-provider'])
+    }
   }
 
   previewPage() {
