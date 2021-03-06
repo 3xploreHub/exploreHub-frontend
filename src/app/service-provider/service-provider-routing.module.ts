@@ -35,7 +35,10 @@ const routes: Routes = [
     path: 'list-of-pages',
     loadChildren: () => import('./list-of-pages/list-of-pages.module').then( m => m.ListOfPagesPageModule)
   },
-
+  {
+    path: 'dashboard/:pageId/:pageType',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
 
 ];
 

@@ -35,7 +35,6 @@ export class PageCreatorComponent implements OnInit {
   public submitting: boolean = false;
   public showUnfilled: boolean = false;
   public unfilledFields = { components: [], services: [], bookingInfo: [] }
-
   boxPosition: number;
   components = {
     'text': TextComponent,
@@ -119,7 +118,7 @@ export class PageCreatorComponent implements OnInit {
     return present;
   }
 
-  scroll(el: HTMLElement, tab: string, div: HTMLElement) {
+  goToSection(el: HTMLElement, tab: string, div: HTMLElement) {
     const width = div.clientWidth;
     switch (tab) {
       case 'booking':
@@ -175,7 +174,7 @@ export class PageCreatorComponent implements OnInit {
           this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;
           this.creator.preview = false;
-          this.router.navigate(["/service-provider"])
+          this.router.navigate(["/service-provider/list-of-pages"])
         },
         error => {
           this.presentAlert("Unexpected error occured! Please try again later.")

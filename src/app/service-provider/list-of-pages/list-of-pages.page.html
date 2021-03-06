@@ -7,7 +7,7 @@
   <div class="outerWrapper lightBackground">
     <div class="list">
 
-      <div class="page" *ngFor="let page of pages">
+      <div class="page" *ngFor="let page of pages" (click)="goToDashBoard(page)">
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
@@ -18,7 +18,8 @@
           <p class="description">{{page.components[6].data.text && page.components[6].data.text.length > 100? page.components[6].data.text.substring(0,100)+"...": page.components[6].data.text}}</p>
           <div class="status" [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
             <div class="circle"></div>
-            {{page.status == 'approved'? 'Online': 'Pending'}}</div>
+            {{page.status == 'approved'? 'Online': 'Pending'}}
+          </div>
         </div>
       </div>
     </div>

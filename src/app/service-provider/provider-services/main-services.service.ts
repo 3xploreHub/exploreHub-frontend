@@ -14,4 +14,8 @@ export class MainServicesService {
   getPages() {
     return this.http.get(`${this.apiUrl}/getPages`)
   }
+
+  getPage(pageId: string, pageType: string) {
+    return this.http.get(`${this.apiUrl}/getPage/${pageId}/${pageType}`)
+  }
 }

@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="lightBackground">
+    <div class="topMenu">
+      <div (click)="goBack()" class="topCol backIcon ion-activatable ripple-parent">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="topCol">
+        <div class="topCol ion-activatable ripple-parent">
+          <ion-icon class="topIcon" name="settings-outline"></ion-icon><span>Settings</span>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>&nbsp;&nbsp;
+        <div class="topCol ion-activatable ripple-parent">
+          <ion-icon class="topIcon" name="create-outline"></ion-icon><span>Edit</span>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
+    <div class="boardHeader">
+      <div class="boardPhotoHolder">
+        <div class="boardPhoto"
+          [ngStyle]="{'background-image': page.components.length > 0 && page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+        </div>
+      </div>
+      <div>
+        <div class="pageName">{{page.components.length > 0 ? page.components[1].data.text.length > 70?
+          page.components[1].data.text.substring(0,70)+'...': page.components[1].data.text: ''}}</div>
+        <div class="status"
+          [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
+          <div class="circle"></div>
+          {{page.status == 'approved'? 'Online': 'Pending'}}
+        </div>
+      </div>
+    </div>
+    <div class="csTabs">
+      <div class="csTab">Booked
+      </div>
+      <div class="csTab">Pending</div>
+      <div class="csTab">Available</div>
+
+      <div class="activeIndicator">
+        <div (click)="goToSection('Booked', tab)" class="csTab">
+          <div class="box" #tab [ngStyle]="{'left.px': boxPosition}">
+            <div class="shadow">{{clickedTab}}</div>
+          </div>
+        </div>
+        <div (click)="goToSection('Pending', tab)" class="csTab"></div>
+        <div (click)="goToSection('Available', tab)" class="csTab"></div>
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>
