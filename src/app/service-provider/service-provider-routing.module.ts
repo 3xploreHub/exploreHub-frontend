@@ -31,6 +31,11 @@ const routes: Routes = [
     loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule),
     canDeactivate: [PageCreatorRouteManagerGuard],
   },
+  {
+    path: 'list-of-pages',
+    loadChildren: () => import('./list-of-pages/list-of-pages.module').then( m => m.ListOfPagesPageModule)
+  },
+
 
 ];
 
