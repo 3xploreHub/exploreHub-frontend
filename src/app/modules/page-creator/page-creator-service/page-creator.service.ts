@@ -188,7 +188,9 @@ export class PageCreatorService {
      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
   }
 
-  
+  submitPage() {
+    return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, null)
+  }
 
   applyStyle(styles: any, style: string) {
     let type = style.split("-")[0];

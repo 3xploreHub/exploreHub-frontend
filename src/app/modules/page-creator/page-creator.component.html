@@ -54,15 +54,25 @@
             </div>
 
         </div>
-        <div class="menu">
-            <div class="exit ion-activatable ripple-parent" (click)="exit()">
-                <ion-icon class="icons" name="arrow-back-circle-outline"></ion-icon>&nbsp;Back
+
+        <div class="btnHolder">
+            <div (click)="submit()" class="submitPage btnStyle ion-activatable ripple-parent">
+                Submit Page
                 <ion-ripple-effect></ion-ripple-effect>
             </div>
-            <!-- Tourist Spot -->
+            <!-- <ion-button class="submitPage" expand="full">Submit Page</ion-button> -->
+        </div>
+        <div class="menu">
+            <div class="exit ion-activatable ripple-parent" (click)="exit()">
+                <ion-icon class="icons" name="chevron-back-outline"></ion-icon>&nbsp;Back
+                <ion-ripple-effect></ion-ripple-effect>
+            </div>
+            <p class="pageTitle">
+                {{creator.pageType == 'service'? 'Service Page': 'Tourist Spot Page'}}
+            </p>
             <div class="preview" *ngIf="loading; else doneLoading">
                 <ion-spinner color="white" name="lines-small"></ion-spinner>
-                <div class="saving">Loading...</div>
+                <div class="saving">Loading</div>
             </div>
             <ng-template #doneLoading>
                 <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
@@ -71,15 +81,15 @@
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
                 <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent" (click)="previewPage()">
-                    <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview / Test
+                    <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
             </ng-template>
 
-            <div class="submit ion-activatable ripple-parent" (click)="submit()">
+            <!-- <div class="submit ion-activatable ripple-parent" (click)="submit()">
                 Submit&nbsp;<ion-icon name="send-outline"></ion-icon>
                 <ion-ripple-effect></ion-ripple-effect>
-            </div>
+            </div> -->
         </div>
 
         <div class="tabs">
@@ -109,17 +119,17 @@
         </div>
 
         <div class="csmodal" *ngIf="showUnfilled">
-           
+
             <div class="errHeader">
-                <span>Please fill up or finish the following field(s) to be able to preview</span>
+                <span>Please fill up or finish the following field(s) to be able to {{submitting? 'submit' : 'preview'}}</span>
                 <ion-icon name="close-outline" class="closeErr" (click)="showUnfilled = false"></ion-icon>
             </div>
             <div class="modalCont">
-                <div  class="holder" *ngIf="unfilledFields.components.length > 0">
+                <div class="holder" *ngIf="unfilledFields.components.length > 0">
                     <b>
                         Info
                     </b>
-                    <div class="fieldHolder"> 
+                    <div class="fieldHolder">
                         <div class="field" *ngFor="let type of unfilledFields.components">{{type}}</div>
                     </div>
                 </div>

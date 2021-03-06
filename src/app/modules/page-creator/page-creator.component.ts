@@ -32,6 +32,7 @@ export class PageCreatorComponent implements OnInit {
   public page: TouristSpotPage;
   public preview: boolean = false;
   public loading: boolean = false;
+  public submitting: boolean = false;
   public showUnfilled: boolean = false;
   public unfilledFields = { components: [], services: [], bookingInfo: [] }
 
@@ -149,17 +150,40 @@ export class PageCreatorComponent implements OnInit {
   }
 
   previewPage() {
-    this.validatePage();    
+    this.loading = true;
+    this.submitting = false;
+    setTimeout(async () => {
+
+      const result = await this.validatePage();
+      if (!result) {
+        this.creator.preview = false;
+
+      } else {
+        this.creator.preview = true;
+      }
+
+    }, 500);
+
   }
 
-  submit() {
-    // this.validatePage();
-    // if (this.creator.preview) {
-    //   this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
-    //   this.creator.canLeave = true;
-    //   this.creator.preview = false;
-    //   this.router.navigate(["/service-provider"])
-    // }
+  async submit() {
+    this.submitting = true;
+    const result = await this.validatePage()
+
+    if (result) {
+      this.creator.submitPage().subscribe(
+        (response) => {
+          this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
+          this.creator.canLeave = true;
+          this.creator.preview = false;
+          this.router.navigate(["/service-provider"])
+        },
+        error => {
+          this.presentAlert("Unexpected error occured! Please try again later.")
+          this.router.navigate(["/service-provider"])
+        }
+      )
+    }
   }
 
   getUnfilledFields() {
@@ -170,78 +194,82 @@ export class PageCreatorComponent implements OnInit {
     }
   }
 
-  validatePage() {
+  async validatePage() {
     let valid = [];
+    this.showUnfilled = false;
     this.unfilledFields = { components: [], services: [], bookingInfo: [] }
-    this.loading = true;
-    setTimeout(() => {
-      this.creator.retrievePage(this.page._id, this.creator.pageType).subscribe(
-        (response: TouristSpotPage) => {
-          this.page = response;
-          console.log(response);
+    let result = false;
+    const self = this
+    function getUpdate() {
+      return new Promise(resolve => {
+        self.creator.retrievePage(self.page._id, self.creator.pageType).subscribe(
+          (response: TouristSpotPage) => {
+            self.page = response;
 
-          //check components
-          const checkingResult = this.creator.checkIfHasValue(this.page.components)
-          if (!checkingResult) {
-            valid.push(checkingResult)
-            this.getUnfilledFields();
-          }
-
-          //check services
-
-          if (this.page.services.length > 0) {
-            this.page.services.forEach(item_list => {
-              if (item_list.data.length == 1) {
-                valid.push(false)
-                this.getUnfilledFields()
-              } else {
-                item_list.data.forEach(item => {
-                  let data = item.data;
-                  if (item.type != "item") {
-                    data = [item]
-                  }
-                  valid.push(this.creator.checkIfHasValue(data, true))
-                  this.getUnfilledFields()
-                });
-              }
-            })
-          }
-
-          //check bookinginfo input fields
-          if (this.page.bookingInfo.length > 0) {
-            const result = this.creator.checkIfHasValue(this.page.bookingInfo)
-            if (!result) {
-              valid.push(result)
-              this.getUnfilledFields()
+            //check components
+            const checkingResult = self.creator.checkIfHasValue(self.page.components)
+            if (!checkingResult) {
+              valid.push(checkingResult)
+              self.getUnfilledFields();
             }
-          }
-          valid = valid.filter(i => !i);
 
-          let fields = { components: [], services: [], bookingInfo: [] }
+            //check services
 
-          fields.components = this.countFields(this.unfilledFields.components);
-          fields.services = this.countFields(this.unfilledFields.services);
-          fields.bookingInfo = this.countFields(this.unfilledFields.bookingInfo);
+            if (self.page.services.length > 0) {
+              self.page.services.forEach(item_list => {
+                if (item_list.data.length == 1) {
+                  valid.push(false)
+                  self.getUnfilledFields()
+                } else {
+                  item_list.data.forEach(item => {
+                    let data = item.data;
+                    if (item.type != "item") {
+                      data = [item]
+                    }
+                    valid.push(self.creator.checkIfHasValue(data, true))
+                    self.getUnfilledFields()
+                  });
+                }
+              })
+            }
 
-          this.unfilledFields = fields;
+            //check bookinginfo input fields
+            if (self.page.bookingInfo.length > 0) {
+              const result = self.creator.checkIfHasValue(self.page.bookingInfo)
+              if (!result) {
+                valid.push(result)
+                self.getUnfilledFields()
+              }
+            }
+            valid = valid.filter(i => !i);
 
-          if (valid.length > 0) {
-            this.creator.preview = false;
-            this.showUnfilled = true;
-          } else {
-            this.showUnfilled = false;
-            this.creator.preview = true;
-          }
+            let fields = { components: [], services: [], bookingInfo: [] }
 
-          this.loading = false;
-        },
-        (error) => {
-          if (error.status == 404) {
-            this.router.navigate(["/service-provider"])
-          }
-        })
-    }, 500);
+            fields.components = self.countFields(self.unfilledFields.components);
+            fields.services = self.countFields(self.unfilledFields.services);
+            fields.bookingInfo = self.countFields(self.unfilledFields.bookingInfo);
 
+            self.unfilledFields = fields;
+            self.loading = false;
+
+            if (valid.length > 0) {
+              result = false;
+              self.showUnfilled = true;
+            } else {
+              self.showUnfilled = false;
+              result = true;
+            }
+
+            resolve(result);
+          },
+          (error) => {
+            if (error.status == 404) {
+              self.router.navigate(["/service-provider"])
+            }
+          })
+      })
+    }
+    return await getUpdate();
   }
 
   countFields(list) {
