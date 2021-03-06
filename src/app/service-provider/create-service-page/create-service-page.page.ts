@@ -24,7 +24,7 @@ export class CreateServicePagePage implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id'); 
       if (id) {
-        this.creator.retrieveServicePage(id).subscribe(
+        this.creator.retrievePage(id, "service").subscribe(
           (response: ServicePage) => {
             this.touristSpot = response;
             this.pageCreator.setPage(this.touristSpot, "service")  
@@ -39,5 +39,6 @@ export class CreateServicePagePage implements OnInit {
       }
     })
   }
+
 
 }

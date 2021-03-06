@@ -170,27 +170,19 @@ export class PageCreatorService {
   }
 
 
-  deleteTouristSpotPage() {
+  deletePage() {
     return this.http.delete(`${this.apiUrl}/deletePage/${this.currentPageId}/${this.pageType}`);
   }
 
   
-  createTouristSpotPage() {
-    return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
+  createPage(pageType, hostTouristSpot = null) {
+    return this.http.post(`${this.apiUrl}/createPage/${pageType}`, hostTouristSpot)
   }
 
-  createServicePage(hostTouristSpot) {
-    return this.http.post(`${this.apiUrl}/createServicePage`, hostTouristSpot)
-  }
-  
-
-  retrieveToristSpotPage(id) {
-    return this.http.get(`${this.apiUrl}/retrievePage/${id}/tourist_spot`)
+  retrievePage(id, pageType) {
+    return this.http.get(`${this.apiUrl}/retrievePage/${id}/${pageType}`)
   }
 
-  retrieveServicePage(id) {
-    return this.http.get(`${this.apiUrl}/retrievePage/${id}/service`)
-  }
 
   retrieveAllTouristSpotsPage() {
      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);

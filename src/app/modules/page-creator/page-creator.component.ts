@@ -175,7 +175,7 @@ export class PageCreatorComponent implements OnInit {
     this.unfilledFields = { components: [], services: [], bookingInfo: [] }
     this.loading = true;
     setTimeout(() => {
-      this.creator.retrieveToristSpotPage(this.page._id).subscribe(
+      this.creator.retrievePage(this.page._id, this.creator.pageType).subscribe(
         (response: TouristSpotPage) => {
           this.page = response;
           console.log(response);

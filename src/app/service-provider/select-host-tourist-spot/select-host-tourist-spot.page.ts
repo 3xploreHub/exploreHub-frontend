@@ -145,7 +145,7 @@ export class SelectHostTouristSpotPage implements OnInit {
 
   createServicePage() {
     let hostTouristSpot = {_id: this.selectedPage._id, municipality: this.selectedPage.components[3].data.text, city: this.selectedPage.components[4].data.text}
-    this.creator.createServicePage(hostTouristSpot).subscribe(
+    this.creator.createPage("service",hostTouristSpot).subscribe(
       (response: any) => {
         this.router.navigate(["/service-provider/create-service-page", response._id])
       },

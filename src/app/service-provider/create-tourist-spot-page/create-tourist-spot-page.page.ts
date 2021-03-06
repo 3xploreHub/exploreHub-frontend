@@ -24,7 +24,7 @@ export class CreateTouristSpotPagePage implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id'); 
       if (id) {
-        this.creator.retrieveToristSpotPage(id).subscribe(
+        this.creator.retrievePage(id, "tourist_spot").subscribe(
           (response: TouristSpotPage) => {
             this.touristSpot = response;
             this.pageCreator.setPage(this.touristSpot, "tourist_spot")  
