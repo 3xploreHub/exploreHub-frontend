@@ -1,6 +1,6 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done  && !creator.preview; else display">
-    <div class="container boxShadowed mainLightBg">
+    <div class="container boxShadowed2 mainLightBg">
       <div class="fieldsHolder">
 
         <ion-textarea *ngIf="!values.default; else defaultLabel" auto-grow="true" (keyup)="detectTyping()"
