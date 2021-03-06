@@ -5,7 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
-import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
+import { Page } from '../elementTools/interfaces/page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { BulletFormTextComponent } from '../page-elements/bullet-form-text/bullet-form-text.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
@@ -29,7 +29,7 @@ export class PageCreatorComponent implements OnInit {
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   // @HostListener('window:scroll', ['$event'])
-  public page: TouristSpotPage;
+  public page: Page;
   public preview: boolean = false;
   public loading: boolean = false;
   public submitting: boolean = false;
@@ -202,7 +202,7 @@ export class PageCreatorComponent implements OnInit {
     function getUpdate() {
       return new Promise(resolve => {
         self.creator.retrievePage(self.page._id, self.creator.pageType).subscribe(
-          (response: TouristSpotPage) => {
+          (response: Page) => {
             self.page = response;
 
             //check components

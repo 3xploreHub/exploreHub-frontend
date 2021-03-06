@@ -1,5 +1,4 @@
 .outerWrapper {
-    background-color: rgb(215, 224, 230) !important;
     height: 100%;
     z-index: -1;
     padding:10px 0;
@@ -57,11 +56,12 @@
 
 
                 .description {
-                    
-
                     font-size: 16px;
                     color:rgb(78, 78, 78);
                     margin-bottom: 20px;
+                    span {
+                        color: rgb(95, 103, 109);
+                    }
                 }
             }
         }

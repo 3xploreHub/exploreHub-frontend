@@ -1,0 +1,74 @@
+.outerWrapper {
+    padding:10px;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.photoHolder {
+    background-color: gray;
+    width:150px;
+    
+    height: 100%;
+}
+
+.pagePhoto {
+    width:150px;
+    
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.page {
+    height: 115px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    margin:10px 0;
+    flex-direction: row;
+
+}
+
+.status {
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    background: #ffff;
+    display: flex;
+    margin:8px;
+    align-items: center;
+    right: 0;
+
+    .circle {
+        width:11px;
+        height: 11px;
+        border-radius: 50%;
+        margin-right: 5px;
+        background-color: green;
+    }
+}
+.pageInfo {
+    position: relative;
+    padding:5px;
+    padding-bottom: 15px;
+    width: 100%;
+
+    .title {
+        font-size: 16px;
+        margin:3px;
+        height: 18px;
+        overflow: hidden;
+    }
+
+    .description {
+        color:gray;
+        margin: 3px;
+        height: 53px;
+        overflow: hidden;
+        font-size: 15px;
+    }
+}
+

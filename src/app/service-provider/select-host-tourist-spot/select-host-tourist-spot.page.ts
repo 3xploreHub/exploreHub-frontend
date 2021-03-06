@@ -4,7 +4,7 @@ import { SelectHostTouristSpotService } from "./select-host-tourist-spot.service
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PageCreatorService } from "src/app/modules/page-creator/page-creator-service/page-creator.service";
-import { TouristSpotPage } from "src/app/modules/elementTools/interfaces/tourist-spot-page";
+import { Page } from "src/app/modules/elementTools/interfaces/page";
 import { ElementValues } from "src/app/modules/elementTools/interfaces/ElementValues";
 import { AlertController } from "@ionic/angular";
 
@@ -32,8 +32,8 @@ interface SpotCategory {
 })
 
 export class SelectHostTouristSpotPage implements OnInit {
-  touristSpotPages: TouristSpotPage[] = [];
-  selectedPage:TouristSpotPage;
+  touristSpotPages: Page[] = [];
+  selectedPage:Page;
   keyupValues = "";
 
   sampleCategory;
@@ -65,7 +65,7 @@ export class SelectHostTouristSpotPage implements OnInit {
 
   retrieveAllTouristSpotsPage() {
     this.creator.retrieveAllTouristSpotsPage().subscribe(
-      (response: TouristSpotPage[]) => {
+      (response: Page[]) => {
         this.touristSpotPages = response;
       },
       error => {

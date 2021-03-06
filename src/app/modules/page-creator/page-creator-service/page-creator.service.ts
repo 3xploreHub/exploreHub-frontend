@@ -5,7 +5,6 @@ import { from, observable, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
-import { TouristSpotPage } from '../../elementTools/interfaces/tourist-spot-page';
 
 export interface Image {
   _id: string;
