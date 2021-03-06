@@ -30,6 +30,7 @@ export class ItemListComponent implements OnInit {
   public items: ElementValues[] = [];
   public newlyAdded: number;
   public deletedItem: string[] = []
+  
   slideOpts = {
     initialSlide: 1,
     speed: 400

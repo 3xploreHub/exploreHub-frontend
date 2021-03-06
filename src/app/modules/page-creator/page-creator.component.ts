@@ -58,7 +58,8 @@ export class PageCreatorComponent implements OnInit {
   ngOnInit() {
   }
 
-  setPage(page) {
+  setPage(page, pageType) {
+    this.creator.pageType = pageType;
     this.creator.canLeave = false;
     this.page = page;
     this.creator.currentPageId = this.page._id;

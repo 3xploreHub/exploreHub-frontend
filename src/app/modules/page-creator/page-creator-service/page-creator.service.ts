@@ -20,6 +20,7 @@ export class PageCreatorService {
   public currentPageId: string;
   public preview: boolean = false;
   public clickedComponent: string;
+  public pageType: string;
   public canLeave: boolean = false;
   public unfilledFields = { components: [], services: [], bookingInfo: [] }
 
@@ -48,32 +49,32 @@ export class PageCreatorService {
   saveComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
     if (parent == "service") return this.saveItem(component, parentId)
     const componentGroup = parent == "page" ? "addComponent" : "addServiceChildComponent";
-    const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
+    const params = parent == "page" ? `${parentId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${this.pageType}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
   saveServiceComponent(component: ElementValues, parentId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addServiceComponent/${parentId}`, component, {
+    return this.http.post(`${this.apiUrl}/addServiceComponent/${parentId}/${this.pageType}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
   saveInputField(component: ElementValues, grandParentId: string, parentId: string, parent: string) {
-    return this.http.post(`${this.apiUrl}/saveInputField/${this.currentPageId}/${grandParentId}/${parentId}`, component, {
+    return this.http.post(`${this.apiUrl}/saveInputField/${this.currentPageId}/${grandParentId}/${parentId}/${this.pageType}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
   editInputField(inputField: ElementValues, grandParentId: string, parentId: string, parent: string) {
-    return this.http.put(`${this.apiUrl}/editInputField/${this.currentPageId}/${grandParentId}/${parentId}`, inputField, {
+    return this.http.put(`${this.apiUrl}/editInputField/${this.currentPageId}/${grandParentId}/${parentId}/${this.pageType}`, inputField, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
   saveItem(component: ElementValues, parentId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}`, component, {
+    return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}/${this.pageType}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
@@ -83,22 +84,20 @@ export class PageCreatorService {
       return this.editServiceInfo(component, parentId, component._id)
     }
     const componentGroup = parent == "page" ? "editComponent" : "editChildComponent";
-    const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
+    const params = parent == "page" ? `${parentId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${this.pageType}`;
     return this.http.put(`${this.apiUrl}/${componentGroup}/${params}`, component, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
   editServiceInfo(component: ElementValues, serviceId: string, infoId: string): Observable<any> {
-    console.log(component);
-
-    return this.http.put(`${this.apiUrl}/editServiceInfo/${this.currentPageId}/${serviceId}/${infoId}`, component, {
+    return this.http.put(`${this.apiUrl}/editServiceInfo/${this.currentPageId}/${serviceId}/${infoId}/${this.pageType}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
   deleteInputField(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deleteInputField/${this.currentPageId}/${grandParentId}/${parentId}/${childId}`, { images: images }, {
+    return this.http.post(`${this.apiUrl}/deleteInputField/${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`, { images: images }, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
@@ -106,19 +105,19 @@ export class PageCreatorService {
   deleteComponent(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
     if (parent == "service") return this.deleteItem(parentId, childId)
     const componentGroup = parent == "page" ? "deleteComponent" : "deleteItemChild";
-    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+    const params = parent == "page" ? `${parentId}/${childId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, { images: images }, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
   deleteItem(itemListId: string, itemId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteItem/${this.currentPageId}/${itemListId}/${itemId}`, {
+    return this.http.delete(`${this.apiUrl}/deleteItem/${this.currentPageId}/${itemListId}/${itemId}/${this.pageType}`, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
 
   deleteServiceComponent(pageId: string, serviceId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteServiceComponent/${pageId}/${serviceId}`, {
+    return this.http.delete(`${this.apiUrl}/deleteServiceComponent/${pageId}/${serviceId}/${this.pageType}`, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
@@ -128,7 +127,7 @@ export class PageCreatorService {
     formData.append('image', blobData);
 
     const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
-    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+    const params = parent == "page" ? `${parentId}/${childId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`;
 
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
@@ -141,7 +140,7 @@ export class PageCreatorService {
     formData.append('image', file, `myimage.${ext}`);
 
     const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
-    const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
+    const params = parent == "page" ? `${parentId}/${childId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`;
 
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, formData, {
       headers: { hideLoadingIndicator: "", containsFiles: "" },
@@ -151,7 +150,7 @@ export class PageCreatorService {
   deleteImage(grandParentId: string, parentId: string, parent: string, componentId: string, imageUrl: string, imageId: string) {
 
     const componentGroup = parent == "page" ? "deleteImage" : "deleteItemImage";
-    const params = parent == "page" ? `${parentId}` : `${this.currentPageId}/${grandParentId}/${parentId}`;
+    const params = parent == "page" ? `${parentId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${this.pageType}`;
 
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`,
       { imageUrl: imageUrl, componentId: componentId, imageId: imageId }, {
@@ -160,27 +159,30 @@ export class PageCreatorService {
   }
 
   getItemUpdatedData(serviceId: string, itemId: string) {
-    return this.http.get(`${this.apiUrl}/getItemUpdatedData/${this.currentPageId}/${serviceId}/${itemId}`, {
+    return this.http.get(`${this.apiUrl}/getItemUpdatedData/${this.currentPageId}/${serviceId}/${itemId}/${this.pageType}`, {
       headers: { hideLoadingIndicator: "" }
     })
   }
 
-  getUpdatedItemListData(itemListId, hideLoading = true) {
-    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}`,
+  getUpdatedItemListData(itemListId, hideLoading = true,) {
+    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}/${this.pageType}`,
       hideLoading ? { headers: { hideLoadingIndicator: "" } } : {})
   }
 
+
+  deleteTouristSpotPage() {
+    return this.http.delete(`${this.apiUrl}/deletePage/${this.currentPageId}/${this.pageType}`);
+  }
+
+  
   createTouristSpotPage() {
     return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
   }
 
-  addDefaultCategories() {
-    return this.http.post(`${this.apiUrl}/addDefaultCategories`, {})
+  createServicePage(hostTouristSpot) {
+    return this.http.post(`${this.apiUrl}/createServicePage`, hostTouristSpot)
   }
-
-  deleteTouristSpotPage() {
-    return this.http.delete(`${this.apiUrl}/deleteTouristSpotPage/${this.currentPageId}`);
-  }
+  
 
   retrieveToristSpotPage(id) {
     return this.http.get(`${this.apiUrl}/retrievePage/${id}/tourist_spot`)
@@ -194,9 +196,7 @@ export class PageCreatorService {
      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
   }
 
-  createService(hostTouristSpot) {
-    return this.http.post(`${this.apiUrl}/createService`, hostTouristSpot)
-  }
+  
 
   applyStyle(styles: any, style: string) {
     let type = style.split("-")[0];
