@@ -169,7 +169,6 @@ export class PageCreatorComponent implements OnInit {
   async submit() {
     this.submitting = true;
     const result = await this.validatePage()
-
     if (result) {
       this.creator.submitPage().subscribe(
         (response) => {
