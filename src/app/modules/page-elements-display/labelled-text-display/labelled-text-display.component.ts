@@ -8,8 +8,10 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class LabelledTextDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() parent: string;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

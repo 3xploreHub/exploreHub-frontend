@@ -3,7 +3,7 @@
     <div class="container boxShadowed2 mainLightBg">
       <div class="fieldsHolder">
 
-        <ion-textarea *ngIf="!values.default; else defaultLabel" auto-grow="true" (keyup)="detectTyping()"
+        <ion-textarea *ngIf="!values.default && !values.data.defaultName; else defaultLabel" auto-grow="true" (keyup)="detectTyping()"
           [readonly]="footerData.saving" [(ngModel)]="values.data.label" class="text" rows="1"
           (change)="renderText(true)" placeholder="Enter label here">
         </ion-textarea>
@@ -38,7 +38,7 @@
       <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview"
         [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-labelled-text-display (click)="editField()" [values]="values">
+      <app-labelled-text-display (click)="editField()" [parent]="parent" [values]="values">
       </app-labelled-text-display>
     </div>
   </ng-template>

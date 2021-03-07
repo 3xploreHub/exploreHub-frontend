@@ -11,14 +11,39 @@
     margin-bottom: 5px;
     text-align: left;
     font-weight: 600;
+    color: rgb(14, 74, 129);
 }
 
 li {
     padding:5px;
+    color:rgb(80, 87, 95);
     text-align: left !important;
 }
 
 ul, ol {
     margin-top: 0 !important;
+}
+
+.onItemStyleList {
+    padding:5px !important;
+    margin:3px !important;
+    background-color: rgb(240, 244, 248) !important;
+
+    .label {
+        font-size: 15px !important;
+
+    }
+
+    li {
+        padding:3px;
+        text-align: left !important;
+        font-size: 14px;
+        margin-top:0px;
+    }
+    
+    ul, ol {
+        margin-top: 0 !important;
+        padding-left:20px !important;   
+    }
 }
 
