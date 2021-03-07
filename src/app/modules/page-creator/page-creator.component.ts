@@ -53,28 +53,36 @@ export class PageCreatorComponent implements OnInit {
     public creator: PageCreatorService,
     public alert: AlertController,
     public router: Router,
-  ) { 
-    this.page = {_id: null, creator: null, status: "",components: [], services:[], bookingInfo:[], hostTouristSpot: null}
+  ) {
+    this.page = { _id: null, creator: null, status: "", components: [], services: [], bookingInfo: [], hostTouristSpot: null }
   }
 
   ngOnInit() {
   }
 
   setPage(page, pageType) {
-    this.creator.pageType = pageType;
-    this.creator.canLeave = false;
-    this.page = page;
-    this.creator.currentPageId = this.page._id;
-    this.page.components.forEach((component: any) => {
-      this.renderComponent(this.pageElement, component, "page")
-    })
-    this.page.services.forEach((component: any) => {
-      this.renderComponent(this.pageService, component, "page")
-    })
+    this.pageElement.clear()
+    this.pageService.clear();
+    this.pageInputField.clear()
+    setTimeout(() => {
 
-    this.page.bookingInfo.forEach((component: any) => {
-      this.renderComponent(this.pageInputField, component, "page_booking_info")
-    })
+      this.creator.pageType = pageType;
+      this.creator.canLeave = false;
+      this.creator.preview = false;
+      this.page = page;
+      this.creator.currentPageId = this.page._id;
+      this.page.components.forEach((component: any) => {
+        this.renderComponent(this.pageElement, component, "page")
+      })
+      this.page.services.forEach((component: any) => {
+        this.renderComponent(this.pageService, component, "page")
+      })
+
+      this.page.bookingInfo.forEach((component: any) => {
+        this.renderComponent(this.pageInputField, component, "page_booking_info")
+      })
+    }, 100);
+
   }
 
   onScroll(event, info: HTMLElement, services: HTMLElement, div: HTMLElement) {
@@ -148,8 +156,19 @@ export class PageCreatorComponent implements OnInit {
 
   exit() {
     if (this.page.status != 'unfinished') {
-      this.creator.canLeave = true;
-      this.router.navigate(["/service-provider/dashboard",  this.creator.pageType, this.page._id])
+
+      this.submitting = true;
+      setTimeout(async () => {
+
+        const result = await this.validatePage();
+        if (result) {
+          this.creator.canLeave = true;
+          this.creator.preview = false;
+          this.router.navigate(["/service-provider/dashboard", this.creator.pageType, this.page._id])
+        }
+
+      }, 500);
+
     } else {
       this.router.navigate(['/service-provider'])
     }
@@ -181,7 +200,7 @@ export class PageCreatorComponent implements OnInit {
           this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;
           this.creator.preview = false;
-          this.router.navigate(["/service-provider/list-of-pages"])
+          this.router.navigate([`/service-provider/dashboard`, this.creator.pageType, this.page._id])
         },
         error => {
           this.presentAlert("Unexpected error occured! Please try again later.")
