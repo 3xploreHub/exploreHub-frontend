@@ -12,8 +12,8 @@
       <p [ngClass]="style('fontStyle-normal')" (click)="select.emit('fontStyle-normal')">Normal</p>
     </div>
     <div class="styleOption">
-      <p [ngClass]="style('bg-white')" (click)="select.emit('bg-white')">white-background</p>
-      <p [ngClass]="style('bg-light')" (click)="select.emit('bg-light')">no-backround</p>
+      <p [ngClass]="style('bg-white')" (click)="select.emit('bg-white')">{{parent == 'component' ? "No background": "White background"}}</p>
+      <p [ngClass]="style('bg-light') || style('bg-color')" (click)="select.emit(parent == 'component'? 'bg-color': 'bg-light')">{{parent == 'component' ? "Light background": "No background"}}</p>
     </div>
     <div class="styleOption">
       <p [ngClass]="style('text-left')" (click)="select.emit('text-left')">Left</p>

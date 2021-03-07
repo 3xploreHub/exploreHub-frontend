@@ -139,7 +139,10 @@
 .bg-white {
     background-color: #ffff !important;
 }
-
+.bg-color {
+    background-color: rgb(240, 244, 248) !important;
+    padding:8px !important;
+}
 .ripple-parent {
     position: relative;
     overflow: hidden;

@@ -1,4 +1,4 @@
 <div *ngIf="values.data.text && values.data.label" class="container whiteBg" [class.onItemStyleLabelledText]="parent == 'component'">
   <p class="label">{{values.data.label+":"}}</p>
-  <p class="text">{{values.data.defaultName? 'P '+value:value}}</p>
+  <p class="text">{{values.data.defaultName && values.data.defaultName == 'price'? 'P '+value:value}}</p>
 </div>

@@ -14,22 +14,19 @@ export class LabelledTextDisplayComponent implements OnInit {
 
   ngOnInit() {
     if (this.values.data.defaultName) {
-      let val = "";
       let m = this.values.data.text.toString();
-      if (m.includes(".")) {
-        val = "." + m.split(".")[1]
-        m = m.split(".")[0]
-      }
+      let val = m.includes(".") ? "." + m.split(".")[1] : ""
+      m = m.includes(".") ? m.split(".")[0] : m
       m = m.split("").reverse().join("")
-
       let num = "";
       for (let i = 0; i < m.length; i++) {
-        let n = (i + 1) % 3 == 0 ? i == m.length - 1 ? m[i] : m[i] + "," : m[i];
+        let n = (i + 1) % 3 == 0 ? i == m.length - 1 ? m[i] : m[i] + "," : m[i]
         num += n;
       }
-
       val = num.split("").reverse().join("") + val;
       this.value = val;
+    } else {
+      this.value = this.values.data.text
     }
   }
 
