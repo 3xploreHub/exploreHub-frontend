@@ -3,18 +3,27 @@
     <div class="container boxShadowed2 mainLightBg">
       <div class="fieldsHolder">
 
-        <ion-textarea *ngIf="!values.default && !values.data.defaultName; else defaultLabel" auto-grow="true" (keyup)="detectTyping()"
-          [readonly]="footerData.saving" [(ngModel)]="values.data.label" class="text" rows="1"
+        <ion-textarea *ngIf="!values.default && !values.data.defaultName; else defaultLabel" auto-grow="true"
+          (keyup)="detectTyping()" [readonly]="footerData.saving" [(ngModel)]="values.data.label" class="text" rows="1"
           (change)="renderText(true)" placeholder="Enter label here">
         </ion-textarea>
         <ng-template #defaultLabel>
           <p class="defaultLabel">{{values.data.label+":"}}</p>
         </ng-template>
 
-        <ion-textarea auto-grow="true" (focusin)="showDefaults = true" (focusout)="focusOut()"
-          (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
-          [(ngModel)]="values.data.text" class="text" rows="1" placeholder="Enter text here">
-        </ion-textarea>
+        <ion-input type="number"
+          *ngIf="values.data.defaultName && (values.data.defaultName == 'price' || values.data.defaultName == 'quantity'); else textInput"
+          (focusout)="focusOut()" (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
+          [(ngModel)]="values.data.text" class="text"
+          placeholder="{{values.data.defaultName && values.data.defaultName == 'price' ? 'Enter price here': 'Enter quantity here'}}">
+        </ion-input>
+
+        <ng-template #textInput>
+          <ion-textarea auto-grow="true" (focusin)="showDefaults = true" (focusout)="focusOut()"
+            (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
+            [(ngModel)]="values.data.text" class="text" rows="1" placeholder="Enter text here">
+          </ion-textarea>
+        </ng-template>
 
         <div *ngIf="values.data.defaults && values.data.defaults.length > 0 && showDefaults" class="options">
           <div class="innerHolder">

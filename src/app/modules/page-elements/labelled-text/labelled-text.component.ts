@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
@@ -42,8 +42,8 @@ export class LabelledTextComponent implements OnInit {
   ngOnInit() {
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true: false
-      this.footerData.hasValue = data.text && data.label ? true: false
+      this.footerData.done = data.text && data.label ? true : false
+      this.footerData.hasValue = data.text && data.label ? true : false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
@@ -70,8 +70,10 @@ export class LabelledTextComponent implements OnInit {
     this.hasChanges = hasChanges;
     let label = this.values.data.label;
     let text = this.values.data.text;
-    this.values.data.label = label ? label.trim() : null;
-    this.values.data.text = text ? text.trim() : null;
+    if (!this.values.data.defaultName) {
+      this.values.data.label = label ? label.trim() : null;
+      this.values.data.text = text ? text.trim() : null;
+    }
     this.footerData.hasValue = (label || text) || (label && text)
     this.pending = true;
     if (this.footerData.hasValue) {
@@ -87,7 +89,7 @@ export class LabelledTextComponent implements OnInit {
               this.presentAlert("Oops! Something went wrong. Please try again later!")
             },
             () => {
-              this.footerData.hasValue = this.values.data.label && this.values.data.text? true: false;
+              this.footerData.hasValue = this.values.data.label && this.values.data.text ? true : false;
               this.pending = false
               let done = this.footerData.hasValue && this.clickedDone
               this.clickedDone = false
@@ -183,7 +185,7 @@ export class LabelledTextComponent implements OnInit {
   }
 
   editField() {
-    this.creator.clickedComponent = !this.creator.preview && !this.values.data.fixed? this.values._id: null;
+    this.creator.clickedComponent = !this.creator.preview && !this.values.data.fixed ? this.values._id : null;
     if (!this.creator.preview) {
       if (!this.values.data.fixed) {
         this.creator.clickedComponent = this.values._id;
@@ -192,13 +194,13 @@ export class LabelledTextComponent implements OnInit {
         this.presentToast("Municipality cannot be changed!")
       }
     } else {
-      this. presentToast('Preview');
+      this.presentToast('Preview');
     }
   }
 
   focusOut() {
     setTimeout(() => {
-      
+
       this.showDefaults = false
     }, 300);
   }
