@@ -81,6 +81,7 @@
 .spot-image-in-list {
     height: 100%;
     width: 100%;
+    border-radius: 4px;
     // background-color: darkkhaki;
 }
 
@@ -93,6 +94,7 @@
     text-align: center;
     background-color: rgba(87, 87, 87, .85);
     position: fixed;
+    overflow: auto;
     height: 100%;
     top: 0;
     left: 0;
@@ -102,6 +104,8 @@
 
 }
 
+
+
 .spot-details-2 {
     margin-top: 25%;
     // margin-bottom: 25%;
@@ -109,10 +113,14 @@
     display: inline-block;
     text-align: left;
     background-color: rgb(240, 240, 240);
-    padding: 18px;
+    padding: 13px;
     border-radius: 5px;
-    height: 530px;
     overflow: auto;
+}
+
+.readMore {
+    color: dodgerblue;
+    padding-left: 10px;
 }
 
 .select-host-spot {
@@ -126,7 +134,7 @@
     text-align: center;
     position: sticky;
     position: -webkit-sticky;       
-    color:rgb(80, 80, 80);
+    color:rgb(70, 93, 136);
     font-size: 18px !important;
     top: 0;
     z-index: 1;
@@ -150,9 +158,17 @@
 .btnHolder {
     display: flex;
     flex-direction: row;
-    padding:10px;
+    padding:2px 10px;
+    padding-bottom: 0px;
 }
+.modalBtns {
+    padding:0 !important;
+    justify-content: space-between;
 
+    .btns {
+        margin:5px !important;
+    }
+}
 .btns {
     width:100%;
     display: flex;

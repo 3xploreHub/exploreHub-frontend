@@ -62,7 +62,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </button>
       </div>
-      <hr style="border-bottom: 1px solid gray;">
+      <!-- <hr style="border-bottom: 1px solid gray;"> -->
 
       <div>
         <ion-searchbar (keyup)="onKey($event)" name="searchInput" [(ngModel)]="searchInput" placeholder="search spot"
@@ -122,11 +122,13 @@
               yourHostSpot.components[3].data.text + ', ' + yourHostSpot.components[4].data.text }}</ion-label>
           </div>
           <div>
-            <ion-label><b>Description:</b> {{yourHostSpot.components[6].data.text}}</ion-label>
+            <ion-label><b>Description:</b> {{yourHostSpot.components[6].data.text.length > 150 && !showMore? yourHostSpot.components[6].data.text.substring(0,150)+'....':  yourHostSpot.components[6].data.text}}</ion-label>
+            <span class="readMore" *ngIf="yourHostSpot.components[6].data.text.length > 150" (click)="showMore = !showMore">{{showMore ? 'Show less': 'Read more'}}</span>
           </div>
+           <br>
         </div>
         <div>
-          <ion-row class="select-cancel-btn">
+          <!-- <ion-row class="select-cancel-btn">
             <ion-col>
               <ion-button expand="block" (click)="selectedPage = yourHostSpot; show = false">Select
               </ion-button>
@@ -134,7 +136,21 @@
             <ion-col>
               <ion-button expand="block" (click)="yourHostSpot = null; show = false" color="warning">Close</ion-button>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
+          <div class="btnHolder modalBtns">
+            <button class="btnStyle btns cancelBtn ion-activatable ripple-parent"
+              (click)="yourHostSpot = null; show = false" color="warning">
+              Close&nbsp;<ion-icon name="close" style="font-size: 18px;"></ion-icon>
+              <ion-ripple-effect></ion-ripple-effect>
+            </button>
+            <button class="btnStyle btns nextBtn ion-activatable ripple-parent"
+              (click)="selectedPage = yourHostSpot; show = false">
+              Select&nbsp;&nbsp;
+              <ion-icon name="send" style="font-size: 18px;"></ion-icon>
+              <ion-ripple-effect></ion-ripple-effect>
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
