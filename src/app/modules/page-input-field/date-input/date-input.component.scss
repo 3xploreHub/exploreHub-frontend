@@ -3,7 +3,9 @@
     text-align: left;
     // padding:0 10px;
     margin-top:5px;
+    border-radius: 4px !important;
     background: #ffff;
+    overflow: hidden;
     font-size: 18px;
     background-color: none;
 }
@@ -12,7 +14,7 @@
     margin:10px 0;
     padding: 5px 10px 0px 10px;
     background: lightgray;
-    border-radius: 2px;
+    border-radius: 4px !important;
     font-size: 14px;
 }
 .defaultValue {
@@ -31,6 +33,7 @@
     margin-top:5px;
     background-color: #ffff;
     justify-content: flex-end;
+    border-radius: 4px !important;
     display: flex;
     align-items: center;
     background-color: rgb(191, 200, 207);
@@ -39,6 +42,7 @@
 .options {
     display: flex;
     align-items: center;
+    border-radius: 4px !important;
     justify-content: space-between;
 } 
 
@@ -103,6 +107,7 @@
 
 .inner {
     flex-direction: row;
+    border-radius: 4px !important;
 }
 
 .opt2 {

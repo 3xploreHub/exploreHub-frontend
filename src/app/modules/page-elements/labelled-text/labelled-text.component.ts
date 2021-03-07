@@ -40,14 +40,16 @@ export class LabelledTextComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.values) {
+    if (this.values && this.values._id) {
       let data = this.values.data
       this.footerData.done = data.text && data.label ? true : false
       this.footerData.hasValue = data.text && data.label ? true : false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
     } else {
-      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null, defaults: null, referenceId: null }, default: false };
+      if (!this.values) {
+        this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null, defaults: null, referenceId: null }, default: false };
+      }
       this.footerData.message = "Adding Field..."
       this.addComponent(false, this.parent);
     }

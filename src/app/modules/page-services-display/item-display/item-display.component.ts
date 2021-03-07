@@ -73,7 +73,7 @@ export class ItemDisplayComponent implements OnInit {
 
   itemClicked() {
     if (this.creator.preview) {
-      alert(this.values._id)
+      // alert(this.values._id)
     }
   }
 }

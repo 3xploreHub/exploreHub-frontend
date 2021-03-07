@@ -1,7 +1,7 @@
 .wrapper {
     margin:10px 0;
     padding: 10px 10px 0px 10px;
-    background: lightgray;
+    border-radius: 4px !important;
 }
 .inputLabel {
     box-sizing: border-box;
@@ -18,6 +18,7 @@
     background-color: #ffff;
     justify-content: flex-end;
     display: flex;
+    border-radius: 4px !important;
     align-items: center;
     background-color: rgb(191, 200, 207);
 }
@@ -25,6 +26,7 @@
 .options {
     display: flex;
     align-items: center;
+    border-radius: 4px !important;
     justify-content: space-between;
 } 
 
@@ -38,7 +40,7 @@
 }
 
 .choices {
-
+    border-radius: 4px !important;
     div {
         background-color: rgb(236, 236, 236);
         margin:8px 0;
@@ -82,6 +84,7 @@
 .inputChoice {
     padding: 8px;
     margin-top:10px;
+    border-radius: 4px !important;  
     background-color: rgb(191, 200, 207);
 }
 

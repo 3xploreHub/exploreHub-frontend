@@ -3,4 +3,18 @@
     background-color: #ffff;
     width:200px;
     margin:6px;
+    max-height: 430px;
+    overflow: hidden;
+    position:relative;
+
+    .footerDiv {
+        background-color:#ffff;
+        width:100%;
+        bottom:0;
+        position: absolute;
+    }
+}
+
+.seeMore {
+    color:rgb(0, 128, 255);
 }

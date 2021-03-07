@@ -6,8 +6,7 @@
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add other information.</h6>
                 <p>Click <b>Add Field</b> to select component that you can use to present other information about the
-                    tourist
-                    spot.</p>
+                    tourist spot.</p>
                 <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Field
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
@@ -24,9 +23,7 @@
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add services or something you offer.</h6>
                 <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities
-                    that
-                    you
-                    offer that tourists can avail.</p>
+                    that you offer that tourists can avail.</p>
                 <div class="addComponentBtn services ion-activatable ripple-parent"
                     (click)="showServicesComponentList()">
                     Add Field
@@ -61,10 +58,11 @@
         </div>
         <ng-template #submitted>
             <div class="submitted">
-               
-               <div [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
-                   <b>Status:</b>{{page.status}}
-               </div> 
+
+                <div
+                    [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
+                    <b>Status:</b>{{page.status}}
+                </div>
             </div>
         </ng-template>
         <div class="menu">

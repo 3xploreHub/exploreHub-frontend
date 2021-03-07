@@ -79,8 +79,16 @@ export class ItemComponent implements OnInit {
       }
     });
     const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null, true);
+    let { data } = await modal.onWillDismiss();
+    let values = null
+    if (data.includes("_")) {
+      const str = data.split("_");
+      let type = str[1];
+      data = str[0];
+      let label = type == "price" ? "Price" : "Quantity";
+      values = { type: "labelled-text", data: { label: label, text: null, defaultName: type }, styles: [], default: false }
+    }
+    this.renderComponent(data, values, true);
 
     return present;
   }
@@ -128,7 +136,7 @@ export class ItemComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
-        this.passDataToParent.emit({tempId: this.tempId, values: this.values});
+        this.passDataToParent.emit({ tempId: this.tempId, values: this.values });
         this.renderChildren();
       },
       (error) => {
