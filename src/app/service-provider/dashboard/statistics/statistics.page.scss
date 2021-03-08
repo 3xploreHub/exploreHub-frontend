@@ -1,0 +1,78 @@
+@import "../../../../variables.scss";
+
+.menu {
+    background-color: #ffff;
+    padding:14px;
+    display:flex;
+    font-size: 15px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.itemList {
+    margin:8px;
+    // height: 300px;
+    border-radius: 5px;
+    overflow:hidden;
+    background-color: #ffff;
+
+    .itemName {
+        background-color:rgb(56, 87, 119);
+        padding:8px;
+        color:#ffff;
+        font-size: 16px;
+        border-radius: 3px;
+
+        p {
+            margin:5px;
+        }
+    }
+
+    .numStatus {
+        display: flex;
+        padding:7px;
+        width: 120px;
+        overflow:auto;
+        // background-color: $lightBg;
+        align-items: stretch;
+        flex-direction: column;
+        justify-content: space-around;
+        border-radius: 4px;
+
+        .quant {
+            margin:6px;
+            text-align: left;
+            
+            border-radius: 5px;
+            padding:2px;
+            background-color:rgb(225, 233, 243);
+
+            p {   
+                margin:1px 8px;
+                padding:3px;
+                color:rgb(52, 69, 82);
+                font-size: 14px;
+            }
+
+        
+            .num {
+                font-size: 20px !important;
+            }
+        }
+    }
+}
+
+.total {
+    border-top:3px solid rgb(43, 147, 250);
+    color: rgb(14, 110, 206) !important;
+}
+
+.booked {
+    border-top:3px solid rgb(16, 216, 122);
+    color:rgb(11, 155, 87) !important;
+}
+
+.available {
+    border-top:3px solid rgb(238, 35, 120);
+    color: rgb(185, 11, 84) !important;
+}

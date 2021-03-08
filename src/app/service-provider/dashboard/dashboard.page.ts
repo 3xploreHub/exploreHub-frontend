@@ -66,23 +66,21 @@ export class DashboardPage implements OnInit {
     }, 200);
   }
 
-  goToSection(tab: string, div: HTMLElement) {
-    this.clickedTab = tab;
-    const width = div.clientWidth;
-    switch (tab) {
-      case 'Booked':
-        this.boxPosition = 0;
-        break;
-      case 'Pending':
-        this.boxPosition = width;
-        // this.router.navigate(['booking'])
-        break;
-      default:
-        this.boxPosition = width * 2
-        // this.router.navigate(['statistics'])
-        break;
-    }
-  }
+  // goToSection(tab: string, div: HTMLElement) {
+  //   this.clickedTab = tab;
+  //   const width = div.clientWidth;
+  //   switch (tab) {
+  //     case 'Booked':
+  //       this.boxPosition = 0;
+  //       break;
+  //     case 'Pending':
+  //       this.boxPosition = width;
+  //       break;
+  //     default:
+  //       this.boxPosition = width * 2
+  //       break;
+  //   }
+  // }
 
   editPage() {
     setTimeout(() => {

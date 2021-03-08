@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,24 @@ import { Router } from '@angular/router';
   templateUrl: './board.page.html',
   styleUrls: ['./board.page.scss'],
 })
-export class BoardPage implements OnInit {
+export class BoardPage implements OnInit, AfterViewInit {
+  @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
   constructor(public router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {    
+  }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      
+      const url = this.router.url.split('/');
+      const path = url[url.length-1];
+      const currentTab = path[0].toUpperCase()+path.substring(1);
+      if (this.tab) {
+        this.goToSection(currentTab, this.tab.element.nativeElement);
+      }
+    }, 500);
   }
 
   goToSection(tab: string, div: HTMLElement) {

@@ -11,7 +11,7 @@ const routes: Routes = [
     component: BoardPage,
     children: [
       {
-        path: 'booking',
+        path: 'booking/:status',
         component: BookingPage,
       },
       {
@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'booking',
+        redirectTo: 'booking/booked',
         pathMatch: 'full'
       }
     ]
