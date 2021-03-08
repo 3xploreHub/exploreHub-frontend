@@ -50,7 +50,7 @@
 
         </div>
 
-        <div class="btnHolder" *ngIf="page && page.status == 'unfinished'; else submitted">
+        <div class="btnHolder" *ngIf="page && page.status == 'Unfinished'; else submitted">
             <div (click)="submit()" class="submitPage btnStyle ion-activatable ripple-parent">
                 Submit Page
                 <ion-ripple-effect></ion-ripple-effect>
@@ -60,7 +60,7 @@
             <div class="submitted">
 
                 <div
-                    [ngClass]="{'onlineBg': page.status == 'approved', 'pendingBg': page.status == 'pending', 'rejectedBg': page.status == 'rejected'}">
+                    [ngClass]="getStatus()">
                     <b>Status:</b>{{page.status}}
                 </div>
             </div>

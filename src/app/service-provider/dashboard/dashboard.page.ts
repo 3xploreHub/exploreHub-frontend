@@ -83,8 +83,10 @@ export class DashboardPage implements OnInit {
   }
 
   editPage() {
-    const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";
-    this.router.navigate([`/service-provider/${type}`, this.page._id])
+    setTimeout(() => {
+      const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";
+      this.router.navigate([`/service-provider/${type}`, this.page._id])
+    }, 200);
   }
 
   getStatus() {

@@ -11,6 +11,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class ListOfPagesPage implements OnInit {
   public pages: Page[];
+  public pagesStatus: string;
   constructor(
     public router: Router,
     public mainService: MainServicesService,
@@ -19,8 +20,8 @@ export class ListOfPagesPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const status = params.get('status');
-      this.mainService.getPages(status).subscribe(
+      this.pagesStatus = params.get('status');
+      this.mainService.getPages(this.pagesStatus).subscribe(
         (response: Page[]) => {
           this.pages = response;
         },
@@ -44,7 +45,14 @@ export class ListOfPagesPage implements OnInit {
 
   goToDashBoard(page) {
     const type = page.hostTouristSpot ? "service" : "tourist_spot"
-    this.router.navigate(["/service-provider/dashboard", type, page._id])
+    const pageTypge = page.hostTouristSpot == 'service'? "create-service-page": "create-tourist-spot-page";
+    setTimeout(() => {
+      if (page.status != "Unfinished") {
+        this.router.navigate(["/service-provider/dashboard", type, page._id])
+      } else {
+        this.router.navigate([`/service-provider/${pageTypge}`, page._id])
+      }
+    }, 200);
   }
 
   getStatus(page) {

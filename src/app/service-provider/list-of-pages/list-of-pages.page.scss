@@ -9,7 +9,7 @@ div {
 }
 
 .photoHolder {
-    background-color: gray;
+    background-color: rgb(127, 141, 158);
     border-radius: 5px;
     height: 100%;
     width:130px;
@@ -24,6 +24,13 @@ div {
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .noPhoto {
+        color:#ffff;
+    }
 }
 
 .page {
@@ -92,12 +99,22 @@ div {
     }
 }
 
+
 .type {
 
     padding:3px 6px;
     border-radius: 3px;
     margin:0 6px;
-    background-color: rgb(237, 242, 245);
+    
     color: $DarkBlueText;
     font-size: 12px;
+}
+
+.servicePage {
+    background-color: rgb(207, 230, 243) !important;
+}
+
+.spotPage {
+    background-color: rgb(198, 241, 233);
+    
 }

@@ -1,29 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pages</ion-title>
+    <ion-title>{{pagesStatus == 'submitted' ? 'Pages': 'Drafts'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="outerWrapper lightBackground">
     <div class="list">
 
-      <div class="page" *ngFor="let page of pages" (click)="goToDashBoard(page)">
+      <div class="page ion-activatable ripple-parent" *ngFor="let page of pages" (click)="goToDashBoard(page)">
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+            <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
           </div>
         </div>
         <div class="pageInfo">
           <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text? page.components[1].data.text: 'Untitled'}}</p>
           <p class="description">{{page.components[6].data.text ? page.components[6].data.text: ''}}</p>
           <div class="bottomRow">
-            <div class="type">{{page.hostTouristSpot? 'Service': 'Tourist Spot'}}</div>
+            <div class="type spotPage" [class.servicePage]="page.hostTouristSpot">{{page.hostTouristSpot? 'Service': 'Tourist Spot'}}</div>
             <div class="status" [ngClass]="getStatus(page)">
               <div class="statusCircle"></div>
               {{page.status}}
             </div>
           </div>
         </div>
+        <ion-ripple-effect background="green"></ion-ripple-effect>
       </div>
     </div>
   </div>

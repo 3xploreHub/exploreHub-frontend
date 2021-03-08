@@ -155,7 +155,7 @@ export class PageCreatorComponent implements OnInit {
   }
 
   exit() {
-    if (this.page.status != 'unfinished') {
+    if (this.page.status != 'Unfinished') {
 
       this.submitting = true;
       setTimeout(async () => {
@@ -322,4 +322,12 @@ export class PageCreatorComponent implements OnInit {
     await alert.present();
   }
 
+  getStatus() {
+    const status = this.page.status;
+    return {
+      'onlineBg': status == 'Online',
+      'pendingBg': status == 'Pending',
+      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+    }
+  }
 }
