@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .outerWrapper {
     padding:10px;
 }
@@ -10,7 +12,7 @@ div {
     background-color: gray;
     border-radius: 5px;
     height: 100%;
-    width:150px;
+    width:130px;
     box-sizing: 4px;
     overflow: hidden;
     flex-shrink: 0;
@@ -43,36 +45,59 @@ div {
     width: 100%;
 
     .title {
-        font-size: 16px;
+        font-size: 15px;
         margin:3px;
-        height: 18px;
-        overflow: hidden;
+        height: 19px;
+        font-weight: bold;
+        width: 100%;
+        color: $mediumLight;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
     .description {
         color:gray;
         margin: 3px;
-        height: 48px;
+        max-height: 48px;
         overflow: hidden;
         font-size: 13px;
     }
 }
+.untitled {
+    color:rgb(172, 76, 76) !important;
+}
 
-.status {
+.bottomRow {
     position: absolute;
     bottom: 0;
-    font-size: 15px;
+    right: 0;
+    margin:5px;
+    display: flex;
+    
+}
+
+.status {
+   
+    font-size: 13px;
     background: #ffff;
     display: flex;
-    margin:8px;
     align-items: center;
-    right: 0;
 
     .statusCircle {
-        width:11px;
-        height: 11px;
+        width:10px;
+        height: 10px;
         border-radius: 50%;
         margin-right: 5px;
         background-color: green;
     }
+}
+
+.type {
+
+    padding:3px 6px;
+    border-radius: 3px;
+    margin:0 6px;
+    background-color: rgb(237, 242, 245);
+    color: $DarkBlueText;
+    font-size: 12px;
 }

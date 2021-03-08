@@ -26,6 +26,9 @@
 .pageName {
     padding:5px;
     margin:0;
+    max-height:38px;
+    overflow: auto;
+    font-size: 14px;
     font-weight: 600;
 }
 

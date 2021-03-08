@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../provider-services/main-services.service';
 
@@ -14,6 +15,7 @@ export class DashboardPage implements OnInit {
   public clickedTab: string = 'Booked'
   public boxPosition: number;
   public pageType: string;
+  public name: string;
 
   constructor(public router: Router,
     public mainService: MainServicesService,
@@ -31,6 +33,7 @@ export class DashboardPage implements OnInit {
         this.mainService.getPage(pageId, this.pageType).subscribe(
           (response: Page) => {
             this.page = response;
+            this.getName();
           },
           error => {
             if (error.status == 404) {
@@ -43,7 +46,7 @@ export class DashboardPage implements OnInit {
           }
         )
       } else {
-        this.router.navigate(["/service-provider/list-of-pages"])
+        this.router.navigate(["/service-provider/list-of-pages", "submitted"])
       }
     })
   }
@@ -59,7 +62,7 @@ export class DashboardPage implements OnInit {
 
   goBack() {
     setTimeout(() => {
-      this.router.navigate(["service-provider/list-of-pages"])
+      this.router.navigate(["service-provider/list-of-pages/", "submitted"])
     }, 200);
   }
 
@@ -82,5 +85,20 @@ export class DashboardPage implements OnInit {
   editPage() {
     const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";
     this.router.navigate([`/service-provider/${type}`, this.page._id])
+  }
+
+  getStatus() {
+    const status = this.page.status;
+    return {
+      'onlineBg': status == 'Online',
+      'pendingBg': status == 'Pending',
+      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+    }
+  }
+
+  getName() {
+    const data = this.page.components[1];
+    this.name = data.data.text ? data.data.text: "Untitled"
+    
   }
 }

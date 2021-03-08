@@ -11,8 +11,8 @@ export class MainServicesService {
     private http: HttpClient
     ) { }
 
-  getPages() {
-    return this.http.get(`${this.apiUrl}/getPages`)
+  getPages(status: string) {
+    return this.http.get(`${this.apiUrl}/getPages/${status}`)
   }
 
   getPage(pageId: string, pageType: string) {

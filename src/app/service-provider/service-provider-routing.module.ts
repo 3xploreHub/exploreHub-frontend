@@ -32,7 +32,7 @@ const routes: Routes = [
     canDeactivate: [PageCreatorRouteManagerGuard],
   },
   {
-    path: 'list-of-pages',
+    path: 'list-of-pages/:status',
     loadChildren: () => import('./list-of-pages/list-of-pages.module').then( m => m.ListOfPagesPageModule)
   },
   {
