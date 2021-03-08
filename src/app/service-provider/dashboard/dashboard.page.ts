@@ -75,9 +75,11 @@ export class DashboardPage implements OnInit {
         break;
       case 'Pending':
         this.boxPosition = width;
+        // this.router.navigate(['booking'])
         break;
       default:
         this.boxPosition = width * 2
+        // this.router.navigate(['statistics'])
         break;
     }
   }

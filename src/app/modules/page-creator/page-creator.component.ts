@@ -167,7 +167,7 @@ export class PageCreatorComponent implements OnInit {
           this.router.navigate(["/service-provider/dashboard", this.creator.pageType, this.page._id])
         }
 
-      }, 500);
+      }, 200);
 
     } else {
       this.router.navigate(['/service-provider'])
