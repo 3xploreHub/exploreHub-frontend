@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { element } from 'protractor';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { LabelledTextDisplayComponent } from 'src/app/modules/page-elements-display/labelled-text-display/labelled-text-display.component';
@@ -15,6 +16,7 @@ export class StatisticsPage implements OnInit {
   public pageId: string;
   public pageType: string;
   public scrollList: boolean = false;
+  public itemClicked: boolean;
   constructor(public mainService: MainServicesService, public router: Router) { }
 
   ngOnInit() {
@@ -74,5 +76,14 @@ export class StatisticsPage implements OnInit {
         }
       });
     return result;
+  }
+
+  clickOutside(e) {
+    e.stopPropagation();
+    this.itemClicked = null
+  }
+
+  clickItem(e) {
+    e.stopPropagation();
   }
 }

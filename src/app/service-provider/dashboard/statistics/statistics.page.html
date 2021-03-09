@@ -2,7 +2,7 @@
   <div class="tab">Services Statistics</div>
   <div class="tab">Income Statistics</div>
 </div>
-<div>
+<div (click)="clickOutside($event)">
   <div class="itemList boxShadowed" *ngFor="let service of services">
     <div class="itemName">
       <p>
@@ -33,9 +33,31 @@
           <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
         </div>
         <div class="scrollable">
-          <div class="item" *ngFor="let item of filterItem(service.data)">
+          <div class="item" *ngFor="let item of filterItem(service.data); let i = index">
+            <div [class.first]="i == 0" (click)="clickItem($event)" *ngIf="itemClicked == item._id" class="updateItem boxShadowed2">
+              <div class="updateBtn ion-activatable ripple-parent">
+                <ion-icon name="remove-outline">
+                </ion-icon>
+                <ion-ripple-effect></ion-ripple-effect>
+              </div>
+
+              <div class="quantCount">
+                <span>Quantity</span>
+                {{getValue(item.data, 'quantity')}}
+              </div>
+              <div class="updateBtn ion-activatable ripple-parent" >
+                <ion-icon name="add-outline"></ion-icon>
+                <ion-ripple-effect></ion-ripple-effect>
+              </div>
+            </div>
             <div>
-              <div class="itemTitle">{{getItemName(item)}}</div>
+              <div class="itemTitle">{{getItemName(item)}}
+                <div (click)="clickItem($event); itemClicked = item._id" class="editIcon ion-activatable ripple-parent">
+                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                  <ion-ripple-effect></ion-ripple-effect>
+                </div>
+
+              </div>
               <div class="itemStats">
                 <div class="statsNum">
                   <span>
