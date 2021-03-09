@@ -8,6 +8,7 @@ import { StatisticsPageRoutingModule } from './statistics-routing.module';
 
 import { StatisticsPage } from './statistics.page';
 import { BrowserModule } from '@angular/platform-browser';
+import { LabelledTextDisplayComponent } from 'src/app/modules/page-elements-display/labelled-text-display/labelled-text-display.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { BrowserModule } from '@angular/platform-browser';
     IonicModule,
     StatisticsPageRoutingModule
   ],
-  declarations: [StatisticsPage]
+  declarations: [StatisticsPage, LabelledTextDisplayComponent]
 })
 export class StatisticsPageModule {}
