@@ -41,6 +41,9 @@ import { ChoicesInputComponent } from "./modules/page-input-field/choices-input/
 import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display/choices-input-display/choices-input-display.component";
 import { BulletFormTextComponent } from "./modules/page-elements/bullet-form-text/bullet-form-text.component";
 import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component";
+import { BoardPage } from "./service-provider/dashboard/board/board.page";
+import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
+import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
 
 @NgModule({
   declarations: [
@@ -71,12 +74,13 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
     DateInputComponent,
     DateInputDisplayComponent,
     ChoicesInputComponent,
-    ChoicesInputDisplayComponent
+    ChoicesInputDisplayComponent,
+    StatisticsPage,
+    BookingPage,
   ],
   entryComponents: [],
   imports: [
     BrowserModule,
-    CommonModule,
     FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,

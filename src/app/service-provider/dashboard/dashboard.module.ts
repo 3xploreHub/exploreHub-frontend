@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
+    // BrowserModule,
     CommonModule,
     FormsModule,
     IonicModule,

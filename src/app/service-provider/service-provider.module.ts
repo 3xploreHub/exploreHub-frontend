@@ -8,9 +8,11 @@ import { ServiceProviderPageRoutingModule } from './service-provider-routing.mod
 
 import { ServiceProviderPage } from './service-provider.page';
 import { ItemDisplayComponent } from '../modules/page-services-display/item-display/item-display.component';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   imports: [
     CommonModule,
+    // BrowserModule,
     FormsModule,
     IonicModule,
     ServiceProviderPageRoutingModule

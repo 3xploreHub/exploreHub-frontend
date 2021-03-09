@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { BoardPageRoutingModule } from './board-routing.module';
 
 import { BoardPage } from './board.page';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
+    // BrowserModule,
     CommonModule,
     FormsModule,
     IonicModule,

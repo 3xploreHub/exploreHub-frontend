@@ -33,6 +33,7 @@ export class DashboardPage implements OnInit {
         this.mainService.getPage(pageId, this.pageType).subscribe(
           (response: Page) => {
             this.page = response;
+            this.mainService.currentPage = this.page;
             this.getName();
           },
           error => {
