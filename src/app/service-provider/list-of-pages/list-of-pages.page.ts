@@ -45,7 +45,7 @@ export class ListOfPagesPage implements OnInit {
 
   goToDashBoard(page) {
     const type = page.hostTouristSpot ? "service" : "tourist_spot"
-    const pageTypge = page.hostTouristSpot == 'service'? "create-service-page": "create-tourist-spot-page";
+    const pageTypge = type == 'service'? "create-service-page": "create-tourist-spot-page";
     setTimeout(() => {
       if (page.status != "Unfinished") {
         this.router.navigate(["/service-provider/dashboard", type, page._id])

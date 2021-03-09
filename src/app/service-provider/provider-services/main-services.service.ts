@@ -8,10 +8,12 @@ import { environment } from 'src/environments/environment';
 export class MainServicesService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPage: Page;
+  public pageId: string;
+  public pageType: string;
 
   constructor(
     private http: HttpClient
-    ) { }
+  ) { }
 
   getPages(status: string) {
     return this.http.get(`${this.apiUrl}/getPages/${status}`)
@@ -19,5 +21,9 @@ export class MainServicesService {
 
   getPage(pageId: string, pageType: string) {
     return this.http.get(`${this.apiUrl}/getPage/${pageId}/${pageType}`)
+  }
+
+  getServices(pageId: string, pageType: string) {
+    return this.http.get(`${this.apiUrl}/getServices/${pageId}/${pageType}`, { headers: { hideLoadingIndicator: "true" } });
   }
 }

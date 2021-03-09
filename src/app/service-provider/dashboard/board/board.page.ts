@@ -1,5 +1,6 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
   selector: 'app-board',
@@ -10,16 +11,17 @@ export class BoardPage implements OnInit, AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
-  constructor(public router: Router) { }
 
-  ngOnInit() {    
+  constructor(public router: Router, public mainService: MainServicesService) { }
+
+  ngOnInit() {
   }
   ngAfterViewInit() {
     setTimeout(() => {
-      
       const url = this.router.url.split('/');
-      const path = url[url.length-1];
-      const currentTab = path[0].toUpperCase()+path.substring(1);
+      const path = url[url.length - 1];
+      const currentTab = path[0].toUpperCase() + path.substring(1);
+
       if (this.tab) {
         this.goToSection(currentTab, this.tab.element.nativeElement);
       }

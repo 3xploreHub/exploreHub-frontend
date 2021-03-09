@@ -27,6 +27,7 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      this.mainService.currentPage = null
       const pageId = params.get('pageId');
       this.pageType = params.get('pageType');
       if (pageId && this.pageType) {
