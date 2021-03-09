@@ -81,7 +81,8 @@ export class ItemComponent implements OnInit {
     const present = await modal.present();
     let { data } = await modal.onWillDismiss();
     let values = null
-    if (data.includes("_")) {
+
+    if (data && data.includes("_")) {
       const str = data.split("_");
       let type = str[1];
       data = str[0];

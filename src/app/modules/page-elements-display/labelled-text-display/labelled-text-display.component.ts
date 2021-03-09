@@ -20,6 +20,7 @@ export class LabelledTextDisplayComponent implements OnInit {
     }
   }
 
+
   formatNumber(data) {
     let m = data.toString();
       let val = m.includes(".") ? "." + m.split(".")[1] : ""

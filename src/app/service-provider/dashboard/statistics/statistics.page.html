@@ -2,7 +2,6 @@
   <div class="tab">Services Statistics</div>
   <div class="tab">Income Statistics</div>
 </div>
-
 <div>
   <div class="itemList boxShadowed" *ngFor="let service of services">
     <div class="itemName">
@@ -15,40 +14,48 @@
         <div class="quant totalTL">Total</div>
         <div class="quant total">
           <p class="qlabel">Quantity</p>
-          <p class="num">100</p>
+          <p class="num">{{getTotalQuantity(service)}}</p>
         </div>
         <div class="quant booked">
           <p class="qlabel">Booked</p>
-          <p class="num">40</p>
+          <p class="num">0</p>
         </div>
         <div class="quant available">
           <p class="qlabel">Available</p>
-          <p class="num">100</p>
+          <p class="num">{{getTotalQuantity(service)}}</p>
         </div>
       </div>
       <div class="items">
-        <div class="item" *ngFor="let item of filterItem(service.data)">
-          <div>
-            <div class="itemTitle">{{getItemName(item)}}</div>
-            <div class="itemStats">
-              <div class="statsNum">
-                <span>
-                  Quantity
-                </span>
-                {{getValue(item.data, 'quantity')}}
-              </div>
-              <div class="statsNum withBorder">
-                <span>
-                  Booked
+        <div class="searchItem">
+          <p>
+            {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
+          </p>
+          <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
+        </div>
+        <div class="scrollable">
+          <div class="item" *ngFor="let item of filterItem(service.data)">
+            <div>
+              <div class="itemTitle">{{getItemName(item)}}</div>
+              <div class="itemStats">
+                <div class="statsNum">
+                  <span>
+                    Quantity
+                  </span>
+                  {{getValue(item.data, 'quantity')}}
+                </div>
+                <div class="statsNum withBorder">
+                  <span>
+                    Booked
 
-                </span>
-                100
-              </div>
-              <div class="statsNum withBorder">
-                <span>
-                  Available
-                </span>
-                100
+                  </span>
+                  0
+                </div>
+                <div class="statsNum withBorder">
+                  <span>
+                    Available
+                  </span>
+                  {{getValue(item.data, 'quantity')}}
+                </div>
               </div>
             </div>
           </div>

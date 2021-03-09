@@ -11,11 +11,10 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./statistics.page.scss'],
 })
 export class StatisticsPage implements OnInit {
-  @ViewChildren(LabelledTextDisplayComponent)
-  public numberFormatter: LabelledTextDisplayComponent;
   public services: ElementValues[];
   public pageId: string;
   public pageType: string;
+  public scrollList: boolean = false;
   constructor(public mainService: MainServicesService, public router: Router) { }
 
   ngOnInit() {
@@ -37,10 +36,43 @@ export class StatisticsPage implements OnInit {
     return data.filter(item => item.type == "item")
   }
 
-  getValue(data, type) {
+  getValue(data, type, format=true) {
     const quantity = data.filter(comp => comp.data.defaultName == type);
-    console.log(this.numberFormatter);
-    
-    return quantity.length > 0? this.numberFormatter.formatNumber(quantity[0].data.text): type == 'price'? 'none': 'Unli.'
+    return quantity.length > 0 ? format ? this.formatNumber(quantity[0].data.text):quantity[0].data.text : type == 'price' ? 'none' : 'Unli.'
+  }
+
+  formatNumber(data) {
+    let m = data.toString();
+    let val = m.includes(".") ? "." + m.split(".")[1] : ""
+    m = m.includes(".") ? m.split(".")[0] : m
+    m = m.split("").reverse().join("")
+    let num = "";
+    for (let i = 0; i < m.length; i++) {
+      let n = (i + 1) % 3 == 0 ? i == m.length - 1 ? m[i] : m[i] + "," : m[i]
+      num += n;
+    }
+    val = num.split("").reverse().join("") + val;
+    return val;
+  }
+
+  countServices(service) {
+    let count = 0;
+    service.data.forEach(element => {
+      count += element.type == "item" ? 1 : 0;
+    });
+    return count;
+  }
+
+  getTotalQuantity(item_list) {
+    let result = 0;
+      item_list.data.forEach(item => {
+        if (item.type == "item") {
+          const res = this.getValue(item.data, "quantity", false)
+          if (res != 'none' && res != 'Unli.') {
+            result += Number(res);
+          }
+        }
+      });
+    return result;
   }
 }
