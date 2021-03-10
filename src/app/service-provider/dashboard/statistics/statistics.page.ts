@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { element } from 'protractor';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
@@ -19,13 +19,15 @@ export class StatisticsPage implements OnInit {
   public pageType: string;
   public scrollList: boolean = false;
   public itemClicked: boolean;
+  public amount:number = 1;
   public updating: boolean;
 
   constructor(
     public creator: PageCreatorService,
     public mainService: MainServicesService,
     public router: Router,
-    public alert: AlertController) { }
+    public alert: AlertController,
+    public toastController: ToastController) { }
 
   ngOnInit() {
     const url = this.router.url.split('/').reverse();
@@ -100,35 +102,44 @@ export class StatisticsPage implements OnInit {
   updateItemQuantity(e, serviceId, item, add = false) {
     if (!this.updating) {
       e.stopPropagation();
-      let component = item.data.filter(comp => comp.data.defaultName == 'quantity')
+      setTimeout(() => {
+        let component = item.data.filter(comp => comp.data.defaultName == 'quantity')
+        let values = component.length > 0 ? { ...component[0], data: { ...component[0].data } } : null
+        this.creator.currentPageId = this.pageId;
+        this.creator.pageType = this.pageType
 
+        if (values) {
+          const res = this.updateQuant(values, add);
 
-      let values = component.length > 0 ? { ...component[0], data: { ...component[0].data } } : null
-      this.creator.currentPageId = this.pageId;
-      this.creator.pageType = this.pageType
-
-      if (values) {
-        values.data.text = this.updateQuant(values, add);
-      } else {
-        values = this.addQuantity(add) 
-      }
-
-      console.log(values);
-
-      this.updating = true;
-      this.creator.editComponent(values, serviceId, item._id, "component").subscribe(
-        (response) => {
-          this.updating = false;
-          let data = component.length > 0 ? component[0] : null
-          if (data) {
-            data.data.text = this.updateQuant(data, add);
-          } else {
-            item.data.push(this.addQuantity(add))
+          if (res > -1) {
+            values.data.text = res;
+            this.updating = true;
+            this.creator.editComponent(values, serviceId, item._id, "component").subscribe(
+              (response) => {
+                this.updating = false;
+                let data = component.length > 0 ? component[0] : null
+                data.data.text = this.updateQuant(data, add);
+              }, error => {
+                this.presentAlert("Unexpected error occured!")
+              }
+            )
           }
-        }, error => {
-          this.presentAlert("Unexpected error occured!")
+        } else {
+          const quantity = this.addQuantity(add);
+          const newData: ElementValues = { _id: null, ...quantity };
+          this.updating = true;
+
+          this.creator.saveComponent(newData, serviceId, item._id, "component").subscribe(
+            (response: ElementValues) => {
+              this.updating = false;
+              item.data.push(response);
+
+            }, (error) => {
+              this.presentAlert("Oops! Something went wrong. Please try again later!")
+            },
+          )
         }
-      )
+      }, 200);
     }
   }
 
@@ -141,7 +152,13 @@ export class StatisticsPage implements OnInit {
   updateQuant(values, add) {
     if (values) {
       let num = parseInt(values.data.text);
-      return add ? num + 1 : num > 0 ? num - 1 : 0;
+      const res = add ? num + this.amount : num > 0 ? num - this.amount : -1;
+      if (res > -1) {
+        return res;
+      }
+      else {
+        this.presentToast("Cannot set quantity below 0")
+      }
     }
   }
 
@@ -153,4 +170,13 @@ export class StatisticsPage implements OnInit {
     });
     await alert.present();
   }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
+  }
+
 }

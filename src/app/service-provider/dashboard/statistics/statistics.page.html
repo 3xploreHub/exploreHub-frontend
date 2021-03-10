@@ -34,23 +34,32 @@
         </div>
         <div class="scrollable">
           <div class="item" *ngFor="let item of filterItem(service.data); let i = index">
-            <div [class.first]="i == 0" (click)="clickItem($event)" *ngIf="itemClicked == item._id" class="updateItem boxShadowed2">
-              <div  (click)="updateItemQuantity($event, service._id, item)"  class="updateBtn ion-activatable ripple-parent">
-                <ion-icon name="remove-outline">
-                </ion-icon>
-                <ion-ripple-effect></ion-ripple-effect>
+            <div [class.first]="i == 0" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
+              class="updateItem boxShadowed2">
+              <div class="amountCont">
+                Amount
+                <input type="number" class="amountToAdd" [(ngModel)]="amount">
               </div>
-
-              <div class="quantCount">
-                <span>Quantity</span>
-                {{getValue(item.data, 'quantity')}}
-                <div class="updatingQuan" *ngIf="updating">
-                  <ion-spinner class="spinner" name="lines-small"></ion-spinner>
+              <div class="innerCont">
+                <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item)"
+                  class="updateBtn ion-activatable ripple-parent">
+                  <ion-icon name="remove-outline">
+                  </ion-icon>
+                  <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
                 </div>
-              </div>
-              <div (click)="updateItemQuantity($event, service._id, item, true)" class="updateBtn ion-activatable ripple-parent" >
-                <ion-icon name="add-outline"></ion-icon>
-                <ion-ripple-effect ></ion-ripple-effect>
+
+                <div class="quantCount">
+                  <span>Quantity</span>
+                  {{getValue(item.data, 'quantity')}}
+                  <div class="updatingQuan" *ngIf="updating">
+                    <ion-spinner class="spinner" name="lines-small"></ion-spinner>
+                  </div>
+                </div>
+                <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item, true)"
+                  class="updateBtn ion-activatable ripple-parent">
+                  <ion-icon name="add-outline"></ion-icon>
+                  <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+                </div>
               </div>
             </div>
             <div>

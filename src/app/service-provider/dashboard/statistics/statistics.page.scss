@@ -156,66 +156,91 @@
                 .first {
                     top:5px !important;
                 }
-                
+
+                .amountCont {
+                    padding:8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .amountToAdd {
+                        padding:5px;
+                        margin:0 5px;
+                        border-radius: 4px;
+                        text-align: center;
+                        width: 50px;
+                    }
+
+                    .amountToAdd:focus {
+                        outline: none !important;
+                        border-color: dodgerblue !important;
+                    }
+                }
+                    
                 .updateItem {
                     position:absolute;
                     border-radius: 5px;
+                    background-color: #ffff;
+
                     min-width: 150px;
                     z-index: 99999;
                     top:-60px;
                     right:10px;
-                    padding:8px;
-                    background-color: #ffff;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-around;
 
-                    .quantCount {
-                        // background-color: rgb(224, 235, 247);
-                        padding:8px 13px;
-                        border-radius: 5px;
+                    .innerCont {
+                        padding:8px;
                         display: flex;
-                        flex-direction: column;
+                        flex-direction: row;
                         align-items: center;
-                        font-size:21px;
-                        position: relative;
-                        
-                        .updatingQuan {
-                            position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            right: 0;
-                            left:0;
-                            background-color: rgba(255, 255, 255, .9);
+                        justify-content: space-around;
+
+                        .quantCount {
+                            padding:8px 13px;
+                            border-radius: 5px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            font-size:21px;
+                            position: relative;
+                            
+                            .updatingQuan {
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                right: 0;
+                                left:0;
+                                background-color: rgba(255, 255, 255, .9);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color:dodgerblue;
+
+                                .spinner {
+                                    font-size: 25px;
+                                }
+                            }   
+
+                            span {
+                                font-size: 10px !important;
+                            }
+                        }
+
+                        .updateBtn {
+                            border-radius: 5px;
+                            font-size: 25px;
+                            background-color: rgb(226, 234, 245);
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            color:dodgerblue;
 
-                            .spinner {
-                                font-size: 25px;
-                            }
-                        }   
-
-                        span {
-                            font-size: 10px !important;
                         }
-                    }
 
-                    .updateBtn {
-                        border-radius: 5px;
-                        font-size: 25px;
-                        background-color: rgb(226, 234, 245);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        .updating {
+                            opacity: .5;
+                        }
 
-
-                    }
-
-                    ion-icon {
-                        padding:8px;
+                        ion-icon {
+                            padding:8px;
+                        }
                     }
                 }
 
