@@ -19,8 +19,10 @@ export class StatisticsPage implements OnInit {
   public pageType: string;
   public scrollList: boolean = false;
   public itemClicked: boolean;
+  public updateClicked: boolean = false;
   public amount: number = 1;
   public updating: boolean;
+  public expandList: string;
 
   constructor(
     public creator: PageCreatorService,
@@ -92,6 +94,7 @@ export class StatisticsPage implements OnInit {
 
   clickOutside(e) {
     e.stopPropagation();
+    this.updateClicked = false;
     this.itemClicked = null
   }
 
@@ -168,6 +171,20 @@ export class StatisticsPage implements OnInit {
         this.presentToast("Cannot set quantity less than 0")
       }
     }
+  }
+
+  updateItem(e) {
+    e.stopPropagation()
+    setTimeout(() => {
+      this.updateClicked = true
+      alert(this.updateClicked)
+    }, 200);
+  }
+
+  exitExpand(e) {
+    e.stopPropagation();
+    this.expandList = null
+    this.itemClicked = null;
   }
 
   async presentAlert(message) {

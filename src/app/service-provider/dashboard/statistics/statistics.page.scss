@@ -101,11 +101,70 @@
     }
 
     .fadeItem {
-        opacity: .5;
+        opacity: .7;
+    }
+
+    // .fadeInExpandMode {
+    //     background: rgb(161, 161, 161) !important;
+    // }
+    
+    .inExpandCont {
+        background-color: #ffff !important;
     }
 
     .focusItem {
-        background-color:rgb(189, 209, 235) !important;
+        background-color:rgb(184, 203, 230) !important;
+    }
+    .holder {
+        transition: .5s;
+        position:static;
+        width: unset;
+    }
+
+    .expand {
+        position: fixed;
+        z-index: 999;
+        padding:20px;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        display: block;
+        overflow: scroll;
+        background-color: rgb(202, 213, 221);
+        right: 0;
+        bottom:0;
+        padding-top: 75px;
+
+        .expandMenu {
+            display: flex;
+            z-index: 99999;
+            flex-direction: row;
+            background-color: #ffff;
+            position: fixed;
+            top:0;
+            width: 100%;
+            left:0;
+            padding:5px 10px;
+            justify-content: space-between;
+
+            p {
+                padding: 10px;
+                margin:0;
+            }
+            .close {
+                color:rgb(226, 0, 0);
+            }
+        }
+    }
+
+    .fullWidth {
+        // background-color: #fff;
+        // padding:10px;
+        border-radius: 5px;
+        display: block !important;
+        min-height: unset !important;
+        max-height: unset !important;
     }
 
     .items {
@@ -119,7 +178,8 @@
         .scrollable {
             overflow:auto;
             min-height: 240px;
-            max-height: 400px;
+            max-height: 300px;
+            transition: .5s;
         }
         
         .searchItem {
@@ -159,10 +219,11 @@
             border-radius: 5px;
             overflow:visible;
             margin:5px 0;
+            margin-bottom: 10px;
             background-color:rgb(225, 233, 243);
-            position: relative;
                 .first {
-                    top:70px !important;
+                    bottom:unset !important;
+                    top:80px;
                 }
 
                 .amountCont {
@@ -170,11 +231,14 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    padding-bottom: 0;
+
                     .amountToAdd {
                         padding:5px;
                         margin:0 5px;
                         border-radius: 4px;
                         text-align: center;
+                        color:rgb(66, 71, 78);
                         border: 1px solid rgb(138, 149, 161);
                         width: 50px;
                     }
@@ -184,20 +248,26 @@
                         border: 1px solid dodgerblue !important;
                     }
                 }
+
+                .popupHolder {
+                    background-color: red;
+                    position: relative;
+                }
                     
                 .updateItem {
                     position:absolute;
                     border-radius: 5px;
-                    background-color: #ffff;
+                    color:#ffff;
+                    background-color: rgb(70, 88, 112);
 
                     min-width: 150px;
                     z-index: 99999;
-                    top:-100px;
-                    right:10px;
+                    bottom:0px;
+                    right:0;
 
                     .innerCont {
                         padding:8px;
-                        padding-bottom: 0;
+                        padding-top: 0;
                         display: flex;
                         flex-direction: row;
                         align-items: center;
@@ -217,27 +287,30 @@
                                 top: 0;
                                 bottom: 0;
                                 right: 0;
+                                margin:5px;
                                 left:0;
-                                background-color: rgba(255, 255, 255, .9);
+                                border-radius: 5px;
+                                background-color: rgba(59, 73, 92, 0.9);//rgb(52, 63, 78);
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                color:dodgerblue;
 
                                 .spinner {
                                     font-size: 25px;
+                                    color:#ffff !important;
+
                                 }
                             }   
 
                             span {
-                                font-size: 10px !important;
+                                font-size: 11px !important;
                             }
                         }
 
                         .updateBtn {
                             border-radius: 5px;
                             font-size: 25px;
-                            background-color: rgb(226, 234, 245);
+                            background-color: rgba(226, 234, 245, .1);
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -246,10 +319,30 @@
 
                         .updating {
                             opacity: .5;
+
                         }
 
                         ion-icon {
                             padding:8px;
+                        }
+                    }
+
+                    .popupMenu {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-around;
+                        padding:3px;
+                        
+                        
+                        span {
+                            color: rgb(204, 230, 255);
+                            padding:10px;
+                            border-radius: 5px;
+                        }
+
+                        .deleteItem {
+                            color: rgb(255, 204, 204) !important;
                         }
                     }
                 }
@@ -258,7 +351,6 @@
                 padding:5px;
                 font-size: 14px;
                 // background-color: rgb(217, 227, 240);
-                max-height: 35px;
                 overflow:hidden;
                 width: 100%;
                 color:rgb(58, 87, 104);

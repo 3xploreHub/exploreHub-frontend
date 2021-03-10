@@ -26,69 +26,95 @@
         </div>
       </div>
       <div class="items">
-        <div class="searchItem">
-          <p>
-            {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
-          </p>
-          <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
-        </div>
-        <div class="scrollable">
-          <div class="item" *ngFor="let item of filterItem(service.data); let i = index"  [ngClass]="{fadeItem: itemClicked != item._id && itemClicked, focusItem: itemClicked == item._id}" >
-            <div [class.first]="i < 2" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
-              class="updateItem boxShadowed2">
-              <div class="amountCont">
-                Amount
-                <input type="number" class="amountToAdd" (keyup)="checkAmount()" [(ngModel)]="amount">
-              </div>
-              <div class="innerCont">
-                <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item)"
-                  class="updateBtn ion-activatable ripple-parent">
-                  <ion-icon name="remove-outline">
-                  </ion-icon>
-                  <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
-                </div>
+        <div [class.expand]="expandList == service._id">
 
-                <div class="quantCount">
-                  <span>Quantity</span>
-                  {{getValue(item.data, 'quantity')}}
-                  <div class="updatingQuan" *ngIf="updating">
-                    <ion-spinner class="spinner" name="lines-small"></ion-spinner>
+          <div class="searchItem">
+            <p (click)="expandList = service._id">
+              {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
+            </p>
+            <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
+          </div>
+          <div class="holder" *ngIf="expandList == service._id" class="expandMenu boxShadowed2">
+            <p>
+              {{service.data[0].data.text}}
+            </p>
+            <p (click)="expandList = null" class="close">Close</p>
+          </div>
+          <div [class.fullWidth]="expandList == service._id" class="scrollable">
+            <div class="item" *ngFor="let item of filterItem(service.data); let i = index" [ngClass]="{inExpandCont: expandList == service._id,
+                 fadeItem: itemClicked != item._id && itemClicked,
+                  focusItem: itemClicked == item._id && expandList != service._id}">
+              <div class="popupHolder">
+                <div [class.first]="i < 2" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
+                  class="updateItem">
+
+                  <div *ngIf="!updateClicked; else updateItem" class="popupMenu">
+                    <span class="deleteItem ion-activatable ripple-parent">Delete
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
+                    <span class="ion-activatable ripple-parent" (click)="updateClicked = true">Update
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
                   </div>
-                </div>
-                <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item, true)"
-                  class="updateBtn ion-activatable ripple-parent">
-                  <ion-icon name="add-outline"></ion-icon>
-                  <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+                  <ng-template #updateItem>
+
+                    <div class="amountCont">
+                      Amount
+                      <input type="number" class="amountToAdd" (change)="checkAmount()" [(ngModel)]="amount">
+                    </div>
+                    <div class="innerCont">
+                      <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item)"
+                        class="updateBtn ion-activatable ripple-parent">
+                        <ion-icon name="remove-outline">
+                        </ion-icon>
+                        <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+                      </div>
+
+                      <div class="quantCount">
+                        <span>Quantity</span>
+                        {{getValue(item.data, 'quantity')}}
+                        <div class="updatingQuan" *ngIf="updating">
+                          <ion-spinner class="spinner" name="lines-small"></ion-spinner>
+                        </div>
+                      </div>
+                      <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item, true)"
+                        class="updateBtn ion-activatable ripple-parent">
+                        <ion-icon name="add-outline"></ion-icon>
+                        <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+                      </div>
+                    </div>
+                  </ng-template>
                 </div>
               </div>
-            </div>
-            <div>
-              <div class="itemTitle">{{getItemName(item)}}
-                <div (click)="clickItem($event); itemClicked = item._id" class="editIcon ion-activatable ripple-parent">
-                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                  <ion-ripple-effect></ion-ripple-effect>
-                </div>
+              <div>
+                <div class="itemTitle">{{getItemName(item)}}
+                  <div (click)="clickItem($event); itemClicked = item._id; updateClicked = false"
+                    class="editIcon ion-activatable ripple-parent">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-ripple-effect></ion-ripple-effect>
+                  </div>
 
-              </div>
-              <div class="itemStats">
-                <div class="statsNum">
-                  <span>
-                    Quantity
-                  </span>
-                  {{getValue(item.data, 'quantity')}}
                 </div>
-                <div class="statsNum withBorder">
-                  <span>
-                    Booked
+                <div class="itemStats">
+                  <div class="statsNum">
+                    <span>
+                      Quantity
+                    </span>
+                    {{getValue(item.data, 'quantity')}}
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Booked
 
-                  </span>
-                  0
-                </div>
-                <div class="statsNum withBorder">
-                  <span>
-                    Available
-                  </span>
-                  {{getValue(item.data, 'quantity')}}
+                    </span>
+                    0
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Available
+                    </span>
+                    {{getValue(item.data, 'quantity')}}
+                  </div>
                 </div>
               </div>
             </div>
