@@ -19,7 +19,7 @@ export class StatisticsPage implements OnInit {
   public pageType: string;
   public scrollList: boolean = false;
   public itemClicked: boolean;
-  public amount:number = 1;
+  public amount: number = 1;
   public updating: boolean;
 
   constructor(
@@ -119,25 +119,32 @@ export class StatisticsPage implements OnInit {
                 this.updating = false;
                 let data = component.length > 0 ? component[0] : null
                 data.data.text = this.updateQuant(data, add);
+                if (parseInt(data.data.text) == 0) {
+                  this.presentAlert("This item will no longer be visible online to customers");
+                }
               }, error => {
                 this.presentAlert("Unexpected error occured!")
               }
             )
           }
         } else {
-          const quantity = this.addQuantity(add);
-          const newData: ElementValues = { _id: null, ...quantity };
-          this.updating = true;
+          if (add) {
+            const quantity = this.addQuantity(add);
+            const newData: ElementValues = { _id: null, ...quantity };
+            this.updating = true;
 
-          this.creator.saveComponent(newData, serviceId, item._id, "component").subscribe(
-            (response: ElementValues) => {
-              this.updating = false;
-              item.data.push(response);
+            this.creator.saveComponent(newData, serviceId, item._id, "component").subscribe(
+              (response: ElementValues) => {
+                this.updating = false;
+                item.data.push(response);
 
-            }, (error) => {
-              this.presentAlert("Oops! Something went wrong. Please try again later!")
-            },
-          )
+              }, (error) => {
+                this.presentAlert("Oops! Something went wrong. Please try again later!")
+              },
+            )
+          } else {
+            this.presentToast("No quantity yet!")
+          }
         }
       }, 200);
     }
@@ -156,8 +163,9 @@ export class StatisticsPage implements OnInit {
       if (res > -1) {
         return res;
       }
+
       else {
-        this.presentToast("Cannot set quantity below 0")
+        this.presentToast("Cannot set quantity less than 0")
       }
     }
   }
@@ -177,6 +185,14 @@ export class StatisticsPage implements OnInit {
       duration: 1000
     });
     toast.present();
+  }
+
+  checkAmount() {
+    if (this.amount <= 0) {
+      this.presentToast("Cannot set amount less than or equal to 0")
+      this.amount = 1;
+    }
+
   }
 
 }

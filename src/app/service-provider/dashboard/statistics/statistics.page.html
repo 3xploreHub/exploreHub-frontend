@@ -33,12 +33,12 @@
           <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
         </div>
         <div class="scrollable">
-          <div class="item" *ngFor="let item of filterItem(service.data); let i = index">
+          <div class="item" *ngFor="let item of filterItem(service.data); let i = index"  [class.fadeItem]="itemClicked != item._id && itemClicked" >
             <div [class.first]="i == 0" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
               class="updateItem boxShadowed2">
               <div class="amountCont">
                 Amount
-                <input type="number" class="amountToAdd" [(ngModel)]="amount">
+                <input type="number" class="amountToAdd" (keyup)="checkAmount()" [(ngModel)]="amount">
               </div>
               <div class="innerCont">
                 <div [class.updating]="updating" (click)="updateItemQuantity($event, service._id, item)"
