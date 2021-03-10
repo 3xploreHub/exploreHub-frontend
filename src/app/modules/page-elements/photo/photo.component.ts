@@ -28,7 +28,7 @@ export class PhotoComponent implements OnInit {
   public dataToDelete: dataToDelete;
   public noActions: boolean = true;
   public slideOpts: any = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
   public showStylePopup: boolean = false;

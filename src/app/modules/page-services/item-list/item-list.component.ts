@@ -32,7 +32,7 @@ export class ItemListComponent implements OnInit {
   public deletedItem: string[] = []
   
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
 
