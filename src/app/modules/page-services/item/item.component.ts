@@ -87,7 +87,7 @@ export class ItemComponent implements OnInit {
       let type = str[1];
       data = str[0];
       let label = type == "price" ? "Price" : "Quantity";
-      values = { type: "labelled-text", data: { label: label, text: null, defaultName: type }, styles: [], default: false }
+      values = { type: "labelled-text", data: { label: label, text: null, defaultName: type, booked: 0 }, styles: [], default: false }
     }
     this.renderComponent(data, values, true);
 

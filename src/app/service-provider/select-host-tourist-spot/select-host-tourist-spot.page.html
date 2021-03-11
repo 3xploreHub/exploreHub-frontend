@@ -1,13 +1,14 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Select Host Tourist Spot</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/find-account" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content class="mainLightBg">
+  <button (click)="openFirst()">button</button>
   <div style="height:100%;overflow: auto;" class="mainLightBg">
     <!-- <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
       service?</i>
@@ -15,7 +16,6 @@
     <div class="select-spot-note" *ngIf="selectedPage == null">
       <p>
         Select the spot you want to offer your service.
-
       </p>
     </div>
 

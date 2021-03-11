@@ -23,6 +23,10 @@ export class StatisticsPage implements OnInit {
   public amount: number = 1;
   public updating: boolean;
   public expandList: string;
+  public itemToUpdate: ElementValues;
+  public serviceId: string;
+  public amountForQuantity: number = 1;
+  public amountForAvailable: number = 1;
 
   constructor(
     public creator: PageCreatorService,
@@ -52,9 +56,17 @@ export class StatisticsPage implements OnInit {
     return data.filter(item => item.type == "item")
   }
 
-  getValue(data, type, format = true) {
-    const quantity = data.filter(comp => comp.data.defaultName == type);
+  getValue(item, type, format = true) {
+    const quantity = item.filter(comp => comp.data.defaultName == type);
+    if (quantity.length > 0 && quantity[0].data.unlimited) {
+      return "Unli.";
+    }
     return quantity.length > 0 ? format ? this.formatNumber(quantity[0].data.text) : quantity[0].data.text : type == 'price' ? 'none' : 'Unli.'
+  }
+
+  getBooked(item) {
+    const comp = item.filter(comp => comp.data.defaultName == 'quantity');
+    return comp.length > 0 ? comp[0].data.booked ? comp[0].data.booked : 0 : 0;
   }
 
   formatNumber(data) {
@@ -102,75 +114,132 @@ export class StatisticsPage implements OnInit {
     e.stopPropagation();
   }
 
-  updateItemQuantity(e, serviceId, item, add = false) {
-    if (!this.updating) {
-      e.stopPropagation();
-      setTimeout(() => {
-        let component = item.data.filter(comp => comp.data.defaultName == 'quantity')
-        let values = component.length > 0 ? { ...component[0], data: { ...component[0].data } } : null
-        this.creator.currentPageId = this.pageId;
-        this.creator.pageType = this.pageType
+  updateItemQuantity(e, serviceId, item, amount, valueToEdit, add = false) {
+    // if (!this.updating) {
+    //   e.stopPropagation();
+    //   setTimeout(() => {
+    //     const type = 'quantity';
+    //     let component = item.data.filter(comp => comp.data.defaultName == 'quantity')
+    //     let values = component.length > 0 ? { ...component[0], data: { ...component[0].data } } : null
+    //     this.creator.currentPageId = this.pageId;
+    //     this.creator.pageType = this.pageType
 
-        if (values) {
-          const res = this.updateQuant(values, add);
+    //     let valid = true;
+    //     let error = ""
+    //     if (values) {
+    //       if (valueToEdit == "quantity") {
+    //         const res = this.updateQuant(values.data.text, add, amount);
+    //         if (res <= -2 && !values.data.unlimited || (values.data.unlimited && !add)) {
+    //           valid = false;
+    //           // error = "Cannot set quantity less than 0"
+    //         } else if (res == -1 ) {
 
-          if (res > -1) {
-            values.data.text = res;
-            this.updating = true;
-            this.creator.editComponent(values, serviceId, item._id, "component").subscribe(
-              (response) => {
-                this.updating = false;
-                let data = component.length > 0 ? component[0] : null
-                data.data.text = this.updateQuant(data, add);
-                if (parseInt(data.data.text) == 0) {
-                  this.presentAlert("This item will no longer be visible online to customers");
-                }
-              }, error => {
-                this.presentAlert("Unexpected error occured!")
-              }
-            )
-          }
-        } else {
-          if (add) {
-            const quantity = this.addQuantity(add);
-            const newData: ElementValues = { _id: null, ...quantity };
-            this.updating = true;
+    //           values.data['unlimited'] = true;
+    //           values.data.text = 0;
+    //           console.log('here');
+              
+    //         } else {
+    //           values.data['unlimited'] = false
+    //           if (res < values.data.booked && !add && values.data.booked) {
+    //             valid = false;
 
-            this.creator.saveComponent(newData, serviceId, item._id, "component").subscribe(
-              (response: ElementValues) => {
-                this.updating = false;
-                item.data.push(response);
 
-              }, (error) => {
-                this.presentAlert("Oops! Something went wrong. Please try again later!")
-              },
-            )
-          } else {
-            this.presentToast("No quantity yet!")
-          }
-        }
-      }, 200);
-    }
+    //             this.presentAlert((res + 1) + (res == 1 ? " item is " : " items are ") + "currently booked")
+    //             values.data.text = res;
+    //           }
+    //         }
+    //       } else {
+    //         if (!values.data.booked) {
+    //           values.data['booked'] = 0
+    //         }
+
+    //         values.data.booked = this.updateQuant(values.data.booked, add, amount);
+    //         // const bookedOnline = 3
+    //         // const count = values.data.booked;
+    //         // if (values.data.booked > 0 && values.data.booked < bookedOnline && !add) {
+    //         //   this.presentAlert((count + 1) + (count == 1 ? " item is " : " items are ") + " booked online")
+    //         //   valid = false;
+    //         // } else
+
+    //          if (values.data.booked > values.data.text && !values.data.unlimited) {
+    //           valid = false;
+    //           error = "No more available"
+    //         } else if (values.data.booked <= -1) {
+    //           valid = false;
+    //         }
+    //       }
+    //       console.log(values);
+          
+    //       if (valid) {
+    //         this.updating = true;
+    //         this.creator.editComponent(values, serviceId, item._id, "component").subscribe(
+    //           (response) => {
+    //             this.updating = false;
+    //             let data = component.length > 0 ? component[0] : null
+    //             if (valueToEdit == 'quantity') {
+                  
+    //               // data.data.text = this.updateQuant(data.data.text, add, amount);
+    //               data.data = values.data;
+    //               if (data.data.text <= -1) { 
+    //                 data.data['unlimited'] = true
+    //                 data.data.text = -1;
+    //               } else {
+    //                 data.data['unlimited'] = false;
+    //               }
+    //               console.log(data);
+                  
+    //               if (parseInt(data.data.text) == 0) {
+    //                 this.presentAlert("This item will no longer be visible online to customers");
+    //               }
+    //             } else {
+    //               if (!data.data.booked) {
+    //                 data.data['booked'] = 0
+    //               }
+    //               data.data.booked = this.updateQuant(data.data.booked, add, amount);
+    //             }
+
+    //           }, error => {
+    //             this.presentAlert("Unexpected error occured!")
+    //           }
+    //         )
+    //       } else {
+    //         if (error) this.presentToast(error)
+    //       }
+
+    //     } else {
+    //       if (add) {
+    //         const quantity = this.addQuantity(add, amount, type, valueToEdit);
+    //         const newData: ElementValues = { _id: null, ...quantity };
+    //         this.updating = true;
+
+    //         this.creator.saveComponent(newData, serviceId, item._id, "component").subscribe(
+    //           (response: ElementValues) => {
+    //             this.updating = false;
+    //             item.data.push(response);
+
+    //           }, (error) => {
+    //             this.presentAlert("Oops! Something went wrong. Please try again later!")
+    //           },
+    //         )
+    //       }
+    //     }
+    //   }, 200);
+    // }
   }
 
-  addQuantity(add) {
-    let values = { type: "labelled-text", data: { label: "Quantity", text: 0, defaultName: 'quantity' }, styles: [], default: false }
-    values.data.text = this.updateQuant(values, add);
+  addQuantity(add, amount, type, valueToEdit) {
+    let values = { type: "labelled-text", data: { label: type[0].toUpperCase() + type.substring(1), text: 0, defaultName: type, booked: 0, unlimited: true }, styles: [], default: false }
+    if (valueToEdit == "quantity") {
+      values.data.text = this.updateQuant(values.data.text, add, amount);
+    } else {
+      values.data.booked = this.updateQuant(values.data.booked, add, amount);
+    }
     return values;
   }
 
-  updateQuant(values, add) {
-    if (values) {
-      let num = parseInt(values.data.text);
-      const res = add ? num + this.amount : num > 0 ? num - this.amount : -1;
-      if (res > -1) {
-        return res;
-      }
-
-      else {
-        this.presentToast("Cannot set quantity less than 0")
-      }
-    }
+  updateQuant(value, add, amount) {
+    let num = parseInt(value);
+    return add ? num + amount : num > 0 ? num - amount : -1;
   }
 
   updateItem(e) {
@@ -181,10 +250,21 @@ export class StatisticsPage implements OnInit {
     }, 200);
   }
 
+  closeModal(e) {
+    e.stopPropagation();
+    this.itemToUpdate = null;
+    this.serviceId = null;
+    this.itemClicked = null;
+  }
+
   exitExpand(e) {
     e.stopPropagation();
     this.expandList = null
     this.itemClicked = null;
+  }
+
+  clickInside(e) {
+    e.stopPropagation();
   }
 
   async presentAlert(message) {
@@ -204,10 +284,14 @@ export class StatisticsPage implements OnInit {
     toast.present();
   }
 
-  checkAmount() {
-    if (this.amount <= 0) {
+  checkAmount(amount, quantity = false) {
+    if (amount < 0) {
       this.presentToast("Cannot set amount less than or equal to 0")
-      this.amount = 1;
+      if (quantity) {
+        this.amountForQuantity = 1;
+      } else {
+        this.amountForAvailable = 1;
+      }
     }
 
   }

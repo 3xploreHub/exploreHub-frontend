@@ -81,13 +81,13 @@ export class SelectHostTouristSpotPage implements OnInit {
   }
 
   retreiveAllTouristSpotCategory() {
-    return this.selectHostTouristSpotService
-      .retreiveAllTouristSpotCategories()
-      .subscribe((categories) => {
-          console.log("Categories: " +  categories)
-          this.sampleCategory = categories;
-          console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
-      });
+    // return this.selectHostTouristSpotService
+    //   .retreiveAllTouristSpotCategories()
+    //   .subscribe((categories) => {
+    //       console.log("Categories: " +  categories)
+    //       this.sampleCategory = categories;
+    //       console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
+    //   });
   }
 
   // getAllTouristSpot() {

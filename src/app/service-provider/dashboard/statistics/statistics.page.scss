@@ -161,6 +161,7 @@
     .fullWidth {
         // background-color: #fff;
         // padding:10px;
+        height: 100%;
         border-radius: 5px;
         display: block !important;
         min-height: unset !important;
@@ -226,29 +227,7 @@
                     top:80px;
                 }
 
-                .amountCont {
-                    padding:8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-bottom: 0;
-
-                    .amountToAdd {
-                        padding:5px;
-                        margin:0 5px;
-                        border-radius: 4px;
-                        text-align: center;
-                        color:rgb(66, 71, 78);
-                        border: 1px solid rgb(138, 149, 161);
-                        width: 50px;
-                    }
-
-                    .amountToAdd:focus {
-                        outline: none !important;
-                        border: 1px solid dodgerblue !important;
-                    }
-                }
-
+                
                 .popupHolder {
                     background-color: red;
                     position: relative;
@@ -265,67 +244,7 @@
                     bottom:0px;
                     right:0;
 
-                    .innerCont {
-                        padding:8px;
-                        padding-top: 0;
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: space-around;
-
-                        .quantCount {
-                            padding:8px 13px;
-                            border-radius: 5px;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            font-size:21px;
-                            position: relative;
-                            
-                            .updatingQuan {
-                                position: absolute;
-                                top: 0;
-                                bottom: 0;
-                                right: 0;
-                                margin:5px;
-                                left:0;
-                                border-radius: 5px;
-                                background-color: rgba(59, 73, 92, 0.9);//rgb(52, 63, 78);
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-
-                                .spinner {
-                                    font-size: 25px;
-                                    color:#ffff !important;
-
-                                }
-                            }   
-
-                            span {
-                                font-size: 11px !important;
-                            }
-                        }
-
-                        .updateBtn {
-                            border-radius: 5px;
-                            font-size: 25px;
-                            background-color: rgba(226, 234, 245, .1);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-
-                        }
-
-                        .updating {
-                            opacity: .5;
-
-                        }
-
-                        ion-icon {
-                            padding:8px;
-                        }
-                    }
+                    
 
                     .popupMenu {
                         display: flex;
@@ -399,4 +318,117 @@
     flex-shrink: 0;
     color:rgb(7, 106, 206);
     border-radius: 4px;
+}
+
+.updatingModal {
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    width: 100%;
+    bottom:0;
+    background-color: rgba(61, 69, 78, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modalBody {
+        background-color: #ffff;
+        min-width: 150px;
+        border-radius: 4px;
+        position: relative;
+
+        
+        .updatingQuan {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin:5px;
+            z-index: 99999;
+            left:0;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.6);//rgb(52, 63, 78);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .spinner {
+                font-size: 30px !important;
+                color:rgb(0, 123, 211) !important;
+
+            }
+        }  
+
+        .itemToEditName {
+            padding:20px;
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .amountCont {
+            padding:8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+
+            .amountToAdd {
+                padding:5px;
+                margin:0 5px;
+                border-radius: 4px;
+                text-align: center;
+                color:rgb(66, 71, 78);
+                border: 1px solid rgb(138, 149, 161);
+                width: 50px;
+            }
+
+            .amountToAdd:focus {
+                outline: none !important;
+                border: 1px solid dodgerblue !important;
+            }
+        }
+
+        .innerCont {
+            padding:8px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+
+            .quantCount {
+                padding:8px 13px;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size:21px;
+                position: relative;
+                 
+
+                span {
+                    font-size: 14px !important;
+                }
+            }
+
+            .updateBtn {
+                border-radius: 5px;
+                margin:5px;
+                font-size: 25px;
+                background-color: rgba(125, 144, 172, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            .updating {
+                opacity: .5;
+
+            }
+
+            ion-icon {
+                padding:8px;
+            }
+        }
+    }
 }
