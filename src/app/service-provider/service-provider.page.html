@@ -1,67 +1,7 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Create Page</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="outerWrapper lightBackground">
-    <div class="wrapper">
-      <div class="section">
-        <div class="insText">
-          <div class="iconHolder serviceBox">
-            <ion-icon class="icons spot" name="compass-outline"></ion-icon>
-          </div>
-          <div class="textHolder">
-            <div class="description">
-              <div class="bigText">
-                Do you manage a tourist destination? </div>
-                <span>
-                  Example: Beach Resort, Beautiful places, and other.
-                </span>
-            </div>
-            <div class="btnStyle createSpot ion-activatable ripple-parent" (click)="createTouristSpotPage()">
-              Create Tourist Spot Page
-              <ion-ripple-effect></ion-ripple-effect>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="insText">
-          <div class="iconHolder spotBox">
-            <ion-icon class="icons" name="location-outline"></ion-icon>
-          </div>
-          <div class="textHolder">
-            <div class="description">
-              <div class="bigText">
-                Do you offer a service within or around a tourist spot?
-              </div>
-              <span>
-                Example: Restaurant, Transportation, Lodging, etc.
-              </span>
-            </div>
-            <div class="btnStyle createService ion-activatable ripple-parent" (click)="goto()">
-              Create Service Page
-              <ion-ripple-effect></ion-ripple-effect>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</ion-content> -->
 
 
 <ion-menu side="start" menuId="first" content-id="main-content">
-  <!-- <ion-header>
-    <ion-toolbar translucent>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
+
   <ion-content (click)="clickContent($event)">
     <div class="menu-header-bg"></div>
     <div class="header-content">
@@ -74,7 +14,7 @@
     <ion-list lines="none" class="menu-items">
       <ion-menu-toggle auto-hide="false">
 
-        <ion-item (click)="gotTo($event, 'list-of-pages', 'submitted')" class="ion-activatable ripple-parent">
+        <ion-item [class.active]="active == 'list-of-pages-submitted'" (click)="gotTo($event, 'list-of-pages', 'submitted')" class="ion-activatable ripple-parent">
           <div>
             <ion-icon name="bar-chart-outline"></ion-icon>
             <ion-label>My Dashboards</ion-label>
@@ -82,7 +22,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </ion-item>
 
-        <ion-item (click)="gotTo($event, '')" class="ion-activatable ripple-parent">
+        <ion-item  [class.active]="active == ''" (click)="gotTo($event, '')" class="ion-activatable ripple-parent">
           <div>
             <ion-icon name="create-outline"></ion-icon>
             <ion-label>Create New Page</ion-label>
@@ -90,7 +30,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </ion-item>
 
-        <ion-item (click)="gotTo($event)" class="ion-activatable ripple-parent">
+        <ion-item [class.active]="active == 'pages'" (click)="gotTo($event, 'pages')" class="ion-activatable ripple-parent">
           <div>
             <ion-icon name="newspaper-outline"></ion-icon>
             <ion-label>Online Pages</ion-label>
@@ -98,7 +38,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </ion-item>
 
-        <ion-item (click)="gotTo($event)"  class="ion-activatable ripple-parent">
+        <ion-item [class.active]="active == 'account'" (click)="gotTo($event, 'account')"  class="ion-activatable ripple-parent">
           <div>
             <ion-icon name="person-outline"></ion-icon>
             <ion-label>My Account</ion-label>
@@ -106,7 +46,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </ion-item>
 
-        <ion-item (click)="gotTo($event, 'list-of-pages', 'unfinished')" class="ion-activatable ripple-parent">
+        <ion-item [class.active]="active == 'list-of-pages-unfinished'" (click)="gotTo($event, 'list-of-pages', 'unfinished')" class="ion-activatable ripple-parent">
           <div>
             <ion-icon name="file-tray-full-outline"></ion-icon>
             <ion-label>Drafts</ion-label>

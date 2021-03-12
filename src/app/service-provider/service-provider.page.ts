@@ -11,7 +11,7 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
 })
 
 export class ServiceProviderPage implements OnInit {
-
+  active = ''
   constructor(public router: Router, public creator: PageCreatorService, private menu: MenuController) { }
 
   ngOnInit() {
@@ -20,7 +20,8 @@ export class ServiceProviderPage implements OnInit {
 
 
   gotTo(e, page, params = '') {
-    // e.stopPropagation();
+    this.active = page+ (params? '-': '' )+params;
+    e.stopPropagation();
     setTimeout(() => {
 
       this.router.navigate([`/service-provider/${page}`, params]);

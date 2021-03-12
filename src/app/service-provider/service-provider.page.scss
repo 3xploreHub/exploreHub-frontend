@@ -55,31 +55,42 @@
 .menu-items {
     margin: 0px;
     ion-icon {
-        margin-left: 10px;
-        color: rgb(72, 76, 80);
+        color: rgb(106, 127, 158);
         position: absolute;
         font-size: 25px;
     }
     ion-item {
+        transition: .5s;
         font-family: lato !important;
         padding-left: 0px;
         margin-bottom: 5px;
+        margin-left: 0;
         font-size: 18px;
         font-weight: bold;
-        color: rgb(80, 77, 77);
-        // background-color: $info;
+        color: rgb(106, 127, 158);
     }
+
+  
     ion-label {
-        margin-left: 50px;
+        margin-left: 40px;
         font-weight: normal;
     }
 }
 
-ion-item.item:hover div {
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
+// ion-item.item:hover div {
+//     width: 100%;
+//     padding: 10px;
+//     font-size: 20px;
+// }
+.active {
+    // background: rgb(160, 200, 240) !important;
+    color: rgb(0, 153, 255) !important;
+
+    ion-icon {
+        color: rgb(0, 140, 255) !important;
+    }
 }
+
 
 .serve {
     text-align: left;
