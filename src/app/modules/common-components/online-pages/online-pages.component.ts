@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
 import { Page } from '../../elementTools/interfaces/page';
 
@@ -9,6 +9,7 @@ import { Page } from '../../elementTools/interfaces/page';
 })
 export class OnlinePagesComponent implements OnInit {
   public pages: Page[];
+  @Output() viewPage: EventEmitter<any> = new EventEmitter();
   constructor(public mainService: MainServicesService) { }
 
   ngOnInit() {
@@ -19,8 +20,8 @@ export class OnlinePagesComponent implements OnInit {
     )
   }
 
-  viewPage() {
-    
+  view(pageId) {
+    this.viewPage.emit(pageId)
   }
   
 }

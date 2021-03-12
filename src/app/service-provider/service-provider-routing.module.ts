@@ -48,11 +48,16 @@ const routes: Routes = [
         loadChildren: () => import('./online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
       },
       {
+        path: 'view-page/:pageId',
+        loadChildren: () => import('./view-page/view-page.module').then( m => m.ViewPagePageModule)
+      },
+      {
         path:'',
         redirectTo:'/service-provider/select-page-type'
       },
     ]
   },
+ 
  
   
 

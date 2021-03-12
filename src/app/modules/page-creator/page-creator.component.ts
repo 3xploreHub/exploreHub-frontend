@@ -28,7 +28,6 @@ export class PageCreatorComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
-  // @HostListener('window:scroll', ['$event'])
   public page: Page;
   public preview: boolean = false;
   public loading: boolean = false;
@@ -100,8 +99,6 @@ export class PageCreatorComponent implements OnInit {
     if ((info.clientHeight + services.clientHeight) < scrolled) {
       this.boxPosition = width * 2;
     }
-
-
   }
 
   showComponentList() {

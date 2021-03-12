@@ -30,4 +30,8 @@ export class MainServicesService {
   getOnlinePages() {
     return this.http.get(`${this.apiUrl}/getOnlinePages`);
   }
+
+  viewPage(pageId) {
+    return this.http.get(`${this.apiUrl}/viewPage/${pageId}`)
+  }
 }
