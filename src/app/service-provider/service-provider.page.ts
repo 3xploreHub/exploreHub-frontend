@@ -11,29 +11,34 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
 })
 
 export class ServiceProviderPage implements OnInit {
-  
-  constructor(public router: Router,public creator: PageCreatorService, private menu: MenuController) { }
+
+  constructor(public router: Router, public creator: PageCreatorService, private menu: MenuController) { }
 
   ngOnInit() {
   }
 
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
+
+
+  gotTo(e, page, params = '') {
+    // e.stopPropagation();
+    setTimeout(() => {
+
+      this.router.navigate([`/service-provider/${page}`, params]);
+    }, 200);
   }
 
-  goto() {
-    this.router.navigate(["/service-provider/select-host-tourist-spot"]);
+  clickContent(e) {
+    e.stopPropagation();
   }
 
   createTouristSpotPage() {
     const self = this;
-    this.creator.createPage("tourist_spot").subscribe( 
+    this.creator.createPage("tourist_spot").subscribe(
       (response: Page) => {
         self.router.navigate(["/service-provider/create-tourist-spot-page", response._id])
       },
       (error) => {
-        console.log("error in creating tourist spot: ",error)
+        console.log("error in creating tourist spot: ", error)
       }
     )
   }

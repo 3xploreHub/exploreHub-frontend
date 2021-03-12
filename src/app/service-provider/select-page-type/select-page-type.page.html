@@ -1,8 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create Page</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-toolbar>
+      <ion-title>Create Page</ion-title>
+    </ion-toolbar>
   </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content>
   <div class="outerWrapper lightBackground">
@@ -16,9 +23,9 @@
             <div class="description">
               <div class="bigText">
                 Do you manage a tourist destination? </div>
-                <span>
-                  Example: Beach Resort, Beautiful places, and other.
-                </span>
+              <span>
+                Example: Beach Resort, Beautiful places, and other.
+              </span>
             </div>
             <div class="btnStyle createSpot ion-activatable ripple-parent" (click)="createTouristSpotPage()">
               Create Tourist Spot Page
