@@ -52,7 +52,6 @@
 .item-spot {
     background-color: #ffff;
     margin:1px 5px;
-    padding:0;
     border-radius: 4px;
     overflow: hidden;
 
@@ -70,12 +69,25 @@
 }
 
 .spot-name-description {
-    height: 73px;
+    height: 78px;
     overflow: hidden;
     color: #1c2c41;
-
+    margin:5px 4px;
     // background-color: green;
     // display: flex;
+}
+
+.titleP {
+    max-height: 30px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 14px;
+    margin:2px 0;
+}
+
+.textDesc{
+    font-size: 13px !important;
+    margin:3px 0;
 }
 
 .spot-image-in-list {

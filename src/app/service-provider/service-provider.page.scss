@@ -11,13 +11,12 @@
     // background: linear-gradient(90deg, hsla(199, 100%, 50%, 0.71) 0%, skyblue 100%);
     // box-shadow: 0px 1px 10px rgb(21, 160, 224);
     background: rgb(6, 170, 235);
-    background: linear-gradient(90deg, hsla(199, 66%, 50%, 0.71) 0%, rgb(156, 232, 252) 100%);
+    background: linear-gradient(90deg, hsla(204, 67%, 52%, 0.71) 0%, rgb(190, 239, 253) 100%);
     // box-shadow: 0px 1px 10px rgb(21, 224, 190);
-    transform: rotate(-12deg);
-    border-radius: 10px 10px 10px 50px;
+    // border-radius: 10px 10px 10px 50px;
     margin-left: -18px;
     margin-top: -50px;
-    margin-bottom: 60px;
+    margin-bottom: 8px;
 }
 
 .header-content {
@@ -38,7 +37,8 @@
     h2 {
         font-weight: normal;
         font-size: 24px;
-        color: rgb(49, 50, 51);
+        font-weight: 600;
+        color: rgb(11, 67, 124);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     p {
@@ -58,6 +58,8 @@
         color: rgb(106, 127, 158);
         position: absolute;
         font-size: 25px;
+        padding-left:10px;
+
     }
     ion-item {
         transition: .5s;
@@ -72,7 +74,7 @@
 
   
     ion-label {
-        margin-left: 40px;
+        margin-left: 50px;
         font-weight: normal;
     }
 }
@@ -91,10 +93,9 @@
     }
 }
 
-
 .serve {
     text-align: left;
-    color:rgb(42, 67, 92) !important;
+    color:rgb(71, 99, 128) !important;
     font-size: 10px;
 }
 

@@ -43,13 +43,17 @@ const routes: Routes = [
         path: 'select-page-type',
         loadChildren: () => import('./select-page-type/select-page-type.module').then( m => m.SelectPageTypePageModule)
       },
-
+      {
+        path: 'online-pages-list',
+        loadChildren: () => import('./online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
+      },
       {
         path:'',
         redirectTo:'/service-provider/select-page-type'
       },
     ]
   },
+ 
   
 
 ];

@@ -1,0 +1,72 @@
+@import "../../../../variables.scss";
+.pageCard {
+    padding:10px;
+    display: flex;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.photoHolder {
+    background-color: rgb(127, 141, 158);
+    border-radius: 5px;
+    height: 100px;
+    width:130px;
+    box-sizing: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.pagePhoto {
+    width:100%;
+    
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .noPhoto {
+        color:#ffff;
+    }
+}
+
+.page {
+    height: 115px;
+    padding:5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    box-shadow: 0px 1px 4px #a1a1a1;
+    margin:10px 0;
+    flex-direction: row;
+
+}
+.pageInfo {
+    position: relative;
+    padding:5px;
+    padding-bottom: 15px;
+    width: 100%;
+
+    .title {
+        font-size: 15px;
+        margin:3px;
+        height: 19px;
+        font-weight: bold;
+        width: 100%;
+        color: $mediumLight;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .description {
+        color:gray;
+        margin: 3px;
+        max-height: 48px;
+        overflow: hidden;
+        font-size: 13px;
+    }
+}

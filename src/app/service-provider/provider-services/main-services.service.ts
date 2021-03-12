@@ -26,4 +26,8 @@ export class MainServicesService {
   getServices(pageId: string, pageType: string) {
     return this.http.get(`${this.apiUrl}/getServices/${pageId}/${pageType}`, { headers: { hideLoadingIndicator: "true" } });
   }
+
+  getOnlinePages() {
+    return this.http.get(`${this.apiUrl}/getOnlinePages`);
+  }
 }

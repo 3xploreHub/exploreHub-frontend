@@ -23,8 +23,12 @@ export class ServiceProviderPage implements OnInit {
     this.active = page+ (params? '-': '' )+params;
     e.stopPropagation();
     setTimeout(() => {
-
-      this.router.navigate([`/service-provider/${page}`, params]);
+      this.menu.close('first')
+      if (params) {
+        this.router.navigate([`/service-provider/${page}`, params])
+      } else {
+        this.router.navigate([`/service-provider/${page}`]);
+      }
     }, 200);
   }
 

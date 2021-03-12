@@ -1,0 +1,15 @@
+<div (click)="view()" class="pageCard ion-activatable ripple-parent">
+  <div class="photoHolder">
+    <div class="pagePhoto"
+      [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+      <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
+    </div>
+  </div>
+
+  <div class="pageInfo">
+    <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text?
+      page.components[1].data.text: 'Untitled'}}</p>
+    <p class="description">{{page.components[6].data.text ? page.components[6].data.text: ''}}</p>
+  </div>
+  <ion-ripple-effect></ion-ripple-effect>
+</div>
