@@ -1,9 +1,69 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="false">
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-menu-button content-id="main-content"></ion-menu-button>
+        </ion-buttons>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <div style="margin-left:205%" [routerLink]="['/tourist/notification']">
+                        <ion-icon size="small" name="home-outline"></ion-icon>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div style="margin-left:133%">
+                        <ion-icon size="small" (click)="notif()" name="notifications-outline"></ion-icon>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div style="margin-left:68%">
+                        <ion-icon size="small" name="search-outline"></ion-icon>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen>
+    <div>
+        <ion-segment color="secondary" scrollable value="hopping">
+            <ion-segment-button value="hopping">
+                <ion-label>Island Hopping</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="resort">
+                <ion-label>Beach Resort</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="adventure">
+                <ion-label>Uphill Adventure</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="canyoneering">
+                <ion-label>Canyoneering</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div class="destination">
+        <ion-grid>
+            <ion-row class="post" *ngFor="let item of touristSpotList">
+                <ion-col size="3">
+                    <div>
+                        <img [src]="item.image">
+                        <!-- <img src="../../../assets/sample.jpg"> -->
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div size="7">
+                        <ion-label>{{item.name}}</ion-label>
+                        <p>{{ item.location }}</p>
+                    </div>
+                </ion-col>
+                <ion-col size="2">
+                    <div>
+                        <ion-label [routerLink]="['/tourist/tourist-spots', item._id]" color="secondary" class="select">Select</ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <!-- </ion-card> -->
 </ion-content>

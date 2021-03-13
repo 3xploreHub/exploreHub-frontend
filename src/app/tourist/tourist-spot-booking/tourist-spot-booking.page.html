@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button icon="chevron-back-outline" [routerLink]="['/tourist/tourist-spots']">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title>tourist-spot-booking</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h2>Booking Info</h2>
+    <form (ngSubmit)="onNext()" #bookingForm="ngForm">
+        <ion-grid>
+            <h4>Arrival and departure</h4>
+            <ion-row style="height:10%">
+                <ion-col offset-4 size="6">
+                    <div class="form-group date">
+                        <div>
+                            <p>Arrival</p>
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <ion-input type="date" class="form-control" #name="ngModel" required name="arrive" [(ngModel)]="arrive"></ion-input>
+
+                    </div>
+                </ion-col>
+                <ion-col size="6">
+                    <div class="form-group date">
+                        <p>Departure</p>
+                        <div><i class="fa fa-calendar"></i></div>
+                        <ion-input type="date" class="form-control" #name="ngModel" required name="depart" [(ngModel)]="depart"></ion-input>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <h4>Number of people</h4>
+            <ion-row>
+                <ion-col offset-4 size="6">
+                    <div class="form-group number">
+                        <div>
+                            <p>Adults</p>
+                        </div>
+                        <ion-input type="number" class="form-control" #name="ngModel" required name="adult" [(ngModel)]="adult"></ion-input>
+                    </div>
+                </ion-col>
+                <ion-col size="6">
+                    <div class="form-group number">
+                        <div>
+                            <p>Kids</p>
+                        </div>
+                        <ion-input type="number" class="form-control" #name="ngModel" required name="kids" [(ngModel)]="kids"></ion-input>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div>
+            <div class="cancel">
+                <ion-label color="danger">Cancel</ion-label>
+            </div>
+            <ion-button type="submit" class="button" color="secondary" size="small" [routerLink]="['/tourist/bedroom']" [disabled]="!bookingForm.form.valid">
+                Next
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+
+        </div>
+    </form>
+</ion-content>

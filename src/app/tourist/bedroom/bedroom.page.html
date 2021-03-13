@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['/tourist/tourist-spot-booking']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>bedroom</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <h2>Select type of bedroom</h2>
+        <ion-grid>
+            <ion-row class="list" *ngFor="let item of bedroomArray">
+                <ion-col size="4">
+                    <div>
+                        <img src="../../../assets/family.jpg" alt="">
+                    </div>
+                </ion-col>
+                <ion-col size="5">
+                    <div>
+                        <ion-label>{{ item.roomCategory }}</ion-label>
+                        <p>&#8369;{{ item.price }}</p>
+                        <p>Available: {{ item.available }} rooms</p>
+
+                    </div>
+                </ion-col>
+                <ion-col size="3">
+                    <div class="select" (click)="presentModal()">
+                        <ion-label>Select</ion-label>&nbsp;&nbsp;
+                        <ion-icon size="small" name="checkmark-outline"></ion-icon>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <!-- <div class="select">
+        <ion-label>Select</ion-label>
+        <ion-icon name="checkmark-outline" *ngIf="!select"></ion-icon>
+    </div> -->
+    <!-- <div *ngIf="!select">
+        <h2>Avail Extra Service</h2>
+        <ion-grid>
+            <ion-row class="list" *ngFor="let item of extraServiceArray">
+                <ion-col size="4">
+                    <div>
+                        <img src="../../../assets/family.jpg" alt="">
+                    </div>
+                </ion-col>
+                <ion-col size="5">
+                    <div>
+                        <ion-label>{{ item.typeOfExtraService }}</ion-label>
+                        <p>&#8369;{{ item.price }}</p>
+                    </div>
+                </ion-col>
+                <ion-col size="3">
+                    <div class="select">
+                        <ion-label>Add</ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+        </ion-grid>
+        <div>
+            <div class="cancel">
+                <ion-label color="danger">Cancel</ion-label>
+            </div>
+            <ion-button class="button" color="secondary" size="small" [routerLink]="['/tourist/booking-review']">
+                Next
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+        </div>
+    </div> -->
+
+</ion-content>

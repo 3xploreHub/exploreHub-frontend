@@ -4,6 +4,10 @@ import { AlertController } from "@ionic/angular";
 import { FormBuilder } from "@angular/forms";
 import { AuthService } from "../../services/auth-services/auth-service.service";
 import { map } from "rxjs/operators";
+// import { jwt_decode } from 'jwt-decode';
+import jwt_decode from "jwt-decode";
+import accountType from './../../services-common-helper/constantValue/accountType';
+
 
 @Component({
   selector: "app-login",
@@ -71,12 +75,21 @@ export class LoginPage implements OnInit {
       const login = this.authservice.login(this.form.value);
       login.subscribe(
         (resp) => {
+          console.log("RESPONSE: ", resp)
+          console.log("RESPONSE DECODE TOKEN: ", jwt_decode(resp.token))
           this.loading = false;
           this.setForm();
           if (resp.unfinished_registration) {
             this.router.navigate(["/verification"]);
           } else {
-            this.router.navigate([this.authservice.hasAttemptedUrl()]);
+            if(resp.accountType == "Tourist") {
+              this.router.navigate(["/tourist"]);
+            }
+            if(resp.accountType == "Service Provider") {
+              this.router.navigate(["/service-provider"])
+            }
+            
+            // this.router.navigate([this.authservice.hasAttemptedUrl()]);
           }
         },
         (err) => {

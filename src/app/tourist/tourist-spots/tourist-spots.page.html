@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['tourist/selected']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Selected Tourist Spot</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ng-template #pageElement></ng-template>
+
+    <!-- <div>
+        <ion-slides [options]="option" class="ion-margin-top">
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/sample.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/1.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/2.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/3.jpg">
+                </ion-card>
+            </ion-slide>
+
+            <ion-slide>
+                <ion-card>
+                    <img src="../../../assets/4.jpg">
+                </ion-card>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="description">
+        <h4>{{ selectedSpot.name }}</h4>
+        <div [routerLink]="['/tourist/location']">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-label>{{ selectedSpot.address }}</ion-label>
+        </div>
+        <p>{{selectedSpot.description}}</p>
+    </div> -->
+    <div class="description">
+        <ion-label>Rules & Regulation</ion-label>
+        <ion-icon name="caret-down-outline" (click)="hideAndShow()"></ion-icon>
+        <p *ngIf="!rules">Nunc et nisi sit amet urna scelerisque semper. Integer molestie ac enim quis porta. Curabitur ut accumsan lorem. Ut pulvinar molestie viverra. Nulla faucibus purus a enim venenatis, eget lacinia erat molestie. Sed feugiat pellentesque risus vitae
+            ullamcorper. Maecenas porttitor urna turpis, sed elementum neque faucibus a.</p>
+        <hr>
+        <ion-button class="book" [routerLink]="['/tourist/tourist-spot-booking']">Book Now</ion-button>
+
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="description">
+            <ion-label>Other services</ion-label>
+            <p>Click category to view other available services in the area</p>
+        </div>
+        <app-service-tabs></app-service-tabs>&nbsp;
+    </ion-toolbar>
+
+</ion-footer>

@@ -15,25 +15,29 @@
         <span class="footerText">Style</span>
       </div>
 
-      <div *ngIf="!noPreview" (click)="done()" class="footerDiv primColor" [class.disabled]="!data.hasValue">
-        <ion-icon class="footerIcon" name="checkmark-circle-outline"></ion-icon>
-        <span class="footerText">Done</span>
-      </div>
+      <ion-icon class="footerIcon" name="checkmark-circle-outline"></ion-icon>
+      <span class="footerText">Done</span>
     </div>
-    <ng-template #confirmDelete>
-      <div class="footer">
-        <div class="footerDiv">
-          Are you sure?
-        </div>
-        <div (click)="delete.emit()" class="footerDiv dangerColor">
-          <ion-icon class="footerIcon dangerColor" name="checkmark-circle-outline"></ion-icon>
-          Yes
-        </div>
-        <div (click)="cancelDelete()" class="footerDiv primColor">
-          <ion-icon class="footerIcon" name="close-circle-outline"></ion-icon>
-          No
-        </div>
-      </div>
-    </ng-template>
   </ng-template>
 </div>
+<ng-template #confirmDelete>
+  <div class="footer">
+    <div class="footerDiv">
+      Are you sure?
+    </div>
+    <div (click)="delete.emit()" class="footerDiv dangerColor">
+      <ion-icon class="footerIcon dangerColor" name="checkmark-circle-outline"></ion-icon>
+      Yes
+    </div>
+    <div (click)="cancelDelete()" class="footerDiv primColor">
+      <ion-icon class="footerIcon" name="close-circle-outline"></ion-icon>
+      No
+    </div>
+    <ion-icon class="footerIcon dangerColor" name="checkmark-circle-outline"></ion-icon>
+    Yes
+  </div>
+  <div (click)="delClicked = false" class="footerDiv primColor">
+    <ion-icon class="footerIcon" name="close-circle-outline"></ion-icon>
+    No
+  </div>
+</ng-template>

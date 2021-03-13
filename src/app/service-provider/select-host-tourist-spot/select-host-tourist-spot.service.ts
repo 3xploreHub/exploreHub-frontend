@@ -10,7 +10,7 @@ export class SelectHostTouristSpotService {
 
   constructor( private http: HttpClient) { }
 
-  retreiveAllTouristSpotCategories() {
-    return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
-  }
+  // retreiveAllTouristSpotCategories() {
+  //   return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
+  // }
 }

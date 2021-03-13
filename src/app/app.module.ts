@@ -61,6 +61,7 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
     PhotoDisplayComponent,
     LabelledTextDisplayComponent,
     ItemDisplayComponent,
+    ItemDisplayComponent,
     ItemListDisplayComponent,
     PhotoStyleComponent,
     PhotoSlideViewComponent,

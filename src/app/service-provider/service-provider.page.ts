@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TouristSpotPage } from '../modules/elementTools/interfaces/tourist-spot-page';
 import { PageCreatorService } from '../modules/page-creator/page-creator-service/page-creator.service';
+import { AuthService } from './../Services/auth-services/auth-service.service';
 
 @Component({
   selector: 'app-service-provider',
@@ -10,7 +11,7 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
 })
 export class ServiceProviderPage implements OnInit {
   
-  constructor(public router: Router,public creator: PageCreatorService) { }
+  constructor(public router: Router,public creator: PageCreatorService, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -31,5 +32,9 @@ export class ServiceProviderPage implements OnInit {
     )
   }
 
+  logout() {
+    this.authService.logOut();
+    this.router.navigate(["/login"]);
+  }
 
 }

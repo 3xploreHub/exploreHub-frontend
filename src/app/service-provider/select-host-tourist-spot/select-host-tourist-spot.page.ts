@@ -132,7 +132,7 @@ export class SelectHostTouristSpotPage implements OnInit {
     this.getAllSpotNames();
 
     this.getAllTouristSpot();
-    this.retreiveAllTouristSpotCategory();
+    // this.retreiveAllTouristSpotCategory();
   }
 
   onKey(event: any) { // without type info
@@ -140,15 +140,15 @@ export class SelectHostTouristSpotPage implements OnInit {
     console.log(this.keyupValues)
   }
 
-  retreiveAllTouristSpotCategory() {
-    return this.selectHostTouristSpotService
-      .retreiveAllTouristSpotCategories()
-      .subscribe((categories) => {
-          console.log("Categories: " +  categories)
-          this.sampleCategory = categories;
-          console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
-      });
-  }
+  // retreiveAllTouristSpotCategory() {
+  //   return this.selectHostTouristSpotService
+  //     .retreiveAllTouristSpotCategories()
+  //     .subscribe((categories) => {
+  //         console.log("Categories: " +  categories)
+  //         this.sampleCategory = categories;
+  //         console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
+  //     });
+  // }
 
   getAllTouristSpot() {
     for(var i = 0; i<this.spots.length; i++) {

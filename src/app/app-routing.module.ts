@@ -9,6 +9,24 @@ import { AddAccountInfoGuard } from "./services-common-helper/route-guards/add-a
 
 const routes: Routes = [
   {
+    path: "tourist",
+    loadChildren: () =>
+      import("./tourist/tourist.module").then((m) => m.TouristPageModule),
+      canActivate: [AuthGuard],
+      data: {
+        expectedUser: "Tourist"
+      }
+  },
+  {
+    path: "service-provider",
+    loadChildren: () =>
+      import("./service-provider/service-provider.module").then((m) => m.ServiceProviderPageModule),
+      canActivate: [AuthGuard],
+      data: {
+        expectedUser: "Service Provider"
+      }
+  },
+  {
     path: "",
     redirectTo: "login",
     pathMatch: "full",
