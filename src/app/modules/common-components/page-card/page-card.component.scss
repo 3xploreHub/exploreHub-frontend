@@ -1,9 +1,14 @@
 @import "../../../../variables.scss";
 .pageCard {
-    padding:10px;
+    padding:7px;
+    height: 180px;
+    background-color: #ffff;
+    margin:7px;
+    border-radius: 4px;
+}
+.pageMain {
     display: flex;
 }
-
 div {
     box-sizing: border-box;
 }
@@ -11,7 +16,7 @@ div {
 .photoHolder {
     background-color: rgb(127, 141, 158);
     border-radius: 5px;
-    height: 100px;
+    height: 106px;
     width:130px;
     box-sizing: 4px;
     overflow: hidden;
@@ -46,15 +51,16 @@ div {
 
 }
 .pageInfo {
+    height: 106px;
+    overflow:hidden;
     position: relative;
     padding:5px;
-    padding-bottom: 15px;
     width: 100%;
 
     .title {
-        font-size: 15px;
+        font-size: 14px;
         margin:3px;
-        height: 19px;
+        // max-height: 35px;
         font-weight: bold;
         width: 100%;
         color: $mediumLight;
@@ -63,7 +69,7 @@ div {
     }
 
     .description {
-        color:gray;
+        color:rgb(140, 147, 151);
         margin: 3px;
         max-height: 48px;
         overflow: hidden;

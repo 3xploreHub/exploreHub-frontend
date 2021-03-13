@@ -14,7 +14,9 @@ export class PageCardComponent implements OnInit {
   ngOnInit() {}
 
   view() {
-    this.viewPage.emit(this.page._id);
+    setTimeout(() => {
+      this.viewPage.emit(this.page._id);
+    }, 100);
   }
 
 }
