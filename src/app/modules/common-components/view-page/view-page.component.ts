@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { Page } from '../../elementTools/interfaces/page';
@@ -23,6 +23,7 @@ export class ViewPageComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
+  @Output() viewItem: EventEmitter<any> = new EventEmitter();
   @Input() page: Page;
   boxPosition: number;
   components = {
@@ -40,6 +41,7 @@ export class ViewPageComponent implements OnInit {
     public mainService: MainServicesService,
     public componentFactoryResolver: ComponentFactoryResolver,
     public route: ActivatedRoute,
+    public router: Router,
     public creator: PageCreatorService) { }
 
   ngOnInit() {
@@ -110,6 +112,9 @@ export class ViewPageComponent implements OnInit {
       comp.instance.values = componentValues.unSaved ? null : componentValues;
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
+      comp.instance.emitEvent = new EventEmitter();
+      comp.instance.emitEvent.subscribe(data => this.viewItem.emit(data))
     }
   }
+
 }

@@ -32,4 +32,8 @@ export class ViewPagePage implements OnInit {
     // this.pageView.onScroll(event, info, services, div)
   }
 
+  viewItem(data) {
+    this.router.navigate(["/service-provider/view-item", data.serviceId, data.itemId])
+  }
+
 }

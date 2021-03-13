@@ -9,6 +9,6 @@
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, tab)">
   <div class="pageCont">
-    <app-view-page-component [page]="page"></app-view-page-component>
+    <app-view-page-component [page]="page" (viewItem)="viewItem($event)"></app-view-page-component>
   </div>
 </ion-content>

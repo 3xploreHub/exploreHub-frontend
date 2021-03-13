@@ -71,6 +71,6 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   itemClicked() {
-    this.emitEvent.emit("test");
+    this.emitEvent.emit(this.values._id);
   }
 }

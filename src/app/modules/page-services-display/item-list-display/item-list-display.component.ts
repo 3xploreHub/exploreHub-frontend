@@ -18,6 +18,7 @@ export class ItemListDisplayComponent implements OnInit {
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @Output() onRender: EventEmitter<any> = new EventEmitter();
+  @Output() emitEvent: EventEmitter<any> =  new EventEmitter();
 
   components = {
     'item': ItemDisplayComponent,
@@ -61,8 +62,7 @@ export class ItemListDisplayComponent implements OnInit {
         comp.instance.parentId = this.values._id;
         comp.instance.parent = parent;
         comp.instance.emitEvent = new EventEmitter();
-        comp.instance.emitEvent.subscribe(val => alert(val))
-
+        comp.instance.emitEvent.subscribe(itemId => this.emitEvent.emit({itemId: itemId, serviceId: this.values._id}));
       }
     }
   }

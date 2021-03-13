@@ -52,15 +52,16 @@ const routes: Routes = [
         loadChildren: () => import('./view-page/view-page.module').then( m => m.ViewPagePageModule)
       },
       {
+        path: 'view-item/:serviceId/:itemId',
+        loadChildren: () => import('./view-item/view-item.module').then( m => m.ViewItemPageModule)
+      },
+      {
         path:'',
         redirectTo:'/service-provider/select-page-type'
       },
     ]
   },
-  {
-    path: 'view-item',
-    loadChildren: () => import('./view-item/view-item.module').then( m => m.ViewItemPageModule)
-  },
+ 
  
  
   

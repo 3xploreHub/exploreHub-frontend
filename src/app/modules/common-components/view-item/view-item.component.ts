@@ -1,4 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
@@ -31,7 +32,8 @@ export class ViewItemComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-    public creator: PageCreatorService
+    public creator: PageCreatorService,
+    public route: ActivatedRoute
   ) {
     this.values = {
       data: [],
@@ -43,28 +45,33 @@ export class ViewItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      if (this.values.data.length > 0) {
-        this.setPage(this.values.data)
-      }
-    }, 400);
+    this.route.paramMap.subscribe(params => {
+      const serviceId = params.get('serviceId'); 
+      const itemId = params.get('itemId'); 
+
+    })
+    // setTimeout(() => {
+    //   if (this.values.data.length > 0) {
+    //     this.setPage(this.values.data)
+    //   }
+    // }, 400);
   }
 
-  setPage(component) {
-    setTimeout(() => {
-      component.forEach((component: any) => {
-        this.renderComponent(component.type, component)
-      })
-    }, 500);
-  }
+  // setPage(component) {
+  //   setTimeout(() => {
+  //     component.forEach((component: any) => {
+  //       this.renderComponent(component.type, component)
+  //     })
+  //   }, 500);
+  // }
 
-  renderComponent(componentName: string, componentValues: any) {
-    if (componentName) {
-      const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageElement.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component"
-    }
-  }
+  // renderComponent(componentName: string, componentValues: any) {
+  //   if (componentName) {
+  //     const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
+  //     const comp = this.pageElement.createComponent<ElementComponent>(factory);
+  //     comp.instance.values = componentValues;
+  //     comp.instance.parentId = this.values._id;
+  //     comp.instance.parent = "component"
+  //   }
+  // }
 }
