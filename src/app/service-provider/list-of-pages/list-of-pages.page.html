@@ -4,11 +4,17 @@
     <ion-menu-button content-id="main-content"></ion-menu-button>
   </ion-buttons>
  
-    <ion-title>{{pagesStatus == 'submitted' ? 'Pages': 'Drafts'}}</ion-title>
+    <ion-title>{{pagesStatus == 'submitted' ? 'My Pages': 'Drafts'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="outerWrapper lightBackground">
+    <div class="empty" *ngIf="pages.length == 0">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
     <div class="list">
 
       <div class="page ion-activatable ripple-parent boxShadowed3" *ngFor="let page of pages" (click)="goToDashBoard(page)">

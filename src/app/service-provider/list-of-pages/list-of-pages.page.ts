@@ -10,7 +10,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
   styleUrls: ['./list-of-pages.page.scss'],
 })
 export class ListOfPagesPage implements OnInit {
-  public pages: Page[];
+  public pages: Page[] =[];
   public pagesStatus: string;
   constructor(
     public router: Router,
