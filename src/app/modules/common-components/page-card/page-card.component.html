@@ -15,8 +15,24 @@
     </div>
   </div>
   <div class="spotInfo">
+    <div class="infos">
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        {{page.components[2].data.text+", "+page.components[3].data.text+", "+page.components[4].data.text}}
+      </div>
+    </div>
     <div class="cardFooter">
-      
+      <div class="ratings">
+        <span>100 tourists visited</span>
+        <div class="stars">
+
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+      </div>
     </div>
   </div>
   <ion-ripple-effect></ion-ripple-effect>

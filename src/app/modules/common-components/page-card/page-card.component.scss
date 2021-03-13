@@ -1,9 +1,9 @@
 @import "../../../../variables.scss";
 .pageCard {
     padding:7px;
-    height: 180px;
+    // height: 180px;
     background-color: #ffff;
-    margin:7px;
+    margin:10px 7px;
     border-radius: 4px;
 }
 .pageMain {
@@ -51,7 +51,7 @@ div {
 
 }
 .pageInfo {
-    height: 106px;
+    height: 104px;
     overflow:hidden;
     position: relative;
     padding:5px;
@@ -71,8 +71,56 @@ div {
     .description {
         color:rgb(140, 147, 151);
         margin: 3px;
-        max-height: 48px;
+        // max-height: 48px;
         overflow: hidden;
         font-size: 13px;
+    }
+}
+
+.spotInfo {
+    // position: relative;
+    // height: 70px;
+
+    .infos {
+        padding:8px 0;
+        font-size: 15px;
+        border-bottom: 1px solid rgb(232, 238, 245);
+        margin-bottom: 5px;
+        color: rgb(97, 111, 126);
+        .location {
+            ion-icon {
+                font-size: 16px !important;
+            }
+        }
+    }
+    
+    .cardFooter {
+        bottom: 0;
+        width: 100%;
+        // position: absolute; 
+        // right: 0;
+
+        .ratings {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                font-size: 13px !important;
+                color:rgb(132, 152, 172);
+            }
+
+            .stars {
+                ion-icon {
+                    color:rgb(219, 168, 0);
+                    margin:0 1px;
+                    font-size: 16px !important;
+                }
+
+                .filledStar {
+                    color:rgb(223, 171, 0);
+                }
+            }
+        }
     }
 }
