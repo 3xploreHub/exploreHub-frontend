@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
@@ -9,18 +9,17 @@ import { PhotoDisplayComponent } from '../../page-elements-display/photo-display
 import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
 
 @Component({
-  selector: 'app-item-display',
-  templateUrl: './item-display.component.html',
-  styleUrls: ['./item-display.component.scss'],
+  selector: 'app-view-item-component',
+  templateUrl: './view-item.component.html',
+  styleUrls: ['./view-item.component.scss'],
 })
-export class ItemDisplayComponent implements OnInit {
+export class ViewItemComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
-  @Input() values: ElementValues;
-  @Input() parentId: string;
-  @Input() onEditing: boolean = false;
-  @Output() onClick: EventEmitter<any>  = new EventEmitter();
-  @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
-  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
+  public values:ElementValues;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
 
   components = {
     'text': TextDisplayComponent,
@@ -57,7 +56,6 @@ export class ItemDisplayComponent implements OnInit {
         this.renderComponent(component.type, component)
       })
     }, 500);
-
   }
 
   renderComponent(componentName: string, componentValues: any) {
@@ -66,11 +64,7 @@ export class ItemDisplayComponent implements OnInit {
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component";
+      comp.instance.parent = "component"
     }
-  }
-
-  itemClicked() {
-    this.emitEvent.emit("test");
   }
 }

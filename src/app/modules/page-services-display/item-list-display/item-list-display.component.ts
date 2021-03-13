@@ -60,6 +60,9 @@ export class ItemListDisplayComponent implements OnInit {
         comp.instance.values = componentValues;
         comp.instance.parentId = this.values._id;
         comp.instance.parent = parent;
+        comp.instance.emitEvent = new EventEmitter();
+        comp.instance.emitEvent.subscribe(val => alert(val))
+
       }
     }
   }

@@ -57,6 +57,10 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'view-item',
+    loadChildren: () => import('./view-item/view-item.module').then( m => m.ViewItemPageModule)
+  },
  
  
   

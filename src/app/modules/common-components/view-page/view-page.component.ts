@@ -112,9 +112,4 @@ export class ViewPageComponent implements OnInit {
       comp.instance.parent = parent;
     }
   }
-
-  scrolll(e) {
-    console.log(e);
-    
-  }
 }

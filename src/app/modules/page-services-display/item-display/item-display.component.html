@@ -1,9 +1,8 @@
-<div #item (click)="itemClicked()" class="itemWrapper boxShadowed ion-activatable ripple-parent">
+<div #item (click)="itemClicked()" class="itemWrapper boxShadowed">
   <ng-template #pageElement></ng-template>
   <div class="footerDiv">
     <div class="btnStyle seeMore">
       See More
     </div>
   </div>
-  <ion-ripple-effect *ngIf="creator.preview"></ion-ripple-effect>
 </div>
