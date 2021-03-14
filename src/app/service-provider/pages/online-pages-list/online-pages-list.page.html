@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper mainLightBg">
-    <app-online-pages (viewPage)="viewPage($event)"></app-online-pages>
-  </div>
+    <div class="wrapper mainLightBg">
+      <div class="pagesCont">
+        <app-page-card *ngFor="let page of pages" (viewPage)="viewPage($event)" [page]="page"></app-page-card>
+      </div>
+    </div>
 </ion-content>

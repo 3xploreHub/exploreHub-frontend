@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -17,6 +18,10 @@ import { TextDisplayComponent } from '../../page-elements-display/text-display/t
 export class ViewItemComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   public values:ElementValues;
+  public serviceId: string;
+  public itemId: string;
+  public pageId: string;
+  public pageType: string;
   slideOpts = {
     initialSlide: 0,
     speed: 400
@@ -33,7 +38,8 @@ export class ViewItemComponent implements OnInit {
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public mainService: MainServicesService
   ) {
     this.values = {
       data: [],
@@ -45,11 +51,7 @@ export class ViewItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const serviceId = params.get('serviceId'); 
-      const itemId = params.get('itemId'); 
-
-    })
+    
     // setTimeout(() => {
     //   if (this.values.data.length > 0) {
     //     this.setPage(this.values.data)

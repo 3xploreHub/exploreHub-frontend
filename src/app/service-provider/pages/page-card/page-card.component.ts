@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Page } from '../../elementTools/interfaces/page';
+import { Page } from '../../../modules/elementTools/interfaces/page';
 
 @Component({
   selector: 'app-page-card',

@@ -70,9 +70,11 @@ export class PageCreatorComponent implements OnInit {
       this.creator.preview = false;
       this.page = page;
       this.creator.currentPageId = this.page._id;
+
       this.page.components.forEach((component: any) => {
         this.renderComponent(this.pageElement, component, "page")
       })
+
       this.page.services.forEach((component: any) => {
         this.renderComponent(this.pageService, component, "page")
       })

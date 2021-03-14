@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 export class MainServicesService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPage: Page;
-  public pageId: string;
-  public pageType: string;
 
   constructor(
     private http: HttpClient
@@ -33,5 +31,10 @@ export class MainServicesService {
 
   viewPage(pageId) {
     return this.http.get(`${this.apiUrl}/viewPage/${pageId}`)
+  }
+
+  viewItems(params: any) {
+    const { pageId, serviceId, pageType} = params;
+    return this.http.get(`${this.apiUrl}/viewItems/${pageId}/${serviceId}/${pageType}`)
   }
 }

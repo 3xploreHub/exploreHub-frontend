@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Page } from 'src/app/modules/elementTools/interfaces/page';
+import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
   selector: 'app-online-pages-list',
@@ -7,10 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./online-pages-list.page.scss'],
 })
 export class OnlinePagesListPage implements OnInit {
-
-  constructor(public router: Router) { }
+  public pages: Page[];
+  constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
+    this.mainService.getOnlinePages().subscribe(
+      (response: Page[]) => {
+        this.pages = response;
+      }
+    )
   }
 
   viewPage(pageId) {

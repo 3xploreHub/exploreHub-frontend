@@ -45,15 +45,15 @@ const routes: Routes = [
       },
       {
         path: 'online-pages-list',
-        loadChildren: () => import('./online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
+        loadChildren: () => import('./pages/online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
       },
       {
         path: 'view-page/:pageId',
-        loadChildren: () => import('./view-page/view-page.module').then( m => m.ViewPagePageModule)
+        loadChildren: () => import('./pages/view-page/view-page.module').then( m => m.ViewPagePageModule)
       },
       {
-        path: 'view-item/:serviceId/:itemId',
-        loadChildren: () => import('./view-item/view-item.module').then( m => m.ViewItemPageModule)
+        path: 'view-item/:pageId/:serviceId/:itemId/:pageType',
+        loadChildren: () => import('./pages/view-item/view-item.module').then( m => m.ViewItemPageModule)
       },
       {
         path:'',

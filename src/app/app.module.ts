@@ -44,7 +44,7 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
 import { BoardPage } from "./service-provider/dashboard/board/board.page";
 import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
 import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
-import { PageCardComponent } from "./modules/common-components/page-card/page-card.component";
+import { PageCardComponent } from "./service-provider/pages/page-card/page-card.component";
 import { OnlinePagesComponent } from "./modules/common-components/online-pages/online-pages.component";
 
 @NgModule({

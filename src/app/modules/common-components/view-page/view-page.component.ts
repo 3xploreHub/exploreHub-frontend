@@ -25,7 +25,8 @@ export class ViewPageComponent implements OnInit {
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   @Output() viewItem: EventEmitter<any> = new EventEmitter();
   @Input() page: Page;
-  boxPosition: number;
+  public boxPosition: number;
+  public pageType: string;
   components = {
     'text': TextDisplayComponent,
     'bullet-form-text': BulletFormTextDisplayComponent,
@@ -50,7 +51,8 @@ export class ViewPageComponent implements OnInit {
   setPage(page, pageType) {
     this.pageElement.clear()
     this.pageService.clear();
-    this.pageInputField.clear()
+    this.pageInputField.clear();
+    this.pageType = page.hostTouristSpot? 'service': 'tourist_spot'
     setTimeout(() => {
 
       this.creator.pageType = pageType;
@@ -113,7 +115,7 @@ export class ViewPageComponent implements OnInit {
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
       comp.instance.emitEvent = new EventEmitter();
-      comp.instance.emitEvent.subscribe(data => this.viewItem.emit(data))
+      comp.instance.emitEvent.subscribe(data => this.viewItem.emit({...data, pageType: this.pageType}))
     }
   }
 
