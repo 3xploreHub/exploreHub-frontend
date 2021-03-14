@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tourist Spots</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="wrapper mainLightBg">
+      <div class="pagesCont">
+        <app-page-card *ngFor="let page of pages" (viewPage)="viewPage($event)" [page]="page"></app-page-card>
+      </div>
+    </div>
+</ion-content>

@@ -1,6 +1,6 @@
 <div *ngIf="!values.data.selectMultiple; else multiple" [class.hasError]="hasError" class="textInputHolder">
   <ion-label>{{values.data.label}}</ion-label>
-  <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent" type="selected">
+  <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent">
     {{selected}}
     <ion-ripple-effect *ngIf="creator.preview"  type="unbounded"></ion-ripple-effect>
   </div>

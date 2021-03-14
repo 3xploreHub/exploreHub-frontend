@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { doesNotReject } from 'assert';
 import { filter } from 'rxjs/operators';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
@@ -25,7 +25,7 @@ export class TextComponent implements OnInit {
   public clickOtherFunction: boolean = false;
   public pending: boolean = false;
 
-  constructor(public creator: PageCreatorService, public alert: AlertController) {
+  constructor(public creator: PageCreatorService,public toastController: ToastController, public alert: AlertController) {
     this.footerData = {
       done: false,
       deleted: false,
@@ -167,6 +167,15 @@ export class TextComponent implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
   }
 
 }

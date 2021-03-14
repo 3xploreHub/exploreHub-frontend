@@ -6,6 +6,7 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
@@ -31,6 +32,7 @@ export class ItemComponent implements OnInit {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
+    'bullet-form-text': BulletFormTextComponent,
   }
 
   constructor(
@@ -71,11 +73,23 @@ export class ItemComponent implements OnInit {
   async showComponentList() {
     const modal = await this.modalController.create({
       component: PageElementListComponent,
-      cssClass: 'componentListModal'
+      cssClass: 'componentListModal',
+      componentProps: {
+        insideItem: true,
+      }
     });
     const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null, true);
+    let { data } = await modal.onWillDismiss();
+    let values = null
+
+    if (data && data.includes("_")) {
+      const str = data.split("_");
+      let type = str[1];
+      data = str[0];
+      let label = type == "price" ? "Price" : "Quantity";
+      values = { type: "labelled-text", data: { label: label, text: null, defaultName: type, booked: 0 }, styles: [], default: false }
+    }
+    this.renderComponent(data, values, true);
 
     return present;
   }
@@ -123,7 +137,7 @@ export class ItemComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
-        this.passDataToParent.emit({tempId: this.tempId, values: this.values});
+        this.passDataToParent.emit({ tempId: this.tempId, values: this.values });
         this.renderChildren();
       },
       (error) => {

@@ -18,6 +18,7 @@ export class DateInputDisplayComponent implements OnInit {
   date: any
   days = []
   months = []
+  customDaysDisplay = []
   customPickerOptions: any;
 
   constructor(public alert: AlertController, public creator: PageCreatorService) {
@@ -40,7 +41,7 @@ export class DateInputDisplayComponent implements OnInit {
           const day = datepicked.getDay();
           if (this.values.data.customDays.length > 0) {
             if (!this.values.data.customDays.includes(this.allDays[day])) {
-              this.presentAlert("Service is not available every " + this.daysName[day])
+              this.presentAlert("Service is only available every " + this.customDaysDisplay)
               this.date = null;
               return false;
             }
@@ -54,6 +55,13 @@ export class DateInputDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customDaysDisplay = this.values.data.customDays.map(day => {
+      let name = " "+this.daysName[this.allDays.indexOf(day)];
+      if (this.values.data.customDays.indexOf(day) == this.values.data.customDays.length - 1) {
+        name = " and "+name;
+      }
+      return name
+    });
     this.date = this.values.data.defaultValue
     this.years = this.values.data.customYears;
     let defaultYears = []

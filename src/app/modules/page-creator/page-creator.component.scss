@@ -1,5 +1,5 @@
 .addComponentBtn {
-    background-color: dodgerblue;
+    background-color: rgb(10, 122, 233);
     padding:10px 20px;
     border-radius: 3px;
     color:white;
@@ -8,7 +8,7 @@
 }
 
 .creator {
-    margin-bottom: 150px;
+    margin-bottom: 50px;
     padding-top:30px;
     background: #ffff;
     position: relative;
@@ -58,20 +58,26 @@
 
     h4 {
         // margin:5px;
+        font-weight: bold;
         color:rgb(68, 77, 87);
         margin-bottom: 20px;
     }
 }
 
 .servicesSection {
-    background: rgb(232, 243, 243);
+    background: #ffff;
+    border-top: 1px solid lightgray;
     padding: 20px 0;
     padding-bottom: 50px;
 }
 
 .bookingInfoSection {
-    background: rgb(219, 231, 235);
+    background: rgb(227, 235, 247);
+    padding:20px 15px;
 }
+
+   
+
 
 .preview {
     padding: 6px 10px;
@@ -79,7 +85,7 @@
     font-size: 14px;
     
     background-color: none;
-    color: #ffff;
+    color: rgb(171, 213, 245) !important;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -96,9 +102,9 @@
     padding: 6px 10px;
     margin: 5px;
     font-size: 14px;
-    
+    border-radius: 5px;
     background-color: none;
-    color: #ffff;
+    color: rgb(196, 225, 247) !important;
     text-align: center;
     display: flex;
     align-items: center;
@@ -125,6 +131,9 @@
 .menu {
     position: fixed;
     top: 0;
+    left:0;
+    margin:0;
+    height: 40px;
     right:0;
     z-index: 99999;
     display: flex;
@@ -132,7 +141,7 @@
     align-items: center;
     justify-content: space-between;
     width:100%;
-    background-color:rgba(42, 60, 78, .8);
+    background-color:rgb(42, 60, 78);
     color: #ffff;
 }
 
@@ -157,8 +166,7 @@
         justify-content: center;
         position: relative;
         align-items: center;
-
-
+        border-radius: 5px;
     }
 }
 
@@ -202,4 +210,84 @@
             }
         }
     }
+}
+
+
+.csmodal {
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    border-top: 5px solid red;
+    background-color:none;
+    bottom:45px;
+    left: 0;
+    right: 0;
+    z-index: 999999;
+    width: 100%;
+
+    
+
+    .errHeader {
+        padding:15px 10px;
+        background-color: rgb(248, 234, 234);
+        text-align: left;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .closeErr {
+            top:0;
+            right:0;
+            font-size: 50px;
+            color:gray;
+        }
+    }
+
+     .modalCont {
+        
+         display: flex;
+         flex-direction: row;
+         justify-content: space-evenly;
+
+         .holder {
+            margin-top: 5px;
+            padding: 5px 0;
+            text-align: center;
+            
+            .fieldHolder {
+                text-align: center;
+                color:rgb(199, 2, 12);
+                padding:4px 8px;
+                margin:5px 10px;
+                max-height: 200px;
+                overflow: auto;
+
+                .field {
+                    background-color: rgb(247, 208, 208);
+                    border-radius: 4px;
+                    width: 100%;
+                    text-align: center;
+                    padding:5px;
+                    margin: 5px 0;
+                }
+            }
+         }
+         
+     }
+}
+
+.btnHolder {
+    padding:50px 20px;
+    
+    .submitPage {
+        color:#ffff;
+        background-color: rgb(10, 122, 233);
+    }
+}
+
+.submitted {
+    text-align: center;
+    padding:5px;
+    margin:2px;
 }

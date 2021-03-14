@@ -1,18 +1,70 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>service-provider</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-item>
-    <a (click)="goto()">
-      <p>Create service</p>
-    </a>
-  </ion-item>
-  <ion-item>
-    <a [routerLink]="['/service-provider/select-tourist-spot-category']">
-      <p>Create tourist spot</p>
-    </a>
-  </ion-item>
-</ion-content>
+
+<ion-menu side="start" menuId="first" content-id="main-content">
+
+  <ion-content (click)="clickContent($event)">
+    <div class="menu-header-bg"></div>
+    <div class="header-content">
+      <img src="https://p7.hiclipart.com/preview/371/951/717/train-service-brand-train.jpg" alt="">
+      <ion-label>
+        <h2>ExploreHub</h2>
+        <p class="serve">Explore the Wonders of Nature</p>
+      </ion-label>
+    </div>
+    <ion-list lines="none" class="menu-items">
+      <ion-menu-toggle auto-hide="false">
+
+        <ion-item [class.active]="active == 'list-of-pages-submitted'" (click)="gotTo($event, 'list-of-pages', 'submitted')" class="ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <ion-label>My Pages</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+
+        <ion-item  [class.active]="active == ''" (click)="gotTo($event, '')" class="ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label>Create New Page</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+
+        <ion-item [class.active]="active == 'online-pages-list'" (click)="gotTo($event, 'online-pages-list')" class="ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="newspaper-outline"></ion-icon>
+            <ion-label>Online Pages</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+
+        <ion-item [class.active]="active == 'account'" (click)="gotTo($event, 'account')"  class="ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>My Account</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+
+        <ion-item [class.active]="active == 'list-of-pages-unfinished'" (click)="gotTo($event, 'list-of-pages', 'unfinished')" class="ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="file-tray-full-outline"></ion-icon>
+            <ion-label>Drafts</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+
+        <ion-item (click)="gotTo($event)" class="logout ion-activatable ripple-parent">
+          <div>
+            <ion-icon name="log-out-outline"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+      </ion-menu-toggle>
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content" main></ion-router-outlet>

@@ -3,10 +3,10 @@ import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
+import { BulletFormTextDisplayComponent } from '../../page-elements-display/bullet-form-text-display/bullet-form-text-display.component';
 import { LabelledTextDisplayComponent } from '../../page-elements-display/labelled-text-display/labelled-text-display.component';
 import { PhotoDisplayComponent } from '../../page-elements-display/photo-display/photo-display.component';
 import { TextDisplayComponent } from '../../page-elements-display/text-display/text-display.component';
-
 
 @Component({
   selector: 'app-item-display',
@@ -18,12 +18,15 @@ export class ItemDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() onEditing: boolean = false;
+  @Output() onClick: EventEmitter<any>  = new EventEmitter();
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
 
   components = {
     'text': TextDisplayComponent,
     'labelled-text': LabelledTextDisplayComponent,
     'photo': PhotoDisplayComponent,
+    'bullet-form-text': BulletFormTextDisplayComponent,
   }
 
   constructor(
@@ -48,8 +51,6 @@ export class ItemDisplayComponent implements OnInit {
     }, 400);
   }
 
-
-
   setPage(component) {
     setTimeout(() => {
       component.forEach((component: any) => {
@@ -65,7 +66,11 @@ export class ItemDisplayComponent implements OnInit {
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues;
       comp.instance.parentId = this.values._id;
-      comp.instance.parent = "component"
+      comp.instance.parent = "component";
     }
+  }
+
+  itemClicked() {
+    this.emitEvent.emit(this.values._id);
   }
 }

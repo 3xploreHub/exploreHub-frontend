@@ -1,29 +1,54 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else display">
-    <div class="container">
+  <div *ngIf="!footerData.done  && !creator.preview; else display">
+    <div class="container boxShadowed2 mainLightBg">
       <div class="fieldsHolder">
-        
-        <ion-textarea *ngIf="!values.default; else defaultLabel" auto-grow="true" (keyup)="detectTyping()" [readonly]="footerData.saving"
-          [(ngModel)]="values.data.label" class="text" rows="1" (change)="renderText(true)"
-           placeholder="Enter label here">
+
+        <ion-textarea *ngIf="!values.default && !values.data.defaultName; else defaultLabel" auto-grow="true"
+          (keyup)="detectTyping()" [readonly]="footerData.saving" [(ngModel)]="values.data.label" class="text" rows="1"
+          (change)="renderText(true)" placeholder="Enter label here">
         </ion-textarea>
         <ng-template #defaultLabel>
           <p class="defaultLabel">{{values.data.label+":"}}</p>
         </ng-template>
 
-        <ion-textarea auto-grow="true" (change)="renderText(true)" (keyup)="detectTyping()"
-          [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="text" rows="1"
-          placeholder="Enter text here">
-        </ion-textarea>
+        <ion-input type="number"
+          *ngIf="values.data.defaultName && (values.data.defaultName == 'price' || values.data.defaultName == 'quantity'); else textInput"
+          (focusout)="focusOut()" (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
+          [(ngModel)]="values.data.text" class="text"
+          placeholder="{{values.data.defaultName && values.data.defaultName == 'price' ? 'Enter price here': 'Enter quantity here'}}">
+        </ion-input>
+
+        <ng-template #textInput>
+          <ion-textarea auto-grow="true" (focusin)="showDefaults = true" (focusout)="focusOut()"
+            (change)="renderText(true)" (keyup)="detectTyping()" [readonly]="footerData.saving"
+            [(ngModel)]="values.data.text" class="text" rows="1" placeholder="Enter text here">
+          </ion-textarea>
+        </ng-template>
+
+        <div *ngIf="values.data.defaults && values.data.defaults.length > 0 && showDefaults" class="options">
+          <div class="innerHolder">
+            <div class="option ion-activatable ripple-parent" *ngFor="let option of values.data.defaults"
+              (click)="values.data.text = option.name;values.data.referenceId = option._id ;renderText(true)">
+              {{option.name}}
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+            </div>
+            <div class="option otherCategory"><b>Others</b>| Create new category
+            </div>
+          </div>
+        </div>
       </div>
-      <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="clickFooterDone()" (delete)="delete()"></app-element-footer>
+
+      <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="clickFooterDone()"
+        (delete)="delete()"></app-element-footer>
     </div>
   </div>
   <ng-template #display>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview"
+        [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-labelled-text-display  (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-labelled-text-display>
+      <app-labelled-text-display (click)="editField()" [parent]="parent" [values]="values">
+      </app-labelled-text-display>
     </div>
   </ng-template>
 </div>

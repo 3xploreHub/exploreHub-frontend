@@ -15,14 +15,18 @@
         <div class="itemWrapper" (click)="addComponent('text')">
           <div class="itemTitle">Add Text</div>
           <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
+            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
+            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
           </div>
         </div>
 
         <div class="itemWrapper" (click)="addComponent('labelled-text')">
           <div class="itemTitle">Add Labelled Text</div>
           <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
+            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
+            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
           </div>
         </div>
 
@@ -46,8 +50,27 @@
             <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
           </div>
         </div>
+
+        <div class="itemWrapper" [class.hidden]="!insideItem" (click)="addComponent('labelled-text_quantity')">
+          <div class="itemTitle">Add Quantity Info</div>
+          <div class="itemSample paragraph">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
+            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
+            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+          </div>
+        </div>
+
+        <div class="itemWrapper" [class.hidden]="!insideItem" (click)="addComponent('labelled-text_price')">
+          <div class="itemTitle">Add Price Info</div>
+          <div class="itemSample paragraph">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
+            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
+            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="modalFooter">
       <div class="closeModal" (click)="dismiss()">Cancel</div>
     </div>

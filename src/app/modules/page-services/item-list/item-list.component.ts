@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AlertController, IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController, ToastController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
@@ -30,8 +30,9 @@ export class ItemListComponent implements OnInit {
   public items: ElementValues[] = [];
   public newlyAdded: number;
   public deletedItem: string[] = []
+  
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
 
@@ -46,6 +47,7 @@ export class ItemListComponent implements OnInit {
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
+    public toastController: ToastController,
     public alert: AlertController,
   ) {
     this.footerData = {
@@ -236,7 +238,7 @@ export class ItemListComponent implements OnInit {
 
   checkIfHasItems(items, alert = true) {
     let values = [];
-    if (items.length == 1) {
+    if (items.length <= 1) {
       if (alert) {
         this.presentAlert("Please add info about this service")
       }
@@ -260,6 +262,15 @@ export class ItemListComponent implements OnInit {
       } return false;
     }
     return true
+  }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
   }
 
 }

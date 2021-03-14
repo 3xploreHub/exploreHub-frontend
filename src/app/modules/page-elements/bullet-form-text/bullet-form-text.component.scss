@@ -6,7 +6,7 @@
 .inputLabel {
     box-sizing: border-box;
     text-align: left;
-    padding:0 10px;
+    // padding:0 10px;
     margin-top:5px;
     background: #ffff;
     font-size: 18px;
@@ -86,7 +86,8 @@
 .inputChoice {
     padding: 8px;
     margin-top:10px;
-    background-color: lightsteelblue;
+    text-align: left;
+    background-color: rgb(174, 187, 202);
 }
 
 .addChoice {

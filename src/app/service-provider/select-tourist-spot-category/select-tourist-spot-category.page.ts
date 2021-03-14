@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TouristSpotPage } from 'src/app/modules/elementTools/interfaces/tourist-spot-page';
+import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { TouristPage } from 'src/app/tourist/tourist.page';
 
@@ -18,8 +18,8 @@ export class SelectTouristSpotCategoryPage implements OnInit {
 
   createTouristSpotPage() {
     const self = this;
-    this.creator.createTouristSpotPage().subscribe( 
-      (response: TouristSpotPage) => {
+    this.creator.createPage("tourist_spot").subscribe( 
+      (response: Page) => {
         self.router.navigate(["/service-provider/create-tourist-spot-page", response._id])
       },
       (error) => {

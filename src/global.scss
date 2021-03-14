@@ -24,6 +24,8 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "variables.scss";
+
 
 .componentListModal {
     --background: rgba(49, 49, 49, 0.1);
@@ -131,15 +133,112 @@
 }
 
 .bg-light {
-    background-color: rgba(206, 206, 206, 0.2) !important;
+    // background-color: rgba(206, 206, 206, 0.2) !important;
+    background-color: transparent !important;
     // background-color: rgb(209, 217, 224);
 }
 
 .bg-white {
-    background-color: transparent !important;
+    background-color: #ffff !important;
 }
-
+.bg-color {
+    background-color: rgb(240, 244, 248) !important;
+    padding:8px !important;
+}
 .ripple-parent {
     position: relative;
     overflow: hidden;
   }
+
+  .inputField {
+    border: 1px solid rgb(81, 133, 197);
+    border-radius: 4px;
+  }
+
+  input:focus {
+    outline:2px solid rgb(36, 143, 250) !important;
+  }
+
+  textarea:focus {
+    outline:2px solid rgb(36, 143, 250) !important;
+  }
+
+  ion-input {
+      border-radius: 4px;
+  }
+
+  ion-textarea {
+      border-radius: 4px;
+  }
+
+  .btnStyle {
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .lightBackground {
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    background-color: rgb(226, 232, 236) !important;
+  }
+
+
+.onlineBg {
+    color: rgb(0, 214, 0) !important;
+    div {
+        background-color: rgb(0, 214, 0) !important;
+    }
+}
+
+.pendingBg {
+    color: rgb(250, 162, 0) !important;
+    div {
+        background-color: rgb(250, 162, 0) !important;
+    }
+}
+
+.rejectedBg {
+    color: red !important;
+    div {
+        background-color: red !important;
+    }
+}
+
+
+.statusCircle {
+    width:11px;
+    height: 11px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: green;
+}
+
+.boxShadowed {
+    box-shadow: 0px 1px 2px #a3a3a3;
+}
+
+.boxShadowed2 {
+    box-shadow: 0px 1px 2px #747373;
+}
+.boxShadowed3 {
+    box-shadow: 0px 1px 2px #a1a1a1;
+
+}
+.mainLightBg {
+    background-color: rgb(215, 224, 230) !important;
+}
+
+.mainLightBg2 {
+    background-color: rgb(244, 246, 248) !important;
+}
+
+.whiteBg {
+    background-color: #ffff;
+}
+
+.onItemStyle {
+    padding:3px !important;
+    margin:0 !important;
+}
