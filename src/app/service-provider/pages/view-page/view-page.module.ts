@@ -8,6 +8,7 @@ import { ViewPagePageRoutingModule } from './view-page-routing.module';
 
 import { ViewPagePage } from './view-page.page';
 import { ViewPageComponent } from 'src/app/modules/common-components/view-page/view-page.component';
+import { OtherServiceCardComponent } from '../other-service-card/other-service-card.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ViewPageComponent } from 'src/app/modules/common-components/view-page/v
     IonicModule,
     ViewPagePageRoutingModule
   ],
-  declarations: [ViewPagePage, ViewPageComponent]
+  declarations: [ViewPagePage, ViewPageComponent, OtherServiceCardComponent]
 })
 export class ViewPagePageModule {}

@@ -1,0 +1,19 @@
+.card {
+    padding:5px;
+    border-radius: 4px;
+}
+
+.photoHolder {
+    height: 80px;
+    width: 70px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: rgb(113, 139, 160);
+
+    .photo {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}

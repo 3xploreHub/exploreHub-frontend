@@ -2,6 +2,7 @@ import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Outpu
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewPageComponent } from 'src/app/modules/common-components/view-page/view-page.component';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
+import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { BulletFormTextDisplayComponent } from 'src/app/modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component';
@@ -26,6 +27,7 @@ export class ViewPagePage implements OnInit {
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   @Input() page: Page;
   public boxPosition: number;
+  public otherServices: Page[];
   public pageType: string;
   components = {
     'text': TextDisplayComponent,
@@ -49,8 +51,11 @@ export class ViewPagePage implements OnInit {
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
       this.mainService.viewPage(pageId).subscribe(
-        (response: Page) => {
-          this.page = response;
+        (response: any) => {
+          this.page = response.page;
+          this.otherServices = response.otherServices
+          console.log(this.otherServices);
+          
           this.setPage(this.page);
         }
       )

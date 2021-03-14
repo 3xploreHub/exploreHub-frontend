@@ -54,16 +54,13 @@ export class ServiceDetailsComponent implements OnInit {
 
   setPage() {
     setTimeout(() => {
-
       this.pageElement.clear()
-      
-
       if (this.values.type == "item") {
         this.values.data.forEach((component: any) => {
           this.renderComponent(component, "page")
         })
       }
-      
+
     }, 100);
 
   }

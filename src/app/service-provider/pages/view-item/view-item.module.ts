@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ViewItemPageRoutingModule } from './view-item-routing.module';
 
 import { ViewItemPage } from './view-item.page';
-import { ViewItemComponent } from 'src/app/modules/common-components/view-item/view-item.component';
 import { ServiceDetailsComponent } from '../service-details/service-details.component';
 
 @NgModule({
