@@ -8,6 +8,7 @@ import { ViewItemPageRoutingModule } from './view-item-routing.module';
 
 import { ViewItemPage } from './view-item.page';
 import { ViewItemComponent } from 'src/app/modules/common-components/view-item/view-item.component';
+import { ServiceDetailsComponent } from '../service-details/service-details.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ViewItemComponent } from 'src/app/modules/common-components/view-item/v
     IonicModule,
     ViewItemPageRoutingModule
   ],
-  declarations: [ViewItemPage, ViewItemComponent]
+  declarations: [ViewItemPage, ServiceDetailsComponent]
 })
 export class ViewItemPageModule {}

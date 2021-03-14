@@ -1,7 +1,9 @@
 <div *ngIf="!footerData.deleted" class="wrapper">
   <div class="editBox" *ngIf="!footerData.done && !creator.preview">
     <ng-template #listInfo></ng-template>
-    <p class="addComp boxShadowed2" (click)="showComponentList()">Add other info</p>
+    <p class="addComp boxShadowed2 ion-activatable ripple-parent" (click)="showComponentList()">Add other info
+      <ion-ripple-effect></ion-ripple-effect>
+    </p>
 
 
     <div #newItem>
@@ -19,7 +21,9 @@
     </div>
 
     <br>
-    <p class="addComp boxShadowed2" (click)="addItem()">Add new item</p>
+    <p class="addComp boxShadowed2 ion-activatable ripple-parent" (click)="addItem()">Add new item
+      <ion-ripple-effect></ion-ripple-effect>
+    </p>
     <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()">
     </app-element-footer>
   </div>

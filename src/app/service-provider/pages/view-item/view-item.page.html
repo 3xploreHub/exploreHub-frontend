@@ -8,5 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <app-view-item-component></app-view-item-component>
+  <ion-slides #slides [options]="slideOpts">
+    <ion-slide *ngFor="let service of values.data">
+      <app-service-details [values]="service"></app-service-details>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

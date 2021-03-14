@@ -61,13 +61,13 @@ export class ViewPagePage implements OnInit {
     this.pageService.clear();
     this.pageInputField.clear();
     this.pageType = this.page.hostTouristSpot ? 'service' : 'tourist_spot'
+    this.creator.preview = true;
     setTimeout(() => {
       this.page = page;
       const address = this.page.components.splice(2, 3);
       const location = {...address[0], data: {...address[0].data}}
       location.data.text = "";
       location.data.label = "Location"
-      console.log(address);
       
       
       for (let i = 0; i < address.length; i++) {
@@ -79,7 +79,6 @@ export class ViewPagePage implements OnInit {
       }
 
       this.page.components = [...this.page.components.slice(0, 2), location, ...this.page.components.slice(2)]
-      console.log(this.page.components);
       
       this.page.components.forEach((component: any) => {
         this.renderComponent(this.pageElement, component, "page")
@@ -95,11 +94,10 @@ export class ViewPagePage implements OnInit {
 
   }
 
-  onScroll(event, info: HTMLElement, services: HTMLElement, div: HTMLElement) {
-    
+  onScroll(event, info: HTMLElement, services: HTMLElement, bookingInfo: HTMLElement, div: HTMLElement) {
     const width = div.clientWidth;
 
-    const scrolled = event.detail.scrollTop + 100;
+    const scrolled = event.detail.scrollTop + 100;    
 
     if (info.clientHeight >= scrolled) {
       this.boxPosition = 0;
@@ -107,6 +105,7 @@ export class ViewPagePage implements OnInit {
     if (info.clientHeight <= scrolled) {
       this.boxPosition = width;
     }
+
     if ((info.clientHeight + services.clientHeight) <= scrolled) {
       this.boxPosition = width * 2;
     }
@@ -141,6 +140,6 @@ export class ViewPagePage implements OnInit {
   }
 
  viewItem(data) {
-    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, data.pageType])
+    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType])
   }
 }
