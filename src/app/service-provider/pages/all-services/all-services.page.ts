@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -8,7 +9,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './all-services.page.html',
   styleUrls: ['./all-services.page.scss'],
 })
-export class AllServicesPage implements OnInit {
+export class AllServicesPage implements OnInit, ViewWillEnter {
   public services: Page[] = []
   public servicesCategories: any[] = [];
   public categories: any[] = [];
@@ -17,11 +18,13 @@ export class AllServicesPage implements OnInit {
     this.servicesCategories = []
     this.categories = []
    }
-
-  ngOnInit() {
+  ionViewWillEnter() {
     this.services = [];
     this.servicesCategories = []
     this.categories = []
+   }
+  ngOnInit() {
+    
     this.route.paramMap.subscribe(params => {
       const id = params.get('hostId');
       this.mainService.viewAllServices(id).subscribe(

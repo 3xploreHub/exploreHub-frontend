@@ -123,10 +123,14 @@ export class ViewPagePage implements OnInit {
     const width = div.clientWidth;
     switch (tab) {
       case 'booking':
-        this.boxPosition = width * 2;
+        if (this.page.bookingInfo.length > 0) {
+          this.boxPosition = width * 2;
+        }
         break;
       case 'services':
-        this.boxPosition = width;
+        if (this.page.services.length > 0) {
+          this.boxPosition = width;
+        }
         break;
       default:
         this.boxPosition = 0
@@ -157,5 +161,12 @@ export class ViewPagePage implements OnInit {
 
   viewAllServices() {
     this.router.navigate(["/service-provider/all-services", this.page._id])
+  }
+
+  goBack() {
+    let prev = "/service-provider/"
+    prev += this.pageType == "service"? "all-services": "online-pages-list"
+    let route = this.pageType == "service"? [prev, this.page.hostTouristSpot] :[prev]
+    this.router.navigate(route);
   }
 }
