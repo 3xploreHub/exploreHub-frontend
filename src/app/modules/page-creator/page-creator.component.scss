@@ -73,11 +73,14 @@
 
 .bookingInfoSection {
     background: rgb(235, 239, 247);
+    border-bottom: 1px solid rgb(167, 167, 167);
     padding:20px 15px;
-    padding-bottom: 0 !important;
+    padding-bottom: 40px !important;
 }
 
-   
+.bookBtn {
+    
+}
 
 
 .preview {
@@ -291,4 +294,10 @@
     text-align: center;
     padding:5px;
     margin:2px;
+}
+
+.bookBtn {
+    margin-top: 20px;
+    font-size: 15px;
+    padding:13px 30px;
 }

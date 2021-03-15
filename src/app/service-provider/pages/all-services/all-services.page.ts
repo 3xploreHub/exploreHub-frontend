@@ -17,14 +17,15 @@ export class AllServicesPage implements OnInit, ViewWillEnter {
   constructor(public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) {
     this.servicesCategories = []
     this.categories = []
-   }
+  }
+  
   ionViewWillEnter() {
     this.services = [];
     this.servicesCategories = []
     this.categories = []
-   }
+  }
+
   ngOnInit() {
-    
     this.route.paramMap.subscribe(params => {
       const id = params.get('hostId');
       this.mainService.viewAllServices(id).subscribe(
@@ -50,7 +51,7 @@ export class AllServicesPage implements OnInit, ViewWillEnter {
             })
             this.servicesCategories.push(group);
           })
-          
+
         }
       )
     })

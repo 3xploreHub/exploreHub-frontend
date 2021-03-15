@@ -16,11 +16,12 @@
     overflow-y:scroll;
 }
 .otherOptions {
-    background-color: rgb(233, 238, 241);
-    margin-top:50px;
+    background-color: rgb(244, 246, 248);
+    border-top:2px solid #ffff;
+    // margin-top:50px;
 }
 .servicesHeader {
-    background-color:rgb(229, 235, 240);
+    background-color:rgb(244, 246, 248);
     border-bottom: 1px solid lightsteelblue;
     padding:10px;
     margin:0;
@@ -55,3 +56,8 @@
         color: rgb(1, 125, 248);
     }
 }
+
+.bookBtnCont {
+    text-align: right;
+}
+
