@@ -25,7 +25,7 @@ export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
-  @Input() page: Page;
+  @Input() page: Page = {_id: "", status: "", components: [], services: [],  bookingInfo: [], creator: "", hostTouristSpot: ""}
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -45,7 +45,8 @@ export class ViewPagePage implements OnInit {
     public componentFactoryResolver: ComponentFactoryResolver,
     public route: ActivatedRoute,
     public router: Router,
-    public creator: PageCreatorService) { }
+    public creator: PageCreatorService) {
+     }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -63,9 +64,9 @@ export class ViewPagePage implements OnInit {
     })
   }
   setPage(page) {
-    this.pageElement.clear()
-    this.pageService.clear();
-    this.pageInputField.clear();
+    if (this.pageElement) this.pageElement.clear()
+    if (this.pageService) this.pageService.clear();
+    if (this.pageInputField) this.pageInputField.clear();
     this.pageType = this.page.hostTouristSpot ? 'service' : 'tourist_spot'
     this.creator.preview = true;
     setTimeout(() => {
@@ -103,16 +104,17 @@ export class ViewPagePage implements OnInit {
   onScroll(event, info: HTMLElement, services: HTMLElement, bookingInfo: HTMLElement, div: HTMLElement) {
     const width = div.clientWidth;
 
+
     const scrolled = event.detail.scrollTop + 100;    
 
-    if (info.clientHeight >= scrolled) {
+    if (info && info.clientHeight >= scrolled) {
       this.boxPosition = 0;
     }
-    if (info.clientHeight <= scrolled) {
+    if (info && info.clientHeight <= scrolled) {
       this.boxPosition = width;
     }
 
-    if ((info.clientHeight + services.clientHeight) <= scrolled) {
+    if (info && services && (info.clientHeight + services.clientHeight) <= scrolled) {
       this.boxPosition = width * 2;
     }
   }
@@ -134,7 +136,7 @@ export class ViewPagePage implements OnInit {
   }
 
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {
-    if (componentValues.type) {
+    if (componentValues.type && type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
       const comp = type.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues.unSaved ? null : componentValues;
@@ -151,5 +153,9 @@ export class ViewPagePage implements OnInit {
 
   viewService(serviceId) {
     this.router.navigate(["/service-provider/view-page", serviceId, "service"])
+  }
+
+  viewAllServices() {
+    this.router.navigate(["/service-provider/all-services", this.page._id])
   }
 }

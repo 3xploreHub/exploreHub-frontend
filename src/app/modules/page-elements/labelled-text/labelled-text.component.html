@@ -25,9 +25,9 @@
           </ion-textarea>
         </ng-template>
 
-        <div *ngIf="values.data.defaults && values.data.defaults.length > 0 && showDefaults" class="options">
+        <div *ngIf="defaults && defaults.length > 0 && showDefaults" class="options">
           <div class="innerHolder">
-            <div class="option ion-activatable ripple-parent" *ngFor="let option of values.data.defaults"
+            <div class="option ion-activatable ripple-parent" *ngFor="let option of defaults"
               (click)="values.data.text = option.name;values.data.referenceId = option._id ;renderText(true)">
               {{option.name}}
               <ion-ripple-effect type="unbounded"></ion-ripple-effect>

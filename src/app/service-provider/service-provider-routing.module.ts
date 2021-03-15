@@ -56,15 +56,16 @@ const routes: Routes = [
         loadChildren: () => import('./pages/view-item/view-item.module').then( m => m.ViewItemPageModule)
       },
       {
+        path: 'all-services/:hostId',
+        loadChildren: () => import('./pages/all-services/all-services.module').then( m => m.AllServicesPageModule)
+      },
+      {
         path:'',
         redirectTo:'/service-provider/select-page-type'
       },
     ]
   },
-  {
-    path: 'all-services',
-    loadChildren: () => import('./pages/all-services/all-services.module').then( m => m.AllServicesPageModule)
-  },
+ 
 ];
 
 @NgModule({

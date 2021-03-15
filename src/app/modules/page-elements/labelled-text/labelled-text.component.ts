@@ -16,6 +16,7 @@ export class LabelledTextComponent implements OnInit {
   @Input() grandParentId: string;
   public footerData: FooterData;
   public lastValue: string = null;
+  public defaults: any[];
   public hasChanges: boolean = false;
   public clickedDone: boolean = false;
   public pending: boolean = false;
@@ -46,6 +47,13 @@ export class LabelledTextComponent implements OnInit {
       this.footerData.hasValue = data.text && data.label ? true : false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
+      if (this.values.data.defaultName && this.values.data.defaultName == "category") {
+        this.creator.getDefaultCategories().subscribe(
+          (response: any[]) => {
+            this.defaults = response;
+          }
+        )
+      }
     } else {
       if (!this.values) {
         this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null, defaults: null, referenceId: null }, default: false };

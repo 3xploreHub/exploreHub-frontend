@@ -37,4 +37,8 @@ export class MainServicesService {
     const { pageId, serviceId, pageType} = params;
     return this.http.get(`${this.apiUrl}/viewItems/${pageId}/${serviceId}/${pageType}`)
   }
+
+  viewAllServices(pageId ) {
+    return this.http.get(`${this.apiUrl}/viewAllServices/${pageId}`)
+  }
 }

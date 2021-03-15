@@ -187,6 +187,10 @@ export class PageCreatorService {
      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
   }
 
+  getDefaultCategories() {
+    return this.http.get(`${this.apiUrl}/getDefaultCategories/${this.pageType}`)
+  }
+
   submitPage() {
     return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, null)
   }

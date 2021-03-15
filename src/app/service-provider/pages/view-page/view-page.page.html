@@ -14,7 +14,7 @@
       </div>
 
 
-      <div #services class="servicesSection">
+      <div #services *ngIf="page.services.lenght > 0" class="servicesSection">
         <div class="divider">
           <h4>Services And Offers</h4>
         </div>
@@ -22,7 +22,7 @@
       </div>
 
 
-      <div #booking class="servicesSection bookingInfoSection">
+      <div #booking *ngIf="page.bookingInfo.length > 0" class="servicesSection bookingInfoSection">
         <div class="divider">
           <h4>Book Now</h4>
         </div>
@@ -57,7 +57,7 @@
           <p class="Title">Other Services in the Area</p>
           <p class="infoText">Services offered by other individual near this tourist spot.</p>
         </div>
-        <div class="seeMore" *ngIf="otherServices.length > 5">See All</div>
+        <div class="seeMore" (click)="viewAllServices()" *ngIf="otherServices.length > 5">See All</div>
         <div class="otherServices">
           <app-other-service-card *ngFor="let service of otherServices" (viewService)="viewService($event)" [service]="service"></app-other-service-card>
         </div>
