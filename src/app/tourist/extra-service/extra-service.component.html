@@ -1,0 +1,34 @@
+<div>
+    <h2>Avail Extra Service</h2>
+    <ion-grid>
+        <!-- <div *ngFor="let item of extraServiceArray"> -->
+        <ion-row class="list">
+            <ion-col size="4">
+                <div>
+                    <img src="../../../assets/family.jpg" alt="">
+                </div>
+            </ion-col>
+            <ion-col size="5">
+                <div>
+                    <ion-label>{{ item.typeOfExtraService }}</ion-label>
+                    <p>&#8369;{{ item.price }}</p>
+                </div>
+            </ion-col>
+            <ion-col size="3">
+                <div class="select">
+                    <ion-label>Add</ion-label>
+                </div>
+            </ion-col>
+        </ion-row>
+        <!-- </div> -->
+    </ion-grid>
+    <div>
+        <div class="cancel">
+            <ion-label color="danger">Cancel</ion-label>
+        </div>
+        <ion-button (click)="dismiss()" class="button" color="secondary" size="small">
+            Next
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+    </div>
+</div>

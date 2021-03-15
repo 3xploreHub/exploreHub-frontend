@@ -21,7 +21,7 @@ export class SelectHostTouristSpotService implements OnInit {
   }
 
 
-  retreiveAllTouristSpotCategories() {
-    return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
-  }
+  // retreiveAllTouristSpotCategories() {
+  //   return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
+  // }
 }

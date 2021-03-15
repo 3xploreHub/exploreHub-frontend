@@ -182,6 +182,9 @@ export class PageCreatorService {
     return this.http.get(`${this.apiUrl}/retrievePage/${id}/${pageType}`)
   }
 
+  retrieveToristSpotPage(id) {
+    return this.http.get(`${this.apiUrl}/retrieveToristSpotPage/${id}`)
+  }
 
   retrieveAllTouristSpotsPage() {
      return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);

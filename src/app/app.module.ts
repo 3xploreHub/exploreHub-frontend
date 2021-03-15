@@ -66,6 +66,7 @@ import { OnlinePagesComponent } from "./modules/common-components/online-pages/o
     PhotoDisplayComponent,
     LabelledTextDisplayComponent,
     ItemDisplayComponent,
+    ItemDisplayComponent,
     ItemListDisplayComponent,
     PhotoStyleComponent,
     PhotoSlideViewComponent,

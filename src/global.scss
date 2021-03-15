@@ -26,6 +26,27 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "variables.scss";
 
+$primary: #0000ff;
+$secondary: #3dc2ff;
+$default: #808080;
+$success: #008000;
+$danger: #eb445a;
+$warning: #ffa500;
+$info: #00ffff;
+$light: #ffffff;
+$dark: #000000;
+$strong-red: #c0392b;
+$absolute: absolute;
+$relative: relative;
+$fixed: fixed;
+$static: static;
+$sticky: sticky;
+$center: center;
+$auto: auto;
+$flex: flex;
+$column: column;
+$none: none;
+$solid: solid;
 
 .componentListModal {
     --background: rgba(49, 49, 49, 0.1);

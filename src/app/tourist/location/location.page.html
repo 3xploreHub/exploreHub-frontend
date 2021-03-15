@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="secondary">
+        <ion-title>Location</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button [routerLink]="['/tourist/tourist-spots']"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <input style="width: 100%; height: 50px" type="text" id="pac-input" value="Moalboal, Cebu" class="controls" placeholder="Search Location">
+    <!-- value="{{location}}" -->
+    <div #map id="maps" style="height: 700px; width: 1000px;"></div>
+</ion-content>

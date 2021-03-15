@@ -1,0 +1,69 @@
+<ion-header [translucent]="false">
+    <ion-toolbar color="secondary">
+        <ion-title class="header">Account Settings</ion-title>
+        <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()"></ion-icon>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile">
+                <div id="additional-div">
+                    <ion-icon (click)="editAccountInfo()" name="create-outline"></ion-icon>
+                </div>
+                <div class="profile-pic-container">
+                    <img id="profile-pic" [src]="url ? url : 'https://bit.ly/2Ow0Wip'">
+                </div>
+                <h3 class="fullname"><b>Romeo Guardiario Lenizo</b></h3>
+                <div class="contact-info-container">
+                    <p>romeolenizo@gmail.com</p>
+                    <p>09755663973</p>
+                </div>
+
+                <div class="additional-info">
+                    <ion-row>
+                        <ion-col size="4">
+                            <label for="address"><b>Address:</b></label>
+                        </ion-col>
+                        <ion-col>
+                            <label for="address-val">Basdaku, Moalboal, Cebu</label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="4">
+                            <label for="age"><b>Age:</b></label>
+                        </ion-col>
+                        <ion-col>
+                            <label for="age-val">21</label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="4">
+                            <label for="gender"><b>Gender:</b></label>
+                        </ion-col>
+                        <ion-col>
+                            <label for="gender-val">Male</label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="4">
+                            <label for="gender"><b>Birthday:</b></label>
+                        </ion-col>
+                        <ion-col>
+                            <label for="gender-val">02/16/2000</label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="4">
+                            <label for="gender"><b>Password:</b></label>
+                        </ion-col>
+                        <ion-col>
+                            <label for="gender-val">password</label>
+                        </ion-col>
+                    </ion-row>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

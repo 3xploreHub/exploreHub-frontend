@@ -112,13 +112,18 @@ export class AuthService {
   }
 
   hasAttemptedUrl() {
-    return this.attemptedUrl ? this.attemptedUrl : "/service-provider";
+    // return this.attemptedUrl ? this.attemptedUrl : "/service-provider";
+    return this.attemptedUrl ? this.attemptedUrl : "/tourist";
+
   }
 
   isLoggedIn(type: string) {
     return this.get("currentUser").then((token) => {
       if (token !== null) {
         const dtoken = this.decodeToken(token);
+        
+        console.log("DECODE TOKEN: ", dtoken);
+
         if (dtoken.type == type) {
           return true;
         } else {

@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/services/auth-services/auth-service.service';
+import { Router, RouterEvent } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TouristPage implements OnInit {
 
-  constructor() { }
+  // pages=[
+  //   {title:" Home Page",url:'tourist/home'},
+  //   {title:" Settings Page",url:'tourist/settings'},
+  //   // {title:" Home Page",url:'tourist/home'},
+  // ]
+
+  selectedPath = ""
+  constructor(private authservice:AuthService,private router:Router) {
+    // this.router.events.subscribe((event:RouterEvent)=>{
+    //   this.selectedPath = event.url;
+    // });
+   }
+  
 
   ngOnInit() {
+  }
+  logout() {
+    this.authservice.logOut();
+    this.router.navigate(["/login"]);
   }
 
 }

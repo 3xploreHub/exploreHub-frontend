@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Page } from '../modules/elementTools/interfaces/page';
 import { PageCreatorService } from '../modules/page-creator/page-creator-service/page-creator.service';
+import { AuthService } from './../Services/auth-services/auth-service.service';
 
 @Component({
   selector: 'app-service-provider',
@@ -12,7 +13,7 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
 
 export class ServiceProviderPage implements OnInit {
   active = ''
-  constructor(public router: Router, public creator: PageCreatorService, private menu: MenuController) { }
+  constructor(public router: Router, public creator: PageCreatorService, private menu: MenuController, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -48,5 +49,9 @@ export class ServiceProviderPage implements OnInit {
     )
   }
 
+  logout() {
+    this.authService.logOut();
+    this.router.navigate(["/login"]);
+  }
 
 }
