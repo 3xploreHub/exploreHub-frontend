@@ -1,4 +1,4 @@
-<div class="card">
+<div (click)="view()" class="card boxShadowed">
   <div class="photoHolder">
     <div class="photo"
       [ngStyle]="{'background-image': service.components[0].data.length > 0? 'url('+service.components[0].data[0].url+')' : '' }">
@@ -7,6 +7,6 @@
 
   <div class="serviceName">
     {{service.components[1].data.text?
-    service.components[1].data.text: 'Untitled'}}
+    shorten(service.components[1].data.text): 'Untitled'}}
   </div>
 </div>

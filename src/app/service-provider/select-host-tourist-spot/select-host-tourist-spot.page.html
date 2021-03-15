@@ -85,14 +85,14 @@
       </ion-label>
     </div> -->
     </div>
-
     <ion-grid *ngFor="let spot of touristSpotPages">
       <div class="item-spot boxShadowed">
         <ion-row style="padding:0;" (click)="showDetails(spot)">
           <ion-col style="padding:4px">
             <div class="imgHolder">
-              <img [src]="spot.components[0].data.length > 0? spot.components[0].data[0].url : ''"
-                alt="Host Tourist Spot" class="spot-image-in-list">
+              <div class="img" [ngStyle]="{'background-image': spot.components[0].data.length > 0? 'url('+spot.components[0].data[0].url+')' : '' }"></div>
+              <!-- <img [src]="spot.components[0].data.length > 0? spot.components[0].data[0].url : ''"
+                alt="Host Tourist Spot" class="spot-image-in-list"> -->
             </div>
           </ion-col>
           <ion-col size="8">
@@ -100,7 +100,7 @@
             <!-- <ion-icon name="information-circle" style="float: right; font-size: 18px;" (click)="showDetails(spot)"></ion-icon> -->
             <!-- <ion-icon *ngIf="hostSpot.selected == true" name="checkmark-circle" style="float: right; font-size: 18px;" color="success"></ion-icon> -->
             <div class="spot-name-description">
-              <p class="titleP">{{spot.components[1].data.text}}</p>
+              <p class="titleP">{{shorten(spot.components[1].data.text)}}</p>
               <p class="textDesc">
                 {{spot.components[6].data.text}}
               </p>
@@ -111,7 +111,6 @@
         </ion-row>
       </div>
     </ion-grid>
-
     <div id="spot-details" *ngIf="show === true">
       <div class="spot-details-2">
         <div>

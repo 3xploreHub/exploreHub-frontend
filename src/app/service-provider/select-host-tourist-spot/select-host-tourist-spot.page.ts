@@ -185,4 +185,8 @@ export class SelectHostTouristSpotPage implements OnInit {
     await alert.present();
   }
 
+  
+  shorten(text) {
+    return text.length > 50 ? text.substring(0,50)+ "...": text;
+  }
 }

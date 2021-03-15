@@ -15,7 +15,7 @@ export class PageCardComponent implements OnInit {
 
   view() {
     setTimeout(() => {
-      this.viewPage.emit(this.page._id);
+      this.viewPage.emit({pageId:this.page._id, pageType: this.page.hostTouristSpot? "service": "tourist_spot"});
     }, 100);
   }
 

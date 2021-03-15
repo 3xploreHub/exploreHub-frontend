@@ -48,7 +48,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
       },
       {
-        path: 'view-page/:pageId',
+        path: 'view-page/:pageId/:pageType',
         loadChildren: () => import('./pages/view-page/view-page.module').then( m => m.ViewPagePageModule)
       },
       {
@@ -60,6 +60,10 @@ const routes: Routes = [
         redirectTo:'/service-provider/select-page-type'
       },
     ]
+  },
+  {
+    path: 'all-services',
+    loadChildren: () => import('./pages/all-services/all-services.module').then( m => m.AllServicesPageModule)
   },
 ];
 

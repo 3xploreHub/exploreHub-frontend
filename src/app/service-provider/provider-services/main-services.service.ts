@@ -29,8 +29,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getOnlinePages`);
   }
 
-  viewPage(pageId) {
-    return this.http.get(`${this.apiUrl}/viewPage/${pageId}`)
+  viewPage(page: any) {
+    return this.http.get(`${this.apiUrl}/viewPage/${page.pageId}/${page.pageType}`)
   }
 
   viewItems(params: any) {

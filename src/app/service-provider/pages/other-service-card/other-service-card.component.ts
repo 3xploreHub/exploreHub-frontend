@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 
 @Component({
@@ -8,10 +8,18 @@ import { Page } from 'src/app/modules/elementTools/interfaces/page';
 })
 export class OtherServiceCardComponent implements OnInit {
   @Input() service: Page;
+  @Output() viewService: EventEmitter<any> = new EventEmitter();
   constructor() {
     this.service = {_id: "", status: "", creator: "", hostTouristSpot: "", components:[], services: [], bookingInfo: []}
   }
 
   ngOnInit() {}
 
+  shorten(text) {
+    return text.length > 24 ? text.substring(0,24)+ "...": text;
+  }
+
+  view() {
+    this.viewService.emit(this.service._id);
+  }
 }

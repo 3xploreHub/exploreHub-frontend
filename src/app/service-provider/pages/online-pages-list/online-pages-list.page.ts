@@ -20,7 +20,7 @@ export class OnlinePagesListPage implements OnInit {
     )
   }
 
-  viewPage(pageId) {
-    this.router.navigate(['/service-provider/view-page', pageId])
+  viewPage(page) {
+    this.router.navigate(['/service-provider/view-page', page.pageId, page.pageType])
   }
 }

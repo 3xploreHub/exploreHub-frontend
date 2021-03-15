@@ -27,7 +27,7 @@ export class ViewPagePage implements OnInit {
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   @Input() page: Page;
   public boxPosition: number;
-  public otherServices: Page[];
+  public otherServices: Page[] = [];
   public pageType: string;
   components = {
     'text': TextDisplayComponent,
@@ -50,7 +50,8 @@ export class ViewPagePage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
-      this.mainService.viewPage(pageId).subscribe(
+      const pageType = params.get('pageType')
+      this.mainService.viewPage({pageId: pageId,pageType: pageType}).subscribe(
         (response: any) => {
           this.page = response.page;
           this.otherServices = response.otherServices
@@ -146,5 +147,9 @@ export class ViewPagePage implements OnInit {
 
  viewItem(data) {
     this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType])
+  }
+
+  viewService(serviceId) {
+    this.router.navigate(["/service-provider/view-page", serviceId, "service"])
   }
 }
