@@ -16,14 +16,15 @@
     overflow-y:scroll;
 }
 .otherOptions {
-    background-color: rgb(220, 229, 236);
+    background-color: rgb(233, 238, 241);
     margin-top:50px;
 }
 .servicesHeader {
-    background-color:rgb(210, 222, 231);
+    background-color:rgb(229, 235, 240);
     border-bottom: 1px solid lightsteelblue;
     padding:10px;
-    margin-bottom: 5px;
+    margin:0;
+
     text-align: center;
 
     .Title {
@@ -40,6 +41,17 @@
 
 .seeMore {
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #ffff;
+    margin:0;
     padding:7px;
-    color: rgb(1, 125, 248);
+
+    p {
+        margin:8px 5px;
+    }
+
+    .seeAll {
+        color: rgb(1, 125, 248);
+    }
 }

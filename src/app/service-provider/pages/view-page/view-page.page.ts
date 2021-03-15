@@ -132,7 +132,7 @@ export class ViewPagePage implements OnInit {
         this.boxPosition = 0
         break;
     }
-    el.scrollIntoView();
+    if (el) el.scrollIntoView();
   }
 
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {

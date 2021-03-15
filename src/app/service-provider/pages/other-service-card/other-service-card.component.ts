@@ -8,6 +8,7 @@ import { Page } from 'src/app/modules/elementTools/interfaces/page';
 })
 export class OtherServiceCardComponent implements OnInit {
   @Input() service: Page;
+  @Input() bigCard: boolean = false;
   @Output() viewService: EventEmitter<any> = new EventEmitter();
   constructor() {
     this.service = {_id: "", status: "", creator: "", hostTouristSpot: "", components:[], services: [], bookingInfo: []}
@@ -16,7 +17,7 @@ export class OtherServiceCardComponent implements OnInit {
   ngOnInit() {}
 
   shorten(text) {
-    return text.length > 24 ? text.substring(0,24)+ "...": text;
+    return text.length > 30 ? text.substring(0,30)+ "...": text;
   }
 
   view() {

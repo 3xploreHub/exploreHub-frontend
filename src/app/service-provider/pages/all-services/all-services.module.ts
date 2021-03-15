@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AllServicesPageRoutingModule } from './all-services-routing.module';
 
 import { AllServicesPage } from './all-services.page';
+import { OtherServiceCardComponent } from '../other-service-card/other-service-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { AllServicesPage } from './all-services.page';
     IonicModule,
     AllServicesPageRoutingModule
   ],
-  declarations: [AllServicesPage]
+  declarations: [AllServicesPage, OtherServiceCardComponent]
 })
 export class AllServicesPageModule {}

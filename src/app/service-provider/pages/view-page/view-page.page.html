@@ -13,22 +13,26 @@
         <ng-template #pageElement></ng-template>
       </div>
 
+      <div #services>
 
-      <div #services *ngIf="page.services.lenght > 0" class="servicesSection">
-        <div class="divider">
-          <h4>Services And Offers</h4>
+        <div *ngIf="page.services.length > 0" class="servicesSection">
+          <div class="divider">
+            <h4>Services And Offers</h4>
+          </div>
+          <ng-template #pageService></ng-template>
         </div>
-        <ng-template #pageService></ng-template>
+
       </div>
+      <div #booking>
 
-
-      <div #booking *ngIf="page.bookingInfo.length > 0" class="servicesSection bookingInfoSection">
-        <div class="divider">
-          <h4>Book Now</h4>
+        <div  *ngIf="page.bookingInfo.length > 0" class="servicesSection bookingInfoSection">
+          <div class="divider">
+            <h4>Book Now</h4>
+          </div>
+          <ng-template #pageInputField></ng-template>
         </div>
-        <ng-template #pageInputField></ng-template>
       </div>
-
+        
       <div class="tabs">
         <div class="tab" (click)="goToSection(info,'info', tab)">
           Info
@@ -57,9 +61,13 @@
           <p class="Title">Other Services in the Area</p>
           <p class="infoText">Services offered by other individual near this tourist spot.</p>
         </div>
-        <div class="seeMore" (click)="viewAllServices()" *ngIf="otherServices.length > 5">See All</div>
+        <div class="seeMore" (click)="viewAllServices()" *ngIf="otherServices.length > 5">
+          <p>{{otherServices.length}} service{{otherServices.length > 1? 's': ''}}</p>
+          <p class="seeAll">See All</p>
+        </div>
         <div class="otherServices">
-          <app-other-service-card *ngFor="let service of otherServices" (viewService)="viewService($event)" [service]="service"></app-other-service-card>
+          <app-other-service-card *ngFor="let service of otherServices" (viewService)="viewService($event)"
+            [service]="service"></app-other-service-card>
         </div>
       </div>
     </div>
