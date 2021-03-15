@@ -34,7 +34,6 @@ export class VerificationPage implements OnInit {
 
   ngOnInit() {
     this.authService.get("currentUser").then((value) => {
-      console.log(value);
       const token = jwt_decode(value);
 
       this.codeHandler.id = token._id;
@@ -45,11 +44,8 @@ export class VerificationPage implements OnInit {
         })
         .subscribe(
           (resp) => {
-            console.log("at the middle ");
-            console.log(resp);
             this.contactNumber = "+" + resp.contactNumber;
             if (resp.codeSent.length > 0) {
-              console.log("CODE SENT ====", resp.codeSent);
               this.codeHandler.codeSent = resp.codeSent;
               this.codeHandler.subscribePusher();
               this.pendingCode = true;

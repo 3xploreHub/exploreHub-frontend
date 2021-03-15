@@ -2,9 +2,9 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRe
 import { ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
-import { ElementComponent } from '../interfaces/element-component';
-import { ElementValues } from '../interfaces/ElementValues';
-import { TouristSpotPage } from '../interfaces/tourist-spot-page';
+import { ElementComponent } from '../elementTools/interfaces/element-component';
+import { ElementValues } from '../elementTools/interfaces/ElementValues';
+import { TouristSpotPage } from '../elementTools/interfaces/tourist-spot-page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../page-elements/labelled-text/labelled-text.component';
 import { PageServicesListComponent } from '../page-services-list/page-services-list.component';
@@ -41,11 +41,9 @@ export class PageCreatorComponent implements OnInit {
     this.page = page;
     this.creator.currentPageId = this.page._id;
     this.page.components.forEach((component: any) => {
-      console.log(component)
       this.renderComponent(this.pageElement, component.type, component)
     })
     this.page.services.forEach((component: any) => {
-      console.log(component)
       this.renderComponent(this.pageService, component.type, component)
     })
   }
@@ -71,7 +69,6 @@ export class PageCreatorComponent implements OnInit {
   }
 
   renderComponent(type: ViewContainerRef, componentName: string, componentValues: any) {
-    console.log(this.pageElement)
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = type.createComponent<ElementComponent>(factory);

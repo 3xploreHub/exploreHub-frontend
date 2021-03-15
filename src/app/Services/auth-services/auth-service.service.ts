@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   addAccountInformation(data: user): Observable<any> {
-    console.log(data);
     return this.http.post(`${this.apiUrl}/addAccountInformation`, data);
   }
 
@@ -50,7 +49,7 @@ export class AuthService {
       data,
       {
         headers: { check_availability: "true" },
-      }
+      } 
     );
   }
 

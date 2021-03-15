@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { doesNotReject } from 'assert';
 import { filter } from 'rxjs/operators';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
   styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnInit {
+  @Output() passValues: EventEmitter<any> = new EventEmitter();
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() parent: string;
@@ -44,6 +45,9 @@ export class TextComponent implements OnInit {
       this.oldStyles = this.values.styles;
     } else {
       this.values = { _id: "", type: "text", styles: ["bg-light", "font-medium", "color-light", "text-left", "fontStyle-normal"], data: { placeholder: "Enter text here", text: null }, default: false };
+      if (this.parent == "component") {
+        this.values.styles = this.creator.applyStyle(this.values.styles, "font-small");
+      }
       this.footerData.message = "Adding Field..."
       this.addComponent(false, this.parent);
     }
@@ -54,13 +58,8 @@ export class TextComponent implements OnInit {
     let styleChanged = JSON.stringify(this.values.styles) != JSON.stringify(this.oldStyles);
     if (this.values.data.text && this.hasChanges || styleChanged) {
       this.saveChanges(!styleChanged);
-      this.showStylePopup = false;
     } else {
-      if (this.showStylePopup) {
-         this.showStylePopup = false;
-      } else {
         this.footerData.done = this.values.data.text ? true : false;
-      }
     }
   }
 
@@ -68,7 +67,6 @@ export class TextComponent implements OnInit {
     this.footerData.saving = true;
     this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
       (response) => { 
-        // this.values = response this is the rivas branch 2 and another changes to commit;
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -81,6 +79,7 @@ export class TextComponent implements OnInit {
 
   addComponent(isDone: boolean = true, parent: string) {
     this.footerData.saving = true;
+    this.values.styles
     this.creator.saveComponent(this.values, this.grandParentId, this.parentId, parent).subscribe(
       (response) => {
         this.values = response;
@@ -101,6 +100,7 @@ export class TextComponent implements OnInit {
     this.footerData.message = "Saving  Changes...";
     this.hasChanges = false;
     this.oldStyles = this.values.styles;
+    this.passValues.emit(this.values);
   }
 
   edit() {
@@ -111,7 +111,9 @@ export class TextComponent implements OnInit {
 
   applyStyle(style) {
     this.values.styles = this.creator.applyStyle(this.values.styles, style);
+    this.renderText();
   }
+  
   changeStyle() {
     this.oldStyles = this.values.styles;
     this.showStylePopup = !this.showStylePopup;

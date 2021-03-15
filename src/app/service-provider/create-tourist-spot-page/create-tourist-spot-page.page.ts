@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TouristSpotPage } from 'src/app/modules/interfaces/tourist-spot-page';
+import { TouristSpotPage } from 'src/app/modules/elementTools/interfaces/tourist-spot-page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
 import { TouristPage } from 'src/app/tourist/tourist.page';
@@ -23,7 +23,6 @@ export class CreateTouristSpotPagePage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id'); 
-      console.log("id:", id)
       if (id) {
         this.creator.retrieveToristSpotPage(id).subscribe(
           (response: TouristSpotPage) => {

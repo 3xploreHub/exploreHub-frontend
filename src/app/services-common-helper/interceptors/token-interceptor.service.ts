@@ -52,7 +52,6 @@ export class TokenInterceptorService implements HttpInterceptor {
 
         return next.handle(request).pipe(
           map((event: any) => {
-            console.log("at map ", event);
             if (event instanceof HttpResponse) {
               this.loadingService.hide();
               if (event.body.token) {
@@ -69,7 +68,6 @@ export class TokenInterceptorService implements HttpInterceptor {
           }),
           catchError((error) => {
             this.loadingService.hide();
-            console.log(error);
             if (error.status == 401) {
               this.authServices.logOut();
               this.route.navigate(["/login"]);

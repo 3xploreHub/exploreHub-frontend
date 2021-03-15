@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
@@ -57,12 +57,15 @@ export class LabelledTextComponent implements OnInit {
   }
 
 
-  renderText() {
+  renderText(hasChanges = false) {
+    this.hasChanges = hasChanges;
     this.values.data.label = this.values.data.label ? this.values.data.label.trim() : null;
     this.values.data.text = this.values.data.text ? this.values.data.text.trim() : null;
-    this.detectTyping();
+    if (hasChanges) {
+      this.footerData.hasValue = this.values.data.label || this.values.data.text ? true: false;
+    }
     if (this.footerData.hasValue) {
-      if (this.hasChanges && this.footerData.hasValue) {
+      if (this.hasChanges) {
         this.footerData.saving = true;
         this.creator.editComponent(this.values,this.grandParentId, this.parentId, this.parent).subscribe(
           (response) => {
@@ -72,13 +75,15 @@ export class LabelledTextComponent implements OnInit {
             this.presentAlert("Oops! Something went wrong. Please try again later!")
           },
           () => {
-            this.done();
+            let hasValue = this.values.data.label && this.values.data.text;
+            let done = hasChanges && hasValue? true: false
+            this.footerData.hasValue = hasValue
+            this.done(done);
           }
         )
       } else {
         this.footerData.done = true;
       }
-      this.footerData.hasValue = true;
     } else {
       this.footerData.hasValue = false;
     }

@@ -4,8 +4,8 @@ import { Storage } from "@ionic/storage";
 import { from, observable, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { TouristSpotPage } from '../../interfaces/tourist-spot-page';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { TouristSpotPage } from '../../elementTools/interfaces/tourist-spot-page';
 
 export interface Image {
   _id: string;
@@ -42,6 +42,7 @@ export class PageCreatorService {
   }
 
   saveComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
+    if (parent == "service")  return this.saveItem(component, parentId)
     const componentGroup = parent == "page" ? "addComponent" : "addServiceChildComponent";
     const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
@@ -55,16 +56,16 @@ export class PageCreatorService {
     });
   }
 
-  saveItemComponent(component: ElementValues, parentId: string, parent: string): Observable<any> {
-    const componentGroup = parent == "page" ? "addComponent" : "addChildComponent";
-    const params = parent == "page" ? parentId : `${this.currentPageId}/${parentId}`;
-    return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, component, {
+  saveItem(component: ElementValues, parentId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/saveItem/${this.currentPageId}/${parentId}`, component, {
       headers: { hideLoadingIndicator: "true" },
     });
   }
 
-
   editComponent(component: ElementValues, grandParentId: string, parentId: string, parent: string): Observable<any> {
+    if (parent == "service") {
+      return this.editServiceInfo(component, parentId, component._id)
+    } 
     const componentGroup = parent == "page" ? "editComponent" : "editChildComponent";
     const params = parent == "page" ? parentId : `${this.currentPageId}/${grandParentId}/${parentId}`;
     return this.http.put(`${this.apiUrl}/${componentGroup}/${params}`, component, {
@@ -72,23 +73,24 @@ export class PageCreatorService {
     })
   }
 
-  // deleteComponent(parentId: string, compId: string, images:any, parent: string): Observable<any> {
-  //   const componentGroup = parent == "page" ? "deleteComponent": "deleteChildComponent";
-  //   const params = parent == "page"? `${parentId}/${compId}`: `${this.currentPageId}/${parentId}/${compId}`;
-  //   return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, {images: images}, {
-  //     headers: { hideLoadingIndicator: "true" },
-  //   })
-  // }
+  editServiceInfo(component: ElementValues, serviceId: string, infoId: string): Observable<any> {
+    console.log(component);
+    
+    return this.http.put(`${this.apiUrl}/editServiceInfo/${this.currentPageId}/${serviceId}/${infoId}`, component, {
+      headers: { hideLoadingIndicator: "true" },
+    });
+  }
 
   deleteComponent(grandParentId: string, parentId: string, childId: string, images: any, parent: string): Observable<any> {
+    if (parent == "service") return this.deleteItem(parentId, childId)
     const componentGroup = parent == "page" ? "deleteComponent" : "deleteItemChild";
     const params = parent == "page" ? `${parentId}/${childId}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}`;
     return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, { images: images }, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
-  deleteItemComponent(itemListId: string, itemId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteItemComponent/${this.currentPageId}/${itemListId}/${itemId}`, {
+  deleteItem(itemListId: string, itemId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteItem/${this.currentPageId}/${itemListId}/${itemId}`, {
       headers: { hideLoadingIndicator: "true" },
     })
   }
@@ -135,6 +137,18 @@ export class PageCreatorService {
     });
   }
 
+  getItemUpdatedData(serviceId: string, itemId: string) {
+    return this.http.get(`${this.apiUrl}/getItemUpdatedData/${this.currentPageId}/${serviceId}/${itemId}`, {
+      headers: { hideLoadingIndicator: "" }
+    })
+  }
+
+  getUpdatedItemListData(itemListId) {
+    return this.http.get(`${this.apiUrl}/getUpdatedItemListData/${this.currentPageId}/${itemListId}`, {
+      headers: { hideLoadingIndicator: "" }
+    })
+  }
+
   createTouristSpotPage() {
     return this.http.post(`${this.apiUrl}/createTouristSpotPage`, {})
   }
@@ -152,5 +166,26 @@ export class PageCreatorService {
       styles.push(style)
     }
     return styles;
+  }
+
+  checkIfHasValue(data) {
+    let items = [];
+    if (data.length == 0) return false
+    data.forEach(item => {
+      switch (item.type) {
+        case "text":
+          if (item.data.text) items.push(item.data);
+          break;
+        case "photo":
+          if (item.data.length > 0) items.push(item.data);
+          break;
+        case "labelled-text":
+          if (item.data.label && item.data.text) items.push(item.data);
+          break;
+        default:
+          break;
+      }
+    });
+    return items.length == data.length;
   }
 }

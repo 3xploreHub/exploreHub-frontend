@@ -58,7 +58,6 @@ export class CodeHandlerPage implements OnInit {
       this.form.controls["code"].setErrors({
         validations: [{ type: "incorrect", message: "Incorrect code!" }],
       });
-      console.log(this.form);
       this.presentAlert("Incorrect code!");
     }
   }

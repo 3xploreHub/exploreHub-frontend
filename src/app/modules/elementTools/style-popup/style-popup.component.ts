@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PageCreatorService } from '../page-creator/page-creator-service/page-creator.service';
+import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
 @Component({
   selector: 'app-style-popup',

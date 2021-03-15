@@ -1,13 +1,15 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { RecursiveAstVisitor } from '@angular/compiler/src/output/output_ast';
+import { AfterContentChecked, ChangeDetectorRef, Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { ElementComponent } from '../../interfaces/element-component';
-import { ElementValues } from '../../interfaces/ElementValues';
-import { FooterData } from '../../interfaces/footer-data';
+import { ElementComponent } from '../../elementTools/interfaces/element-component';
+import { ElementValues } from '../../elementTools/interfaces/ElementValues';
+import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
+import { ItemDisplayComponent } from '../../page-services-display/item-display/item-display.component';
 
 @Component({
   selector: 'app-item',
@@ -21,26 +23,27 @@ export class ItemComponent implements OnInit {
   @Input() parentId: string;
   @Input() parent: string;
   public footerData: FooterData;
+  public showPopup: boolean;
 
   components = {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
-    // 'item-list': ItemComponent
   }
 
   constructor(
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
-    public alert: AlertController
+    public alert: AlertController,
+    private cdr: ChangeDetectorRef
   ) {
     this.footerData = {
       done: false,
       deleted: false,
       saving: false,
       message: "Saving Changes...",
-      hasValue: false,
+      hasValue: true,
       hasId: false,
       isDefault: false,
       hasStyle: false
@@ -48,23 +51,12 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.values)
     if (this.values) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true : false;
-      this.footerData.hasValue = data.text != null && data.label != null;
+      // this.footerData.done = this.values.data? true: false;
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
-      this.footerData.saving = true;
-      this.footerData.message = "Loading..."
-      setTimeout(() => {
-        this.footerData.saving = false; 
-        this.footerData.message = "Saving Changes..."
-        if (this.values.data.length > 0) {
-          this.footerData.done = true;
-          this.setPage(this.values.data)
-        }
-      }, 1000);
+      this.renderChildren();
     } else {
       this.footerData.done = false;
       this.values = { _id: "", type: "item", styles: [], data: [], default: false };
@@ -73,11 +65,7 @@ export class ItemComponent implements OnInit {
     }
   }
 
-  setPage(component) {
-    component.forEach((component: any) => {
-      this.renderComponent(component.type, component)
-    })
-  }
+
 
   async showComponentList() {
     const modal = await this.modalController.create({
@@ -86,12 +74,36 @@ export class ItemComponent implements OnInit {
     });
     const present = await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null);
+    this.renderComponent(data, null, true);
 
     return present;
   }
 
-  renderComponent(componentName: string, componentValues: any) {
+  edit() {
+    this.showPopup = false;
+    this.renderChildren(false);
+    this.footerData.done = false;
+  }
+
+  renderChildren(isEditing: boolean = true) {
+    this.footerData.saving = true;
+    this.footerData.message = "Loading..."
+    setTimeout(() => {
+      this.footerData.saving = false;
+      this.footerData.message = "Saving Changes..."
+      if (this.values.data.length > 0) {
+        this.setPage(this.values.data)
+      }
+    }, 1000);
+  }
+
+  setPage(component) {
+    component.forEach((component: any) => {
+      this.renderComponent(component.type, component)
+    })
+  }
+
+  renderComponent(componentName: string, componentValues: any, isNew: boolean = false) {
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
       const comp = this.pageElement.createComponent<ElementComponent>(factory);
@@ -104,10 +116,11 @@ export class ItemComponent implements OnInit {
 
   addComponent(isDone: boolean = true) {
     this.footerData.saving = true;
-    this.creator.saveItemComponent(this.values, this.parentId, this.parent).subscribe(
+    this.creator.saveItem(this.values, this.parentId).subscribe(
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.renderChildren();
       },
       (error) => {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
@@ -119,13 +132,36 @@ export class ItemComponent implements OnInit {
   }
 
   renderService() {
-    alert("render")
+    this.footerData.saving = true;
+    this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
+      this.values = updatedData[0].services[0].data[0]
+      this.footerData.saving = false;
+      if (this.creator.checkIfHasValue(this.values.data)) {
+        this.footerData.done = true;
+      } else {
+        if (this.values.data.length == 0) {
+          this.presentAlert("Please add info about this service");
+        } else {
+          this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+        }
+      }
+    })
   }
+
+  getUpdates(newData) {
+    this.values = newData;
+  }
+
+  addChild(newChild) {
+    this.values.data.push(newChild);
+    console.log("new child", newChild)
+  }
+
   delete() {
     if (this.values._id) {
       this.footerData.message = "Deleting..."
       this.footerData.saving = true;
-      this.creator.deleteItemComponent(this.parentId, this.values._id).subscribe(
+      this.creator.deleteItem(this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
         },
@@ -145,7 +181,6 @@ export class ItemComponent implements OnInit {
     this.footerData.done = done;
     this.footerData.saving = false;
     this.footerData.message = "Saving  Changes...";
-    // this.hasChanges = false;
   }
 
   async presentAlert(message) {

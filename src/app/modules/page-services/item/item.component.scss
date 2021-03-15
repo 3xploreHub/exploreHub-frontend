@@ -1,15 +1,14 @@
 .serviceContainer {
-    padding:10px;
-    margin:5px;
+    // padding:10px;
     // height: 200px;
     box-sizing: border-box;
     overflow: visible;
+    width:350px;
+    margin:5px;
+    background:rgb(222, 234, 241);
+    padding:10px;
 } 
 
-.wrapper {
-    background:#ffff;
-    margin:40px;
-}
 
 .serviceFooter {
     height: 40px;

@@ -24,7 +24,6 @@ export class AppEntryGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log("at entry");
     return this.authService
       .isLoggedIn(userTokenType.accountAccess)
       .then((resp) => {

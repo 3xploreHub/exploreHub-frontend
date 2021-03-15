@@ -19,7 +19,6 @@ export class TouristSpotBookingPage implements OnInit {
   kids: number
 
   bookingForm: booking;
-
   bookingFormArray:booking[]=[]
   constructor() {
     this.bookingForm = new booking();

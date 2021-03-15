@@ -1,13 +1,13 @@
 import { PhotoDisplayComponent } from './../../modules/page-elements-display/photo-display/photo-display.component';
 import {TextDisplayComponent} from './../../modules/page-elements-display/text-display/text-display.component';
 import {LabelledTextDisplayComponent} from './../../modules/page-elements-display/labelled-text-display/labelled-text-display.component';
-import { ElementComponent } from './../../modules/interfaces/element-component';
+import { ElementComponent } from './../../modules/elementTools/interfaces/element-component';
 import { ActivatedRoute } from '@angular/router';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
-import { TouristSpotPage } from '../../modules/interfaces/tourist-spot-page';
+import { TouristSpotPage } from '../../modules/elementTools/interfaces/tourist-spot-page';
 
 
 

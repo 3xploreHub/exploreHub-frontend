@@ -4,14 +4,14 @@
       <div class="fieldsHolder">
         
         <ion-textarea *ngIf="!values.default; else defaultLabel" auto-grow="true" (keyup)="detectTyping()" [readonly]="footerData.saving"
-          [(ngModel)]="values.data.label" class="text" rows="1" (change)="hasChanges = true"
+          [(ngModel)]="values.data.label" class="text" rows="1" (change)="renderText(true)"
            placeholder="Enter label here">
         </ion-textarea>
         <ng-template #defaultLabel>
           <p class="defaultLabel">{{values.data.label+":"}}</p>
         </ng-template>
 
-        <ion-textarea auto-grow="true" (change)="hasChanges = true" (keyup)="detectTyping()"
+        <ion-textarea auto-grow="true" (change)="renderText(true)" (keyup)="detectTyping()"
           [readonly]="footerData.saving" [(ngModel)]="values.data.text" class="text" rows="1"
           placeholder="Enter text here">
         </ion-textarea>
