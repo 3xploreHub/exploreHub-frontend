@@ -1,13 +1,14 @@
 @import "../../../../variables.scss";
 .pageCard {
-    padding:7px;
-    // height: 180px;
     background-color: #ffff;
     margin:10px 7px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 .pageMain {
     display: flex;
+    // padding:5px;
+    flex-direction: column;
+    // border:1px solid lightgray;
 }
 div {
     box-sizing: border-box;
@@ -15,9 +16,9 @@ div {
 
 .photoHolder {
     background-color: rgb(127, 141, 158);
-    border-radius: 4px;
-    height: 130px;
-    width:150px;
+    border-radius: 2px;
+    height: 190px;
+    width:100%;
     box-sizing: 4px;
     overflow: hidden;
     flex-shrink: 0;
@@ -25,7 +26,7 @@ div {
 
 .pagePhoto {
     width:100%;
-    
+    background-position: center;
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -51,54 +52,57 @@ div {
 
 }
 .pageInfo {
-    height: 120px;
+    // max-height: 120px;
     overflow:hidden;
     position: relative;
     padding:5px;
     width: 100%;
 
     .title {
-        font-size: 14px;
+        font-size: 16px;
         margin:3px;
+        padding-top: 5px;
         // max-height: 35px;
         font-weight: bold;
         width: 100%;
         color: $mediumLight;
-        overflow-x: auto;
-        overflow-y: hidden;
+    }
+
+    .location {
+        font-size: 13px;
+        color:rgb(55, 103, 170);
+        padding-bottom:5px !important;
+        ion-icon {
+            font-size: 13px !important;
+        }
     }
 
     .description {
-        color:rgb(140, 147, 151);
+        color:rgb(108, 126, 134);
         margin: 3px;
-        // max-height: 48px;
         overflow: hidden;
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 
+
 .spotInfo {
-    // position: relative;
-    // height: 70px;
+    margin:5px; 
 
     .infos {
         padding:8px 0;
-        font-size: 15px;
+        
         border-bottom: 1px solid rgb(210, 217, 224);
         margin-bottom: 5px;
         color: rgb(64, 80, 97);
-        .location {
-            ion-icon {
-                font-size: 16px !important;
-            }
-        }
+        
     }
     
     .cardFooter {
         bottom: 0;
         width: 100%;
-        // position: absolute; 
-        // right: 0;
+        padding-top: 5px;
+        border-top: 1px solid rgb(210, 217, 224);
 
         .ratings {
             display: flex;
@@ -107,7 +111,7 @@ div {
 
             span {
                 font-size: 13px !important;
-                color:rgb(132, 152, 172);
+                color:rgb(127, 167, 194);
             }
 
             .stars {

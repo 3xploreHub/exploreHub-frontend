@@ -11,19 +11,18 @@
     <div class="pageInfo">
       <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text?
         page.components[1].data.text: 'Untitled'}}</p>
-      <p class="description">{{page.components[6].data.text ? page.components[6].data.text: ''}}</p>
-    </div>
-  </div>
-  <div class="spotInfo">
-    <div class="infos">
       <div class="location">
         <ion-icon name="location-outline"></ion-icon>
         {{page.components[2].data.text+", "+page.components[3].data.text+", "+page.components[4].data.text}}
       </div>
+      <p class="description">{{page.components[6].data.text ? shorten(page.components[6].data.text): ''}}</p>
     </div>
+  </div>
+  <div class="spotInfo">
+
     <div class="cardFooter">
       <div class="ratings">
-        <span>100 tourists visited</span>
+        <span><b>100</b> tourists visited</span>
         <div class="stars">
           <ion-icon name="star" class="filledStar"></ion-icon>
           <ion-icon name="star" class="filledStar"></ion-icon>

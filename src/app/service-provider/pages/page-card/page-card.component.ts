@@ -19,4 +19,7 @@ export class PageCardComponent implements OnInit {
     }, 100);
   }
 
+  shorten(text) {
+    return text.length > 400 ? text.substring(0,400)+ "...": text;
+  }
 }
