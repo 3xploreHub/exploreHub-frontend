@@ -85,7 +85,6 @@ export class VerificationPage implements OnInit {
             "You have reached the maximum limit of code request."
           );
         } else {
-          console.log(error);
         }
       }
     );

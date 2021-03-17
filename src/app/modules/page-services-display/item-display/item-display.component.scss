@@ -5,8 +5,7 @@
     margin:6px; 
     border-radius: 2px;
     overflow: hidden;
-    max-height: 435px;
-    padding-bottom: 40px;
+    max-height: 430px;
     overflow: hidden;
     position:relative;
 
@@ -20,6 +19,11 @@
         left:0;
         position: absolute;
     }
+}
+
+.hasPaddingBottom {
+    padding-bottom: 40px !important;
+
 }
 
 .seeMore {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -11,6 +11,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 
 export class NumberInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   min = null;
   max = null;
   number = null;
@@ -54,6 +55,7 @@ export class NumberInputDisplayComponent implements OnInit {
       this.hasError = true;
     } else {
       this.hasError = false;
+      this.passData();
     }
   }
 
@@ -73,5 +75,16 @@ export class NumberInputDisplayComponent implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  passData() {
+    this.emitEvent.emit({
+      userInput: true,
+      data: {
+        inputFieldType: "number-input",
+        settings: {},
+        value: this.number
+      }
+    })
   }
 }

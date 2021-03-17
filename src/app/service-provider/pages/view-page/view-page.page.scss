@@ -11,14 +11,16 @@
     padding-bottom: 20px;
 }
 
-.otherServices {
-    display: flex;
-    overflow-y:scroll;
-}
+
 .otherOptions {
     background-color: rgb(244, 246, 248);
-    border-top:2px solid #ffff;
+    border-top:1px solid lightsteelblue;
+    // height: 600px;
     // margin-top:50px;
+}
+
+.none {
+    opacity: .5;
 }
 .servicesHeader {
     background-color:rgb(244, 246, 248);
@@ -31,25 +33,28 @@
     .Title {
         font-size: 18px;
         margin:10px 0;
+        color:rgb(68, 70, 78);
+        font-weight: bold;
     }
 
     .infoText {
-        font-size: 13px;
+        font-size: 14px;
         margin:0;
-        color:rgb(76, 89, 104);
+        color:rgb(0, 137, 228);
     }
 }
 
 .seeMore {
     text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-top: 2px solid #ffff;
+    border-bottom:1px solid lightsteelblue;
     margin:0;
-    padding:7px;
+    padding:5px;
 
     p {
-        margin:8px 5px;
+        margin:5px;
     }
 
     .seeAll {
@@ -61,3 +66,23 @@
     text-align: right;
 }
 
+.bookSectionCont {
+    padding:20px 10px;
+    background-color: #ffff;
+    .bookSection {
+        background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
+        color:#ffff;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        
+        p {
+            padding: 0 8px;
+            margin: 15px 0;
+
+        }
+    }
+}

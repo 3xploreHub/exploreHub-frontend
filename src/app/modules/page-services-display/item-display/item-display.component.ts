@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
@@ -21,6 +21,8 @@ export class ItemDisplayComponent implements OnInit {
   @Output() onClick: EventEmitter<any>  = new EventEmitter();
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
   @Output() emitEvent: EventEmitter<any> = new EventEmitter();
+  public hasMoreContent: boolean = false;
+  @ViewChild('item', { static: false }) item: ElementRef;
 
   components = {
     'text': TextDisplayComponent,
@@ -55,9 +57,16 @@ export class ItemDisplayComponent implements OnInit {
     setTimeout(() => {
       component.forEach((component: any) => {
         this.renderComponent(component.type, component)
+        this.checkHeight();
       })
     }, 500);
 
+  }
+
+  checkHeight() {
+    setTimeout(() => {
+      this.hasMoreContent = this.item.nativeElement.clientHeight >= 430;
+    }, 300);
   }
 
   renderComponent(componentName: string, componentValues: any) {

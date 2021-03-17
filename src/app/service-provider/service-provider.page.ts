@@ -43,7 +43,6 @@ export class ServiceProviderPage implements OnInit {
         self.router.navigate(["/service-provider/create-tourist-spot-page", response._id])
       },
       (error) => {
-        console.log("error in creating tourist spot: ", error)
       }
     )
   }

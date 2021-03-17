@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 
@@ -9,6 +9,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   selected = null
   showChoices = false;
   listOfSelected = []
@@ -22,6 +23,7 @@ export class ChoicesInputDisplayComponent implements OnInit {
     this.selected = option.text;
     setTimeout(() => {
       this.showChoices = false;
+      this.passData(this.selected);
     }, 300);
   }
 
@@ -32,6 +34,19 @@ export class ChoicesInputDisplayComponent implements OnInit {
       } else {
         this.listOfSelected.push(option);
       }
+      this.passData(this.listOfSelected, true)
     }
+  }
+
+  passData(data, multiple = false) {
+    let settings = multiple? { multiple: true }: {};
+    this.emitEvent.emit({
+      userInput: true,
+      data: {
+        inputFieldType: "choices-input",
+        settings: settings,
+        value: data
+      }
+    })
   }
 }

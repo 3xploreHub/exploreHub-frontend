@@ -136,7 +136,6 @@ export class StatisticsPage implements OnInit {
 
     //           values.data['unlimited'] = true;
     //           values.data.text = 0;
-    //           console.log('here');
               
     //         } else {
     //           values.data['unlimited'] = false
@@ -168,7 +167,6 @@ export class StatisticsPage implements OnInit {
     //           valid = false;
     //         }
     //       }
-    //       console.log(values);
           
     //       if (valid) {
     //         this.updating = true;
@@ -186,7 +184,6 @@ export class StatisticsPage implements OnInit {
     //               } else {
     //                 data.data['unlimited'] = false;
     //               }
-    //               console.log(data);
                   
     //               if (parseInt(data.data.text) == 0) {
     //                 this.presentAlert("This item will no longer be visible online to customers");

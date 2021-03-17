@@ -84,7 +84,6 @@ export class AuthService {
           return val;
         },
         (error) => {
-          console.log("error in getting token form the storage ", error);
         }
       );
     });

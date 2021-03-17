@@ -15,7 +15,6 @@ export class SearchPipe implements PipeTransform {
         joinSplitBySpace = inputSplitBySpace.join('');
         inputSplitByCommas = joinSplitBySpace.split(',');
         joinSplitByCommas = inputSplitByCommas.join(',');
-        // console.log(joinSplitByCommas)
         
         return spots.filter(
             x => x.toLowerCase().includes(searchInput)

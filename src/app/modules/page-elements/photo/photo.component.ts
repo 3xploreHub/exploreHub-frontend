@@ -147,7 +147,6 @@ export class PhotoComponent implements OnInit {
         this.presentAlert("Oops! Something went wrong. Please try again later!")
       });
     } catch (err) {
-      console.log(err);
     }
   }
 

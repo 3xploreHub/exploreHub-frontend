@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -10,6 +10,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class DateInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   currentYear = new Date().getFullYear()
   allDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -25,7 +26,7 @@ export class DateInputDisplayComponent implements OnInit {
     this.customPickerOptions = {
       buttons: [{
         text: 'Cancel',
-        handler: () => console.log('cancelled')
+        handler: () => {}
 
       }, {
         text: 'Clear',
@@ -94,4 +95,14 @@ export class DateInputDisplayComponent implements OnInit {
     await alert.present();
   }
 
+  passData() {
+    this.emitEvent.emit({
+      userInput: true,
+      data: {
+        inputFieldType: "date-input",
+        settings: {},
+        value: this.date
+      }
+    })
+  }
 }

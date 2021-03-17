@@ -177,7 +177,6 @@ export class ItemComponent implements OnInit {
 
   addChild(newChild) {
     this.values.data.push(newChild);
-    console.log("new child", newChild)
   }
 
   delete() {

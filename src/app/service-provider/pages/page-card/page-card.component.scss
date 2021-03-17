@@ -1,15 +1,16 @@
 @import "../../../../variables.scss";
+
 .pageCard {
     background-color: #ffff;
-    margin:10px 7px;
-    border-radius: 2px;
+    margin:15px 7px;
+    border-radius: 4px;
 }
+
 .pageMain {
     display: flex;
-    // padding:5px;
     flex-direction: column;
-    // border:1px solid lightgray;
 }
+
 div {
     box-sizing: border-box;
 }
@@ -91,7 +92,6 @@ div {
 
     .infos {
         padding:8px 0;
-        
         border-bottom: 1px solid rgb(210, 217, 224);
         margin-bottom: 5px;
         color: rgb(64, 80, 97);

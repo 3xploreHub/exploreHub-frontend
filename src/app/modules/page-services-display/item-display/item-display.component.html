@@ -1,6 +1,6 @@
-<div #item (click)="itemClicked()" class="itemWrapper boxShadowed">
+<div #item [class.hasPaddingBottom]="hasMoreContent" (click)="itemClicked()" class="itemWrapper boxShadowed">
   <ng-template #pageElement></ng-template>
-  <div class="footerDiv">
+  <div *ngIf="hasMoreContent" class="footerDiv">
     <div class="btnStyle seeMore">
       See More
     </div>

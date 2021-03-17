@@ -56,11 +56,6 @@ export class SelectHostTouristSpotPage implements OnInit {
   
   ngOnInit() {
     this.retrieveAllTouristSpotsPage();
-    // this.getAllSpotsLocation();
-    // this.getAllSpotNames();
-
-    // this.getAllTouristSpot();
-    this.retreiveAllTouristSpotCategory();
   }
 
   retrieveAllTouristSpotsPage() {
@@ -69,7 +64,6 @@ export class SelectHostTouristSpotPage implements OnInit {
         this.touristSpotPages = response;
       },
       error => {
-        console.log(error);
         
       }
     )
@@ -77,33 +71,7 @@ export class SelectHostTouristSpotPage implements OnInit {
 
   onKey(event: any) { // without type info
     this.keyupValues += event.target.value + ' | ';
-    console.log(this.keyupValues)
   }
-
-  retreiveAllTouristSpotCategory() {
-    // return this.selectHostTouristSpotService
-    //   .retreiveAllTouristSpotCategories()
-    //   .subscribe((categories) => {
-    //       console.log("Categories: " +  categories)
-    //       this.sampleCategory = categories;
-    //       console.log("Sample Category: " + JSON.stringify(this.sampleCategory))
-    //   });
-  }
-
-  // getAllTouristSpot() {
-  //   for(var i = 0; i<this.spots.length; i++) {
-  //     this.spotsListCategory.push(this.spots[i]);
-  //   }
-  // }
-
-  // displayListOfSpotsInCategory(category: SpotCategory) {
-  //   for (var i = 0; i < this.spots.length; i++) {
-  //     if (this.spots[i].category_name == category.name) {
-  //       this.spotsListCategory.push(this.spots[i]);
-  //     }
-  //   }
-  //   console.log("Category Selected: " , JSON.stringify(category))
-  // }
 
   showDetails(spot: any) {
     this.yourHostSpot = spot;
@@ -111,18 +79,15 @@ export class SelectHostTouristSpotPage implements OnInit {
   }
 
   selectTouristSpot() {
-    console.log("Before Selected Spot: ", this.selectedSpots)
     this.selectedSpots = [];
     if(!this.selectedSpots.includes(this.yourHostSpot)) {
       this.selectedSpots.push(this.yourHostSpot);
     }else{
-      console.log("Spot is already selected: ", this.selectedSpots)
     }
       this.show = false;
   }
 
   submitSelectedHostSpot() {
-    console.log("Selected Host Spot: " + JSON.stringify(this.selectedSpots));
     this.router.navigate(["/service-provider/select-host-tourist-spot"]);
   }
 
@@ -130,16 +95,6 @@ export class SelectHostTouristSpotPage implements OnInit {
     this.selectedSpots = [];
   }
 
-  // getAllSpotsLocation() {
-  //   for (var i = 0; i < this.spots.length; i++) {
-  //     const location = this.spots[i].location.toLowerCase();
-  //     if (this.spotsLocation.indexOf(location) !== -1) {
-  //       continue;
-  //     }
-  //     this.spotsLocation.push(location);
-  //   }
-  //   console.log("Spot Location", this.spotsLocation);
-  // }
 
   getAllSpotsBasedOnSearch() {}
 
@@ -155,26 +110,6 @@ export class SelectHostTouristSpotPage implements OnInit {
     )
   }
 
- 
-
-  // getAllSpotNames() {
-  //   // this.spotsListCategory = [];
-  //   for (var i = 0; i < this.spots.length; i++) {
-  //     this.allSpotsName.push(this.spots[i].name.toLowerCase());
-  //   }
-  //   console.log("All Spots' Name: " + this.allSpotsName);
-  // }
-
-  // getAllSpotBasedOnSearchInput() {
-  //   this.spotsListCategory = [];
-  //   for (var i = 0; i < this.allSpotsName.length; i++) {
-  //     for (var j = 0; j < this.spots.length; j++) {
-  //       if (this.allSpotsName[i] === this.spots[j].name.toLowerCase()) {
-  //         this.spotsListCategory.push(this.spots[j]);
-  //       }
-  //     }
-  //   }
-  // }
 
   async presentAlert(message) {
     const alert = await this.alert.create({

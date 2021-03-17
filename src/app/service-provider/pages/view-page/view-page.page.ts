@@ -1,8 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewPageComponent } from 'src/app/modules/common-components/view-page/view-page.component';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
-import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { BulletFormTextDisplayComponent } from 'src/app/modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component';
@@ -24,11 +22,12 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
+  // @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   @Input() page: Page = {_id: "", status: "", components: [], services: [],  bookingInfo: [], creator: "", hostTouristSpot: ""}
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
+  screenHeight = window.innerHeight - 80;
   components = {
     'text': TextDisplayComponent,
     'bullet-form-text': BulletFormTextDisplayComponent,
@@ -56,7 +55,6 @@ export class ViewPagePage implements OnInit {
         (response: any) => {
           this.page = response.page;
           this.otherServices = response.otherServices
-          console.log(this.otherServices);
           
           this.setPage(this.page);
         }
@@ -66,7 +64,7 @@ export class ViewPagePage implements OnInit {
   setPage(page) {
     if (this.pageElement) this.pageElement.clear()
     if (this.pageService) this.pageService.clear();
-    if (this.pageInputField) this.pageInputField.clear();
+    // if (this.pageInputField) this.pageInputField.clear();
     this.pageType = this.page.hostTouristSpot ? 'service' : 'tourist_spot'
     this.creator.preview = true;
     setTimeout(() => {
@@ -94,9 +92,9 @@ export class ViewPagePage implements OnInit {
         this.renderComponent(this.pageService, component, "page")
       })
 
-      this.page.bookingInfo.forEach((component: any) => {
-        this.renderComponent(this.pageInputField, component, "page_booking_info")
-      })
+      // this.page.bookingInfo.forEach((component: any) => {
+      //   this.renderComponent(this.pageInputField, component, "page_booking_info")
+      // })
     }, 100);
 
   }
@@ -122,8 +120,8 @@ export class ViewPagePage implements OnInit {
   goToSection(el: HTMLElement, tab: string, div: HTMLElement) {
     const width = div.clientWidth;
     switch (tab) {
-      case 'booking':
-        if (this.page.bookingInfo.length > 0) {
+      case 'others':
+        if (this.otherServices.length > 0) {
           this.boxPosition = width * 2;
         }
         break;
@@ -147,9 +145,18 @@ export class ViewPagePage implements OnInit {
       comp.instance.parentId = this.page._id;
       comp.instance.parent = parent;
       comp.instance.emitEvent = new EventEmitter();
-      comp.instance.emitEvent.subscribe(data => this.viewItem(data))
+      comp.instance.emitEvent.subscribe(data => this.catchEvent(data))
     }
   }
+
+
+  catchEvent(data) {
+    if (data.userInput) {
+      console.log(data);
+    }else {
+      this.viewItem(data)
+    }
+  } 
 
  viewItem(data) {
     this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType])
@@ -161,12 +168,5 @@ export class ViewPagePage implements OnInit {
 
   viewAllServices() {
     this.router.navigate(["/service-provider/all-services", this.page._id])
-  }
-
-  goBack() {
-    let prev = "/service-provider/"
-    prev += this.pageType == "service"? "all-services": "online-pages-list"
-    let route = this.pageType == "service"? [prev, this.page.hostTouristSpot] :[prev]
-    this.router.navigate(route);
-  }
+  }  
 }

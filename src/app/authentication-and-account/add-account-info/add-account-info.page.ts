@@ -76,7 +76,6 @@ export class AddAccountInfoPage implements OnInit {
   }
 
   setGender(evnt) {
-    console.log(evnt);
   }
 
   async presentAlert(message) {
