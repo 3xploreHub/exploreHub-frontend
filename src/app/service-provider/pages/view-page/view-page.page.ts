@@ -23,7 +23,7 @@ export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
   // @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
-  @Input() page: Page = {_id: "", status: "", components: [], services: [],  bookingInfo: [], creator: "", hostTouristSpot: ""}
+  @Input() page: Page = { _id: "", status: "", components: [], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -45,17 +45,17 @@ export class ViewPagePage implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public creator: PageCreatorService) {
-     }
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
       const pageType = params.get('pageType')
-      this.mainService.viewPage({pageId: pageId,pageType: pageType}).subscribe(
+      this.mainService.viewPage({ pageId: pageId, pageType: pageType }).subscribe(
         (response: any) => {
           this.page = response.page;
           this.otherServices = response.otherServices
-          
+
           this.setPage(this.page);
         }
       )
@@ -70,11 +70,11 @@ export class ViewPagePage implements OnInit {
     setTimeout(() => {
       this.page = page;
       const address = this.page.components.splice(2, 3);
-      const location = {...address[0], data: {...address[0].data}}
+      const location = { ...address[0], data: { ...address[0].data } }
       location.data.text = "";
       location.data.label = "Location"
-      
-      
+
+
       for (let i = 0; i < address.length; i++) {
         const comp = address[i];
         location.data.text += comp.data.text
@@ -84,7 +84,7 @@ export class ViewPagePage implements OnInit {
       }
 
       this.page.components = [...this.page.components.slice(0, 2), location, ...this.page.components.slice(2)]
-      
+
       this.page.components.forEach((component: any) => {
         this.renderComponent(this.pageElement, component, "page")
       })
@@ -103,7 +103,7 @@ export class ViewPagePage implements OnInit {
     const width = div.clientWidth;
 
 
-    const scrolled = event.detail.scrollTop + 100;    
+    const scrolled = event.detail.scrollTop + 100;
 
     if (info && info.clientHeight >= scrolled) {
       this.boxPosition = 0;
@@ -153,12 +153,12 @@ export class ViewPagePage implements OnInit {
   catchEvent(data) {
     if (data.userInput) {
       console.log(data);
-    }else {
+    } else {
       this.viewItem(data)
     }
-  } 
+  }
 
- viewItem(data) {
+  viewItem(data) {
     this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType])
   }
 
@@ -168,5 +168,5 @@ export class ViewPagePage implements OnInit {
 
   viewAllServices() {
     this.router.navigate(["/service-provider/all-services", this.page._id])
-  }  
+  }
 }

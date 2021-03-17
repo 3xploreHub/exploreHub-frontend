@@ -65,6 +65,11 @@ export class ServiceDetailsComponent implements OnInit {
 
   }
 
+  selectService() {
+    
+    this.router.navigate(["/service-provider/select-service"])
+  }
+
 
   renderComponent(componentValues: any, parent) {
     // if (componentValues.type) {
@@ -76,5 +81,4 @@ export class ServiceDetailsComponent implements OnInit {
     comp.instance.emitEvent = new EventEmitter();
     // }
   }
-
 }

@@ -56,11 +56,16 @@ const routes: Routes = [
         loadChildren: () => import('./pages/view-item/view-item.module').then( m => m.ViewItemPageModule)
       },
       {
+        path: 'select-service',
+        loadChildren: () => import('./pages/select-service/select-service.module').then( m => m.SelectServicePageModule)
+      },
+      {
         path:'',
         redirectTo:'/service-provider/select-page-type'
       },
     ]
   },
+
  
 ];
 
