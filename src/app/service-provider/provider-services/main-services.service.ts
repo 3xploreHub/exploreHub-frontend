@@ -43,10 +43,11 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/viewAllServices/${pageId}`)
   }
 
-
   createBooking(data) {
-    console.log(data.firstService);
-
     return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}`, { firstService: data.firstService })
+  }
+
+  getBooking(bookingId) {
+    return this.http.get(`${this.apiUrl}/getBooking/${bookingId}`)
   }
 }

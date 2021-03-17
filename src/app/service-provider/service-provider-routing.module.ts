@@ -23,50 +23,50 @@ const routes: Routes = [
       },
       {
         path: 'create-tourist-spot-page/:id',
-        loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then( m => m.CreateTouristSpotPagePageModule),
+        loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then(m => m.CreateTouristSpotPagePageModule),
         canDeactivate: [PageCreatorRouteManagerGuard],
       },
       {
         path: 'create-service-page/:id',
-        loadChildren: () => import('./create-service-page/create-service-page.module').then( m => m.CreateServicePagePageModule),
+        loadChildren: () => import('./create-service-page/create-service-page.module').then(m => m.CreateServicePagePageModule),
         canDeactivate: [PageCreatorRouteManagerGuard],
       },
       {
         path: 'list-of-pages/:status',
-        loadChildren: () => import('./list-of-pages/list-of-pages.module').then( m => m.ListOfPagesPageModule)
+        loadChildren: () => import('./list-of-pages/list-of-pages.module').then(m => m.ListOfPagesPageModule)
       },
       {
         path: 'dashboard/:pageType/:pageId',
-        loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule),
       },
       {
         path: 'select-page-type',
-        loadChildren: () => import('./select-page-type/select-page-type.module').then( m => m.SelectPageTypePageModule)
+        loadChildren: () => import('./select-page-type/select-page-type.module').then(m => m.SelectPageTypePageModule)
       },
       {
         path: 'online-pages-list',
-        loadChildren: () => import('./pages/online-pages-list/online-pages-list.module').then( m => m.OnlinePagesListPageModule)
+        loadChildren: () => import('./pages/online-pages-list/online-pages-list.module').then(m => m.OnlinePagesListPageModule)
       },
       {
         path: 'view-page/:pageId/:pageType',
-        loadChildren: () => import('./pages/view-page/view-page.module').then( m => m.ViewPagePageModule)
+        loadChildren: () => import('./pages/view-page/view-page.module').then(m => m.ViewPagePageModule)
       },
       {
         path: 'view-item/:pageId/:serviceId/:itemId/:pageType',
-        loadChildren: () => import('./pages/view-item/view-item.module').then( m => m.ViewItemPageModule)
+        loadChildren: () => import('./pages/view-item/view-item.module').then(m => m.ViewItemPageModule)
       },
       {
-        path: 'select-service',
-        loadChildren: () => import('./pages/select-service/select-service.module').then( m => m.SelectServicePageModule)
+        path: 'select-service/:bookingId',
+        loadChildren: () => import('./pages/select-service/select-service.module').then(m => m.SelectServicePageModule)
       },
       {
-        path:'',
-        redirectTo:'/service-provider/select-page-type'
+        path: '',
+        redirectTo: '/service-provider/select-page-type'
       },
     ]
   },
 
- 
+
 ];
 
 @NgModule({

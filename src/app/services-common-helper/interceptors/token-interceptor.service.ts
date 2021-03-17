@@ -70,7 +70,11 @@ export class TokenInterceptorService implements HttpInterceptor {
             this.loadingService.hide();
             if (error.status == 401) {
               this.authServices.logOut();
+              this.presentAlert("Authorization Failed!")
               this.route.navigate(["/login"]);
+            }
+            if (error.status == 404) {
+              this.presentAlert("Resource not found!");
             }
             if (error.status == 500) {
               this.presentAlert(

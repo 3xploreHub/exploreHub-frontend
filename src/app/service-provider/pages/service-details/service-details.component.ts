@@ -89,7 +89,8 @@ export class ServiceDetailsComponent implements OnInit {
 
     this.mainService.createBooking(data).subscribe(
       (response: bookingData) => {
-        this.router.navigate(["/service-provider/select-service",])
+
+        this.router.navigate(["/service-provider/select-service", response._id])
       })
   }
 
