@@ -10,7 +10,9 @@
 <ion-content>
   <ion-slides #slides [options]="slideOpts">
     <ion-slide *ngFor="let service of values.data">
-      <app-service-details [values]="service"></app-service-details>
+      <app-service-details [serviceInfo]="{pageId: pageId, serviceGroupId: serviceId,pageType: pageType}"
+        [values]="service">
+      </app-service-details>
     </ion-slide>
   </ion-slides>
 </ion-content>

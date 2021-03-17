@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,11 +35,18 @@ export class MainServicesService {
   }
 
   viewItems(params: any) {
-    const { pageId, serviceId, pageType} = params;
+    const { pageId, serviceId, pageType } = params;
     return this.http.get(`${this.apiUrl}/viewItems/${pageId}/${serviceId}/${pageType}`)
   }
 
-  viewAllServices(pageId ) {
+  viewAllServices(pageId) {
     return this.http.get(`${this.apiUrl}/viewAllServices/${pageId}`)
+  }
+
+
+  createBooking(data) {
+    console.log(data.firstService);
+
+    return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}`, { firstService: data.firstService })
   }
 }

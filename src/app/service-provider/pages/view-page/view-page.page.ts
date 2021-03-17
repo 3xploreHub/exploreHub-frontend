@@ -55,6 +55,7 @@ export class ViewPagePage implements OnInit {
         (response: any) => {
           this.page = response.page;
           this.otherServices = response.otherServices
+          this.mainService.currentPage = this.page;
 
           this.setPage(this.page);
         }
@@ -169,4 +170,6 @@ export class ViewPagePage implements OnInit {
   viewAllServices() {
     this.router.navigate(["/service-provider/all-services", this.page._id])
   }
+
+
 }
