@@ -160,7 +160,7 @@ export class ViewPagePage implements OnInit {
   }
 
   viewItem(data) {
-    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType])
+    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType, "create_new"])
   }
 
   viewService(serviceId) {

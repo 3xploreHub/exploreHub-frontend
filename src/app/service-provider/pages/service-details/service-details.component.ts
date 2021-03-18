@@ -18,6 +18,7 @@ export interface serviceInfo {
   pageType: string;
   pageId: string;
   serviceGroupId: string;
+  bookingId: string;
 }
 
 @Component({
@@ -52,7 +53,7 @@ export class ServiceDetailsComponent implements OnInit {
     public router: Router,
     public creator: PageCreatorService) {
     this.values = { _id: "", type: "item", data: [], styles: [], default: false }
-    this.serviceInfo = { pageId: "", serviceGroupId: "", pageType: "" }
+    this.serviceInfo = { pageId: "", serviceGroupId: "", pageType: "", bookingId:"" }
   }
 
   ngOnInit() {
@@ -74,35 +75,40 @@ export class ServiceDetailsComponent implements OnInit {
 
   }
   getServiceName() {
-    let name = ""
+    let name;
     this.values.data.forEach(component => {
       if (component.data.defaultName && component.data.defaultName == "name") {
         name = component.data.text
       }
     });
+    if (!name) {
+      if (this.values.data[1].type == "text") {
+        name = this.values.data[1].data.text;
+        
+      } else {
+        name = "Untitled"
+      }
+    }
     return name;
   }
 
   selectService() {
     const firstServiceSelected = { serviceId: this.values._id, serviceName: this.getServiceName(), serviceGroupId: this.serviceInfo.serviceGroupId }
-    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected };
-
+    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId? this.serviceInfo.bookingId: null};
+    console.log(data);
+    
     this.mainService.createBooking(data).subscribe(
       (response: bookingData) => {
-
-        this.router.navigate(["/service-provider/select-service", response._id])
+        this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id])
       })
   }
 
 
   renderComponent(componentValues: any, parent) {
-    // if (componentValues.type) {
     const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
     const comp = this.pageElement.createComponent<ElementComponent>(factory);
     comp.instance.values = componentValues.unSaved ? null : componentValues;
-    // comp.instance.parentId = this.page._id;
     comp.instance.parent = "page";
     comp.instance.emitEvent = new EventEmitter();
-    // }
   }
 }

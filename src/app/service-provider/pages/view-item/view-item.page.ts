@@ -14,6 +14,7 @@ export class ViewItemPage implements OnInit {
   public serviceId: string;
   public itemId: string;
   public pageId: string;
+  public bookingId: string;
   public pageType: string;
   @ViewChild('slides', { static: false }) slides: IonSlides;
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) {
@@ -26,6 +27,7 @@ export class ViewItemPage implements OnInit {
       this.itemId = params.get('itemId');
       this.pageId = params.get('pageId');
       this.pageType = params.get("pageType");
+      this.bookingId = params.get("bookingId");
       this.mainService.viewItems({ pageId: this.pageId, serviceId: this.serviceId, pageType: this.pageType }).subscribe(
         (response: ElementValues) => {
           this.values = response[0].services[0];

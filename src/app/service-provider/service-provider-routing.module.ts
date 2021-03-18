@@ -52,11 +52,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/view-page/view-page.module').then(m => m.ViewPagePageModule)
       },
       {
-        path: 'view-item/:pageId/:serviceId/:itemId/:pageType',
+        path: 'view-item/:pageId/:serviceId/:itemId/:pageType/:bookingId',
         loadChildren: () => import('./pages/view-item/view-item.module').then(m => m.ViewItemPageModule)
       },
       {
-        path: 'select-service/:bookingId',
+        path: 'select-service/:pageId/:bookingId',
         loadChildren: () => import('./pages/select-service/select-service.module').then(m => m.SelectServicePageModule)
       },
       {

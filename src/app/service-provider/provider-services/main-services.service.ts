@@ -44,7 +44,7 @@ export class MainServicesService {
   }
 
   createBooking(data) {
-    return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}`, { firstService: data.firstService })
+    return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}/${data.bookingId}`, { firstService: data.firstService })
   }
 
   getBooking(bookingId) {

@@ -1,0 +1,85 @@
+.selectedServices {
+    padding:10px;
+    margin:0;
+    background-color: #ffff;
+    border-bottom: 1px solid lightsteelblue;
+    .sectionTitle {
+        font-size: 19px;
+        padding:5px;
+    }
+
+    .selectedItem {
+        margin:15px 5px;
+        border-radius: 5px;
+        background-color: #ffff;
+        overflow: hidden;
+        padding-bottom: 1px;
+        .groupName {
+            padding:7px;
+            background-color: rgb(255, 255, 255);
+            border-bottom: 1px solid lightsteelblue;
+            // color: rgb(21, 44, 63);
+            color:rgb(33, 39, 46);
+            }
+    }
+}
+
+.notSelected {
+    .selectMore {
+        padding:20px 15px;
+        font-size: 19px;
+    }
+}
+.item {
+    display:flex;
+    margin:5px;
+    .itemInfo {
+        padding:5px 10px;
+    }
+}
+
+.photoHolder {
+    height: 70px;
+    border-radius: 4px;
+    overflow:hidden;
+    width:90px;
+    
+    .photo {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width:100%;
+        height: 100%;
+        background-color: steelblue;
+    }
+}
+
+.serviceName {
+    color:rgb(52, 67, 85);
+}
+.servicePrice {
+    font-size: 14px;
+    color:rgb(55, 78, 100);
+}
+
+
+.bookSectionCont {
+    padding:20px 10px;
+    background-color: #ffff;
+    .bookSection {
+        background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
+        color:#ffff;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        
+        p {
+            padding: 0 8px;
+            margin: 15px 0;
+
+        }
+    }
+}

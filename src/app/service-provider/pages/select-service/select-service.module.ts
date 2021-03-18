@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SelectServicePageRoutingModule } from './select-service-routing.module';
 
 import { SelectServicePage } from './select-service.page';
+import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/item-list-display/item-list-display.component';
 
 @NgModule({
   imports: [
