@@ -22,7 +22,6 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  // @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   @Input() page: Page = { _id: "", status: "", components: [], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
@@ -50,8 +49,8 @@ export class ViewPagePage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
-      const pageType = params.get('pageType')
-      this.mainService.viewPage({ pageId: pageId, pageType: pageType }).subscribe(
+      this.pageType = params.get('pageType')
+      this.mainService.viewPage({ pageId: pageId, pageType: this.pageType }).subscribe(
         (response: any) => {
           this.page = response.page;
           this.otherServices = response.otherServices
@@ -65,11 +64,8 @@ export class ViewPagePage implements OnInit {
   setPage(page) {
     if (this.pageElement) this.pageElement.clear()
     if (this.pageService) this.pageService.clear();
-    // if (this.pageInputField) this.pageInputField.clear();
-    this.pageType = this.page.hostTouristSpot ? 'service' : 'tourist_spot'
     this.creator.preview = true;
     setTimeout(() => {
-      this.page = page;
       const address = this.page.components.splice(2, 3);
       const location = { ...address[0], data: { ...address[0].data } }
       location.data.text = "";
@@ -92,10 +88,6 @@ export class ViewPagePage implements OnInit {
       this.page.services.forEach((component: any) => {
         this.renderComponent(this.pageService, component, "page")
       })
-
-      // this.page.bookingInfo.forEach((component: any) => {
-      //   this.renderComponent(this.pageInputField, component, "page_booking_info")
-      // })
     }, 100);
 
   }

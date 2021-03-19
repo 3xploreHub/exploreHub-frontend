@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>select-service</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,9 +12,10 @@
     <div class="selectedServices mainLightBg2">
       <div class="sectionTitle">Selected Services</div>
       <div class="selectedItem boxShadowed2" *ngFor="let item of selected">
-        <div class="groupName">{{item.groupName}}</div>
+        <div class="groupName">{{item.groupName}}
+          
+        </div>
         <div class="item">
-
           <div class="photoHolder">
             <div class="photo"
               [ngStyle]="{'background-image': 'url('+ getPhoto(item.service) +')' }">
@@ -19,10 +23,10 @@
             </div>
           </div>
           <div class="itemInfo">
-
             <div class="serviceName">{{item.serviceName}}</div>
             <div class="servicePrice">{{getServiceName(item.service, 'price')? 'P
               '+formatNumber(getServiceName(item.service, 'price')): 0}}</div>
+              <div class="changeItem">Change</div>
           </div>
         </div>
       </div>
@@ -32,7 +36,7 @@
       <ng-template #services></ng-template>
     </div>
     <div class="bookSectionCont">
-      <div class="bookSection ion-activatable ripple-parent boxShadowed2">
+      <div (click)="bookNow()" class="bookSection ion-activatable ripple-parent boxShadowed2">
         <p>Book Now</p>
         <ion-icon name="arrow-forward-outline"></ion-icon>
         <ion-ripple-effect></ion-ripple-effect>

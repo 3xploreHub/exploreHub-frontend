@@ -61,27 +61,3 @@
     }
 }
 
-.bookBtnCont {
-    text-align: right;
-}
-
-.bookSectionCont {
-    padding:20px 10px;
-    background-color: #ffff;
-    .bookSection {
-        background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
-        color:#ffff;
-        display: flex;
-        font-size: 20px;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        
-        p {
-            padding: 0 8px;
-            margin: 15px 0;
-
-        }
-    }
-}

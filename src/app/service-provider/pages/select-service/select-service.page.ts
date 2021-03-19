@@ -99,10 +99,16 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
 
   catchEvent(data) {
     if (data.userInput) {
-      console.log(data);
     } else {
       this.viewItem(data)
     }
+  }
+
+  bookNow() {
+    setTimeout(() => {
+      
+      this.router.navigate(["/service-provider/book", this.pageId,this.booking.bookingType, this.booking._id])
+    }, 200);
   }
 
   viewItem(data) {
@@ -124,8 +130,6 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   }
 
   getPhoto(data) {
-    console.log(data);
-    
     let photo;
     data.data.forEach(comp => {
       if (comp.type == "photo") {
