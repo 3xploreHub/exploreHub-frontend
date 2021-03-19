@@ -84,9 +84,22 @@ export class BookPage implements OnInit, ViewWillEnter {
 
   catchEvent(data) {
     if (data.userInput) {
+      let updated = false;
+      this.inputValue = this.inputValue.map((val: InputValue) => {
+        if (val.inputId == data.data.inputId) {
+          val = data.data
+          updated = true;
+        }
+        return val;
+      })
+      if (!updated) {
+        this.inputValue.push(data.data);
+      }
+      console.log(this.inputValue);
       
     }
   }
 
+  
 
 }
