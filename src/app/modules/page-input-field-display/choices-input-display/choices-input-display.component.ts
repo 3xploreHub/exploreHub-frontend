@@ -43,6 +43,7 @@ export class ChoicesInputDisplayComponent implements OnInit {
     this.emitEvent.emit({
       userInput: true,
       data: {
+        inputId: this.values._id,
         inputFieldType: "choices-input",
         settings: settings,
         value: data

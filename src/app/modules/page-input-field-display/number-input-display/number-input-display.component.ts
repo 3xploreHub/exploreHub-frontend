@@ -81,6 +81,7 @@ export class NumberInputDisplayComponent implements OnInit {
     this.emitEvent.emit({
       userInput: true,
       data: {
+        inputId: this.values._id,
         inputFieldType: "number-input",
         settings: {},
         value: this.number

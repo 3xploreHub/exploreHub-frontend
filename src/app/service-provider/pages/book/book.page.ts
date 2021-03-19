@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
+import { InputValue } from 'src/app/modules/elementTools/interfaces/InputValues';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { ChoicesInputDisplayComponent } from 'src/app/modules/page-input-field-display/choices-input-display/choices-input-display.component';
 import { DateInputDisplayComponent } from 'src/app/modules/page-input-field-display/date-input-display/date-input-display.component';
@@ -13,12 +14,13 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 @Component({
   selector: 'app-book',
   templateUrl: './book.page.html',
-  styleUrls: ['./book.page.scss',  '../../../modules/page-creator/page-creator.component.scss'],
+  styleUrls: ['./book.page.scss', '../../../modules/page-creator/page-creator.component.scss'],
 })
 export class BookPage implements OnInit, ViewWillEnter {
   public bookingInfo: ElementValues[] = [];
   public pageType: string;
   public pageId: string;
+  public inputValue: InputValue[] = [];
   components = {
     'text-input': TextInputDisplayComponent,
     'number-input': NumberInputDisplayComponent,
@@ -27,11 +29,11 @@ export class BookPage implements OnInit, ViewWillEnter {
   }
   @ViewChild('pageInputField', { read: ViewContainerRef }) pageInputField: ViewContainerRef;
   constructor(
-    public route: ActivatedRoute, 
-    public mainService: MainServicesService, 
+    public route: ActivatedRoute,
+    public mainService: MainServicesService,
     public creator: PageCreatorService,
     public componentFactoryResolver: ComponentFactoryResolver
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -46,7 +48,7 @@ export class BookPage implements OnInit, ViewWillEnter {
     })
   }
 
-  
+
   ionViewWillEnter() {
     this.bookingInfo = [];
   }
@@ -60,13 +62,13 @@ export class BookPage implements OnInit, ViewWillEnter {
       this.bookingInfo.forEach((component: any) => {
         this.renderComponent(component, "page_booking_info")
       })
-    
+
 
     }, 100);
 
   }
 
-  
+
   renderComponent(componentValues: any, parent) {
     if (componentValues.type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
@@ -82,8 +84,8 @@ export class BookPage implements OnInit, ViewWillEnter {
 
   catchEvent(data) {
     if (data.userInput) {
-      console.log(data);
-    } 
+      
+    }
   }
 
 

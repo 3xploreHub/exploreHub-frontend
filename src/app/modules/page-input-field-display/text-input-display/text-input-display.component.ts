@@ -18,6 +18,7 @@ export class TextInputDisplayComponent implements OnInit {
     this.emitEvent.emit({
       userInput: true,
       data: {
+        inputId: this.values._id,
         inputFieldType: "text-input",
         settings: {},
         value: this.values.data.defaultValue
