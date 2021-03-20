@@ -8,6 +8,7 @@ import { SelectServicePageRoutingModule } from './select-service-routing.module'
 
 import { SelectServicePage } from './select-service.page';
 import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/item-list-display/item-list-display.component';
+import { SelectedServiceCardComponent } from '../selected-service-card/selected-service-card.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/
     IonicModule,
     SelectServicePageRoutingModule
   ],
-  declarations: [SelectServicePage]
+  declarations: [SelectServicePage, SelectedServiceCardComponent]
 })
 export class SelectServicePageModule {}

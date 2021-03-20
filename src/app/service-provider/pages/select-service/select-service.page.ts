@@ -115,28 +115,6 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
   }
 
-  formatNumber(data) {
-    let m = data.toString();
-    let val = m.includes(".") ? "." + m.split(".")[1] : ""
-    m = m.includes(".") ? m.split(".")[0] : m
-    m = m.split("").reverse().join("")
-    let num = "";
-    for (let i = 0; i < m.length; i++) {
-      let n = (i + 1) % 3 == 0 ? i == m.length - 1 ? m[i] : m[i] + "," : m[i]
-      num += n;
-    }
-    val = num.split("").reverse().join("") + val;
-    return val;
-  }
-
-  getPhoto(data) {
-    let photo;
-    data.data.forEach(comp => {
-      if (comp.type == "photo") {
-        photo = comp.data.length>0? comp.data[0].url: "";
-      }
-    });
-    return photo;
-  }
+  
 
 }

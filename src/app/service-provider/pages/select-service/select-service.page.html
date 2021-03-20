@@ -11,25 +11,7 @@
   <div class="container">
     <div class="selectedServices mainLightBg2">
       <div class="sectionTitle">Selected Services</div>
-      <div class="selectedItem boxShadowed2" *ngFor="let item of selected">
-        <div class="groupName">{{item.groupName}}
-          
-        </div>
-        <div class="item">
-          <div class="photoHolder">
-            <div class="photo"
-              [ngStyle]="{'background-image': 'url('+ getPhoto(item.service) +')' }">
-              <p *ngIf="!getPhoto(item.service)" class="noPhoto">No Picture</p>
-            </div>
-          </div>
-          <div class="itemInfo">
-            <div class="serviceName">{{item.serviceName}}</div>
-            <div class="servicePrice">{{getServiceName(item.service, 'price')? 'P
-              '+formatNumber(getServiceName(item.service, 'price')): 0}}</div>
-              <div class="changeItem">Change</div>
-          </div>
-        </div>
-      </div>
+      <app-selected-service-card *ngFor="let item of selected" [item]="item"></app-selected-service-card>
     </div>
     <div class="notSelected">
       <div *ngIf="notSelected.length > 0" class="sectionTitle selectMore">Select other services</div>
