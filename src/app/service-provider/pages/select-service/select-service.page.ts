@@ -114,7 +114,4 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   viewItem(data) {
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
   }
-
-  
-
 }
