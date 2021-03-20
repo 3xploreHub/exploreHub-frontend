@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { environment } from 'src/environments/environment';
 
@@ -30,7 +31,7 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getOnlinePages`);
   }
 
-  viewPage(page: any) {
+  viewPage(page: any):Observable<any> {
     return this.http.get(`${this.apiUrl}/viewPage/${page.pageId}/${page.pageType}`)
   }
 
@@ -47,7 +48,15 @@ export class MainServicesService {
     return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}/${data.bookingId}`, { firstService: data.firstService })
   }
 
-  getBooking(bookingId) {
-    return this.http.get(`${this.apiUrl}/getBooking/${bookingId}`)
+  getBooking(bookingId, purpose = "add_services") {
+    return this.http.get(`${this.apiUrl}/getBooking/${bookingId}/${purpose}`)
+  }
+
+  addBookingInfo(bookingId, bookingInfo) {
+    return this.http.post(`${this.apiUrl}/addBookingInfo/${bookingId}`, bookingInfo)
+  }
+
+  getPageBookingInfo(data) {
+    return this.http.get(`${this.apiUrl}/getPageBookingInfo/${data.pageId}/${data.pageType}/${data.bookingId}`)
   }
 }

@@ -101,6 +101,7 @@ export class DateInputDisplayComponent implements OnInit {
       data: {
         inputId: this.values._id,
         inputFieldType: "date-input",
+        inputLabel: this.values.data.label,
         settings: {},
         value: this.date
       }

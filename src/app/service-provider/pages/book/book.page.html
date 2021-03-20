@@ -15,7 +15,9 @@
       </div>
       <ng-template #pageInputField></ng-template>
       <div class="bookBtnCont">
-        <button class="bookBtn addComponentBtn">Book</button>
+        <button (click)="submitBooking()" class="bookBtn addComponentBtn ion-activatable ripple-parent">Submit
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
       </div>
     </div>
   </div>

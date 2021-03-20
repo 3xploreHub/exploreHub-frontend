@@ -83,6 +83,7 @@ export class NumberInputDisplayComponent implements OnInit {
       data: {
         inputId: this.values._id,
         inputFieldType: "number-input",
+        inputLabel: this.values.data.label,
         settings: {},
         value: this.number
       }

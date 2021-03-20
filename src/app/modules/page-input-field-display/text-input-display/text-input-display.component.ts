@@ -20,6 +20,7 @@ export class TextInputDisplayComponent implements OnInit {
       data: {
         inputId: this.values._id,
         inputFieldType: "text-input",
+        inputLabel: this.values.data.label,
         settings: {},
         value: this.values.data.defaultValue
       }

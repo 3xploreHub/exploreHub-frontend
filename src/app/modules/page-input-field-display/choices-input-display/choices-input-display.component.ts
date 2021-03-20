@@ -45,6 +45,7 @@ export class ChoicesInputDisplayComponent implements OnInit {
       data: {
         inputId: this.values._id,
         inputFieldType: "choices-input",
+        inputLabel: this.values.data.label,
         settings: settings,
         value: data
       }

@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, EventEmitter, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
@@ -9,6 +9,7 @@ import { ChoicesInputDisplayComponent } from 'src/app/modules/page-input-field-d
 import { DateInputDisplayComponent } from 'src/app/modules/page-input-field-display/date-input-display/date-input-display.component';
 import { NumberInputDisplayComponent } from 'src/app/modules/page-input-field-display/number-input-display/number-input-display.component';
 import { TextInputDisplayComponent } from 'src/app/modules/page-input-field-display/text-input-display/text-input-display.component';
+import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
@@ -18,6 +19,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class BookPage implements OnInit, ViewWillEnter {
   public bookingInfo: ElementValues[] = [];
+  public bookingId: String;
   public pageType: string;
   public pageId: string;
   public inputValue: InputValue[] = [];
@@ -32,22 +34,43 @@ export class BookPage implements OnInit, ViewWillEnter {
     public route: ActivatedRoute,
     public mainService: MainServicesService,
     public creator: PageCreatorService,
+    public router: Router,
     public componentFactoryResolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.pageId = params.get('pageId');
-      this.pageType = params.get('pageType')
-      this.mainService.viewPage({ pageId: this.pageId, pageType: this.pageType }).subscribe(
+      this.pageType = params.get('pageType');
+      this.bookingId = params.get('bookingId')
+      this.mainService.getPageBookingInfo({ pageId: this.pageId, pageType: this.pageType, bookingId: this.bookingId}).subscribe(
         (response: any) => {
-          this.bookingInfo = response.page.bookingInfo;
+          this.bookingInfo = response.bookingInfo;
+          if (response.booking) {
+            this.inputValue = response.booking.bookingInfo;
+            this.setValues();
+          }
+          
           this.setPage(this.bookingInfo);
         }
       )
     })
   }
 
+  setValues() {
+    if (this.inputValue.length > 0) {
+      this.inputValue.forEach(value => {
+        this.bookingInfo = this.bookingInfo.map(input => {
+          if (input._id == value.inputId) {
+            if (input.type != "choices-input") {
+              input.data.defaultValue = value.value;
+            } 
+          }
+          return input;
+        })
+      })
+    }
+  }
 
   ionViewWillEnter() {
     this.bookingInfo = [];
@@ -57,17 +80,12 @@ export class BookPage implements OnInit, ViewWillEnter {
     if (this.pageInputField) this.pageInputField.clear()
     this.creator.preview = true;
     setTimeout(() => {
-
-
       this.bookingInfo.forEach((component: any) => {
+
         this.renderComponent(component, "page_booking_info")
       })
-
-
     }, 100);
-
   }
-
 
   renderComponent(componentValues: any, parent) {
     if (componentValues.type) {
@@ -80,7 +98,6 @@ export class BookPage implements OnInit, ViewWillEnter {
       comp.instance.emitEvent.subscribe(data => this.catchEvent(data))
     }
   }
-
 
   catchEvent(data) {
     if (data.userInput) {
@@ -95,11 +112,17 @@ export class BookPage implements OnInit, ViewWillEnter {
       if (!updated) {
         this.inputValue.push(data.data);
       }
-      console.log(this.inputValue);
-      
     }
   }
 
-  
+  submitBooking() {
+    setTimeout(() => {
+      this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
+        (response: bookingData) => {
+          this.router.navigate(["/service-provider/booking-review", this.bookingId])
+        }
+      )
+    }, 100);
+  }
 
 }
