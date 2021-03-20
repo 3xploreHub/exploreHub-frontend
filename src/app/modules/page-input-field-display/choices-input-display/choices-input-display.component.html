@@ -1,7 +1,7 @@
 <div *ngIf="!values.data.selectMultiple; else multiple" [class.hasError]="hasError" class="textInputHolder">
   <ion-label>{{values.data.label}}</ion-label>
   <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent">
-    {{selected}}
+    {{selected.length > 0 ? selected[0]: ""}}
     <ion-ripple-effect *ngIf="creator.preview"  type="unbounded"></ion-ripple-effect>
   </div>
 
@@ -25,7 +25,7 @@
       <p class="instructions">{{values.data.label}}</p>
       <div (click)="check(option)" class="option ion-activatable ripple-parent" *ngFor="let option of values.data.choices">
         <div class="checkbox">
-          <ion-checkbox [checked]="listOfSelected.includes(option)"></ion-checkbox>
+          <ion-checkbox [checked]="checkIfChecked(option._id)"></ion-checkbox>
         </div>
         {{option.text}}
         <ion-ripple-effect *ngIf="creator.preview" type="unbounded"></ion-ripple-effect>

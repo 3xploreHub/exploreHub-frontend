@@ -22,6 +22,7 @@ export class BookPage implements OnInit, ViewWillEnter {
   public bookingId: String;
   public pageType: string;
   public pageId: string;
+  public update:boolean = false;
   public inputValue: InputValue[] = [];
   components = {
     'text-input': TextInputDisplayComponent,
@@ -43,14 +44,15 @@ export class BookPage implements OnInit, ViewWillEnter {
       this.pageId = params.get('pageId');
       this.pageType = params.get('pageType');
       this.bookingId = params.get('bookingId')
-      this.mainService.getPageBookingInfo({ pageId: this.pageId, pageType: this.pageType, bookingId: this.bookingId}).subscribe(
+      this.mainService.getPageBookingInfo({ pageId: this.pageId, pageType: this.pageType, bookingId: this.bookingId }).subscribe(
         (response: any) => {
           this.bookingInfo = response.bookingInfo;
           if (response.booking) {
+            this.update = response.booking.bookingInfo.length > 0;
             this.inputValue = response.booking.bookingInfo;
             this.setValues();
           }
-          
+
           this.setPage(this.bookingInfo);
         }
       )
@@ -62,9 +64,7 @@ export class BookPage implements OnInit, ViewWillEnter {
       this.inputValue.forEach(value => {
         this.bookingInfo = this.bookingInfo.map(input => {
           if (input._id == value.inputId) {
-            if (input.type != "choices-input") {
-              input.data.defaultValue = value.value;
-            } 
+            input.data.defaultValue = value.value;
           }
           return input;
         })
