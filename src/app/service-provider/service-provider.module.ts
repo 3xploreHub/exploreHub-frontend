@@ -18,3 +18,4 @@ import { ServiceProviderPage } from './service-provider.page';
   declarations: [ServiceProviderPage]
 })
 export class ServiceProviderPageModule {}
+

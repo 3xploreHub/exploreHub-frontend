@@ -6,18 +6,28 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 @Component({
   selector: 'app-booking-review',
   templateUrl: './booking-review.page.html',
-  styleUrls: ['./booking-review.page.scss'],
+  styleUrls: ['./booking-review.page.scss', '../select-service/select-service.page.scss'],
 })
 export class BookingReviewPage implements OnInit {
-  public booking: bookingData;
+  public booking: bookingData = {
+    _id: "",
+    tourist: "",
+    PageId: "",
+    bookingInfo: [],
+    selectedServices: [],
+    bookingType: "",
+    status: "",
+  }
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get('bookingId')
       this.mainService.getBooking(bookingId, "booking_review").subscribe(
-        (response: bookingData) => {
-          this.booking = response;
+        (response: any) => {
+          this.booking = response.bookingData;
+          console.log(this.booking);
+          
         }
       )
     })

@@ -18,7 +18,10 @@ export class SelectedServiceCardComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log(this.item);
+    
+  }
 
   formatNumber(data) {
     let m = data.toString();

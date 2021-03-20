@@ -8,5 +8,8 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="selectedServices mainLightBg2">
+    <div class="sectionTitle">Selected Services</div>
+    <app-selected-service-card *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
+  </div>
 </ion-content>
