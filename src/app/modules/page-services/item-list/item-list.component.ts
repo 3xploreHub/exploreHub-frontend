@@ -11,6 +11,7 @@ import { TextComponent } from '../../page-elements/text/text.component';
 import { ItemComponent } from '../item/item.component';
 import { v4 as uuidv4 } from 'uuid';
 import { ThrowStmt } from '@angular/compiler';
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
 
 @Component({
   selector: 'app-item-list',
@@ -40,6 +41,7 @@ export class ItemListComponent implements OnInit {
     'item': ItemComponent,
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
+    'bullet-form-text': BulletFormTextComponent,
     'photo': PhotoComponent,
   }
 
