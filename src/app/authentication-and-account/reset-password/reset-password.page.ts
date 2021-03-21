@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-reset-password",
   templateUrl: "./reset-password.page.html",
-  styleUrls: ["./reset-password.page.scss"],
+  styleUrls: ["./reset-password.page.scss", "../login/login.page.scss"],
 })
 export class ResetPasswordPage implements OnInit, OnDestroy {
   public form;

@@ -4,24 +4,19 @@
       <h3>Enter code here to reset password</h3>
     </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="fieldHolder">
+      <div class="fieldHolder noMarginBottom">
         <div class="inputLabel">Code</div>
-        <input class="inputField"
-          name="code"
-          formControlName="code"
-        >
-        <ul
-        class="validationError"
-        *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null"
-        >
-        <li *ngFor="let error of form.get('code').errors.validations">
-          {{ error.message }}
-        </li>
-      </ul>
-    </div>
-        <button class="appBtn" [disabled]="form.get('code').errors != null" type="submit"
-          >Submit</button
-        >
+        <input class="inputField" name="code" formControlName="code">
+        <ul class="validationError"
+          *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null">
+          <li *ngFor="let error of form.get('code').errors.validations">
+            {{ error.message }}
+          </li>
+        </ul>
+      </div>
+      <div class="btnHolder">
+        <button class="appBtn" [disabled]="form.get('code').errors != null" type="submit">Submit</button>
+      </div>
     </form>
   </ion-card-content>
 </ion-card>
@@ -31,16 +26,13 @@
       <!-- <p slot="start">{{i + 1}}</p> -->
       <ion-icon name="key-outline" slot="start"></ion-icon>
       sent to {{ code.sentTo }}
-      <span
-        style="
+      <span style="
           font-weight: bold;
           padding-left: 5px;
           margin-left: 5px;
           border-left: 1px solid lightgray;
-        "
-        >{{ 'will expire after '+(code.displayTime != undefined ?
-        code.displayTime: '00:00')}}</span
-      >
+        ">{{ 'will expire after '+(code.displayTime != undefined ?
+        code.displayTime: '00:00')}}</span>
     </ion-item>
   </ion-card-content>
 </ion-card>
