@@ -1,8 +1,8 @@
 <ion-card>
-  <ion-card-content *ngIf="pendingCode">
-    <ion-item>
+  <ion-card-content style="flex-shrink: 0;" *ngIf="pendingCode">
+    <div>
       <h3>Enter code here to reset password</h3>
-    </ion-item>
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="fieldHolder">
         <div class="inputLabel">Code</div>

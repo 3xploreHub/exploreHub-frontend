@@ -1,15 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Account verfication</ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content style="background-color: white" text-center>
   <div class="pageBody mainLightBg2 pageCont">
     <div class="options">
-      <p (click)="deleteAccont()" class="deleteAccount">Stop creating this account</p>
+      <p (click)="deleteAccont()" class="deleteAccount">Delete Account</p>
       <p (click)="logOut()">Log out</p>
     </div>
-    <ion-card>
+    <div class="titleCont">
+      <p>Account Verification</p>
+    </div>
+    <ion-card class="infoCard">
       <ion-card-content>
         <ion-item>
           <h4>We have sent a code to</h4>

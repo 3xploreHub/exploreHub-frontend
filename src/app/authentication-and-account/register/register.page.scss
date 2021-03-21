@@ -71,6 +71,7 @@ ion-label {
 .selectedType {
   width: 100%;
   padding: 10px 20px;
+  flex-shrink: 0;
   position: relative;
   color:#ffff;
   background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
