@@ -1,157 +1,105 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="login"
-        icon="chevron-back-outline"
-      ></ion-back-button>
+      <ion-back-button defaultHref="login" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="page" style="background-color: white" no-padding>
-  <ion-grid
-    *ngIf="selectingAccountType"
-    style="
-      display: flex;
-      align-items: center;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      z-index: 5;
-      background: white;
-    "
-  >
-    <ion-row class="row2">
-      <h4 style="padding: 10px">Create account as:</h4>
-      <div
-        (click)="setAccountType(accountType.tourist)"
-        style="
-          width: 100%;
-          padding: 20px;
-          background-color: dodgerblue;
-          margin: 5px 10px;
-        "
-      >
-        {{accountType.tourist}}
-        <span style="font-size: 10px; display: block"
-          >Searching for a nice place</span
-        >
+  <div class="pageBody mainLightBg2">
+
+    <div *ngIf="selectingAccountType" class="selectType">
+      <div class="accTypeHolder">
+        <div class="userIcon">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <h4 class="createAcc">Create account as:</h4>
+        <div (click)="setAccountType(accountType.tourist)" class="accType ion-activatable ripple-parent">
+          <p class="accTypeName boxShadowed2">
+            {{accountType.tourist}}
+          </p>
+          <p class="accTypeText">Searching for a nice place</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <div (click)="setAccountType(accountType.provider)" class="accType ion-activatable ripple-parent">
+          <p class="accTypeName boxShadowed2">
+            {{accountType.provider}}
+          </p>
+          <p class="accTypeText">Tourist spot operator or providing services in a tourist
+            spot.</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
       </div>
-      <div
-        (click)="setAccountType(accountType.provider)"
-        style="
-          width: 100%;
-          padding: 20px;
-          background-color: dodgerblue;
-          margin: 5px 10px;
-        "
-      >
-        {{accountType.provider}}
-        <span style="font-size: 10px; display: block"
-          >Tourist spot operator or providing services in a tourist spot.</span
-        >
+    </div>
+    <div (click)="change()" class="selectedType ion-activatable ripple-parent">
+      <p class="creatingAccAs">Creating account as:</p>
+      <p class="selectedTypeText">
+        {{form.get('accountType').value}}
+      </p>
+      <div class="changeType">
+        <ion-icon name="refresh-outline"></ion-icon>&nbsp;Change
       </div>
-    </ion-row>
-  </ion-grid>
-  <div
-    (click)="selectingAccountType = true"
-    style="
-      width: 100%;
-      padding: 20px;
-      background-color: dodgerblue;
-      margin: 5px 10px;
-    "
-  >
-    <span style="font-size: 10px; display: block">Creating account as:</span>
-    {{form.get('accountType').value}}
-  </div>
-  <ion-grid class="content" padding>
-    <ion-row class="row2">
-      <ion-col class="loginCard">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input formControlName="email" clear-input="true"></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('email').dirty || form.get('email').touched) && form.get('email').errors != null"
-          >
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+    <div class="formHolder">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="fieldHolder">
+          <div class="inputLabel">Email</div>
+          <input class="inputField" name="email" formControlName="email">
+          <ul class="validationError"
+            *ngIf="(form.get('email').dirty || form.get('email').touched) && form.get('email').errors != null">
             <li *ngFor="let error of form.get('email').errors.validations">
               {{ error.type =="required" || error.type == "availability"?
               error.message : 'Invalid Email' }}
             </li>
           </ul>
-          <ion-item>
-            <ion-label position="floating"
-              >Contact number
-              <span style="color: dodgerblue">&nbsp;+63</span></ion-label
-            >
-            <ion-input
-              formControlName="contactNumber"
-              clear-input="true"
-            ></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('contactNumber').dirty || form.get('contactNumber').touched) && form.get('contactNumber').errors != null"
-          >
-            <li
-              *ngFor="let error of form.get('contactNumber').errors.validations"
-            >
+        </div>
+        <div class="fieldHolder">
+          <div class="inputLabel">Contact number
+            <span>&nbsp;+63</span>
+          </div>
+          <input class="inputField" name="contactNumber" formControlName="contactNumber">
+          <ul class="validationError"
+            *ngIf="(form.get('contactNumber').dirty || form.get('contactNumber').touched) && form.get('contactNumber').errors != null">
+            <li *ngFor="let error of form.get('contactNumber').errors.validations">
               {{ error.message }}
             </li>
           </ul>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input
-              type="password"
-              formControlName="password"
-              clear-input="true"
-            ></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null"
-          >
+        </div>
+        <div class="fieldHolder">
+          <div class="inputLabel">Password</div>
+          <input class="inputField" name="password" type="password" formControlName="password">
+          <ul class="validationError"
+            *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null">
             <li *ngFor="let error of form.get('password').errors.validations">
               {{ error.message }}
             </li>
           </ul>
-          <ion-item>
-            <ion-label position="floating">Confirm password</ion-label>
-            <ion-input
-              type="password"
-              (keyup)="checkPasswordConfirmation()"
-              formControlName="confirmPassword"
-              clear-input="true"
-            ></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('confirmPassword').dirty || form.get('confirmPassword').touched) && form.get('confirmPassword').errors != null"
-          >
-            <li
-              *ngFor="let error of form.get('confirmPassword').errors.validations"
-            >
+        </div>
+        <div class="fieldHolder">
+          <div class="inputLabel">Confirm password</div>
+          <input class="inputField" type="password" name="confirmPassword" (keyup)="checkPasswordConfirmation()"
+            formControlName="confirmPassword">
+          <ul class="validationError"
+            *ngIf="(form.get('confirmPassword').dirty || form.get('confirmPassword').touched) && form.get('confirmPassword').errors != null">
+            <li *ngFor="let error of form.get('confirmPassword').errors.validations">
               {{ error.message }}
             </li>
           </ul>
-          <!-- [disabled]="!form.valid" -->
-          <ion-item>
-            <ion-button [disabled]="!form.valid" type="submit"
-              >Register</ion-button
-            >
-          </ion-item>
-          <ion-item>
-            <a routerLink="/login">
-              <p>Already have an account? Login</p>
-            </a>
-          </ion-item>
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </div>
+        <div class="submitBtnHolder">
+          <button type="submit" class="submitBtn boxShadowed2 ion-activatable ripple-parent" [disabled]="!form.valid" type="submit">Register</button>
+        </div>
+        <div class="forgotPassHolder">
+          <p class="textBtn" routerLink="/login">
+            Already have an account? Login
+          </p>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
 </ion-content>

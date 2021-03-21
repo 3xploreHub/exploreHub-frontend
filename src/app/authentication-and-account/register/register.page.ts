@@ -10,7 +10,7 @@ import accountType from "../../services-common-helper/constantValue/accountType"
 @Component({
   selector: "app-register",
   templateUrl: "./register.page.html",
-  styleUrls: ["./register.page.scss"],
+  styleUrls: ["./register.page.scss", "../login/login.page.scss"],
 })
 export class RegisterPage implements OnInit {
   public form;
@@ -104,8 +104,11 @@ export class RegisterPage implements OnInit {
   }
 
   setAccountType(type) {
-    this.form.patchValue({ accountType: type });
-    this.selectingAccountType = false;
+    setTimeout(() => {
+      
+      this.form.patchValue({ accountType: type });
+      this.selectingAccountType = false;
+    }, 300);
   }
 
   checkEmailOrNumberAvailability(field, value) {
@@ -194,5 +197,12 @@ export class RegisterPage implements OnInit {
       str = errf[0];
     }
     return `The ${str} you have entered ${lverb} already taken`;
+  }
+
+  change() {
+    setTimeout(() => {
+      
+      this.selectingAccountType = true
+    }, 200);
   }
 }

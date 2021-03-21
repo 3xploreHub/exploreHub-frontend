@@ -33,21 +33,26 @@
             </div>
         </div>
         <div #booking class="servicesSection bookingInfoSection">
-            <div class="divider">
-                <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
-            </div>
-            <ng-template #pageInputField></ng-template>
-            <div *ngIf="!creator.preview" class="addInfo">
-                <h6>Add needed informations for booking.</h6>
-                <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information that
-                    they
-                    need to provide to make an arrangement.</p>
-                <div class="addComponentBtn bookingBtn ion-activatable ripple-parent" (click)="showInputFieldList()">
-                    Add Field
-                    <ion-ripple-effect></ion-ripple-effect>
-                </div>
-            </div>
+            <div class="innerHolder">
 
+                <div class="divider">
+                    <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
+                </div>
+                <ng-template #pageInputField></ng-template>
+                <div *ngIf="!creator.preview" class="addInfo">
+                    <h6>Add needed informations for booking.</h6>
+                    <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information
+                        that
+                        they
+                        need to provide to make an arrangement.</p>
+                    <div class="addComponentBtn bookingBtn ion-activatable ripple-parent"
+                        (click)="showInputFieldList()">
+                        Add Field
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="btnHolder" *ngIf="page && page.status == 'Unfinished'; else submitted">
@@ -59,8 +64,7 @@
         <ng-template #submitted>
             <div class="submitted">
 
-                <div
-                    [ngClass]="getStatus()">
+                <div [ngClass]="getStatus()">
                     <b>Status:</b>{{page.status}}
                 </div>
             </div>

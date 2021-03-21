@@ -75,12 +75,22 @@
     background: rgb(242, 245, 250);
     border-bottom: 1px solid rgb(167, 167, 167);
     padding:20px 15px;
+    display: flex;
+    justify-content: center;
     padding-bottom: 40px !important;
+
+    .innerHolder {
+        width: 320px;
+    }
 }
 
-.bookBtn {
-    
+@media only screen and (max-width: 320px) {
+    .innerHolder {
+        width: 100%;
+    }
 }
+
+
 
 
 .preview {

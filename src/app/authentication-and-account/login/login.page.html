@@ -7,7 +7,7 @@
           <div class="circle"></div>
         </div>
         <div class="titleHolder">
-          
+
           <h1 class="title">ExploreHub</h1>
         </div>
       </div>
@@ -16,7 +16,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="fieldHolder">
           <p class="inputLabel">Phone number | email</p>
-          <input class="inputField" (keyup)="checkCred()" clear-input="true" name="credential"
+          <input class="inputField" (keyup)="checkCred()" name="credential"
             formControlName="credential" autcomplete="on">
 
 
@@ -37,33 +37,33 @@
               <ion-icon class="fieldsIcon" (click)="showPassword = true" *ngIf="!showPassword" name="eye-outline">
               </ion-icon>
             </div>
-            <input class="inputField" name="password" clear-input="true" formControlName="password"
+            <input class="inputField" name="password" formControlName="password"
               [type]=" !showPassword ? 'password': 'text'">
           </div>
+          <ul class="validationError"
+            *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null">
+            <li *ngFor="let error of form.get('password').errors.validations">
+              {{ error.message }}
+            </li>
+          </ul>
         </div>
-        <ul class="validationError"
-          *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null">
-          <li *ngFor="let error of form.get('password').errors.validations">
-            {{ error.message }}
-          </li>
-        </ul>
         <div class="submitBtnHolder">
           <button type="submit" class="submitBtn boxShadowed2 ion-activatable ripple-parent"
-            [disabled]="!form.get('credential').value || !form.get('password').value || !form.valid"
-            type="submit">Login
-            <ion-ripple-effect></ion-ripple-effect></button>
+            [disabled]="!form.get('credential').value || !form.get('password').value || !form.valid" type="submit">Login
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
         </div>
       </form>
 
-     
-      <div class="">
+
+      <div>
         <button class="registerBtn ion-activatable ripple-parent" (click)="goTo('register')">
           Register
           <ion-ripple-effect></ion-ripple-effect>
         </button>
       </div>
-      <div class="forgotPassHolder">
-        <p class="forgotPass" routerLink="/find-account">forgot password</p>
+      <div>
+        <p class="textBtn" routerLink="/find-account">forgot password</p>
       </div>
     </div>
   </div>

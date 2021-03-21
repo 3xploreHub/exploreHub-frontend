@@ -13,7 +13,7 @@
 .header {
   padding: 40px 0;
   display: flex;
-  background-image: linear-gradient(to right, rgb(42, 137, 231),rgb(91, 218, 223));
+  background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -43,7 +43,7 @@
     .titleHolder {
       position: absolute;
       background-color: none;
-      background-image: linear-gradient(to right, rgb(42, 137, 231),rgb(91, 218, 223));
+      background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
       top:24px;
       width: 100%;
      
@@ -134,7 +134,9 @@
   text-align: center;
 }
 
-.forgotPass {
+.textBtn {
+  padding:8px;
+  text-align: center;
   color: rgb(14, 131, 248);
 }
 
