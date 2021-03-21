@@ -18,7 +18,7 @@ import userTokenType from "src/app/services-common-helper/constantValue/user-tok
 @Component({
   selector: "app-forgot-password",
   templateUrl: "./forgot-password.page.html",
-  styleUrls: ["./forgot-password.page.scss"],
+  styleUrls: ["./forgot-password.page.scss", "../login/login.page.scss"],
 })
 export class ForgotPasswordPage implements OnInit, OnDestroy {
   @ViewChild(CodeHandlerPage)

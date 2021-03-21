@@ -7,7 +7,7 @@ import { AlertController } from "@ionic/angular";
 @Component({
   selector: "app-find-account",
   templateUrl: "./find-account.page.html",
-  styleUrls: ["./find-account.page.scss"],
+  styleUrls: ["./find-account.page.scss", "../login/login.page.scss"],
 })
 export class FindAccountPage implements OnInit {
   public form;

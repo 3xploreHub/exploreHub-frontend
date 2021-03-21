@@ -1,3 +1,4 @@
+@import "../../../variables.scss";
 
 .pageBody {
   height: 100%;
@@ -99,6 +100,7 @@
 }
 .inputLabel {
   margin:3px 0;
+  font-size: 14px;
   color:rgb(96, 119, 141);
 }
 
@@ -154,3 +156,18 @@
 button:focus {
   outline:none;
 }
+
+.titleCont {
+  padding:10px;
+  text-align: center;
+  p {
+      margin:5px;
+      font-size: 20px;
+      color: rgb(93, 114, 141);
+  }
+}
+
+.btnToRight {
+  text-align: right !important;
+}
+
