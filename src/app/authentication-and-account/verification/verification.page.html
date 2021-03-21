@@ -4,32 +4,26 @@
   </ion-toolbar>
 </ion-header>
 <ion-content style="background-color: white" text-center>
-  <ion-button fill="outline" size="medium" color="medium" (click)="logOut()"
-    >Log out</ion-button
-  >
-  <ion-button
-    fill="outline"
-    size="medium"
-    color="medium"
-    (click)="deleteAccont()"
-    >Stop creating this account</ion-button
-  >
-  <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <h4>We have sent a code to</h4>
-      </ion-item>
-      <ion-item>
-        <h1>{{ contactNumber }}</h1>
-      </ion-item>
-      <ion-item>
-        <ion-button (click)="sendCode()">Send another code</ion-button>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <div class="pageBody mainLightBg2 pageCont">
+    <div class="options">
+      <p (click)="deleteAccont()" class="deleteAccount">Stop creating this account</p>
+      <p (click)="logOut()">Log out</p>
+    </div>
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <h4>We have sent a code to</h4>
+        </ion-item>
+        <ion-item>
+          <h1>{{ contactNumber }}</h1>
+        </ion-item>
+        <div>
+          <button class="appBtn" (click)="sendCode()">Send another code</button>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-  <app-code-handler
-    (expiredAllCode)="onExpiredAllCode($event)"
-    (submitCode)="onSubmitCode($event)"
-  ></app-code-handler>
+    <app-code-handler (expiredAllCode)="onExpiredAllCode($event)" (submitCode)="onSubmitCode($event)">
+    </app-code-handler>
+  </div>
 </ion-content>

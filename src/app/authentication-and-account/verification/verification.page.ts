@@ -11,7 +11,7 @@ import userTokenType from "src/app/services-common-helper/constantValue/user-tok
 @Component({
   selector: "app-verification",
   templateUrl: "./verification.page.html",
-  styleUrls: ["./verification.page.scss"],
+  styleUrls: ["./verification.page.scss", "../login/login.page.scss"],
 })
 export class VerificationPage implements OnInit {
   @ViewChild(CodeHandlerPage)

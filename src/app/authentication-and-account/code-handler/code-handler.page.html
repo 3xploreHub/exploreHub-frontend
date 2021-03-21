@@ -4,27 +4,24 @@
       <h3>Enter code here to reset password</h3>
     </ion-item>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating" for="code">Code</ion-label>
-        <ion-input
-          clear-input="true"
+      <div class="fieldHolder">
+        <div class="inputLabel">Code</div>
+        <input class="inputField"
           name="code"
           formControlName="code"
-        ></ion-input>
-      </ion-item>
-      <ul
-        class="valErr"
+        >
+        <ul
+        class="validationError"
         *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null"
-      >
+        >
         <li *ngFor="let error of form.get('code').errors.validations">
           {{ error.message }}
         </li>
       </ul>
-      <ion-item>
-        <ion-button [disabled]="form.get('code').errors != null" type="submit"
-          >Submit</ion-button
+    </div>
+        <button class="appBtn" [disabled]="form.get('code').errors != null" type="submit"
+          >Submit</button
         >
-      </ion-item>
     </form>
   </ion-card-content>
 </ion-card>
