@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>booking Review</ion-title>
+    <ion-title>Review</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
@@ -8,8 +8,21 @@
 </ion-header>
 
 <ion-content>
-  <div class="selectedServices mainLightBg2">
-    <div class="sectionTitle">Selected Services</div>
-    <app-selected-service-card *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
+  <div class="container mainLightBg2">
+
+    <div class="selectedServices mainLightBg2">
+      <div class="sectionTitle">Selected Services</div>
+      <app-selected-service-card *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
+    </div>
+    <div class="inputValueDisplay">
+      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+      <div class="bookSectionCont">
+        <div (click)="bookNow()" class="bookSection ion-activatable ripple-parent boxShadowed2">
+          <p>Book Now</p>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -4,5 +4,4 @@ export interface InputValue {
     inputLabel: string;
     settings: any;
     value: any;
-
 }

@@ -26,7 +26,7 @@ export class BookingReviewPage implements OnInit {
       this.mainService.getBooking(bookingId, "booking_review").subscribe(
         (response: any) => {
           this.booking = response.bookingData;
-          console.log(this.booking);
+          console.log(this.booking.bookingInfo);
           
         }
       )

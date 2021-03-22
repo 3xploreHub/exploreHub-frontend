@@ -94,7 +94,11 @@ const routes: Routes = [
     path: 'tourist',
     loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
     canActivate: [AuthGuard],
+  },  {
+    path: 'components-module',
+    loadChildren: () => import('./components-module/components-module.module').then( m => m.ComponentsModulePageModule)
   },
+
 ];
 
 @NgModule({

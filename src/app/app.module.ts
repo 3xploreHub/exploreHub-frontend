@@ -13,7 +13,6 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
 import { LoadingPage } from "./modules/loading/loading.page";
-import { CommonModule } from '@angular/common';
 import { TextComponent } from "./modules/page-elements/text/text.component";
 import { FormsModule } from "@angular/forms";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
@@ -41,11 +40,9 @@ import { ChoicesInputComponent } from "./modules/page-input-field/choices-input/
 import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display/choices-input-display/choices-input-display.component";
 import { BulletFormTextComponent } from "./modules/page-elements/bullet-form-text/bullet-form-text.component";
 import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component";
-import { BoardPage } from "./service-provider/dashboard/board/board.page";
 import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
 import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
-import { PageCardComponent } from "./service-provider/pages/page-card/page-card.component";
-import { OnlinePagesComponent } from "./modules/common-components/online-pages/online-pages.component";
+import { BookingInfoDisplayComponent } from "./service-provider/pages/booking-info-display/booking-info-display.component";
 
 @NgModule({
   declarations: [
@@ -64,7 +61,6 @@ import { OnlinePagesComponent } from "./modules/common-components/online-pages/o
     BulletFormTextDisplayComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,
-    LabelledTextDisplayComponent,
     ItemDisplayComponent,
     ItemListDisplayComponent,
     PhotoStyleComponent,

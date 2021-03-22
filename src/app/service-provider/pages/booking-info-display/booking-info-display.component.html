@@ -1,0 +1,6 @@
+<div class="content">
+  <div *ngFor="let value of inputValues">
+    <app-labelled-text-display [isDate]="value.inputFieldType == 'date-input'" [values]="makeComponent(value)"></app-labelled-text-display>
+  </div>
+   
+</div>
