@@ -3,8 +3,10 @@
     border-radius: 4px;
     display: flex;
     margin:10px;
+    align-items: stretch;
+    background-color: #ffff;
     padding:5px;
-    
+    position: relative;
     
     .cardPhotoHolder {
         height: 80px;
@@ -32,21 +34,44 @@
 
     .cardInfo {
         padding:0 5px;
+        div {
+            margin:6px 0;
+
+        }
+
+        .cardTitle {
+            font-size: 16px;
+            // color: rgb(47, 62, 77);
+        }
+        .cardDate {
+            font-size: 14px;
+            color:rgb(130, 146, 163);
+        }
     }
 }
 
-.status {
-   
-    font-size: 13px;
-    background: #ffff;
-    display: flex;
-    align-items: center;
-
-    .statusCircle {
-        width:10px;
-        height: 10px;
-        border-radius: 50%;
-        margin-right: 5px;
-        background-color: green;
-    }
-}
+// .bottomRow {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     margin:5px;
+//     display: flex;
+//     .status {
+        
+//         font-size: 15px;
+//         background: #ffff;
+//         margin:8px;
+//         display: flex;
+       
+//         align-items: center;
+        
+//         .statusCircle {
+//             width:12px;
+//             height: 12px;
+//             border-radius: 50%;
+//             margin-right: 5px;
+//             background-color: green;
+//         }
+//     }
+    
+// }

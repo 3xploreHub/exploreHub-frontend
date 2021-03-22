@@ -1,7 +1,7 @@
 export interface bookingData {
     _id: string;
     tourist: string;
-    pageId: string;
+    pageId: any;
     bookingInfo: [];
     selectedServices: [];
     bookingType: string;
