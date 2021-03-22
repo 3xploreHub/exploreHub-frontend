@@ -51,7 +51,7 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   getServiceName(data, defaultName) {
     let name;
     data.data.forEach(component => {
-      if (component.data.defaultName && component.data.defaultName == defaultName) {
+      if (component.data && component.data.defaultName && component.data.defaultName == defaultName) {
         name = component.data.text
       }
     });

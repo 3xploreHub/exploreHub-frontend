@@ -43,6 +43,7 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
 import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
 import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
 import { BookingInfoDisplayComponent } from "./service-provider/pages/booking-info-display/booking-info-display.component";
+import { ComponentsModulePageModule } from "./components-module/components-module.module";
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { BookingInfoDisplayComponent } from "./service-provider/pages/booking-in
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ComponentsModulePageModule,
     IonicStorageModule.forRoot({
       name: "__mydb",
       driverOrder: ["sqlite", "websql", "localstorage"],
