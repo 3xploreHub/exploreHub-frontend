@@ -19,13 +19,16 @@ export class ServiceProviderPage implements OnInit {
 
 
 
-  gotTo(e, page, params = '') {
-    this.active = page+ (params? '-': '' )+params;
+  gotTo(e, page, params = []) {
+    this.active = page;
+    params.forEach(param => {
+      this.active += (param? '-': '' )+param;
+    });
     e.stopPropagation();
     setTimeout(() => {
       this.menu.close('first')
       if (params) {
-        this.router.navigate([`/service-provider/${page}`, params])
+        this.router.navigate([`/service-provider/${page}`, ...params])
       } else {
         this.router.navigate([`/service-provider/${page}`]);
       }

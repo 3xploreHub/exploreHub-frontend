@@ -22,7 +22,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @Input() page: Page = { _id: "", status: "", components: [], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
+  @Input() page: Page = { _id: "",pageType: "", otherServices: [], status: "", components: [], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -52,8 +52,8 @@ export class ViewPagePage implements OnInit {
       this.pageType = params.get('pageType')
       this.mainService.viewPage({ pageId: pageId, pageType: this.pageType }).subscribe(
         (response: any) => {
-          this.page = response.page;
-          this.otherServices = response.otherServices
+          this.page = response;
+          this.otherServices = this.page.otherServices
           this.mainService.currentPage = this.page;
 
           this.setPage(this.page);

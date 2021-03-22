@@ -59,4 +59,12 @@ export class MainServicesService {
   getPageBookingInfo(data) {
     return this.http.get(`${this.apiUrl}/getPageBookingInfo/${data.pageId}/${data.pageType}/${data.bookingId}`)
   }
+
+  submitBooking(bookingId) {
+    return this.http.post(`${this.apiUrl}/submitBooking/${bookingId}`, {})
+  }
+
+  getBookings(status) {
+    return this.http.get(`${this.apiUrl}/getBookings/${status}`, {})
+  }
 }

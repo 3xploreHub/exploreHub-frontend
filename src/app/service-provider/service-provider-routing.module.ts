@@ -68,15 +68,15 @@ const routes: Routes = [
         loadChildren: () => import('./pages/booking-review/booking-review.module').then( m => m.BookingReviewPageModule)
       },
       {
+        path: 'bookings/:bookingStatus',
+        loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/service-provider/select-page-type'
       },
     ]
   },
- 
-
-
-
 ];
 
 @NgModule({

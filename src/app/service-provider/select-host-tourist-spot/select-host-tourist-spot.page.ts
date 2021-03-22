@@ -122,6 +122,9 @@ export class SelectHostTouristSpotPage implements OnInit {
 
   
   shorten(text) {
+    if (!text) {
+      return "Unititled"
+    }
     return text.length > 50 ? text.substring(0,50)+ "...": text;
   }
 }

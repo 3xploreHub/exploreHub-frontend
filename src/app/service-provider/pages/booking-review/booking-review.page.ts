@@ -12,7 +12,7 @@ export class BookingReviewPage implements OnInit {
   public booking: bookingData = {
     _id: "",
     tourist: "",
-    PageId: "",
+    pageId: "",
     bookingInfo: [],
     selectedServices: [],
     bookingType: "",
@@ -33,4 +33,11 @@ export class BookingReviewPage implements OnInit {
     })
   }
 
+  submitBooking() {
+    this.mainService.submitBooking(this.booking._id).subscribe(
+      (response: any) => {
+        
+      }
+    )
+  }
 }
