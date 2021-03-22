@@ -1,0 +1,17 @@
+<div class="holder whiteBg" [class.onItemStyleList]="parent == 'component'">
+  <div class="label">{{values.data.label}}</div>
+  <div *ngIf="values.data.orderedList; else unordered">
+    <ol>
+      <li *ngFor="let item of values.data.list">
+        {{item.text}}
+      </li>
+    </ol>
+  </div>
+  <ng-template #unordered>
+    <ul>
+      <li *ngFor="let item of values.data.list">
+        {{item.text}}
+      </li>
+    </ul>
+  </ng-template>
+</div>

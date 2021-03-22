@@ -1,0 +1,118 @@
+.wrapper {
+    margin:10px 0;
+    padding: 10px 10px 0px 10px;
+    border-radius: 4px !important;
+}
+.inputLabel {
+    box-sizing: border-box;
+    text-align: left;
+    margin-top:5px;
+    background: #ffff;
+    font-size: 18px;
+    background-color: none;
+}
+
+.settings {
+    padding:3px;
+    margin-top:5px;
+    background-color: #ffff;
+    justify-content: flex-end;
+    display: flex;
+    border-radius: 4px !important;
+    align-items: center;
+    background-color: rgb(191, 200, 207);
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+    justify-content: space-between;
+} 
+
+.otherInfo {
+    font-size: 15px;
+}
+.noChoice {
+    padding:10px !important;
+    background-color: none !important;
+    text-align: center !important;
+}
+
+.choices {
+    border-radius: 4px !important;
+    div {
+        background-color: rgb(236, 236, 236);
+        margin:8px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+
+        .choiceText {
+            width: 100%;
+            margin:0;
+            height: 100%;
+            background-color: transparent !important;
+            padding:13px;
+        }
+
+        .removeChoice {
+            background-color: rgb(245, 178, 178);
+            margin:0;
+            height: 100%;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            padding:0;
+
+            .popupIcon {
+                // vertical-align: middle;
+                // height: 100%;
+                margin:8px;
+                padding:0;
+                font-size: 30px !important;
+            }
+        }
+
+    }
+}
+
+
+
+
+
+.inputChoice {
+    padding: 8px;
+    margin-top:10px;
+    border-radius: 4px !important;  
+    background-color: rgb(191, 200, 207);
+}
+
+.addChoice {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+    button {
+        padding:10px 15px;
+        background-color: rgb(8, 121, 235);
+        color: #ffff;
+        border-radius: 4px;
+        margin:10px 0;
+        margin-bottom: 0;
+    }
+
+
+}
+
+.deleting {
+    background-color: rgb(245, 178, 178) !important;
+}
+.disabledBtn {
+    opacity: .5;
+}
+
+.adding {
+    background-color: rgb(200, 226, 248) !important;
+}

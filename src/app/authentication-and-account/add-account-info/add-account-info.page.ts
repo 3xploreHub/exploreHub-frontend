@@ -8,7 +8,7 @@ import { CValidator } from "../validators/validation";
 @Component({
   selector: "app-add-account-info",
   templateUrl: "./add-account-info.page.html",
-  styleUrls: ["./add-account-info.page.scss"],
+  styleUrls: ["./add-account-info.page.scss", "../login/login.page.scss", "../verification/verification.page.scss"],
 })
 export class AddAccountInfoPage implements OnInit {
   public form;
@@ -76,7 +76,6 @@ export class AddAccountInfoPage implements OnInit {
   }
 
   setGender(evnt) {
-    console.log(evnt);
   }
 
   async presentAlert(message) {

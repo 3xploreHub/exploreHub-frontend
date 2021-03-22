@@ -18,14 +18,14 @@ export class SelectTouristSpotCategoryPage implements OnInit {
 
   createTouristSpotPage() {
     const self = this;
-    this.creator.createTouristSpotPage().subscribe( 
-      (response: TouristSpotPage) => {
-        self.router.navigate(["/service-provider/create-tourist-spot-page", response._id])
-      },
-      (error) => {
-        console.log("error in creating tourist spot: ",error)
-      }
-    )
+    // this.creator.createTouristSpotPage().subscribe( 
+    //   (response: TouristSpotPage) => {
+    //     self.router.navigate(["/service-provider/create-tourist-spot-page", response._id])
+    //   },
+    //   (error) => {
+    //     console.log("error in creating tourist spot: ",error)
+    //   }
+    // )
   }
 
 

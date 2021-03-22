@@ -1,0 +1,55 @@
+<ion-content>
+  <div class="lightBackground">
+    <div class="topMenu">
+      <div (click)="goBack()" class="topCol backIcon ion-activatable ripple-parent ">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="topCol">
+        <div class="topCol ion-activatable ripple-parent smIcon">
+          <ion-icon class="topIcon" name="settings-outline"></ion-icon><span>Settings</span>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>&nbsp;&nbsp;
+        <div (click)="editPage()" class="topCol ion-activatable ripple-parent smIcon">
+          <ion-icon class="topIcon" name="create-outline"></ion-icon><span>Edit</span>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
+    <div class="boardHeader boxShadowed2">
+      <div class="boardPhotoHolder">
+        <div class="boardPhoto"
+          [ngStyle]="{'background-image': page.components.length > 0 && page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+        </div>
+      </div>
+      <div>
+        <div class="pageName">{{name}}</div>
+        <div class="status" [ngClass]="getStatus()">
+          <div class="statusCircle"></div>
+          {{page.status}}
+        </div>
+      </div>
+    </div>
+<!-- 
+    <div class="csTabs boxShadowed">
+      <div class="csTab">Booked
+      </div>
+      <div class="csTab">Pending</div>
+      <div class="csTab">Statistics</div>
+
+      <div class="activeIndicator">
+        <div [routerLink]="['booking']" (click)="goToSection('Booked', tab)" class="csTab">
+          <div  class="box" #tab [ngStyle]="{'left.px': boxPosition}">
+            <div class="shadow">{{clickedTab}}</div>
+          </div>
+        </div>
+        <div [routerLink]="['booking']" (click)="goToSection('Pending', tab)" class="csTab"></div>
+        <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
+      </div>
+    </div> -->
+    <div class="body">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</ion-content>

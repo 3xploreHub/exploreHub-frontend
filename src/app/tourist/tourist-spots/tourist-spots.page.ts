@@ -35,21 +35,21 @@ export class TouristSpotsPage implements OnInit {
    { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id'); 
-      console.log("id:", id)
-      if (id) {
-        this.creator.retrieveToristSpotPage(id).subscribe(
-          (response: TouristSpotPage) => {
-            this.touristSpot = response;
-            this.setPage()
-          },
-          error => {
-            console.log("error in getting tourist spot: ", error)
-          }
-        )
-      }
-    })
+    // this.route.paramMap.subscribe(params => {
+    //   const id = params.get('id'); 
+    //   console.log("id:", id)
+    //   if (id) {
+    //     this.creator.retrieveToristSpotPage(id).subscribe(
+    //       (response: TouristSpotPage) => {
+    //         this.touristSpot = response;
+    //         this.setPage()
+    //       },
+    //       error => {
+    //         console.log("error in getting tourist spot: ", error)
+    //       }
+    //     )
+    //   }
+    // })
   }
   
   hideAndShow(){

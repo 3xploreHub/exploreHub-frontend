@@ -1,25 +1,173 @@
-.eye {
+@import "../../../variables.scss";
+
+.pageBody {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: auto;
+}
+
+.header {
+  padding: 40px 0;
+  display: flex;
+  background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  // box-shadow: 0px 3px 5px #7190a7;
+  // border-bottom-right-radius: 40px;
+  // border-bottom-left-radius: 40px;
+  .appTitle {
+    height: 100px;
+    position: relative;
+    background-color: none;
+    width: 100%;
+    
+    .circleHolder {
+      width: 100%;
+      text-align: center;
+      top:-15px;
+      position: absolute; 
+      .circle {
+        display: inline-block;
+        // background-color: rgb(188, 230, 248);
+        height: 130px;
+        border:8px dashed rgb(199, 235, 240);
+        width: 130px;
+        border-radius: 50%;
+      }
+    }
+    .titleHolder {
+      position: absolute;
+      background-color: none;
+      background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
+      top:24px;
+      width: 100%;
+     
+      text-align: center;
+      .title {
+        display: inline-block;
+        font-weight: bold;
+        margin:5px 0;
+        padding:3px 30px;
+        border-top:5px solid rgb(199, 227, 240);
+        border-bottom:5px solid rgb(199, 227, 240);
+        color:rgb(255, 255, 255);
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+.formHolder {
+  max-width: 300px;
+  width: 100%;
+
+}
+
+.inputField {
+  width: 100%;
+  padding:10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid rgb(106, 128, 158);
+}
+
+.fieldHolder {
+  margin:25px 0;
+  box-sizing: border-box;
+}
+.hasIcons {
   position: relative;
-  bottom: -17px;
-  left: -5px;
-  right: 45px;
-  cursor: pointer;
-  z-index: 100;
+  .iconHolder {
+    position: absolute;
+
+    height: 100%;
+    right:0;
+    display: flex;
+    align-items: center;
+    padding:0 9px;
+
+    .fieldsIcon {
+      font-size: 25px;
+      color:rgb(43, 63, 92);
+    }
+  }
 }
-.eye:hover {
-  color: black;
+.inputLabel {
+  margin:3px 0;
+  font-size: 14px;
+  color:rgb(96, 119, 141);
 }
 
-ion-item {
-  margin: 20px 5px;
-  // position: relative;
-}
-
-.valErr {
+.validationError {
   color: red;
   font-size: 0.8rem;
+  margin:0;
+  padding:0;
+  list-style: none;
+
+  li {
+    padding:0;
+    margin:0;
+  }
 }
 
-ion-label {
-  color: dodgerblue !important;
+.submitBtn {
+  color:#ffff;
+  font-size: 17px;
+  padding:12px 40px;
+  width:100%;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
 }
+
+.submitBtnHolder {
+  width: 100%;
+  text-align: center;
+  margin:35px 0;
+}
+
+.forgotPassHolder {
+  margin:30px 0;
+  text-align: center;
+}
+
+.textBtn {
+  padding:8px;
+  text-align: center;
+  color: rgb(14, 131, 248);
+}
+
+.registerBtn {
+  border-radius: 5px;
+  font-size: 17px;
+  background-color: transparent;
+  border: 1px solid dodgerblue;
+  color:dodgerblue;
+  padding:10px;
+  width: 100%;
+}
+
+button:focus {
+  outline:none;
+}
+
+.titleCont {
+  padding:10px;
+  text-align: center;
+  p {
+      margin:5px;
+      font-size: 20px;
+      color: rgb(93, 114, 141);
+  }
+}
+
+.btnToRight {
+  text-align: right !important;
+}
+

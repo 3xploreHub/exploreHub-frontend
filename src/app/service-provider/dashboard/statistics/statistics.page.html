@@ -1,0 +1,162 @@
+<div class="menu boxShadowed">
+  <div class="tab">Services Statistics</div>
+  <div class="tab">Income Statistics</div>
+</div>
+<div (click)="clickOutside($event)">
+  <div class="itemList boxShadowed" *ngFor="let service of services">
+    <div class="itemName">
+      <p>
+        {{service.data[0].data.text}}
+      </p>
+    </div>
+    <div class="body">
+      <div class="numStatus">
+        <div class="quant totalTL">Total</div>
+        <div class="quant total">
+          <p class="qlabel">Quantity</p>
+          <p class="num">{{getTotalQuantity(service)}}</p>
+        </div>
+        <div class="quant booked">
+          <p class="qlabel">Booked</p>
+          <p class="num">0</p>
+        </div>
+        <div class="quant available">
+          <p class="qlabel">Available</p>
+          <p class="num">{{getTotalQuantity(service)}}</p>
+        </div>
+      </div>
+      <div class="items">
+        <div [class.expand]="expandList == service._id">
+          <div class="searchItem">
+            <p (click)="expandList = service._id">
+              {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
+            </p>
+            <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
+          </div>
+          <div class="holder" *ngIf="expandList == service._id" class="expandMenu boxShadowed2">
+            <p>
+              {{service.data[0].data.text}}
+            </p>
+            <p (click)="expandList = null" class="close">Close</p>
+          </div>
+          <div [class.fullWidth]="expandList == service._id" class="scrollable">
+            <div class="item" *ngFor="let item of filterItem(service.data); let i = index" [ngClass]="{inExpandCont: expandList == service._id,
+                 fadeItem: itemClicked != item._id && itemClicked,
+                  focusItem: itemClicked == item._id && expandList != service._id}">
+
+
+              <div class="popupHolder">
+                <div [class.first]="i < 2" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
+                  class="updateItem">
+                  <div *ngIf="!updateClicked" class="popupMenu">
+                    <span class="deleteItem ion-activatable ripple-parent">Delete
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
+                    <span class="ion-activatable ripple-parent"
+                      (click)="itemToUpdate = item; serviceId = service._id">Update
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div>
+                <div class="itemTitle">{{getItemName(item)}}
+                  <div (click)="clickItem($event); itemClicked = item._id; updateClicked = false"
+                    class="editIcon ion-activatable ripple-parent">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-ripple-effect></ion-ripple-effect>
+                  </div>
+
+                </div>
+                <div class="itemStats">
+                  <div class="statsNum">
+                    <span>
+                      Quantity
+                    </span>
+                    {{getValue(item.data, 'quantity')}}
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Booked
+
+                    </span>
+                    {{getBooked(item.data)}}
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Available
+                    </span>
+                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - getBooked(item.data): 'Unli.'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="updatingModal" (click)="closeModal($event)" *ngIf="itemToUpdate">
+    <div class="modalBody" (click)="clickInside($event)">
+      <div class="updatingQuan" *ngIf="updating">
+        <ion-spinner class="spinner" name="lines-small"></ion-spinner>
+      </div>
+      <div class="itemToEditName">{{getItemName(itemToUpdate)}}</div>
+      <div class="innerCont">
+        <div class="quantCount">
+          <span>Quantity</span>
+          {{getValue(itemToUpdate.data, 'quantity')}}
+          
+        </div>
+
+        <div [class.updating]="updating" (click)="updateItemQuantity($event, serviceId, itemToUpdate, amountForQuantity, 'quantity', true)"
+          class="updateBtn ion-activatable ripple-parent">
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+        </div>
+
+        <div [class.updating]="updating" (click)="updateItemQuantity($event, serviceId, itemToUpdate, amountForQuantity, 'quantity')"
+          class="updateBtn ion-activatable ripple-parent">
+          <ion-icon name="remove-outline">
+          </ion-icon>
+          <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+        </div>
+
+        <div class="amountCont">
+          Amount
+          <input type="number" class="amountToAdd" (keyup)="checkAmount(amountForQuantity, true)" [(ngModel)]="amountForQuantity">
+        </div>
+      </div>
+
+      <div class="innerCont">
+        <div class="quantCount">
+          <span>Booked</span>
+          {{getBooked(itemToUpdate.data)}}
+        </div>
+
+        <div [class.updating]="updating" (click)="updateItemQuantity($event, serviceId, itemToUpdate, amountForAvailable, 'available',true)"
+          class="updateBtn ion-activatable ripple-parent">
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+        </div>
+
+        <div [class.updating]="updating" (click)="updateItemQuantity($event, serviceId, itemToUpdate, amountForAvailable, 'available')"
+          class="updateBtn ion-activatable ripple-parent">
+          <ion-icon name="remove-outline">
+          </ion-icon>
+          <ion-ripple-effect *ngIf="!updating"></ion-ripple-effect>
+        </div>
+
+        <div class="amountCont">
+          Amount
+          <input type="number" class="amountToAdd" (keyup)="checkAmount(amountForAvailable)" [(ngModel)]="amountForAvailable">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

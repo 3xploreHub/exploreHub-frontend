@@ -156,4 +156,10 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+
+  goTo(path) {
+    setTimeout(() => {
+      this.router.navigate([path])
+    }, 100);
+  }
 }

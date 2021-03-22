@@ -13,6 +13,7 @@ import { AlertController } from "@ionic/angular";
 @Injectable({
   providedIn: "root",
 })
+
 export class ForgotPasswordGuard implements CanActivate {
   constructor(
     private authService: AuthService,

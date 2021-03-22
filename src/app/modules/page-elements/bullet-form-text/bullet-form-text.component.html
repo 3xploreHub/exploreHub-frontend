@@ -1,0 +1,81 @@
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done && !creator.preview; else display" class="wrapper boxShadowed2 mainLightBg">
+
+    <ion-textarea class="inputLabel" (keyup)="values.data.label? footerData.hasValue = true: footerData.hasValue = false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
+      placeholder="Enter label here">
+    </ion-textarea>
+
+    <div class="inputChoice">
+      <p *ngIf="values.data.list.length == 0" class="noChoice">
+        No items added yet
+      </p>
+      <ol *ngIf="values.data.orderedList; else unordered" class="choices">
+        
+        <div [class.deleting]="deletedItem.includes(item._id)"
+          [class.adding]="newlyAddedItem.includes(item._id)"
+          *ngFor="let item of values.data.list; let i = index">
+
+          <li class="choiceText">{{deletedItem.includes(item._id) ? "Deleting...":
+            newlyAddedItem.includes(item._id)? "Adding..." : item.text}}</li>
+          <div [class.adding]="newlyAddedItem.includes(item._id)" class="removeChoice">
+            <ion-spinner
+              *ngIf="newlyAddedItem.includes(item._id) || deletedItem.includes(item._id); else remove"
+              class="popupIcon" name="lines-small"></ion-spinner>
+            <ng-template #remove>
+              <ion-icon (click)="removeChoice(item._id)" name="close-outline" class="popupIcon"></ion-icon>
+            </ng-template>
+          </div>
+        </div>
+      </ol>
+
+      <ng-template #unordered>
+        <ul class="choices">
+  
+          <div [class.deleting]="deletedItem.includes(item._id)"
+            [class.adding]="newlyAddedItem.includes(item._id)"
+            *ngFor="let item of values.data.list; let i = index">
+  
+            <li class="choiceText">{{deletedItem.includes(item._id) ? "Deleting...":
+              newlyAddedItem.includes(item._id)? "Adding..." : item.text}}</li>
+            <div [class.adding]="newlyAddedItem.includes(item._id)" class="removeChoice">
+              <ion-spinner
+                *ngIf="newlyAddedItem.includes(item._id) || deletedItem.includes(item._id); else remove"
+                class="popupIcon" name="lines-small"></ion-spinner>
+              <ng-template #remove>
+                <ion-icon (click)="removeChoice(item._id)" name="close-outline" class="popupIcon"></ion-icon>
+              </ng-template>
+            </div>
+          </div>
+        </ul>
+      </ng-template>
+
+      <form (ngSubmit)="addChoice(form)" #form="ngForm">
+        <ion-input class="inputLabel" required name="item" [(ngModel)]="item" auto-grow="true" rows="1"
+          placeholder="Enter text here">
+        </ion-input>
+        <div class="addChoice">
+          <button class="add" [class.disabledBtn]="!item" type="submit" (click)="addChoice()">Add Choice</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="settings">
+      <div class="options" (click)="values.data.orderedList = !values.data.orderedList; saveChanges()" slot="end">
+        Ordered list<ion-toggle [checked]="values.data.orderedList"></ion-toggle>
+      </div>
+    </div>
+   
+    <app-element-footer [data]="footerData"  (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
+
+  </div>
+  <ng-template #display>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
+        (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()" (close)="creator.clickedComponent = null"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-bullet-form-text-display [parent]="parent" (click)="creator.clickedComponent = !creator.preview? values._id: null; creator.preview? presentToast('Preview'): null" [values]="values"></app-bullet-form-text-display>
+    </div>
+  </ng-template>
+</div>

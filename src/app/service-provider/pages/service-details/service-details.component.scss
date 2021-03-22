@@ -1,0 +1,27 @@
+.container {
+    height: 100%;
+    margin-top: 30px;
+    overflow:scroll;
+    padding-bottom: 20px;
+}
+
+.selectServiceBtnHolder {
+    padding:40px 10px;
+    padding-top: 10px;
+    text-align: right;
+    margin:10px 0;
+    display: flex;
+    justify-content: flex-end;
+
+    .selectServiceBtn {
+        background-color: rgb(24, 130, 236);
+        color: #ffff;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding:10px 40px;
+        p {
+            margin:2px;
+        }
+    }
+}

@@ -1,9 +1,32 @@
 .itemWrapper {
     padding: 5px;
     background-color: #ffff;
-    border:1px solid lightgray;
     width:200px;
-    margin:5px;
-    align-self: stretch;
-    // height: 100%;
+    margin:6px; 
+    border-radius: 2px;
+    overflow: hidden;
+    max-height: 430px;
+    overflow: hidden;
+    position:relative;
+
+    .footerDiv {
+        background-color:#ffff;
+        width:100%;
+        bottom:-3px;
+        z-index: 99;
+        margin:0;
+        right: 0;
+        left:0;
+        position: absolute;
+    }
+}
+
+.hasPaddingBottom {
+    padding-bottom: 40px !important;
+
+}
+
+.seeMore {
+    background-color: #ffff;
+    color:rgb(0, 128, 255);
 }

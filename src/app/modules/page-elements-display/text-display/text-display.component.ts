@@ -8,10 +8,15 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class TextDisplayComponent implements OnInit {
   @Input() values: ElementValues;
-
+  @Input() parent: string;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.parent && this.parent == "component") {
+      this.values.styles.push("onItemStyle")
+    }
+    
+  }
 
 
 }

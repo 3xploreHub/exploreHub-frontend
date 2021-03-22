@@ -1,0 +1,35 @@
+<div *ngIf="!values.data.selectMultiple; else multiple" [class.hasError]="hasError" class="textInputHolder">
+  <ion-label>{{values.data.label}}</ion-label>
+  <div (click)="showChoices = !showChoices" class="inputField ion-activatable ripple-parent">
+    {{selected.length > 0 ? selected[0]: ""}}
+    <ion-ripple-effect *ngIf="creator.preview"  type="unbounded"></ion-ripple-effect>
+  </div>
+
+  <div *ngIf="showChoices && creator.preview" class="options">
+    <div class="option ion-activatable ripple-parent" (click)="select(option)"
+      *ngFor="let option of values.data.choices">
+      {{option.text}}
+      <ion-ripple-effect  *ngIf="creator.preview" type="unbounded"></ion-ripple-effect>
+    </div>
+  </div>
+  <p class="instructions">{{values.data.instructions}}</p>
+  <div *ngIf="!creator.preview" class="overlay">
+  </div>
+</div>
+<ng-template #multiple>
+  <div class="textInputHolder">
+    <div *ngIf="!creator.preview" class="overlay">
+    </div>
+    <div class="optionList">
+      <p class="label">{{values.data.label}}</p>
+      <p class="instructions">{{values.data.label}}</p>
+      <div (click)="check(option)" class="option ion-activatable ripple-parent" *ngFor="let option of values.data.choices">
+        <div class="checkbox">
+          <ion-checkbox [checked]="checkIfChecked(option._id)"></ion-checkbox>
+        </div>
+        {{option.text}}
+        <ion-ripple-effect *ngIf="creator.preview" type="unbounded"></ion-ripple-effect>
+      </div>
+    </div>
+  </div>
+</ng-template>

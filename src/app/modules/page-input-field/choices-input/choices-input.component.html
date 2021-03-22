@@ -1,0 +1,67 @@
+<div *ngIf="!footerData.deleted">
+  <div *ngIf="!footerData.done  && !creator.preview; else display" class="wrapper boxShadowed2 mainLightBg">
+
+    <ion-textarea class="inputLabel" (keyup)="values.data.label? footerData.hasValue = true: footerData.hasValue = false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
+      placeholder="Enter label here">
+    </ion-textarea>
+    <ion-textarea class="inputLabel otherInfo" [(ngModel)]="values.data.instructions" (change)="saveChanges()"
+      auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    </ion-textarea>
+
+    <div class="inputChoice">
+      <div class="choices">
+        <p *ngIf="values.data.choices.length == 0" class="noChoice">
+          No choices yet
+        </p>
+        <div [class.deleting]="deletedChoice.includes(choice._id)"
+          [class.adding]="newlyAddedChoice.includes(choice._id)"
+          *ngFor="let choice of values.data.choices; let i = index">
+          <div class="choiceText">{{deletedChoice.includes(choice._id) ? "Deleting...":
+            newlyAddedChoice.includes(choice._id)? "Adding..." : choice.text}}</div>
+          <div [class.adding]="newlyAddedChoice.includes(choice._id)" class="removeChoice">
+            <ion-spinner
+              *ngIf="newlyAddedChoice.includes(choice._id) || deletedChoice.includes(choice._id); else remove"
+              class="popupIcon" name="lines-small"></ion-spinner>
+            <ng-template #remove>
+              <ion-icon (click)="removeChoice(choice._id)" name="close-outline" class="popupIcon"></ion-icon>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <form (ngSubmit)="addChoice(form)" #form="ngForm">
+        <ion-input class="inputLabel" required name="choice" [(ngModel)]="choiceInput" auto-grow="true" rows="1"
+          placeholder="Enter option here">
+        </ion-input>
+        <div class="addChoice">
+          <button class="add" [class.disabledBtn]="!choiceInput" type="submit" (click)="addChoice()">Add Choice</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="settings">
+      <div (click)="values.data.required = !values.data.required; saveChanges()" class="options" slot="end">Required for
+        submission<ion-toggle [checked]="values.data.required"></ion-toggle>
+      </div>
+    </div>
+
+    <div class="settings">
+      <div class="options" (click)="values.data.selectMultiple = !values.data.selectMultiple; saveChanges()" slot="end">
+        Enable select multiple<ion-toggle [checked]="values.data.selectMultiple"></ion-toggle>
+      </div>
+    </div>
+
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
+
+  </div>
+  <ng-template #display>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
+        (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()" (close)="creator.clickedComponent = null"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-choices-input-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-choices-input-display>
+    </div>
+  </ng-template>
+</div>

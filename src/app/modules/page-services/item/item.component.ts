@@ -6,6 +6,7 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
 import { PageElementListComponent } from '../../page-element-list/page-element-list.component';
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
 import { LabelledTextComponent } from '../../page-elements/labelled-text/labelled-text.component';
 import { PhotoComponent } from '../../page-elements/photo/photo.component';
 import { TextComponent } from '../../page-elements/text/text.component';
@@ -18,17 +19,20 @@ import { ItemDisplayComponent } from '../../page-services-display/item-display/i
 })
 
 export class ItemComponent implements OnInit {
-  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
+  @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef = null;
+  @Output() onDelete: EventEmitter<any> = new EventEmitter()
+  @Output() passDataToParent: EventEmitter<any> = new EventEmitter()
   @Input() values: ElementValues;
   @Input() parentId: string;
   @Input() parent: string;
+  public tempId: any;
   public footerData: FooterData;
-  public showPopup: boolean;
 
   components = {
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
     'photo': PhotoComponent,
+    'bullet-form-text': BulletFormTextComponent,
   }
 
   constructor(
@@ -51,13 +55,13 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.values) {
-      let data = this.values.data
-      // this.footerData.done = this.values.data? true: false;
+    if (this.values && typeof this.values != 'string') {
+      // this.footerData.done = this.creator.checkIfHasValue(this.values.data)
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
       this.renderChildren();
     } else {
+      this.tempId = this.values
       this.footerData.done = false;
       this.values = { _id: "", type: "item", styles: [], data: [], default: false };
       this.footerData.message = "Adding Field..."
@@ -66,21 +70,35 @@ export class ItemComponent implements OnInit {
   }
 
 
-
   async showComponentList() {
-    const modal = await this.modalController.create({
-      component: PageElementListComponent,
-      cssClass: 'componentListModal'
-    });
-    const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null, true);
+    setTimeout(async () => {
 
-    return present;
+      const modal = await this.modalController.create({
+        component: PageElementListComponent,
+        cssClass: 'componentListModal',
+        componentProps: {
+          insideItem: true,
+        }
+      });
+      const present = await modal.present();
+      let { data } = await modal.onWillDismiss();
+      let values = null
+
+      if (data && data.includes("_")) {
+        const str = data.split("_");
+        let type = str[1];
+        data = str[0];
+        let label = type == "price" ? "Price" : "Quantity";
+        values = { type: "labelled-text", data: { label: label, text: null, defaultName: type, booked: 0 }, styles: [], default: false }
+      }
+      this.renderComponent(data, values, true);
+
+      return present;
+    }, 200);
   }
 
   edit() {
-    this.showPopup = false;
+    this.creator.clickedComponent = null;
     this.renderChildren(false);
     this.footerData.done = false;
   }
@@ -106,11 +124,13 @@ export class ItemComponent implements OnInit {
   renderComponent(componentName: string, componentValues: any, isNew: boolean = false) {
     if (componentName) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentName]);
-      const comp = this.pageElement.createComponent<ElementComponent>(factory);
-      comp.instance.values = componentValues;
-      comp.instance.parentId = this.values._id;
-      comp.instance.grandParentId = this.parentId;
-      comp.instance.parent = "component";
+      if (this.pageElement) {
+        const comp = this.pageElement.createComponent<ElementComponent>(factory);
+        comp.instance.values = componentValues;
+        comp.instance.parentId = this.values._id;
+        comp.instance.grandParentId = this.parentId;
+        comp.instance.parent = "component";
+      }
     }
   }
 
@@ -120,6 +140,7 @@ export class ItemComponent implements OnInit {
       (response) => {
         this.values = response;
         this.footerData.hasId = true;
+        this.passDataToParent.emit({ tempId: this.tempId, values: this.values });
         this.renderChildren();
       },
       (error) => {
@@ -133,19 +154,21 @@ export class ItemComponent implements OnInit {
 
   renderService() {
     this.footerData.saving = true;
-    this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
-      this.values = updatedData[0].services[0].data[0]
-      this.footerData.saving = false;
-      if (this.creator.checkIfHasValue(this.values.data)) {
-        this.footerData.done = true;
-      } else {
-        if (this.values.data.length == 0) {
-          this.presentAlert("Please add info about this service");
+    setTimeout(() => {
+      this.creator.getItemUpdatedData(this.parentId, this.values._id).subscribe((updatedData: ElementValues) => {
+        this.values = updatedData[0].services[0].data[0]
+        this.footerData.saving = false;
+        if (this.creator.checkIfHasValue(this.values.data)) {
+          this.footerData.done = true;
         } else {
-          this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+          if (this.values.data.length == 0) {
+            this.presentAlert("Please add info about this service");
+          } else {
+            this.presentAlert("Please fill up each field and hit 'done' to save the changes. ")
+          }
         }
-      }
-    })
+      })
+    }, 300);
   }
 
   getUpdates(newData) {
@@ -154,7 +177,6 @@ export class ItemComponent implements OnInit {
 
   addChild(newChild) {
     this.values.data.push(newChild);
-    console.log("new child", newChild)
   }
 
   delete() {
@@ -164,6 +186,7 @@ export class ItemComponent implements OnInit {
       this.creator.deleteItem(this.parentId, this.values._id).subscribe(
         (response) => {
           this.footerData.deleted = true;
+          this.onDelete.emit(this.values._id)
         },
         (error) => {
           this.presentAlert("Oops! Something went wrong. Please try again later!")

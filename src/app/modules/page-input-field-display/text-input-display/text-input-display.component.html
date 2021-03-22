@@ -1,0 +1,8 @@
+<div class="textInputHolder">
+  <div *ngIf="!creator.preview" class="overlay">
+  </div>
+  <ion-label>{{values.data.label}}</ion-label>
+  <ion-textarea class="inputField" (change)="passData()" [(ngModel)]="values.data.defaultValue" rows="1" auto-grow="true"
+    placeholder="Enter text here"></ion-textarea>
+  <p class="instructions">{{values.data.instructions}}</p>
+</div>

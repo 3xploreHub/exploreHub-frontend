@@ -1,0 +1,98 @@
+.inputWrapper {
+    margin:10px 0;
+    padding: 5px 10px 0px 10px;
+    background: lightgray;
+    border-radius: 4px !important;
+
+    font-size: 14px;
+}
+
+.inputLabel {
+    box-sizing: border-box;
+    text-align: left;
+    // padding:0 10px;
+    margin-top:5px;
+    // background-color: rgb(199, 199, 199);
+    background: #ffff;
+    font-size: 18px;
+    background-color: none;
+}
+
+.ion-item {
+    background-color: transparent !important;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+}
+
+.otherInfo {
+    font-size: 15px;
+}
+
+
+.limitValue {
+    background-color: #ffff;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.off {
+    color:gray !important;
+}
+
+.row {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    border-radius: 4px !important;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.limitOpt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 15px;
+    margin:2px 0;
+    flex-flow: 1;
+
+    background-color: rgb(191, 200, 207);
+
+}
+
+.switchLimit {
+    display: flex;
+    flex-direction: row;
+}
+
+.error {
+    border:1px solid red;
+    background-color: rgb(255, 246, 246) !important;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+    justify-content: space-between;
+}
+
+.default {
+}
+.required {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    margin:2px 0;
+    border-radius: 4px !important;
+    padding:5px;
+    background-color: rgb(191, 200, 207);
+}

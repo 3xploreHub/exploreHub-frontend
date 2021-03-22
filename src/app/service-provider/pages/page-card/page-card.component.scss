@@ -1,0 +1,130 @@
+@import "../../../../variables.scss";
+
+.pageCard {
+    background-color: #ffff;
+    margin:25px 7px;
+    border-radius: 4px;
+}
+
+.pageMain {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.photoHolder {
+    background-color: rgb(127, 141, 158);
+    border-radius: 2px;
+    height: 190px;
+    width:100%;
+    box-sizing: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.pagePhoto {
+    width:100%;
+    background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .noPhoto {
+        color:#ffff;
+    }
+}
+
+.page {
+    height: 115px;
+    padding:5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    box-shadow: 0px 1px 4px #a1a1a1;
+    margin:10px 0;
+    flex-direction: row;
+
+}
+.pageInfo {
+    // max-height: 120px;
+    overflow:hidden;
+    position: relative;
+    padding:5px;
+    width: 100%;
+
+    .title {
+        font-size: 16px;
+        margin:3px;
+        padding-top: 5px;
+        // max-height: 35px;
+        font-weight: bold;
+        width: 100%;
+        color: $mediumLight;
+    }
+
+    .location {
+        font-size: 14px;
+        color:rgb(55, 103, 170);
+        padding-bottom:5px !important;
+        ion-icon {
+            font-size: 13px !important;
+        }
+    }
+
+    .description {
+        color:rgb(108, 126, 134);
+        margin: 3px;
+        overflow: hidden;
+        font-size: 15px;
+    }
+}
+
+
+.spotInfo {
+    margin:5px; 
+
+    .infos {
+        padding:8px 0;
+        border-bottom: 1px solid rgb(210, 217, 224);
+        margin-bottom: 5px;
+        color: rgb(64, 80, 97);
+        
+    }
+    
+    .cardFooter {
+        bottom: 0;
+        width: 100%;
+        padding-top: 5px;
+        border-top: 1px solid rgb(210, 217, 224);
+
+        .ratings {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                font-size: 14px !important;
+                color:rgb(127, 167, 194);
+            }
+
+            .stars {
+                ion-icon {
+                    color:rgb(219, 168, 0);
+                    margin:0 1px;
+                    font-size: 16px !important;
+                }
+
+                .filledStar {
+                    color:rgb(223, 171, 0);
+                }
+            }
+        }
+    }
+}

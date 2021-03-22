@@ -1,0 +1,63 @@
+.pageCont {
+    height: 100vh;
+}
+
+.pageView {
+    padding-bottom: 45px !important;
+
+}
+
+.info {
+    padding-bottom: 20px;
+}
+
+
+.otherOptions {
+    background-color: rgb(244, 246, 248);
+    border-top:1px solid lightsteelblue;
+}
+
+.none {
+    opacity: .5;
+}
+
+.servicesHeader {
+    background-color:rgb(244, 246, 248);
+    border-bottom: 1px solid lightsteelblue;
+    padding:10px;
+    margin:0;
+
+    text-align: center;
+
+    .Title {
+        font-size: 18px;
+        margin:10px 0;
+        color:rgb(68, 70, 78);
+        font-weight: bold;
+    }
+
+    .infoText {
+        font-size: 14px;
+        margin:0;
+        color:rgb(0, 137, 228);
+    }
+}
+
+.seeMore {
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid #ffff;
+    border-bottom:1px solid lightsteelblue;
+    margin:0;
+    padding:5px;
+
+    p {
+        margin:5px;
+    }
+
+    .seeAll {
+        color: rgb(1, 125, 248);
+    }
+}
+

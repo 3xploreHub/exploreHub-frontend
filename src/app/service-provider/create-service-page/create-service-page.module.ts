@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateServicePagePageRoutingModule } from './create-service-page-routing.module';
 
 import { CreateServicePagePage } from './create-service-page.page';
+import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CreateServicePagePage } from './create-service-page.page';
     IonicModule,
     CreateServicePagePageRoutingModule
   ],
-  declarations: [CreateServicePagePage]
+  declarations: [CreateServicePagePage, PageCreatorComponent]
 })
 export class CreateServicePagePageModule {}

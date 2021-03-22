@@ -1,5 +1,4 @@
 .serviceContainer {
-    padding:10px 0;
     box-sizing: border-box;
     overflow-y: visible;
     overflow-x: scroll;
@@ -9,4 +8,6 @@
 } 
 .outerWrapper {
     padding: 10px 0;
+    margin:10px 0;
+    background-color: rgba(167, 182, 199, 0.1);
 }

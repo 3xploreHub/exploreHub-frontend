@@ -1,0 +1,148 @@
+@import "../../../variables.scss";
+
+.outerWrapper {
+    padding:10px;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.photoHolder {
+    background-color: rgb(127, 141, 158);
+    border-radius: 5px;
+    height: 100%;
+    width:130px;
+    box-sizing: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.pagePhoto {
+    width:100%;
+    background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .noPhoto {
+        color:#ffff;
+    }
+}
+
+.page {
+    height: 115px;
+    padding:5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    margin:10px 0;
+    flex-direction: row;
+
+}
+.pageInfo {
+    position: relative;
+    padding:5px;
+    padding-bottom: 15px;
+    width: 100%;
+
+    .title {
+        font-size: 15px;
+        margin:3px;
+        height: 19px;
+        font-weight: bold;
+        width: 100%;
+        color: $mediumLight;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .description {
+        color:gray;
+        margin: 3px;
+        max-height: 48px;
+        overflow: hidden;
+        font-size: 13px;
+    }
+}
+.untitled {
+    color:rgb(172, 76, 76) !important;
+}
+
+.bottomRow {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin:5px;
+    display: flex;
+    
+}
+
+.status {
+   
+    font-size: 13px;
+    background: #ffff;
+    display: flex;
+    align-items: center;
+
+    .statusCircle {
+        width:10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+        background-color: green;
+    }
+}
+
+
+.type {
+
+    padding:3px 6px;
+    border-radius: 3px;
+    margin:0 6px;
+    
+    color: $DarkBlueText;
+    font-size: 12px;
+}
+
+.servicePage {
+    background-color: rgb(207, 230, 243) !important;
+}
+
+.spotPage {
+    background-color: rgb(198, 241, 233);
+    
+}
+
+.empty {
+    position: fixed;
+    left:0;
+    top:0;
+    display:flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color:rgb(102, 128, 153);
+
+    .iholder {
+        height: 100px;
+        width:100px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color:rgb(64, 106, 148);
+        background-color: rgba(113, 153, 180, 0.3);
+
+        ion-icon {
+            font-size: 50px;
+            color: rgb(64, 106, 148) !important;
+        }
+    }
+}

@@ -1,0 +1,130 @@
+.inputLabel {
+    box-sizing: border-box;
+    text-align: left;
+    // padding:0 10px;
+    margin-top:5px;
+    border-radius: 4px !important;
+    background: #ffff;
+    overflow: hidden;
+    font-size: 18px;
+    background-color: none;
+}
+
+.inputWrapper {
+    margin:10px 0;
+    padding: 5px 10px 0px 10px;
+    background: lightgray;
+    border-radius: 4px !important;
+    font-size: 14px;
+}
+.defaultValue {
+    height: 44px;
+    background-color: #ffff !important;
+    font-size: 15px !important;
+    padding-left:10px;
+}
+
+.otherInfo {
+    font-size: 15px;
+}
+
+.settings {
+    padding:3px;
+    margin-top:5px;
+    background-color: #ffff;
+    justify-content: flex-end;
+    border-radius: 4px !important;
+    display: flex;
+    align-items: center;
+    background-color: rgb(191, 200, 207);
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+    justify-content: space-between;
+} 
+
+
+
+.customSetting {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.dateOption {
+    padding: 8px 0;
+}
+.custom {
+    background-color: #ffff;
+    font-size: 15px;
+    width:100%;
+
+    .selected {
+        padding: 8px 0;
+        width:100%;
+        display: flex;
+        font-size: 18px !important;
+        flex-direction: row;
+
+        div {
+            width:100%;
+            text-align: center;
+            padding-top:10px;
+        }
+    }
+
+    .selector {
+        text-align: center;
+        width:100%;
+
+        .select {
+            color:rgb(13, 126, 238);
+            padding:10px 0;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .optList {
+            background-color: rgb(231, 228, 228);
+            text-align: left;
+            height: 200px;
+            overflow:auto;
+            z-index: 99;
+            min-width: 100%;
+            left:0;
+            padding: 8px 0;
+
+            .opt {
+                padding: 10px;
+                padding-left:8px;
+            }
+        }
+    }
+}
+
+.inner {
+    flex-direction: row;
+    border-radius: 4px !important;
+}
+
+.opt2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 13px !important;
+}
+
+.optionBtn {
+    padding:7px;
+    text-align: center;
+    color: #ffff;
+    width: 100%;
+    font-size: 18px;
+}
+
+.optBtn{
+    background-color: rgb(13, 121, 228);
+}

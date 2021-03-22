@@ -1,0 +1,36 @@
+<div (click)="view()" class="pageCard ion-activatable ripple-parent boxShadowed3">
+  <div class="pageMain">
+
+    <div class="photoHolder">
+      <div class="pagePhoto"
+        [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+        <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
+      </div>
+    </div>
+
+    <div class="pageInfo">
+      <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text?
+        page.components[1].data.text: 'Untitled'}}</p>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        {{page.components[2].data.text+", "+page.components[3].data.text+", "+page.components[4].data.text}}
+      </div>
+      <p class="description">{{page.components[6].data.text ? shorten(page.components[6].data.text): ''}}</p>
+    </div>
+  </div>
+  <div class="spotInfo">
+    <div class="cardFooter">
+      <div class="ratings">
+        <span><b>100</b> tourists visited</span>
+        <div class="stars">
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <ion-ripple-effect></ion-ripple-effect> -->
+</div>

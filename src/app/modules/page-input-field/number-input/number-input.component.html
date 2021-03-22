@@ -1,0 +1,47 @@
+<div *ngIf="!footerData.deleted">
+  <div class="inputWrapper boxShadowed2 mainLightBg" *ngIf="!footerData.done  && !creator.preview; else textInputDisplay">
+    <ion-textarea class="inputLabel" (keyup)="footerData.hasValue = values.data.label ? true : false"
+      (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
+    </ion-textarea>
+    <ion-textarea class="inputLabel otherInfo" (change)="saveChanges()" [(ngModel)]="values.data.instructions"
+      auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
+    </ion-textarea>
+    <ion-input type="number" class="inputLabel otherInfo default" (change)="saveChanges()"
+      [(ngModel)]="values.data.defaultValue" placeholder="Enter default value here (optional)">
+    </ion-input>
+    <div class="row">
+      <div class="limitOpt">
+        <div class="options">
+          Minimum
+        </div>
+        <ion-input [class.error]="rangeError" (change)="saveChanges()" type="number" class="limitValue"
+          [(ngModel)]="values.data.min" placeholder="Enter minimum">
+        </ion-input>
+
+      </div>
+      <div class="limitOpt">
+        <div class="options">
+          Maximum
+        </div>
+        <ion-input [class.error]="rangeError" (change)="saveChanges()" type="number" class="limitValue"
+          [(ngModel)]="values.data.max" placeholder="Enter maximum"></ion-input>
+      </div>
+
+    </div>
+    <div class="required">
+      <div [class.off]="!values.data.required" (click)="values.data.required = !values.data.required; saveChanges()" class="options" slot="end">Required for submission<ion-toggle [checked]="values.data.required"></ion-toggle>
+      </div>
+    </div>
+    <app-element-footer [data]="footerData" (openDeleteCon)="clickOtherFunction = true" (render)="render()"
+      (delete)="delete()">
+    </app-element-footer>
+  </div>
+  <ng-template #textInputDisplay>
+    <div class="componentWrapper">
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
+        (edit)="creator.clickedComponent = null; footerData.done = false" (delete)="delete()" (close)="creator.clickedComponent = null"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-number-input-display [values]="values" (click)="creator.clickedComponent = !creator.preview? values._id: null"></app-number-input-display>
+    </div>
+  </ng-template>
+</div>
