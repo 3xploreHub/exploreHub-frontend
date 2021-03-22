@@ -15,6 +15,7 @@ export class ViewItemPage implements OnInit {
   public itemId: string;
   public pageId: string;
   public bookingId: string;
+  public serviceGroupName: string;
   public pageType: string;
   @ViewChild('slides', { static: false }) slides: IonSlides;
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) {
@@ -29,8 +30,9 @@ export class ViewItemPage implements OnInit {
       this.pageType = params.get("pageType");
       this.bookingId = params.get("bookingId");
       this.mainService.viewItems({ pageId: this.pageId, serviceId: this.serviceId, pageType: this.pageType }).subscribe(
-        (response: ElementValues) => {
-          this.values = response[0].services[0];
+        (response: any) => {
+          this.values.data = response;
+
           this.values.data = this.values.data.filter(item => item.type == "item")
           for (let i = 0; i < this.values.data.length; i++) {
             const element = this.values.data[i];
@@ -39,6 +41,16 @@ export class ViewItemPage implements OnInit {
             }
 
           }
+      
+          response.forEach(item => {
+
+            if (item.type == "text") {
+              if (item.data.defaultName && item.data.defaultName == "name") {
+                this.serviceGroupName = item.data.text;
+                
+              }
+            }
+          });
 
         },
         err => {

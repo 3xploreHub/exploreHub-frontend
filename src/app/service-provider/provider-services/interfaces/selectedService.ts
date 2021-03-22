@@ -1,7 +1,7 @@
 export interface SelectedService {
     _id: string;
-    serviceId: string;
-    serviceName: string;
+    service: string;
+    serviceGroupName: string;
     serviceGroupId: string;
     otherData: any; 
 }

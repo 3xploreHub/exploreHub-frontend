@@ -11,16 +11,14 @@ export class SelectedServiceCardComponent implements OnInit {
   constructor() {
     this.item = {
       _id: "",
-      serviceId: "", 
-      serviceName: "",
+      service: "", 
+      serviceGroupName: "",
       serviceGroupId: "",
       otherData: null
     }
   }
 
-  ngOnInit() { 
-    console.log(this.item);
-    
+  ngOnInit() {     
   }
 
   formatNumber(data) {

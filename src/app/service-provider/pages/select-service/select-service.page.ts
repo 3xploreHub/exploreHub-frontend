@@ -13,7 +13,9 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./select-service.page.scss'],
 })
 export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
-  public booking: bookingData;
+  public booking: bookingData = {
+    _id: "",  tourist: "", PageId:"", bookingInfo:[], bookingType: "", selectedServices: [], status: ""
+  };
   public pageId: string;
   public pageServices: ElementValues[];
   @ViewChild('services', { read: ViewContainerRef }) services: ViewContainerRef;

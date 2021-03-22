@@ -1,5 +1,5 @@
 <div class="selectedItem boxShadowed2">
-  <div class="groupName">{{item.groupName}}
+  <div class="groupName">{{item.serviceGroupName}}
   </div>
   <div class="item">
     <div class="photoHolder">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="itemInfo">
-      <div class="serviceName">{{item.serviceName}}</div>
+      <div class="serviceName">{{getServiceName(item.service, 'name')}}</div>
       <div class="servicePrice">{{getServiceName(item.service, 'price')? 'P
         '+formatNumber(getServiceName(item.service, 'price')): 0}}</div>
         <div class="changeItem">Change</div>

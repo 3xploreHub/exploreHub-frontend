@@ -18,6 +18,7 @@ export interface serviceInfo {
   pageType: string;
   pageId: string;
   serviceGroupId: string;
+  serviceGroupName: string;
   bookingId: string;
 }
 
@@ -53,7 +54,7 @@ export class ServiceDetailsComponent implements OnInit {
     public router: Router,
     public creator: PageCreatorService) {
     this.values = { _id: "", type: "item", data: [], styles: [], default: false }
-    this.serviceInfo = { pageId: "", serviceGroupId: "", pageType: "", bookingId:"" }
+    this.serviceInfo = { pageId: "", serviceGroupName: "", serviceGroupId: "", pageType: "", bookingId:"" }
   }
 
   ngOnInit() {
@@ -74,28 +75,10 @@ export class ServiceDetailsComponent implements OnInit {
     }, 100);
 
   }
-  getServiceName() {
-    let name;
-    this.values.data.forEach(component => {
-      if (component.data.defaultName && component.data.defaultName == "name") {
-        name = component.data.text
-      }
-    });
-    if (!name) {
-      if (this.values.data[1].type == "text") {
-        name = this.values.data[1].data.text;
-        
-      } else {
-        name = "Untitled"
-      }
-    }
-    return name;
-  }
 
   selectService() {
-    const firstServiceSelected = { serviceId: this.values._id, serviceName: this.getServiceName(), serviceGroupId: this.serviceInfo.serviceGroupId }
+    const firstServiceSelected = { service: this.values._id, serviceGroupName: this.serviceInfo.serviceGroupName, serviceGroupId: this.serviceInfo.serviceGroupId }
     const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId? this.serviceInfo.bookingId: null};
-    console.log(data);
     
     this.mainService.createBooking(data).subscribe(
       (response: bookingData) => {

@@ -9,9 +9,9 @@
 
 <ion-content>
   <div class="container">
-    <div class="selectedServices mainLightBg2">
+    <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
       <div class="sectionTitle">Selected Services</div>
-      <app-selected-service-card *ngFor="let item of selected" [item]="item"></app-selected-service-card>
+      <app-selected-service-card *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
     </div>
     <div class="notSelected">
       <div *ngIf="notSelected.length > 0" class="sectionTitle selectMore">Select other services</div>

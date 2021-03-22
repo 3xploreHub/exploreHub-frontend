@@ -129,9 +129,9 @@ export class ItemListComponent implements OnInit {
     this.footerData.saving = true;
     this.footerData.message = "loading..."
     setTimeout(() => {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        this.values = newData[0].services[0]
-        this.footerData.done = false;
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: any) => {
+        this.values.data = newData
+        this.footerData.done = false; 
         this.footerData.saving = false;
         this.renderChildren()
         this.items = this.values.data.filter(item => item.type == 'item')
@@ -146,8 +146,8 @@ export class ItemListComponent implements OnInit {
     this.values.data = [...info, ...this.items]
 
     setTimeout(() => {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        this.values = newData[0].services[0]
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: any) => {
+        this.values.data = newData
         this.footerData.saving = false
         if (this.checkIfHasItems(this.values.data)) {
           this.footerData.done = true;
