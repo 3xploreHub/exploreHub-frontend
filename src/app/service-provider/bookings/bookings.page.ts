@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
@@ -15,11 +15,12 @@ export class BookingsPage implements OnInit {
   constructor(
     public mainService: MainServicesService,
     public alert: AlertController,
+    public router: Router,
     private route: ActivatedRoute
-    ) { }
+  ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(path =>{
+    this.route.paramMap.subscribe(path => {
       this.status = path.get("bookingStatus")
       this.mainService.getBookings(this.status).subscribe(
         (response: bookingData[]) => {
@@ -27,6 +28,11 @@ export class BookingsPage implements OnInit {
         }
       )
     })
+  }
+
+
+  viewBooking(id) {
+    this.router.navigate(["/service-provider/view-booking", id])
   }
 
 }

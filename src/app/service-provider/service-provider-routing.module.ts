@@ -72,11 +72,16 @@ const routes: Routes = [
         loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
       },
       {
+        path: 'view-booking/:bookingId',
+        loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
+      },
+      {
         path: '',
         redirectTo: '/service-provider/select-page-type'
       },
     ]
   },
+  
 ];
 
 @NgModule({

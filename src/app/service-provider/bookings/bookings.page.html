@@ -15,6 +15,6 @@
       <p [routerLink]="['/service-provider/bookings', 'Booked']">Booked</p>
       <p [routerLink]="['/service-provider/bookings', 'Closed']">Closed</p>
     </div> -->
-    <app-booking-card *ngFor="let booking of bookings" [booking]="booking"></app-booking-card>
+    <app-booking-card (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking"></app-booking-card>
   </div>
 </ion-content>

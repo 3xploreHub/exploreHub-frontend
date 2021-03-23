@@ -1,4 +1,4 @@
-<div class="cardBody boxShadowed2">
+<div class="cardBody boxShadowed2 ion-activatable ripple-parent" (click)="viewBooking()">
   <div class="cardPhotoHolder">
     <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
       <p *ngIf="!name">No photo</p>
@@ -15,4 +15,5 @@
       <div class="statusCircle"></div>{{booking.status}}
     </div>
   </div>
+  <ion-ripple-effect></ion-ripple-effect>
 </div>

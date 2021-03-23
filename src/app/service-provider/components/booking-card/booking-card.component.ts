@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 
 @Component({
@@ -17,6 +18,7 @@ export class BookingCardComponent implements OnInit {
     status: "", }
     public photo: string = null;
     public name: string = "Untitled";
+    @Output() view: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -51,7 +53,11 @@ export class BookingCardComponent implements OnInit {
     
   }
 
-
+  viewBooking() {
+    setTimeout(() => {
+      this.view.emit(this.booking._id);
+    }, 200);
+  }
 
   getStatus(status) {
     return {
