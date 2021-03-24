@@ -11,6 +11,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class BookingsPage implements OnInit {
   public status: string = "";
+  public loading:boolean = true;
   public bookings: bookingData[] = [];
   constructor(
     public mainService: MainServicesService,
@@ -24,6 +25,7 @@ export class BookingsPage implements OnInit {
       this.status = path.get("bookingStatus")
       this.mainService.getBookings(this.status).subscribe(
         (response: bookingData[]) => {
+          this.loading = false;
           this.bookings = response;
         }
       )

@@ -12,6 +12,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
 export class ListOfPagesPage implements OnInit {
   public pages: Page[] =[];
   public pagesStatus: string;
+  public loading:boolean = true;
   constructor(
     public router: Router,
     public mainService: MainServicesService,
@@ -24,6 +25,7 @@ export class ListOfPagesPage implements OnInit {
       this.mainService.getPages(this.pagesStatus).subscribe(
         (response: Page[]) => {
           this.pages = response;
+          this.loading = false;
         },
         error => {
           this.presentAlert("Unexpected Error Occured!")

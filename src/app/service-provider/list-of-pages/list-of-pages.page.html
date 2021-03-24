@@ -9,7 +9,7 @@
 </ion-header>
 <ion-content>
   <div class="outerWrapper lightBackground">
-    <div class="empty" *ngIf="pages.length == 0">
+    <div class="empty" *ngIf="pages.length == 0 && !loading">
       <div class="iholder">
         <ion-icon name="folder-open-outline"></ion-icon>
       </div>

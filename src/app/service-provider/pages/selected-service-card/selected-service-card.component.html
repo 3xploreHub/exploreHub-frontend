@@ -1,4 +1,4 @@
-<div class="selectedItem boxShadowed2">
+<div *ngIf="item.service; else none" class="selectedItem boxShadowed2">
   <div class="groupName">{{item.serviceGroupName}}
   </div>
   <div class="item">
@@ -12,7 +12,13 @@
       <div class="serviceName">{{getServiceName(item.service, 'name')}}</div>
       <div class="servicePrice">{{getServiceName(item.service, 'price')? 'P
         '+formatNumber(getServiceName(item.service, 'price')): 0}}</div>
-        <div class="changeItem">Remove</div>
+        <div *ngIf="editable" class="changeItem">Remove</div>
     </div>
   </div>
 </div>
+<ng-template #none>
+  <div class="none">
+
+    Service no longer available
+  </div>
+</ng-template>

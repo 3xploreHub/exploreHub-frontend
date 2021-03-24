@@ -5,32 +5,39 @@
 </ion-header> -->
 
 <!-- <ion-content> -->
-<div class="csTabs">
-  <div class="csTab">
-    <span>
-      Booked
-    </span>
-  </div>
-  <div class="csTab">
-    <span>
-      Pending
-    </span>
-  </div>
-  <div class="csTab">
-    <span>
-      Statistics
-    </span>
-  </div>
+<div>
 
-  <div class="activeIndicator">
-    <div [routerLink]="['booking' , 'booked']" (click)="goToSection('Booked', tab)" class="csTab">
-      <div class="box" #tab [ngStyle]="{'left.px': boxPosition}">
-        <div class="shadow">{{clickedTab}}</div>
+  <div>
+    <div class="csTabs boxShadowed2">
+      <div class="csTab">
+        <span>
+          Booked
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Pending
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Statistics
+        </span>
+      </div>
+
+      <div class="activeIndicator">
+        <div [routerLink]="['booking' , 'Booked']" (click)="goToSection('Booked', tab)" class="csTab">
+          <div class="box" #tab [ngStyle]="{'left.px': boxPosition}">
+            <div class="shadow">{{clickedTab}}</div>
+          </div>
+        </div>
+        <div [routerLink]="['booking', 'Pending']" (click)="goToSection('Pending', tab)" class="csTab"></div>
+        <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
       </div>
     </div>
-    <div [routerLink]="['booking', 'pending']" (click)="goToSection('Pending', tab)" class="csTab"></div>
-    <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
   </div>
+  <div class="content" [ngStyle]="{'height.px': height}">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- </ion-content> -->
 </div>
-<router-outlet></router-outlet>
-<!-- </ion-content> -->

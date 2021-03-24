@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>view-booking</ion-title>
+    <ion-title>{{name}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/service-provider/online" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
@@ -8,5 +8,14 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="container mainLightBg2 pageContent">
+    <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
+      <div class="sectionTitle title">Selected Services</div>
+      <app-selected-service-card  [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
+      </app-selected-service-card>
+    </div>
+    <div class="inputValueDisplay">
+      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+    </div>
+  </div>
 </ion-content>

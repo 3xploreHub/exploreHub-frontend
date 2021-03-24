@@ -71,4 +71,8 @@ export class MainServicesService {
   viewBooking(bookingId) {
     return this.http.get(`${this.apiUrl}/viewBooking/${bookingId}`)
   }
+
+  getPageBooking(bookingStatus, pageId) {
+    return this.http.get(`${this.apiUrl}/getPageBooking/${bookingStatus}/${pageId}`)
+  }
 }

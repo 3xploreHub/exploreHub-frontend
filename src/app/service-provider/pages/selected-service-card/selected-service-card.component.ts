@@ -8,17 +8,18 @@ import { SelectedService } from '../../provider-services/interfaces/selectedServ
 })
 export class SelectedServiceCardComponent implements OnInit {
   @Input() item: SelectedService;
+  @Input() editable: boolean = true;
   constructor() {
     this.item = {
       _id: "",
-      service: "", 
+      service: "",
       serviceGroupName: "",
       serviceGroupId: "",
       otherData: null
     }
   }
 
-  ngOnInit() {     
+  ngOnInit() {
   }
 
   formatNumber(data) {
@@ -37,23 +38,29 @@ export class SelectedServiceCardComponent implements OnInit {
 
   getPhoto(data) {
     let photo;
-    data.data.forEach(comp => {
-      if (comp.type == "photo") {
-        photo = comp.data.length>0? comp.data[0].url: "";
-      }
-    });
+    if (data && data.data) {
+
+      data.data.forEach(comp => {
+        if (comp.type == "photo") {
+          photo = comp.data.length > 0 ? comp.data[0].url : "";
+        }
+      });
+    }
     return photo;
   }
   getServiceName(data, defaultName) {
     let name;
-    data.data.forEach(component => {
-      if (component.data.defaultName && component.data.defaultName == defaultName) {
-        name = component.data.text
-      }
-    });
-    if (!name && defaultName == "name" && data.type == "item-list") {
-      if (data.data[0].type == "text") {
-        name = data.data[0].data.text;
+    if (data && data.data) {
+
+      data.data.forEach(component => {
+        if (component.data.defaultName && component.data.defaultName == defaultName) {
+          name = component.data.text
+        }
+      });
+      if (!name && defaultName == "name" && data.type == "item-list") {
+        if (data.data[0].type == "text") {
+          name = data.data[0].data.text;
+        }
       }
     }
     return name;

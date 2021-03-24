@@ -11,10 +11,12 @@ export class BoardPage implements OnInit, AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
+  public height: any = window.innerHeight - 124;
 
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
+    console.log(this.height)
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -44,3 +46,4 @@ export class BoardPage implements OnInit, AfterViewInit {
     }
   }
 }
+  

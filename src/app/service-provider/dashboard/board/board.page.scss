@@ -1,13 +1,14 @@
+
 .csTabs {
     justify-content: space-around;
     display: flex;
     z-index: 6;
+    background-color: rgba(255, 255, 255, .5);
     flex-direction: row;
     position: relative;
     align-items:center;
     height: 50px;
     
-
 
     .csTab {
         width:100%;
@@ -37,7 +38,7 @@
     flex-direction: row;
     align-items:center;
     height: 50px;
-    background-color: rgba(255, 255, 255, .3);
+    background-color: rgba(255, 255, 255, .2);
 
     .csTab {
         width:100%;
@@ -72,3 +73,14 @@
     }
 }
 
+.tabsHolder {
+    position:fixed;
+    width: 100%;
+    background-color: #ffff;
+    top:0;
+    z-index: 999999;
+}
+
+.content {
+    overflow: auto;
+}

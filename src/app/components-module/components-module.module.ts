@@ -11,6 +11,7 @@ import { BookingInfoDisplayComponent } from '../service-provider/pages/booking-i
 import { LabelledTextComponent } from '../modules/page-elements/labelled-text/labelled-text.component';
 import { LabelledTextDisplayComponent } from '../modules/page-elements-display/labelled-text-display/labelled-text-display.component';
 import { BookingCardComponent } from '../service-provider/components/booking-card/booking-card.component';
+import { SelectedServiceCardComponent } from '../service-provider/pages/selected-service-card/selected-service-card.component';
 
 @NgModule({
   imports: [
@@ -19,10 +20,11 @@ import { BookingCardComponent } from '../service-provider/components/booking-car
     IonicModule,
     ComponentsModulePageRoutingModule
   ],
-  declarations: [ComponentsModulePage, BookingInfoDisplayComponent, LabelledTextDisplayComponent, BookingCardComponent],
+  declarations: [ComponentsModulePage, BookingInfoDisplayComponent, LabelledTextDisplayComponent, BookingCardComponent, SelectedServiceCardComponent],
   exports: [
     BookingInfoDisplayComponent, LabelledTextDisplayComponent,
-    BookingCardComponent
+    BookingCardComponent,
+    SelectedServiceCardComponent,
   ]
 })
 export class ComponentsModulePageModule {}

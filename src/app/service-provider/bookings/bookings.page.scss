@@ -4,14 +4,21 @@
     justify-content: space-around;
     background-color: #ffff;
     width: 100%;
+    z-index: 999;
+    top:50px;
     padding:5px 10px;
     align-items: center;
 
     p {
         color:rgb(1, 110, 199);
+        margin:9px 0;
     }
 }
 .container {
     height: 100%;
     overflow:auto;
+}
+
+.hasTab {
+    padding-top: 45px;
 }

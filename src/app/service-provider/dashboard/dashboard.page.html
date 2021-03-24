@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="boardHeader boxShadowed2">
+    <div class="boardHeader boxShadowed2" >
       <div class="boardPhotoHolder">
         <div class="boardPhoto"
           [ngStyle]="{'background-image': page.components.length > 0 && page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
@@ -47,7 +47,7 @@
         <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
       </div>
     </div> -->
-    <div class="body">
+    <div class="tabsHolder" >
       <router-outlet></router-outlet>
     </div>
 

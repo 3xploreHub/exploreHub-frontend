@@ -11,7 +11,7 @@
   <div style="height:100%;overflow: auto;" class="mainLightBg">
     <!-- <div style="text-align: right; background-color: rgb(228, 228, 228); padding: 10px;"><i>Where do you offer your
       service?</i>
-  </div> -->
+    </div> -->
     <div class="select-spot-note" *ngIf="selectedPage == null">
       <p>
         Select the spot you want to offer your service.
@@ -37,12 +37,12 @@
 
     <!-- STICKY POSITIONING FOR SEARCH BAR AND THE TAB FOR CATEGORY OF SPOTS -->
     <div class="select-host-spot boxShadowed2" style="
-  color: #1c2c41;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  z-index: 1;
-  background-color: white;">
+      color: #1c2c41;
+      position: sticky;
+      position: -webkit-sticky;
+      top: 0;
+      z-index: 1;
+      background-color: white;">
       <div class="host-spot-name">
         {{selectedPage ? selectedPage.components[1].data.text: 'No selected spot yet!'}}
       </div>
