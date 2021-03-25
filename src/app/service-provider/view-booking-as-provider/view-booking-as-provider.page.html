@@ -1,14 +1,46 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
-    <ion-title>view-booking-as-provider</ion-title>
+    <ion-title></ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/service-provider/online" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <div class="container mainLightBg2 pageContent">
+
+    <div class="headerHolder boxShadowed2">
+      <div class="header topHead">
+        <div class="backBtn">
+          <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
+        </div>
+        <div class="optionsTop">
+
+          <div class="cancel edit">Edit
+            <ion-icon class="editIcon" name="create-outline"></ion-icon>
+          </div>
+          <div class="cancel">Cancel
+            <ion-icon class="cancelIcon" name="close-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="header ">
+        <div class="bookingCont">Booking Info</div>
+        <div class="transac">Transaction</div>
+      </div>
+    </div>
+  <div class="page">
+    <div class="cardPhotoHolder">
+      <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
+        <div class="noPhoto" *ngIf="!photo"><ion-icon name="person-outline"></ion-icon></div>
+      </div>
+    </div>
+    <div class="pageInfo">
+      <div class="pageName">{{booking.tourist.fullName}}</div>
+      <div class="address">{{booking.tourist.address}}</div>
+    </div>
+  </div>
     <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
       <div class="sectionTitle title">Selected Services</div>
       <app-selected-service-card  [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">

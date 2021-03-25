@@ -6,10 +6,15 @@ import { MainServicesService } from '../provider-services/main-services.service'
 @Component({
   selector: 'app-view-booking',
   templateUrl: './view-booking.page.html',
-  styleUrls: ['./view-booking.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss'],
+  styleUrls: ['./view-booking.page.scss',
+    '../pages/booking-review/booking-review.page.scss',
+    '../pages/select-service/select-service.page.scss',
+    '../components/booking-card/booking-card.component.scss'],
 })
 export class ViewBookingPage implements OnInit {
   public name: string = "";
+  public photo: string = "";
+  public address: string = "";
   public booking: bookingData = {
     _id: "",
     tourist: "",
@@ -28,20 +33,38 @@ export class ViewBookingPage implements OnInit {
         (response: bookingData) => {
           this.booking = response;
           if (this.booking && this.booking.pageId) {
-
-            this.name = this.getName();
+            this.getPageInfo();
+            this.getAddress();
           }
         }
       )
     })
   }
-  getName() {
-    let text = "Untitled";
+
+
+
+
+
+  getPageInfo() {
     this.booking.pageId.components.forEach(comp => {
+      if (comp.type == "photo") {
+        this.photo = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
+      }
       if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
-        text = comp.data && comp.data.text ? comp.data.text : "Untitled"
+        this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
       }
     });
-    return text;
   }
+
+  getAddress() {
+    let add = ["barangay", "municipality", "province"]
+    add.forEach(i => {
+      this.booking.pageId.components.forEach(comp => {
+        if (comp.data.defaultName && comp.data.defaultName == i) {
+          this.address +=  comp.data.text + (i != 'province' ? ", ": "")
+        }
+      });
+    })
+  }
+
 }

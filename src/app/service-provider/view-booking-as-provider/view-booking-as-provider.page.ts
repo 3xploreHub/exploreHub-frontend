@@ -6,10 +6,13 @@ import { MainServicesService } from '../provider-services/main-services.service'
 @Component({
   selector: 'app-view-booking-as-provider',
   templateUrl: './view-booking-as-provider.page.html',
-  styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss'],
+  styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss', 
+"../view-booking/view-booking.page.scss"],
 })
 export class ViewBookingAsProviderPage implements OnInit {
   public name: string = "";
+  public photo: string = "";
+  public address: string = "";
   public booking: bookingData = {
     _id: "",
     tourist: "",
@@ -28,20 +31,33 @@ export class ViewBookingAsProviderPage implements OnInit {
         (response: bookingData) => {
           this.booking = response;
           if (this.booking && this.booking.pageId) {
-            this.name = this.getName();
+            this.getPageInfo();
+            this.getAddress();
           }
         }
       )
     })
   }
-  getName() {
-    let text = "Untitled";
-    this.booking.pageId.components.forEach(comp => {
-      if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
-        text = comp.data && comp.data.text ? comp.data.text : "Untitled"
-      }
-    });
-    return text;
+  getPageInfo() {
+    // this.booking.pageId.components.forEach(comp => {
+    //   if (comp.type == "photo") {
+    //     this.photo = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
+    //   }
+    //   if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
+    //     this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
+    //   }
+    // });
+  }
+
+  getAddress() {
+    let add = ["barangay", "municipality", "province"]
+    add.forEach(i => {
+      this.booking.pageId.components.forEach(comp => {
+        if (comp.data.defaultName && comp.data.defaultName == i) {
+          this.address +=  comp.data.text + (i != 'province' ? ", ": "")
+        }
+      });
+    })
   }
 
 }
