@@ -44,7 +44,7 @@
             // color: rgb(47, 62, 77);
         }
         .cardDate {
-            font-size: 14px;
+            font-size: 13px;
             color:rgb(130, 146, 163);
         }
     }
@@ -75,3 +75,30 @@
 //     }
     
 // }
+.servicesHolder {
+    margin-right: 10px;
+    overflow-x:auto;
+    .selectedServices {
+        margin:0 !important;
+        overflow-y: hidden;
+        overflow-x:auto;
+        padding:0 !important;
+        margin-right: 10px;
+        width: 100%;
+        flex-wrap: nowrap;
+        display: flex;
+        .service {
+            
+            // background-color: rgb(234, 241, 250);
+            border-left: 1px solid rgb(169, 182, 199);
+            padding:1px 5px !important;
+            color:rgb(136, 172, 219);
+            font-size: 15px;
+            margin:0;
+        }
+
+        .noAvailed {
+            color:rgb(194, 186, 186);
+        }
+    }
+}

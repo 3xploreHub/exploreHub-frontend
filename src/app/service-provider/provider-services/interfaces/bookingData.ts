@@ -1,6 +1,6 @@
 export interface bookingData {
     _id: string;
-    tourist: string;
+    tourist: any;
     pageId: any;
     bookingInfo: [];
     selectedServices: [];

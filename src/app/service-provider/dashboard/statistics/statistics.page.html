@@ -8,6 +8,7 @@
       <p>
         {{service.data[0].data.text}}
       </p>
+      <ion-icon (click)="expandList = service._id" name="expand-outline"></ion-icon>
     </div>
     <div class="body">
       <div class="numStatus">
@@ -31,11 +32,14 @@
             <p (click)="expandList = service._id">
               {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
             </p>
-            <input *ngIf="countServices(service) > 8" type="text" placeholder="Search">
+            <input *ngIf="countServices(service) > 3" type="text" placeholder="Search">
           </div>
           <div class="holder" *ngIf="expandList == service._id" class="expandMenu boxShadowed2">
             <p>
-              {{service.data[0].data.text}}
+              <b>
+
+                {{service.data[0].data.text}}
+              </b>
             </p>
             <p (click)="expandList = null" class="close">Close</p>
           </div>

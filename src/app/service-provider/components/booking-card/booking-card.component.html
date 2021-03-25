@@ -1,16 +1,23 @@
 <div class="cardBody boxShadowed2 ion-activatable ripple-parent" (click)="viewBooking()">
   <div class="cardPhotoHolder">
     <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-      <p *ngIf="!name">No photo</p>
+      <p *ngIf="!photo">No photo</p>
     </div>
   </div>
   <div class="cardInfo">
     <div class="cardTitle">{{name}}</div>
+    <div class="servicesHolder">
+
+      <div class="selectedServices">
+        <div class="service" *ngFor="let item of selectedServices">{{item}}</div>
+        <div class="service noAvailed" *ngIf="selectedServices.length == 0">No services availed</div>
+      </div>
+    </div>
     <div class="cardDate">{{booking.createdAt.split("T")[0]}}</div>
   </div>
 
   <div class="bottomRow">
-    <div class="type spotPage" [class.servicePage]="booking.bookingType == 'service'">{{booking.bookingType == 'service'? 'Service': 'Tourist Spot'}}</div>
+    <div *ngIf="!forDashboard" class="type spotPage" [class.servicePage]="booking.bookingType == 'service'">{{booking.bookingType == 'service'? 'Service': 'Tourist Spot'}}</div>
     <div class="cardStatus status" [ngClass]="getStatus(booking.status)">
       <div class="statusCircle"></div>{{booking.status}}
     </div>

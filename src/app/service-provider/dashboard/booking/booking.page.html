@@ -10,4 +10,4 @@
   </div>
   <p>There's nothing here.</p>
 </div>
-<app-booking-card (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking"></app-booking-card>
+<app-booking-card (view)="viewBooking($event)" [forDashboard]="true" *ngFor="let booking of bookings" [booking]="booking"></app-booking-card>

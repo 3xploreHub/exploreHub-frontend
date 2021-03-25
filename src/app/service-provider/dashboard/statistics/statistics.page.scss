@@ -22,9 +22,20 @@
         border-bottom: 1px solid lightgray;
         font-size: 15px;
         font-weight: bold;
+        position: relative;
 
         p {
             margin:5px;
+        }
+
+        ion-icon {
+            position: absolute;
+            right:0;
+            top:0;
+            color:rgb(116, 122, 129);
+            padding:8px;
+            background-color: #ffff;
+            font-size: 19px;
         }
     }
 
@@ -122,10 +133,11 @@
     }
 
     .expand {
+        
         position: fixed;
         z-index: 999;
         padding:20px;
-        top: 0;
+        top: 122px;
         height: 100%;
         width: 100%;
         box-sizing: border-box;
@@ -142,7 +154,7 @@
             flex-direction: row;
             background-color: #ffff;
             position: fixed;
-            top:0;
+            top:122px;
             width: 100%;
             left:0;
             padding:5px 10px;
