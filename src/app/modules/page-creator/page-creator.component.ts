@@ -32,6 +32,7 @@ export class PageCreatorComponent implements OnInit {
   public preview: boolean = false;
   public loading: boolean = false;
   public submitting: boolean = false;
+  public active: string = 'info';
   public showUnfilled: boolean = false;
   public unfilledFields = { components: [], services: [], bookingInfo: [] }
   boxPosition: number;
@@ -94,12 +95,15 @@ export class PageCreatorComponent implements OnInit {
 
     if (info.clientHeight >= scrolled) {
       this.boxPosition = 0;
+      this.active = 'info';
     }
     if (info.clientHeight < scrolled) {
       this.boxPosition = width;
+      this.active = 'services';
     }
     if ((info.clientHeight + services.clientHeight) < scrolled) {
       this.boxPosition = width * 2;
+      this.active = 'booking'
     }
   }
 
@@ -129,6 +133,7 @@ export class PageCreatorComponent implements OnInit {
 
   goToSection(el: HTMLElement, tab: string, div: HTMLElement) {
     const width = div.clientWidth;
+    this.active = tab;
     switch (tab) {
       case 'booking':
         this.boxPosition = width * 2;

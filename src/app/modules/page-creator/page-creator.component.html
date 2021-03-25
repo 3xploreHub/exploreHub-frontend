@@ -100,13 +100,13 @@
         </div>
 
         <div class="tabs">
-            <div class="tab" (click)="goToSection(info,'info', tab)">
+            <div class="tab" [ngClass]="{dark: active == 'info'}" (click)="goToSection(info,'info', tab)">
                 Info
             </div>
-            <div class="tab" #tab (click)="goToSection(services, 'services', tab)">
+            <div class="tab" [class.dark]="active == 'services'" #tab (click)="goToSection(services, 'services', tab)">
                 Services
             </div>
-            <div class="tab" (click)="goToSection(booking, 'booking', tab)">
+            <div class="tab" [class.dark]="active == 'booking'"(click)="goToSection(booking, 'booking', tab)">
                 Booking
             </div>
         </div>
