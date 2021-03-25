@@ -4,11 +4,11 @@ import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
 
 @Component({
-  selector: 'app-view-booking',
-  templateUrl: './view-booking.page.html',
-  styleUrls: ['./view-booking.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss'],
+  selector: 'app-view-booking-as-provider',
+  templateUrl: './view-booking-as-provider.page.html',
+  styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss'],
 })
-export class ViewBookingPage implements OnInit {
+export class ViewBookingAsProviderPage implements OnInit {
   public name: string = "";
   public booking: bookingData = {
     _id: "",
@@ -28,7 +28,6 @@ export class ViewBookingPage implements OnInit {
         (response: bookingData) => {
           this.booking = response;
           if (this.booking && this.booking.pageId) {
-
             this.name = this.getName();
           }
         }
@@ -44,4 +43,5 @@ export class ViewBookingPage implements OnInit {
     });
     return text;
   }
+
 }

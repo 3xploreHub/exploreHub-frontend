@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ViewWillEnter } from '@ionic/angular';
 import { Page } from '../modules/elementTools/interfaces/page';
 import { PageCreatorService } from '../modules/page-creator/page-creator-service/page-creator.service';
+import accountType from '../services-common-helper/constantValue/accountType';
+import { LoadingService } from '../services-common-helper/loadingService/loading-service.service';
+import { AuthService } from '../services/auth-services/auth-service.service';
 
 @Component({
   selector: 'app-service-provider',
@@ -10,11 +13,23 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
   styleUrls: ['./service-provider.page.scss'],
 })
 
-export class ServiceProviderPage implements OnInit {
-  active = ''
-  constructor(public router: Router, public creator: PageCreatorService, private menu: MenuController) { }
+export class ServiceProviderPage implements ViewWillEnter {
+  public active:string = ''
+  public defaultType:any = accountType;
+  public accountType: string = accountType.tourist;
+  constructor(public loadingService: LoadingService,
+    public router: Router,
+    public creator: PageCreatorService,
+    public menu: MenuController,
+    public authServices: AuthService
+  ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.authServices.getAccountType().then((type:string) => {
+      this.accountType = type;
+      console.log(this.accountType);
+      
+    })
   }
 
 
@@ -22,7 +37,7 @@ export class ServiceProviderPage implements OnInit {
   gotTo(e, page, params = []) {
     this.active = page;
     params.forEach(param => {
-      this.active += (param? '-': '' )+param;
+      this.active += (param ? '-' : '') + param;
     });
     e.stopPropagation();
     setTimeout(() => {
@@ -50,5 +65,13 @@ export class ServiceProviderPage implements OnInit {
     )
   }
 
+  logout() {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.authServices.logOut();
+      this.loadingService.hide();
+      this.router.navigate(["/login"])
+    }, 100);
+  }
 
 }

@@ -134,4 +134,14 @@ export class AuthService {
       return false;
     });
   }
+
+  getAccountType() {
+    return this.get("currentUser").then((token) => {
+      if (token !== null) {
+        const dtoken = this.decodeToken(token);
+        return dtoken.accountType
+      }
+      return null;
+    });
+  }
 }
