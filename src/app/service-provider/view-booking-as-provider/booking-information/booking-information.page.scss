@@ -1,0 +1,61 @@
+.page {
+    display: flex;
+    padding:15px;
+    background-color: #fff;
+
+    .cardPhotoHolder {
+        height: 90px;
+        width: 90px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        overflow:hidden;
+        
+        .cardPhoto {
+            height: 100%;
+            width: 100%;
+            background-color: lightsteelblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            p {
+                font-size: 11px;
+            }
+            .noPhoto {
+                font-size: 50px;
+                color:rgb(253, 254, 255);;
+            }
+        }
+    }
+
+    .pageInfo {
+        padding:8px 10px;
+
+        .pageName {
+            font-size: 17px;
+            font-weight: bold;
+            color:rgb(53, 67, 82);
+        }
+
+        .address {
+            font-size: 14px;
+            color:rgb(79, 91, 107);
+        }
+    }
+}
+
+
+.selectedServices {
+    padding:10px;
+    margin:0;
+    background-color: #ffff;
+    border-bottom: 1px solid lightsteelblue;
+    .sectionTitle {
+        font-size: 19px;
+        padding:5px;
+        color: rgb(72, 91, 109);
+    }
+}

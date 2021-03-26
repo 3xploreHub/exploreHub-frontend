@@ -6,8 +6,25 @@ import { ViewBookingAsProviderPage } from './view-booking-as-provider.page';
 const routes: Routes = [
   {
     path: '',
-    component: ViewBookingAsProviderPage
-  }
+    component: ViewBookingAsProviderPage,
+    children: [
+      {
+        path: 'booking-information',
+        loadChildren: () => import('./booking-information/booking-information.module').then( m => m.BookingInformationPageModule)
+      },
+      {
+        path: 'transaction',
+        loadChildren: () => import('./transaction/transaction.module').then( m => m.TransactionPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'booking-information',
+        pathMatch: 'full'
+      },
+    ]
+  },
+  
+  
 ];
 
 @NgModule({

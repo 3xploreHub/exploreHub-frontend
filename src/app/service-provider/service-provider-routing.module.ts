@@ -85,7 +85,7 @@ const routes: Routes = [
         loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
       },
       {
-        path: 'view-booking-as-provider/:bookingId',
+        path: 'view-booking-as-provider/:bookingId/:bookingStatus',
         loadChildren: () => import('./view-booking-as-provider/view-booking-as-provider.module').then( m => m.ViewBookingAsProviderPageModule),
         canActivate:[ServiceProviderRouteGuardGuard]
       },

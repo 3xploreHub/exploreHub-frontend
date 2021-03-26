@@ -8,15 +8,14 @@
 </ion-header> -->
 
 <ion-content>
-  <div class="container mainLightBg2 pageContent">
 
+  <div class="container mainLightBg2 pageContent">
     <div class="headerHolder boxShadowed2">
       <div class="header topHead">
-        <div class="backBtn">
+        <div (click)="goBack()" class="backBtn">
           <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
         </div>
         <div class="optionsTop">
-
           <div class="cancel edit">Edit
             <ion-icon class="editIcon" name="create-outline"></ion-icon>
           </div>
@@ -25,29 +24,31 @@
           </div>
         </div>
       </div>
-      <div class="header ">
-        <div class="bookingCont">Booking Info</div>
-        <div class="transac">Transaction</div>
+      <div class="header">
+        <div class="bookingCont">
+          <ion-icon name="information-circle-outline"></ion-icon>Booking Info
+        </div>
+        <div class="transac">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Transaction
+        </div>
+        <div class="boxHolder">
+          <div class="box" (click)="goTo('Booking Info', 'booking-information', tab)">
+            <div class="active" #tab [ngStyle]="{'left.px': boxPosition}">
+              <div class="shade">
+
+                <ion-icon *ngIf="clickedTab == 'Booking Info'; else transaction" name="information-circle">
+                </ion-icon>
+                <ng-template #transaction>
+                  <ion-icon name="chatbubble-ellipses"></ion-icon>
+                </ng-template>
+                {{clickedTab}}
+              </div>
+            </div>
+          </div>
+          <div class="box" (click)="goTo('Transaction','transaction', tab)"></div>
+        </div>
       </div>
     </div>
-  <div class="page">
-    <div class="cardPhotoHolder">
-      <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-        <div class="noPhoto" *ngIf="!photo"><ion-icon name="person-outline"></ion-icon></div>
-      </div>
-    </div>
-    <div class="pageInfo">
-      <div class="pageName">{{booking.tourist.fullName}}</div>
-      <div class="address">{{booking.tourist.address}}</div>
-    </div>
-  </div>
-    <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
-      <div class="sectionTitle title">Selected Services</div>
-      <app-selected-service-card  [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
-      </app-selected-service-card>
-    </div>
-    <div class="inputValueDisplay">
-      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </ion-content>
