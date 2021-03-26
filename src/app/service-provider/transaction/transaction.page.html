@@ -1,10 +1,15 @@
 <div class="pageContainer">
-  
+
   <app-message-box [position]="'left'"></app-message-box>
   <app-message-box [position]="'right'"></app-message-box>
   <app-message-box [position]="'left'"></app-message-box>
   <app-message-box [position]="'right'"></app-message-box>
   <app-message-box [position]="'left'"></app-message-box>
   <app-message-box [position]="'left'"></app-message-box>
- 
+  <div class="inputMessageHolder">
+    <ion-textarea auto-grow="true" rows="1" placeholder="Enter other message here" class="inputMessage" type="text"></ion-textarea>
+    <div class="send boxShadowed2">
+      <ion-icon name="send-outline"></ion-icon>
+    </div>
+  </div>
 </div>
