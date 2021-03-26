@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
@@ -13,8 +13,11 @@ import { MainServicesService } from '../provider-services/main-services.service'
     '../components/booking-card/booking-card.component.scss'],
 })
 export class ViewBookingPage {
+  @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public bookingStatus: string = '';
+  public clickedTab:string =  'Booking Info';
+  public boxPosition: number;
   // public name: string = "---------------";
   // public photo: string = "";
   // public address: string = "------ ------ ------";
@@ -28,7 +31,7 @@ export class ViewBookingPage {
   //   status: "",
   // }
   constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController) { }
-
+  
   ngOnInit() {
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
@@ -78,10 +81,23 @@ export class ViewBookingPage {
     this.router.navigate(["/service-provider/bookings", this.bookingStatus])
   }
 
-  goTo(path) {
-    // setTimeout(() => {
-      this.router.navigate(path)
-    // }, 200);
+  goTo(clicked:string,path, tab: HTMLElement) {
+    this.clickedTab = clicked;
+    console.log(tab);
+    
+    const width = tab.clientWidth;
+    switch (clicked) {
+      case 'Booking Info':
+        this.boxPosition = 0;
+        break;
+      case 'Transaction':
+        this.boxPosition = width;
+        break;
+      default:
+        break;
+
+    }
+      this.router.navigate(['./service-provider/view-booking/'+this.bookingId+'/'+this.bookingStatus+'/'+path])
   }
 
 }
