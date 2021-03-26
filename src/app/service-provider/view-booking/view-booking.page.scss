@@ -74,6 +74,11 @@
         div {
             color: rgb(7, 68, 129);
             padding:15px 0;
+            display: flex;
+            align-items: center;
+            ion-icon {
+                padding-right:5px;
+            }
         }
     }
 }

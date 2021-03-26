@@ -9,27 +9,32 @@
 
 <ion-content>
   <div class="container mainLightBg2 pageContent">
-    <div class="headerHolder boxShadowed2">
-      <div class="header topHead">
-        <div class="backBtn">
-          <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
-        </div>
-        <div class="optionsTop">
 
-          <div class="cancel edit">Edit
-            <ion-icon class="editIcon" name="create-outline"></ion-icon>
-          </div>
-          <div class="cancel">Cancel
-            <ion-icon class="cancelIcon" name="close-outline"></ion-icon>
-          </div>
-        </div>
+  <div class="headerHolder boxShadowed2">
+    <div class="header topHead">
+      <div class="backBtn">
+        <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
       </div>
-      <div class="header ">
-        <div class="bookingCont">Booking Info</div>
-        <div class="transac">Transaction</div>
+      <div class="optionsTop">
+
+        <div class="cancel edit">Edit
+          <ion-icon class="editIcon" name="create-outline"></ion-icon>
+        </div>
+        <div class="cancel">Cancel
+          <ion-icon class="cancelIcon" name="close-outline"></ion-icon>
+        </div>
       </div>
     </div>
-    <div class="page">
+    <div class="header">
+      <div class="bookingCont">
+        <ion-icon name="information-circle-outline"></ion-icon>Booking Info
+      </div>
+      <div class="transac">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Transaction
+      </div>
+    </div>
+  </div>
+  <!-- <div class="page">
       <div class="cardPhotoHolder">
         <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
           <p *ngIf="!photo">No photo</p>
@@ -47,6 +52,7 @@
     </div>
     <div class="inputValueDisplay">
       <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
-    </div>
+    </div> -->
+    <router-outlet></router-outlet>
   </div>
 </ion-content>

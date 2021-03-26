@@ -11,60 +11,62 @@ import { MainServicesService } from '../provider-services/main-services.service'
     '../pages/select-service/select-service.page.scss',
     '../components/booking-card/booking-card.component.scss'],
 })
-export class ViewBookingPage implements OnInit {
-  public name: string = "";
-  public photo: string = "";
-  public address: string = "";
-  public booking: bookingData = {
-    _id: "",
-    tourist: "",
-    pageId: '',
-    bookingInfo: [],
-    selectedServices: [],
-    bookingType: "",
-    status: "",
-  }
-  constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
+export class ViewBookingPage {
+  // public name: string = "---------------";
+  // public photo: string = "";
+  // public address: string = "------ ------ ------";
+  // public booking: bookingData = {
+  //   _id: "",
+  //   tourist: "",
+  //   pageId: '',
+  //   bookingInfo: [],
+  //   selectedServices: [],
+  //   bookingType: "",
+  //   status: "",
+  // }
+  // constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(param => {
-      const bookingId = param.get("bookingId");
-      this.mainService.viewBooking(bookingId).subscribe(
-        (response: bookingData) => {
-          this.booking = response;
-          if (this.booking && this.booking.pageId) {
-            this.getPageInfo();
-            this.getAddress();
-          }
-        }
-      )
-    })
-  }
-
-
+  // ngOnInit() {
+  //   this.route.paramMap.subscribe(param => {
+  //     const bookingId = param.get("bookingId");
+  //     this.mainService.viewBooking(bookingId).subscribe(
+  //       (response: bookingData) => {
+  //         this.booking = response;
+  //         if (this.booking && this.booking.pageId) {
+  //           this.getPageInfo();
+  //           this.getAddress();
+  //         }
+  //       }
+  //     )
+  //   })
+  // }
 
 
 
-  getPageInfo() {
-    this.booking.pageId.components.forEach(comp => {
-      if (comp.type == "photo") {
-        this.photo = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
-      }
-      if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
-        this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
-      }
-    });
-  }
 
-  getAddress() {
-    let add = ["barangay", "municipality", "province"]
-    add.forEach(i => {
-      this.booking.pageId.components.forEach(comp => {
-        if (comp.data.defaultName && comp.data.defaultName == i) {
-          this.address +=  comp.data.text + (i != 'province' ? ", ": "")
-        }
-      });
-    })
-  }
+
+  // getPageInfo() {
+  //   this.booking.pageId.components.forEach(comp => {
+  //     if (comp.type == "photo") {
+  //       this.photo = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
+  //     }
+  //     if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
+  //       this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
+  //     }
+  //   });
+  // }
+
+  // getAddress() {
+  //   let add = ["barangay", "municipality", "province"]
+  //   let address = []
+  //   add.forEach(i => {
+  //     this.booking.pageId.components.forEach(comp => {
+  //       if (comp.data.defaultName && comp.data.defaultName == i) {
+  //         address.push(comp.data.text)
+  //       }
+  //     });
+  //   })
+  //   this.address = address.join(", ")
+  // }
 
 }

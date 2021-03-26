@@ -6,7 +6,18 @@ import { ViewBookingPage } from './view-booking.page';
 const routes: Routes = [
   {
     path: '',
-    component: ViewBookingPage
+    component: ViewBookingPage,
+    children: [
+      {
+        path: 'booking-information',
+        loadChildren: () => import('../booking-information/booking-information.module').then( m => m.BookingInformationPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'booking-information',
+        pathMatch: 'full'
+      },
+    ]
   }
 ];
 
