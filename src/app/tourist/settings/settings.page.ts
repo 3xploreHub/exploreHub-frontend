@@ -2,6 +2,7 @@ import { AccountPageRoutingModule } from './../../authentication-and-account/acc
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from './settings.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -9,9 +10,22 @@ import { SettingsService } from './settings.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  public account: boolean =true
+  public account: boolean =true;
 
-  constructor( private router: Router, private settingsService: SettingsService) { }
+  id = null;
+  accountType = null;
+  firstname = null;
+  lastname = null;
+  middlename = null;
+  age = null;
+  email = null;
+  phone = null;
+  address = null;
+  gender = null;
+  password = null;
+  birthday = null;
+
+  constructor( private router: Router, private settingsService: SettingsService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getUserInfo();
@@ -34,8 +48,21 @@ export class SettingsPage implements OnInit {
   }
 
   getUserInfo() {
-    this.settingsService.getUserInfo().subscribe((userInfo) => {
-      console.log("USER INFO: ", JSON.stringify(userInfo));
+    this.settingsService.getUserInfo().subscribe((userInfo: any) => {
+      this.id = userInfo._id;
+      this.accountType = userInfo.accountType;
+      this.firstname = userInfo.firstName;
+      this.middlename = userInfo.middleName;
+      this.lastname = userInfo.lastName;
+      this.age = userInfo.age;
+      this.email = userInfo.email;
+      this.phone = userInfo.contactNumber;
+      this.address = userInfo.address;
+      this.gender = userInfo.gender;
+      this.birthday = this.datePipe.transform(userInfo.birthday, 'yyyy-MM-dd');
+      this.password = userInfo.password;
+
+      console.log("USER INFORMATION: ", JSON.stringify(userInfo));
     });
   }
 

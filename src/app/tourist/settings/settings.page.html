@@ -15,10 +15,10 @@
                 <div class="profile-pic-container">
                     <img id="profile-pic" [src]="url ? url : 'https://bit.ly/2Ow0Wip'">
                 </div>
-                <h3 class="fullname"><b>Romeo Guardiario Lenizo</b></h3>
+                <h3 class="fullname" style="text-transform: capitalize;"><b>{{firstname}} {{middlename}} {{lastname}}</b></h3>
                 <div class="contact-info-container">
-                    <p>romeolenizo@gmail.com</p>
-                    <p>09755663973</p>
+                    <p>{{email}}</p>
+                    <p>{{phone}}</p>
                 </div>
 
                 <div class="additional-info">
@@ -27,7 +27,7 @@
                             <label for="address"><b>Address:</b></label>
                         </ion-col>
                         <ion-col>
-                            <label for="address-val">Basdaku, Moalboal, Cebu</label>
+                            <label for="address-val" style="text-transform: capitalize;">{{address}}</label>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -35,7 +35,7 @@
                             <label for="age"><b>Age:</b></label>
                         </ion-col>
                         <ion-col>
-                            <label for="age-val">21</label>
+                            <label for="age-val">{{age}}</label>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -43,7 +43,7 @@
                             <label for="gender"><b>Gender:</b></label>
                         </ion-col>
                         <ion-col>
-                            <label for="gender-val">Male</label>
+                            <label for="gender-val">{{gender}}</label>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -51,15 +51,7 @@
                             <label for="gender"><b>Birthday:</b></label>
                         </ion-col>
                         <ion-col>
-                            <label for="gender-val">02/16/2000</label>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col size="4">
-                            <label for="gender"><b>Password:</b></label>
-                        </ion-col>
-                        <ion-col>
-                            <label for="gender-val">password</label>
+                            <label for="gender-val">{{birthday}}</label>
                         </ion-col>
                     </ion-row>
                 </div>

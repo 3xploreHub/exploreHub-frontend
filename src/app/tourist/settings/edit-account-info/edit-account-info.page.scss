@@ -57,6 +57,8 @@
         input[type=phone],
         input[type=number],
         input[type=date],
+        input[type=email],
+        #birthday,
         select {
             width: 100%;
             padding: 12px 20px;
@@ -84,8 +86,26 @@
 
         input:focus {
             outline: none !important;
-            // border: 1px solid red;
+            box-shadow: 0 0 10px #719ECE;
+        }
+
+        select:focus {
+            outline: none !important;
             box-shadow: 0 0 10px #719ECE;
         }
     }
+}
+
+#error {
+    color: rgb(255, 101, 101);
+    position: relative;
+    top: -20px;
+}
+
+.error-email {
+    box-shadow: 0 0 10px rgb(255, 101, 101);
+}
+
+.error-email:focus {
+    box-shadow: 0 0 10px rgb(255, 101, 101) !important;
 }

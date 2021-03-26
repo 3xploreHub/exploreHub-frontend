@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content>
+
+  <h3 *ngIf="images.length == 0" text-center>Please Select Image!</h3>
+
   <div class="container">
     <div class="profile-container">
       <div class="profile">
@@ -20,10 +23,12 @@
           <img id="profile-pic" [src]="url ? url : 'https://bit.ly/2Ow0Wip'">
         </div>
 
+        <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
+
         <div class="upload-del-btn">
-          <ion-button fill="clear" expand="full" color="medium">
+          <ion-button (click)="selectImageSource()" fill="clear" expand="full" color="medium">
             <ion-icon slot="start" name="camera"></ion-icon>
-            Upload
+            Select Image
           </ion-button>
           <ion-button fill="clear" expand="full" color="medium">
             <ion-icon slot="start" name="trash"></ion-icon>
@@ -31,51 +36,95 @@
           </ion-button>
         </div>
 
-        <div class="additional-info"> 
-          <br>
+        <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+          <div class="additional-info">
+            <br>
+            <label style="font-size: 18px;"><b>Account Setting</b></label><br><br>
+
+            <label for="email">Email</label>
+            <input type="email" [className]="emailClass" (keyup)="changeEmail()" id="email" name="email" formControlName="email" [(ngModel)]="userEmail">
+            <div *ngIf="email.invalid && (email.touched || email.dirty)">
+              <p id="error" *ngIf="email.errors.required">Email is required</p>
+              <p id="error" *ngIf="email.errors.email">Please provide valid email</p>
+            </div>
+            
+            <label for="phone">Phone</label>
+            <input type="phone" id="phone" name="phone" formControlName="phone" [(ngModel)]="userPhone">
+            <div *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+              <p id="error" *ngIf="phone.errors.required">Phone is required</p>
+            </div>
+
+            <p for="note-change-pass" style="color: gray;"><i>Please input your current password first if you wish to change it!</i></p>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" formControlName="password" [(ngModel)]="userPassword">
+            <div *ngIf="password.invalid && (password.touched || password.dirty)">
+              <p id="error" *ngIf="password.errors.required">Password is required</p>
+              <p id="error" *ngIf="password.errors.minlength">Password must at least 8 characters</p>
+            </div>
+
+            <label for="new password">New Password</label><br>
+            <input type="password" id="newPassword" name="newPassword" formControlName="newPassword" [(ngModel)]="newUserPassword" >
+            <div *ngIf="newPassword.invalid && (newPassword.touched || newPassword.dirty)">
+              <p id="error" *ngIf="newPassword.errors.minlength">Password must at least 8 characters</p>
+            </div>
+
+          </div>
+
+          <div class="additional-info">
+            <br>
+            <label style="font-size: 18px;"><b>Profile Setting</b></label><br><br>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" formControlName="firstName" name="firstname" [(ngModel)]="userFirstname">
+            <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+              <p id="error" *ngIf="firstName.errors.required">Firstname is required</p>
+              <p id="error" *ngIf="firstName.errors.minLength">Password must at least 8 characters</p>
+            </div>
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" formControlName="lastName" name="lastname" [(ngModel)]="userLastname">
+            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+              <p id="error" *ngIf="lastName.errors.required">Lastname is required</p>
+            </div>
+  
+            <label for="lname">Middle Name</label>
+            <input type="text" id="mname" formControlName="middleName" name="middlename" [(ngModel)]="userMiddlename">
+            <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
+              <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
+            </div>
+  
+            <label for="lname">Age</label>
+            <input type="number" id="age" formControlName="age" name="age" [(ngModel)]="userAge">
+            <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
+              <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
+            </div>
+
+            <label for="lname">Gender</label><br>
+            <select name="cars" id="gender" (change)="changeGender($event)" formControlName="gender" [value]="userGender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+  
+
+            <!-- <ion-item>
+              <ion-label position="floating">MM/DD/YYYY</ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
+            </ion-item> -->
+
+            <label for="birthday">Birthday</label>
+            <!-- <input type="date" id="date" formControlName="birthday" name="birthday" [(ngModel)]="userBirthday"> -->
+            <ion-datetime id="birthday" displayFormat="MM/DD/YYYY" min="1950-01-01" max="2003-12-31" formControlName="birthday" name="birthday" [(ngModel)]="userBirthday"></ion-datetime>
+  
+            <label for="lname">Address</label><br>
+            <input type="text" id="address" formControlName="address" name="address" [(ngModel)]="userAddress">
+            <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
+              <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
+            </div>
+          </div>
           
-          <label for="email">Email</label>
-          <input type="text" id="email" name="email" value="romeolenizo@gmail.com">
-          <label for="email">Phone</label>
-          <input type="phone" id="phone" name="phone" value="09755663973">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="middlename" value="password">
-        </div>
+          <input type="submit" value="Save Changes">
 
-        <div class="additional-info">
-          <br>
-          <label style="font-size: 18px;"><b>Profile Setting</b></label><br><br>
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" name="firstname" value="Romeo">
-
-          <label for="lname">Last Name</label>
-          <input type="text" id="lname" name="lastname" value="Lenizo">
-
-          <label for="lname">Middle Name</label>
-          <input type="text" id="mname" name="middlename" value="Guardiario">
-
-          <label for="lname">Age</label>
-          <input type="number" id="age" name="age" value="21">
-
-          <label for="lname">Gender</label><br>
-
-          <div style="padding-left: 20px; padding-top: 5px;">
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">&nbsp;&nbsp;Male</label><br>
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">&nbsp;&nbsp;Female</label><br>
-            <input type="radio" id="other" name="gender" value="other">
-            <label for="other">&nbsp;&nbsp;Other</label>
-          </div><br>
-
-          <label for="lname">Birthday</label>
-          <input type="date" id="date" name="birthday" >
-
-          <label for="lname">Address</label><br>
-          <input type="text" id="address" name="address" value="Basdaku, Moalboal, Cebu">
-        </div>
-
-        <input type="submit" value="Save Changes">
+        </form>
       </div>
     </div>
   </div>

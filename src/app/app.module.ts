@@ -13,7 +13,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
 import { LoadingPage } from "./modules/loading/loading.page";
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TextComponent } from "./modules/page-elements/text/text.component";
 import { FormsModule } from "@angular/forms";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
@@ -86,7 +86,7 @@ import { OnlinePagesComponent } from "./modules/common-components/online-pages/o
   ],
   entryComponents: [],
   imports: [
-    BrowserModule,
+  BrowserModule,
     FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -107,6 +107,7 @@ import { OnlinePagesComponent } from "./modules/common-components/online-pages/o
       useClass: TokenInterceptorService,
       multi: true,
     },
+    DatePipe, 
   ],
   bootstrap: [AppComponent],
 })

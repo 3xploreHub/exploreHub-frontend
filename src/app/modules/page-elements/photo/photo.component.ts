@@ -77,12 +77,7 @@ export class PhotoComponent implements OnInit {
         },
       )
     }
-
-   
-
   }
-
-
 
   async selectImageSource() {
     this.noActions = false;

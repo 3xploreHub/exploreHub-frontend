@@ -11,9 +11,14 @@ export class SettingsService {
 
   // retreiveAllTouristSpotCategories() {
   //   return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
-  // }
+  // }21  `a
 
   getUserInfo() {
     return this.http.get(`${environment.apiUrl}/account/getUserInformation`);
   }
+
+  updateUserInfo(id, userData) {
+    return this.http.put(`${environment.apiUrl}/account/updateUserInformation/${id}`, userData);
+  }
+
 }
