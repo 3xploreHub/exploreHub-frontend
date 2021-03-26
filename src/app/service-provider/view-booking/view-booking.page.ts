@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
 
@@ -12,6 +13,8 @@ import { MainServicesService } from '../provider-services/main-services.service'
     '../components/booking-card/booking-card.component.scss'],
 })
 export class ViewBookingPage {
+  public bookingId: string = '';
+  public bookingStatus: string = '';
   // public name: string = "---------------";
   // public photo: string = "";
   // public address: string = "------ ------ ------";
@@ -24,22 +27,23 @@ export class ViewBookingPage {
   //   bookingType: "",
   //   status: "",
   // }
-  // constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
+  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController) { }
 
-  // ngOnInit() {
-  //   this.route.paramMap.subscribe(param => {
-  //     const bookingId = param.get("bookingId");
-  //     this.mainService.viewBooking(bookingId).subscribe(
-  //       (response: bookingData) => {
-  //         this.booking = response;
-  //         if (this.booking && this.booking.pageId) {
-  //           this.getPageInfo();
-  //           this.getAddress();
-  //         }
-  //       }
-  //     )
-  //   })
-  // }
+  ngOnInit() {
+    this.route.paramMap.subscribe(param => {
+      this.bookingId = param.get("bookingId");
+      this.bookingStatus = param.get("bookingStatus");
+      // this.mainService.viewBooking(bookingId).subscribe(
+      //   (response: bookingData) => {
+      //     this.booking = response;
+      //     if (this.booking && this.booking.pageId) {
+      //       this.getPageInfo();
+      //       this.getAddress();
+      //     }
+      //   }
+      // )
+    })
+  }
 
 
 
@@ -68,5 +72,16 @@ export class ViewBookingPage {
   //   })
   //   this.address = address.join(", ")
   // }
+
+  goBack() {
+    // this.navCtrl.pop()
+    this.router.navigate(["/service-provider/bookings", this.bookingStatus])
+  }
+
+  goTo(path) {
+    // setTimeout(() => {
+      this.router.navigate(path)
+    // }, 200);
+  }
 
 }

@@ -34,7 +34,7 @@ export class BookingsPage implements OnInit {
 
 
   viewBooking(id) {
-    this.router.navigate(["/service-provider/view-booking", id])
+    this.router.navigate(["/service-provider/view-booking", id, this.status])
   }
 
 }

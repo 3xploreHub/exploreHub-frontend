@@ -25,7 +25,7 @@ export class BookingInformationPage implements OnInit {
 
   ngOnInit() {
     // this.route.paramMap.subscribe(param => {
-      const bookingId = this.router.url.split("/").reverse()[1]
+      const bookingId = this.router.url.split("/").reverse()[2]
       this.mainService.viewBooking(bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;

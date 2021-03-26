@@ -69,7 +69,7 @@ export class MainServicesService {
   }
 
   viewBooking(bookingId) {
-    return this.http.get(`${this.apiUrl}/viewBooking/${bookingId}`)
+    return this.http.get(`${this.apiUrl}/viewBooking/${bookingId}`, { headers: { hideLoadingIndicator: "true" } })
   }
 
   getPageBooking(bookingStatus, pageId) {

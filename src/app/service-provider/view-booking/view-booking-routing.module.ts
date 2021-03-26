@@ -13,6 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('../booking-information/booking-information.module').then( m => m.BookingInformationPageModule)
       },
       {
+        path: 'transaction',
+        loadChildren: () => import('../transaction/transaction.module').then( m => m.TransactionPageModule)
+      },
+      {
         path: '',
         redirectTo: 'booking-information',
         pathMatch: 'full'

@@ -81,7 +81,7 @@ const routes: Routes = [
         loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
       },
       {
-        path: 'view-booking/:bookingId',
+        path: 'view-booking/:bookingId/:bookingStatus',
         loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
       },
       {
@@ -95,9 +95,6 @@ const routes: Routes = [
       },
     ]
   },
- 
-  
-  
 ];
 
 @NgModule({
