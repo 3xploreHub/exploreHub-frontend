@@ -12,6 +12,7 @@ import { LabelledTextComponent } from '../modules/page-elements/labelled-text/la
 import { LabelledTextDisplayComponent } from '../modules/page-elements-display/labelled-text-display/labelled-text-display.component';
 import { BookingCardComponent } from '../service-provider/components/booking-card/booking-card.component';
 import { SelectedServiceCardComponent } from '../service-provider/pages/selected-service-card/selected-service-card.component';
+import { MessageBoxComponent } from '../service-provider/components/message-box/message-box.component';
 
 @NgModule({
   imports: [
@@ -20,11 +21,18 @@ import { SelectedServiceCardComponent } from '../service-provider/pages/selected
     IonicModule,
     ComponentsModulePageRoutingModule
   ],
-  declarations: [ComponentsModulePage, BookingInfoDisplayComponent, LabelledTextDisplayComponent, BookingCardComponent, SelectedServiceCardComponent],
+  declarations: [
+    ComponentsModulePage,
+    MessageBoxComponent,
+    BookingInfoDisplayComponent,
+    LabelledTextDisplayComponent,
+    BookingCardComponent,
+    SelectedServiceCardComponent],
   exports: [
     BookingInfoDisplayComponent, LabelledTextDisplayComponent,
     BookingCardComponent,
     SelectedServiceCardComponent,
+    MessageBoxComponent
   ]
 })
-export class ComponentsModulePageModule {}
+export class ComponentsModulePageModule { }

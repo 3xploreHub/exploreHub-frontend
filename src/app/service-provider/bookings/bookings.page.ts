@@ -34,7 +34,11 @@ export class BookingsPage implements OnInit {
 
 
   viewBooking(id) {
-    this.router.navigate(["/service-provider/view-booking", id, this.status])
+    if (this.status != "Unfinished") {
+      this.router.navigate(["/service-provider/view-booking", id, this.status])
+    } else {
+      this.router.navigate(["/service-provider/booking-review", id])
+    }
   }
 
 }
