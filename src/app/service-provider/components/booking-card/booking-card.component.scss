@@ -95,6 +95,10 @@
             color:rgb(136, 172, 219);
             font-size: 15px;
             margin:0;
+            display: flex;
+            flex-wrap: nowrap;
+            height: 20px;
+            overflow:hidden;
         }
 
         .noAvailed {

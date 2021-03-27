@@ -16,7 +16,6 @@ export class BoardPage implements OnInit, AfterViewInit {
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    console.log(this.height)
   }
   ngAfterViewInit() {
     setTimeout(() => {

@@ -145,7 +145,6 @@ export class ViewPagePage implements OnInit {
 
   catchEvent(data) {
     if (data.userInput) {
-      console.log(data);
     } else {
       this.viewItem(data)
     }

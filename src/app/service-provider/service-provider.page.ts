@@ -27,8 +27,6 @@ export class ServiceProviderPage implements ViewWillEnter {
   ionViewWillEnter() {
     this.authServices.getAccountType().then((type:string) => {
       this.accountType = type;
-      console.log(this.accountType);
-      
     })
   }
 

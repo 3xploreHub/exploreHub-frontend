@@ -42,9 +42,6 @@ export class StatisticsPage implements OnInit {
     this.mainService.getServices(url[2], url[3]).subscribe(
       (response: Page) => {
         this.services = response.services;
-        console.log(this.services);
-        console.log(this.services[0].data[0]);
-        
       },
 
     )

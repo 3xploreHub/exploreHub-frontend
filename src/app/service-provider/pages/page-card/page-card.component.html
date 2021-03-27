@@ -1,6 +1,16 @@
 <div (click)="view()" class="pageCard ion-activatable ripple-parent boxShadowed3">
   <div class="pageMain">
-
+    <div class="creator">
+      <div class="creatorPhotoHolder">
+        <div class="creatorPhoto">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="creatorInfo">
+        <div class="creatorName">Jonathan Rivas</div>
+        <div class="dateCreated">{{page.createdAt.split('T')[0]}}</div>
+      </div>
+    </div>
     <div class="photoHolder">
       <div class="pagePhoto"
         [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">

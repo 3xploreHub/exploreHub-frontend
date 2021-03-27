@@ -53,7 +53,6 @@ export class BookingCardComponent implements OnInit {
 
     if (this.forDashboard) {
       this.booking.selectedServices.forEach((comp: any) => {
-        console.log(comp);
         if (comp.service) {
 
           comp.service.data.forEach(element => {

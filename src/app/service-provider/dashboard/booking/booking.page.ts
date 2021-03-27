@@ -26,7 +26,6 @@ export class BookingPage implements OnInit {
       this.bookingStatus = params.get('status');
       this.pageId = this.router.url.split('/').reverse()[3]
       this.pageType = this.router.url.split('/').reverse()[4]
-      console.log(this.router.url.split('/').reverse());
 
       this.mainService.getPageBooking(this.bookingStatus, this.pageId).subscribe(
         (response: bookingData[]) => {

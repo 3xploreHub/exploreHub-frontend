@@ -83,7 +83,6 @@ export class ViewBookingPage {
 
   goTo(clicked:string,path, tab: HTMLElement) {
     this.clickedTab = clicked;
-    console.log(tab);
     
     const width = tab.clientWidth;
     switch (clicked) {

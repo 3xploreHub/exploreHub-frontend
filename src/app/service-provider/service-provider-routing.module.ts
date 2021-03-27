@@ -90,15 +90,16 @@ const routes: Routes = [
         canActivate:[ServiceProviderRouteGuardGuard]
       },
       {
+        path: 'notifications',
+        loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/service-provider/select-page-type'
       },
     ]
   },
-  {
-    path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
-  },
+  
 ];
 
 @NgModule({

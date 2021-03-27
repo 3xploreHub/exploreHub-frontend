@@ -18,8 +18,6 @@ export class ChoicesInputDisplayComponent implements OnInit {
   ngOnInit() {
     if (this.values.data.defaultValue) {
       this.selected = this.values.data.defaultValue
-      console.log(this.selected);
-      
     }
   }
 
@@ -41,7 +39,6 @@ export class ChoicesInputDisplayComponent implements OnInit {
       }
       this.passData(this.selected, true)
     }
-    console.log(this.selected);
     
   }
   checkIfChecked(id) {

@@ -17,11 +17,8 @@ export class LabelledTextDisplayComponent implements OnInit {
     if (this.values.data.defaultName && (this.values.data.defaultName == "price" || this.values.data.defaultName == "quantity")) {
       this.value = this.formatNumber(this.values.data.text);
     } else if (this.isDate) {
-      console.log(this.values.data.text)
       const date = this.values.data.text;
       this.value = date.month.text+". "+date.day.text+", "+date.year.text;
-      console.log(this.value);
-      
     } else {
       this.value = this.values.data.text
     }
