@@ -44,6 +44,7 @@ import { StatisticsPage } from "./service-provider/dashboard/statistics/statisti
 import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
 import { BookingInfoDisplayComponent } from "./service-provider/pages/booking-info-display/booking-info-display.component";
 import { ComponentsModulePageModule } from "./components-module/components-module.module";
+import { NotificationCardComponent } from "./service-provider/components/notification-card/notification-card.component";
 
 @NgModule({
   declarations: [

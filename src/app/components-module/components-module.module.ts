@@ -13,6 +13,7 @@ import { LabelledTextDisplayComponent } from '../modules/page-elements-display/l
 import { BookingCardComponent } from '../service-provider/components/booking-card/booking-card.component';
 import { SelectedServiceCardComponent } from '../service-provider/pages/selected-service-card/selected-service-card.component';
 import { MessageBoxComponent } from '../service-provider/components/message-box/message-box.component';
+import { NotificationCardComponent } from '../service-provider/components/notification-card/notification-card.component';
 
 @NgModule({
   imports: [
@@ -27,10 +28,13 @@ import { MessageBoxComponent } from '../service-provider/components/message-box/
     BookingInfoDisplayComponent,
     LabelledTextDisplayComponent,
     BookingCardComponent,
+    NotificationCardComponent,
     SelectedServiceCardComponent],
   exports: [
-    BookingInfoDisplayComponent, LabelledTextDisplayComponent,
+    BookingInfoDisplayComponent,
+    LabelledTextDisplayComponent,
     BookingCardComponent,
+    NotificationCardComponent,
     SelectedServiceCardComponent,
     MessageBoxComponent
   ]

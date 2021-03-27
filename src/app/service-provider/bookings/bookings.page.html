@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <div [class.hasTab]="status != 'Unfinished'" class="container mainLightBg">
+  <div [class.hasTab]="status != 'Unfinished'" class="container lightBackground">
     <div class="empty" *ngIf="bookings.length == 0 && !loading">
       <div class="iholder">
         <ion-icon name="folder-open-outline"></ion-icon>

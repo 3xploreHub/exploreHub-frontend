@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Notifications</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="cont lightBackground">
+    <app-notification-card></app-notification-card>
+    <app-notification-card></app-notification-card>
+    <app-notification-card></app-notification-card>
+    <app-notification-card></app-notification-card>
+  </div>
 </ion-content>

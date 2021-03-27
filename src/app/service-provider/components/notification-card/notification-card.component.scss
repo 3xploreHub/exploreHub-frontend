@@ -1,0 +1,25 @@
+.notifCard {
+    margin:10px 8px;
+    background-color: #ffff;
+    box-shadow: 0 1px 2px rgb(195, 200, 206);
+    border-radius: 4px;
+    padding:7px;
+    display: flex;
+
+    .notifPicHolder {
+        flex-shrink: 0;
+        height: 70px;
+        width: 70px;
+        border-radius: 4px;
+        background-color: lightsteelblue;
+    }
+
+    .notifInfo {
+        padding:0 8px;
+
+        .notifDate {
+            font-size: 13px;
+            color:rgb(135, 147, 161);
+        }
+    }
+}

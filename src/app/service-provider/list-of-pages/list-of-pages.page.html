@@ -16,7 +16,7 @@
       <p>There's nothing here.</p>
     </div>
     <div class="list">
-      <div class="page ion-activatable ripple-parent boxShadowed3" *ngFor="let page of pages" (click)="goToDashBoard(page)">
+      <div class="page ion-activatable ripple-parent  " *ngFor="let page of pages" (click)="goToDashBoard(page)">
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
