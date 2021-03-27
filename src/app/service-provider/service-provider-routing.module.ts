@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CreateBookingGuardGuard } from './route-guards/create-booking-guard/create-booking-guard.guard';
 import { PageCreatorRouteManagerGuard } from './route-guards/route-page-creator/page-creator-route-manager.guard';
 import { ServiceProviderRouteGuardGuard } from './route-guards/service-provider-route-guard/service-provider-route-guard.guard';
 
@@ -62,19 +63,22 @@ const routes: Routes = [
       },
       {
         path: 'view-item/:pageId/:serviceId/:itemId/:pageType/:bookingId',
-        loadChildren: () => import('./pages/view-item/view-item.module').then(m => m.ViewItemPageModule)
+        loadChildren: () => import('./pages/view-item/view-item.module').then(m => m.ViewItemPageModule),
       },
       {
         path: 'select-service/:pageId/:bookingId',
-        loadChildren: () => import('./pages/select-service/select-service.module').then(m => m.SelectServicePageModule)
+        loadChildren: () => import('./pages/select-service/select-service.module').then(m => m.SelectServicePageModule),
+        canDeactivate: [CreateBookingGuardGuard],
       },
       {
         path: 'book/:pageId/:pageType/:bookingId',
-        loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule)
+        loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule),
+        canDeactivate: [CreateBookingGuardGuard],
       },
       {
-        path: 'booking-review/:bookingId',
-        loadChildren: () => import('./pages/booking-review/booking-review.module').then( m => m.BookingReviewPageModule)
+        path: 'booking-review/:pageId/:pageType/:bookingId',
+        loadChildren: () => import('./pages/booking-review/booking-review.module').then( m => m.BookingReviewPageModule),
+        canDeactivate: [CreateBookingGuardGuard],
       },
       {
         path: 'bookings/:bookingStatus',

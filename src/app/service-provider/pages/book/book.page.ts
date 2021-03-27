@@ -40,6 +40,7 @@ export class BookPage implements OnInit, ViewWillEnter {
   ) { }
 
   ngOnInit() {
+    this.mainService.canLeave = false;
     this.route.paramMap.subscribe(params => {
       this.pageId = params.get('pageId');
       this.pageType = params.get('pageType');
@@ -117,9 +118,10 @@ export class BookPage implements OnInit, ViewWillEnter {
 
   submitBooking() {
     setTimeout(() => {
+      this.mainService.canLeave = true;
       this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
         (response: bookingData) => {
-          this.router.navigate(["/service-provider/booking-review", this.bookingId])
+          this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId])
         }
       )
     }, 100);

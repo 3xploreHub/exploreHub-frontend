@@ -26,11 +26,14 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   ionViewWillEnter() {
     this.selected = [];
     this.notSelected = []
+    this.mainService.canLeave = false;
+    this.mainService.hasUnfinishedBooking = true;
   }
 
   ngAfterViewInit() {
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
+      this.mainService.currentBooking = bookingId;
       this.pageId = params.get("pageId")
       this.mainService.getBooking(bookingId).subscribe(
         (response: any) => {
@@ -108,12 +111,13 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
 
   bookNow() {
     setTimeout(() => {
-      
+      this.mainService.canLeave = true;
       this.router.navigate(["/service-provider/book", this.pageId,this.booking.bookingType, this.booking._id])
     }, 200);
   }
 
   viewItem(data) {
+    this.mainService.canLeave = true;
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
   }
 }

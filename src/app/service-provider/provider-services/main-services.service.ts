@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class MainServicesService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPage: Page;
+  public canLeave: boolean = true;
+  public currentBooking: string = "";
+  public hasUnfinishedBooking:boolean = false;
 
   constructor(
     private http: HttpClient

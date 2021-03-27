@@ -5,3 +5,20 @@
 .inputValueDisplay {
     border-top:2px solid #ffff;
 }
+
+
+.editBtnHolder {
+    font-size: 19px;
+    color: rgb(72, 91, 109);
+    padding:5px 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.editBtn {
+    text-align: right;
+    padding:5px;
+    font-size: 16px !important;
+    display:inline-block;
+    color: dodgerblue;
+}

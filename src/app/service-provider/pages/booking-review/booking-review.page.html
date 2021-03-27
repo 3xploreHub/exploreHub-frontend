@@ -11,11 +11,23 @@
   <div class="container mainLightBg2">
 
     <div class="selectedServices mainLightBg2">
-      <div class="sectionTitle">Selected Services</div>
-      <app-selected-service-card *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
+      <div class="sectionTitle">Selected Services
+        <div (click)="editSelectedServices()"  class="editBtn">
+          <ion-icon name="create-outline"></ion-icon>Edit
+        </div>
+        
+      </div>
+      <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
+      </app-selected-service-card>
     </div>
     <div class="inputValueDisplay">
-      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+        <div class="editBtnHolder">
+          Booking Info
+          <div (click)="editBookingInfo()" class="editBtn">
+            <ion-icon name="create-outline"></ion-icon>Edit
+          </div>
+        </div>
+     <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
       <div class="bookSectionCont">
         <div (click)="submitBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
           <p>Book Now</p>

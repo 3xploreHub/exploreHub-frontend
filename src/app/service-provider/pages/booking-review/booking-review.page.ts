@@ -9,6 +9,9 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./booking-review.page.scss', '../select-service/select-service.page.scss'],
 })
 export class BookingReviewPage implements OnInit {
+  public pageType: string = "";
+  public pageId: string = "";
+  public bookingId: string = "";
   public booking: bookingData = {
     _id: "",
     tourist: "",
@@ -21,9 +24,12 @@ export class BookingReviewPage implements OnInit {
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
+    this.mainService.canLeave = false;
     this.route.paramMap.subscribe(params => {
-      const bookingId = params.get('bookingId')
-      this.mainService.getBooking(bookingId, "booking_review").subscribe(
+      this.bookingId = params.get('bookingId')
+      this.pageType = params.get('pageType')
+      this.pageId = params.get('pageId')
+      this.mainService.getBooking(this.bookingId, "booking_review").subscribe(
         (response: any) => {
           this.booking = response.bookingData;
         }
@@ -31,9 +37,20 @@ export class BookingReviewPage implements OnInit {
     })
   }
 
+  editBookingInfo() {
+    this.mainService.canLeave = true;
+    this.router.navigate(['/service-provider/book', this.pageId, this.pageType, this.bookingId])
+  }
+  
+  editSelectedServices() {
+    this.mainService.canLeave = true;
+    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId])
+  }
+
   submitBooking() {
     this.mainService.submitBooking(this.booking._id).subscribe(
       (response: any) => {
+        this.mainService.canLeave = true;
         this.router.navigate(['/service-provider/bookings', "Pending"])
       }
     )

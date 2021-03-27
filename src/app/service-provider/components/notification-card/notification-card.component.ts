@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notification-card',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-card.component.scss'],
 })
 export class NotificationCardComponent implements OnInit {
-
+  @Input() status: string;
   constructor() { }
 
   ngOnInit() {}

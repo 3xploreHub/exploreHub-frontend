@@ -12,6 +12,18 @@
         width: 70px;
         border-radius: 4px;
         background-color: lightsteelblue;
+
+        .notifPic {
+            height: 100%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:100%;
+
+            ion-icon {
+                font-size: 25px;
+            }
+        }
     }
 
     .notifInfo {
@@ -22,4 +34,9 @@
             color:rgb(135, 147, 161);
         }
     }
+}
+
+.unread {
+    background-image: linear-gradient(to right, rgb(183, 215, 247),rgb(189, 240, 241));
+    border: 1px solid rgb(120, 175, 230);
 }
