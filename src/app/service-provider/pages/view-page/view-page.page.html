@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <ion-title>view-page</ion-title>
+    <ion-title>{{page.components[1].data.text}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, others, tab)">
@@ -12,7 +12,6 @@
       <div class="info" #info>
         <ng-template #pageElement></ng-template>
       </div>
-
       <div #services>
         <div *ngIf="page.services.length > 0" class="servicesSection">
           <div class="divider">
@@ -49,7 +48,6 @@
           </div>
         </div>
       </div>
-
       <div class="tabs">
         <div class="tab" (click)="goToSection(info,'info', tab)">
           Info
@@ -73,6 +71,7 @@
         </div>
         <div class="boxes"></div>
       </div>
+
     </div>
   </div>
 </ion-content>

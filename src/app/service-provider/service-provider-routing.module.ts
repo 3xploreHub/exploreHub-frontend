@@ -85,7 +85,7 @@ const routes: Routes = [
         loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
       },
       {
-        path: 'view-booking-as-provider/:bookingId/:bookingStatus',
+        path: 'view-booking-as-provider/:pageId/:pageType/:bookingId/:bookingStatus',
         loadChildren: () => import('./view-booking-as-provider/view-booking-as-provider.module').then( m => m.ViewBookingAsProviderPageModule),
         canActivate:[ServiceProviderRouteGuardGuard]
       },
@@ -94,6 +94,10 @@ const routes: Routes = [
         redirectTo: '/service-provider/select-page-type'
       },
     ]
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
 ];
 

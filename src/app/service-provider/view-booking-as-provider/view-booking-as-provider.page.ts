@@ -14,24 +14,19 @@ export class ViewBookingAsProviderPage implements OnInit {
   public bookingStatus: string = '';
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
-  // public name: string = "";
-  // public photo: string = "";
-  // public address: string = "";
-  // public booking: bookingData = {
-  //   _id: "",
-  //   tourist: "",
-  //   pageId: '',
-  //   bookingInfo: [],
-  //   selectedServices: [],
-  //   bookingType: "",
-  //   status: "",
-  // }
-  constructor(public route: ActivatedRoute, public router:Router, public mainService: MainServicesService) { }
+  public pageType: string;
+  public pageId: string;
+  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
       this.bookingStatus = param.get("bookingStatus");
+      const url = this.router.url.split("/").reverse();
+      console.log("url: ", url)
+      this.pageId = url[4];
+      this.pageType = url[3];
+      console.log("adsfasdf", this.pageId, this.pageType)
       // this.mainService.viewBooking(bookingId).subscribe(
       //   (response: bookingData) => {
       //     this.booking = response;
@@ -66,8 +61,10 @@ export class ViewBookingAsProviderPage implements OnInit {
   // }
   goBack() {
     // this.navCtrl.pop()/dashboard/tourist_spot/6058cf9a44e26d055ca532a6/board/booking/Pending
-    const type = "tourist_spot";
-    this.router.navigate(["/service-provider/dashboard/board"])
+    // this.router.navigate(["/service-provider/dashboard"])
+    console.log("./service-provider/dashboard" + this.pageType + "/" + this.pageId + "/board/booking/" + this.bookingStatus);
+    
+    this.router.navigate(["./service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/" + this.bookingStatus])
   }
 
   goTo(clicked: string, path, tab: HTMLElement) {
@@ -86,7 +83,7 @@ export class ViewBookingAsProviderPage implements OnInit {
         break;
 
     }
-    this.router.navigate(['./service-provider/view-booking-as-provider/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
+    this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
   }
 
 }

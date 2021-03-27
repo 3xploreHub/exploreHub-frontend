@@ -22,7 +22,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @Input() page: Page = { _id: "",pageType: "", otherServices: [], status: "", components: [], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
+  @Input() page: Page = { _id: "",pageType: "", otherServices: [], status: "", components: [{},{data: {text: "----------"}}], services: [], bookingInfo: [], creator: "", hostTouristSpot: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;

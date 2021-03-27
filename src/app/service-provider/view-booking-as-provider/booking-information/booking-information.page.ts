@@ -24,7 +24,8 @@ export class BookingInformationPage implements OnInit {
   constructor(public route: ActivatedRoute,public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    const bookingId = this.router.url.split("/").reverse()[2]
+    const url = this.router.url.split("/").reverse();
+    const bookingId = url[2]
       this.mainService.viewBooking(bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;
