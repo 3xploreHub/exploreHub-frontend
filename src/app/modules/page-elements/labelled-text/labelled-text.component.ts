@@ -182,7 +182,6 @@ export class LabelledTextComponent implements OnInit {
 
 
   select(category) {
-    alert(category);
   }
 
   async presentToast(message) {

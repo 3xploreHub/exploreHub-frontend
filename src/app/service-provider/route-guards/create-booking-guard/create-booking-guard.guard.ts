@@ -80,20 +80,21 @@ export class CreateBookingGuardGuard implements CanActivate {
         {
           text: "Yes",
           handler: () => {
-            // this.creator.deletePage().subscribe(
-            //   (response) => {
-            //     this.creator.canLeave = true;
-            //     this.creator.preview = false;
-            //     this.router.navigate(["/service-provider"])
-            //   }
-            // )
+            const url = this.router.url.split("/").reverse();
+            this.mainService.deleteBooking(url[0]).subscribe(
+              (response) => {
+                this.mainService.canLeave = true;
+                this.router.navigate(["/service-provider/online-pages-list"])
+              }
+            )
           },
         },
         {
           text: "No",
           handler: () => {
             // this.creator.canLeave = false;
-            this.alertAtLeave();
+            // this.alertAtLeave();
+            // return false;
             // this.router.navigate(["/service-provider"])
           },
         },

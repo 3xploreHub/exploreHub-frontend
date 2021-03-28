@@ -78,4 +78,8 @@ export class MainServicesService {
   getPageBooking(bookingStatus, pageId) {
     return this.http.get(`${this.apiUrl}/getPageBooking/${bookingStatus}/${pageId}`, { headers: { hideLoadingIndicator: "true" } })
   }
+
+  deleteBooking(bookingId) {
+    return this.http.delete(`${this.apiUrl}/deleteBooking/${bookingId}`)
+  }
 }

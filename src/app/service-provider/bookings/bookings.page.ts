@@ -11,7 +11,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class BookingsPage implements OnInit {
   public status: string = "";
-  public loading:boolean = true;
+  public loading: boolean = true;
   public bookings: bookingData[] = [];
   constructor(
     public mainService: MainServicesService,
@@ -33,12 +33,28 @@ export class BookingsPage implements OnInit {
   }
 
 
-  viewBooking(id) {
-    if (this.status != "Unfinished") {
-      this.router.navigate(["/service-provider/view-booking", id, this.status])
+  viewBooking(booking) {
+    console.log(booking);
+    if (booking.pageId) {
+      if (this.status != "Unfinished") {
+        this.router.navigate(["/service-provider/view-booking", booking._id, this.status])
+      } else {
+        this.router.navigate(["/service-provider/booking-review", booking.pageId._id, booking.bookingType, booking._id])
+      }
     } else {
-      this.router.navigate(["/service-provider/booking-review", id])
+      const type = booking.bookingType == "service" ? "service": "tourist spot"
+      this.presentAlert(`The ${type} is no longer available`)
     }
+  }
+
+  
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
 }

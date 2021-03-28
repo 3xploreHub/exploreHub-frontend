@@ -94,7 +94,7 @@ export class BookingCardComponent implements OnInit {
 
   viewBooking() {
     setTimeout(() => {
-      this.view.emit(this.booking._id);
+      this.view.emit(this.booking);
     }, 200);
   }
 

@@ -243,7 +243,6 @@ export class StatisticsPage implements OnInit {
     e.stopPropagation()
     setTimeout(() => {
       this.updateClicked = true
-      alert(this.updateClicked)
     }, 200);
   }
 

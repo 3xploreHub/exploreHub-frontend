@@ -60,7 +60,7 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
     });
     if (!name && defaultName == "name" && data.type == "item-list") {
       if (data.data[0].type == "text") {
-        name = data.data[0].data.text;
+        name = data.data[0].data.text;  
       }
     }
     return name;
