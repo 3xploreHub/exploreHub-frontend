@@ -2,8 +2,10 @@ export interface bookingData {
     _id: string;
     tourist: any;
     pageId: any;
-    bookingInfo: [];
-    selectedServices: [];
+    page: any;
+    services: any[],
+    bookingInfo: any[];
+    selectedServices: any[];
     bookingType: string;
     status: string;
 }

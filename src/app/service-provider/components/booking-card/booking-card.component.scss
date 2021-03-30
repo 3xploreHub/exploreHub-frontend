@@ -15,21 +15,21 @@
         border-radius: 4px;
         flex-shrink: 0;
         overflow:hidden;
+        background-color: lightsteelblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .cardPhoto {
             height: 100%;
             width: 100%;
-            background-color: lightsteelblue;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
 
-            p {
-                font-size: 11px;
-            }
+        }
+        p {
+            font-size: 11px;
         }
     }
 

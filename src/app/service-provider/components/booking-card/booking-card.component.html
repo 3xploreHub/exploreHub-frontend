@@ -1,7 +1,7 @@
-<div class="cardBody ion-activatable ripple-parent" (click)="viewBooking()">
+<div *ngIf="!deleted" class="cardBody ion-activatable ripple-parent" (click)="viewBooking()">
   <div class="cardPhotoHolder">
-    <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-      <p *ngIf="!photo">No photo</p>
+    <p *ngIf="!photo">No photo</p>
+    <div class="cardPhoto" *ngIf="photo" [ngStyle]="{'background-image': 'url('+photo+')' }">
     </div>
   </div>
   <div class="cardInfo">

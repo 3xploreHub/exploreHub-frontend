@@ -14,7 +14,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   public booking: bookingData = {
-    _id: "",  tourist: "", pageId:"", bookingInfo:[], bookingType: "", selectedServices: [], status: ""
+    _id: "",  tourist: "",page: [],services: [], pageId:"", bookingInfo:[], bookingType: "", selectedServices: [], status: ""
   };
   public pageId: string;
   public pageServices: ElementValues[];

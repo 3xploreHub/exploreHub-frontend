@@ -16,6 +16,8 @@ export class BookingInformationPage implements OnInit {
     _id: "",
     tourist: "",
     pageId: '',
+    page: [],
+    services: [],
     bookingInfo: [],
     selectedServices: [],
     bookingType: "",

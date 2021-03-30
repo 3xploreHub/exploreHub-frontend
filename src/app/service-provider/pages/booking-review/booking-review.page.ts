@@ -15,6 +15,8 @@ export class BookingReviewPage implements OnInit {
   public booking: bookingData = {
     _id: "",
     tourist: "",
+    page: [],
+    services: [],
     pageId: "",
     bookingInfo: [],
     selectedServices: [],
