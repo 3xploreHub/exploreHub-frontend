@@ -23,4 +23,10 @@
     </div>
   </div>
   <ion-ripple-effect></ion-ripple-effect>
+  <div *ngIf="booking.status == 'Unfinished'" (click)="displayOption = true" class="options">
+    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+  </div>
+  <div class="optionBox">
+    
+  </div>
 </div>

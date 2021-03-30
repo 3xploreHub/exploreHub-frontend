@@ -36,8 +36,8 @@ export class BookingPage implements OnInit {
     })
   }
 
-  viewBooking(bookingId) {
-    this.router.navigate(["./service-provider/view-booking-as-provider", this.pageId, this.pageType, bookingId, this.bookingStatus])
+  viewBooking(booking) {
+    this.router.navigate(["./service-provider/view-booking-as-provider", this.pageId, this.pageType, booking._id, this.bookingStatus])
   }
 
 }

@@ -9,6 +9,7 @@ import { bookingData } from '../../provider-services/interfaces/bookingData';
   styleUrls: ['./booking-card.component.scss', "../../list-of-pages/list-of-pages.page.scss"],
 })
 export class BookingCardComponent implements OnInit {
+  public displayOption: boolean = false;
   @Input() forDashboard: boolean = false;
   @Input() booking: bookingData = {
     _id: "",
@@ -27,7 +28,7 @@ export class BookingCardComponent implements OnInit {
 
   ngOnInit() {
     if (this.booking && this.booking.pageId) {
-
+      // if (this.booking.page) this.booking.pageId = this.booking.page
       this.name = this.getName();
       this.photo = this.getPhoto();
 
@@ -105,5 +106,9 @@ export class BookingCardComponent implements OnInit {
       'doneBg': status == "Closed",
       'rejectedBg': status == 'Rejected' || status == 'Unfinished'
     }
+  }
+
+  deleteBooking() {
+
   }
 }
