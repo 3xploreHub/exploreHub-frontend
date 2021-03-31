@@ -1,30 +1,26 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>booking-information</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<!-- <ion-content> -->
-  <!-- <div class="container mainLightBg2 pageContent"> -->
-    <div class="page">
-      <div class="cardPhotoHolder">
-        <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-          <p *ngIf="!photo">No photo</p>
-        </div>
-      </div>
-      <div class="pageInfo">
-        <div class="pageName">{{name}}</div>
-        <div class="address">{{address}}</div>
+<div>
+  <div [ngClass]="getStatus(booking.status)" class="bookingStatus">Status:
+    <b>
+      {{booking.status}}
+    </b>
+  </div>
+  <div class="page">
+    <div class="cardPhotoHolder">
+      <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
+        <p *ngIf="!photo">No photo</p>
       </div>
     </div>
-    <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
-      <div class="sectionTitle title">Selected Services</div>
-      <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
-      </app-selected-service-card>
+    <div class="pageInfo">
+      <div class="pageName">{{name}}</div>
+      <div class="address">{{address}}</div>
     </div>
-    <div class="inputValueDisplay">
-      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
-    </div>
-  <!-- </div>
-  <h1>Testing</h1> -->
-<!-- </ion-content> -->
+  </div>
+  <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
+    <div class="sectionTitle title">Selected Services</div>
+    <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
+    </app-selected-service-card>
+  </div>
+  <div class="inputValueDisplay">
+    <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+  </div>
+</div>

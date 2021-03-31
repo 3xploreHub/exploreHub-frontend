@@ -1,5 +1,10 @@
 
 <div>
+  <div [ngClass]="getStatus(booking.status)" class="bookingStatus">Status:
+    <b>
+      {{booking.status}}
+    </b>
+  </div>
   <div class="page">
     <div class="cardPhotoHolder">
       <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">

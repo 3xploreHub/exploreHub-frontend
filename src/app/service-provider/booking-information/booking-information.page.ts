@@ -26,7 +26,6 @@ export class BookingInformationPage implements OnInit {
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    // this.route.paramMap.subscribe(param => {
       const bookingId = this.router.url.split("/").reverse()[2]
       this.mainService.viewBooking(bookingId).subscribe(
         (response: bookingData) => {
@@ -37,7 +36,6 @@ export class BookingInformationPage implements OnInit {
           }
         }
       )
-    // })
   }
 
 
@@ -66,6 +64,15 @@ export class BookingInformationPage implements OnInit {
       });
     })
     this.address = address.join(", ")
+  }
+
+  getStatus(status) {
+    return {
+      'onlineBg': status == 'Booked',
+      'pendingBg': status == 'Pending',
+      'doneBg': status == "Closed",
+      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+    }
   }
 
 }

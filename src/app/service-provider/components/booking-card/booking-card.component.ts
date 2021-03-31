@@ -134,13 +134,7 @@ export class BookingCardComponent implements OnInit {
         {
           text: "Delete",
           handler: () => {
-            this.mainService.deleteBooking(this.booking._id).subscribe(
-              (response) => {
-                this.deleted = true;
-                // this.mainService.canLeave = true;
-                // this.router.navigate(["/service-provider/online-pages-list"])
-              }
-            )
+            this.delete()
           },
         },
         {
@@ -153,6 +147,14 @@ export class BookingCardComponent implements OnInit {
     await alert.present();
   }
 
+  delete() {
+    this.mainService.deleteBooking(this.booking._id).subscribe(
+      (response) => {
+        this.deleted = true;
+      }
+    )
+  }
+
 
   getStatus(status) {
     return {
@@ -163,7 +165,30 @@ export class BookingCardComponent implements OnInit {
     }
   }
 
-  deleteBooking() {
 
+
+  clickOption(e) {
+    e.stopPropagation()
+    this.displayOption = true
+  }
+
+  clickBox(e) {
+    e.stopPropagation()
+    this.displayOption = false;
+  }
+
+  clickOpt(e, type) {
+    e.stopPropagation()
+    setTimeout(() => {
+      
+      if (type == "delete") {
+        this.delete()
+      }
+      else if (type == "edit") {
+        this.viewBooking()
+      }else {
+        this.displayOption = false
+      }
+    }, 100);
   }
 }
