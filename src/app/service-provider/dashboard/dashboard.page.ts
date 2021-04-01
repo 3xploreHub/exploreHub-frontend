@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../provider-services/main-services.service';
@@ -16,6 +17,7 @@ export class DashboardPage implements OnInit {
   public boxPosition: number;
   public pageType: string;
   public name: string;
+  public fromNotification: boolean = false;
 
   constructor(public router: Router,
     public mainService: MainServicesService,
@@ -26,6 +28,11 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.notification) {
+        this.fromNotification = true;
+      }
+    });
     this.route.paramMap.subscribe(params => {
       this.mainService.currentPage = null
       const pageId = params.get('pageId');
@@ -64,7 +71,11 @@ export class DashboardPage implements OnInit {
 
   goBack() {
     setTimeout(() => {
-      this.router.navigate(["service-provider/list-of-pages/", "submitted"])
+      if (this.fromNotification) {
+        this.router.navigate(["service-provider/notifications"])
+      } else {
+        this.router.navigate(["service-provider/list-of-pages/", "submitted"])
+      }
     }, 200);
   }
 

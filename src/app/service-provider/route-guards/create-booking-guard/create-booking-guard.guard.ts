@@ -49,13 +49,21 @@ export class CreateBookingGuardGuard implements CanActivate {
           text: "Save",
           handler: () => {
             this.mainService.canLeave = true;
-            if (this.mainService.currentPage) {
-
-              this.pageId = this.mainService.currentPage._id;
-              this.pageType = this.mainService.currentPage.pageType
-              this.router.navigate(["/service-provider/view-page", this.pageId, this.pageType])
+            const url = this.router.url.split("?")
+            if (url.length >  1) {
+              if (url[1].includes("draft")) {
+                console.log("herer")
+                this.router.navigate(["/service-provider/bookings", "Unfinished"])
+              }
             } else {
-              this.router.navigate(["/service-provider/online-pages-list"])
+
+              if (this.mainService.currentPage) {
+                this.pageId = this.mainService.currentPage._id;
+                this.pageType = this.mainService.currentPage.pageType
+                this.router.navigate(["/service-provider/view-page", this.pageId, this.pageType])
+              } else {
+                this.router.navigate(["/service-provider/online-pages-list"])
+              }
             }
           },
         },
@@ -84,7 +92,15 @@ export class CreateBookingGuardGuard implements CanActivate {
             this.mainService.deleteBooking(url[0]).subscribe(
               (response) => {
                 this.mainService.canLeave = true;
-                this.router.navigate(["/service-provider/online-pages-list"])
+                const url = this.router.url.split("?")
+                if (url.length >  1) {
+                  if (url[1].includes("draft")) {
+                    console.log("herer")
+                    this.router.navigate(["/service-provider/bookings", "Unfinished"])
+                  }
+                } else {
+                  this.router.navigate(["/service-provider/online-pages-list"])
+                }
               }
             )
           },

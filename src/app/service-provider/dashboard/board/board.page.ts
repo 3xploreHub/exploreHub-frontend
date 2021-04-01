@@ -21,7 +21,9 @@ export class BoardPage implements OnInit, AfterViewInit {
     setTimeout(() => {
       const url = this.router.url.split('/');
       const path = url[url.length - 1];
-      const currentTab = path[0].toUpperCase() + path.substring(1);
+      let currentTab = path[0].toUpperCase() + path.substring(1);
+
+      currentTab = currentTab.includes("?") ? currentTab.split("?")[0] : currentTab;
 
       if (this.tab) {
         this.goToSection(currentTab, this.tab.element.nativeElement);

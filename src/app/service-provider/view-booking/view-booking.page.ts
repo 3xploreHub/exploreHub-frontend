@@ -77,7 +77,6 @@ export class ViewBookingPage {
   // }
 
   goBack() {
-    // this.navCtrl.pop()
     if (this.bookingStatus == "notification") {
       this.router.navigate(["/service-provider/notifications"])
     } else {

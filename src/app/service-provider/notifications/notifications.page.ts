@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewWillEnter } from '@ionic/angular';
 import { notification } from '../provider-services/interfaces/notification';
 import { MainServicesService } from '../provider-services/main-services.service';
 
@@ -7,14 +8,14 @@ import { MainServicesService } from '../provider-services/main-services.service'
   templateUrl: './notifications.page.html',
   styleUrls: ['./notifications.page.scss'],
 })
-export class NotificationsPage implements OnInit {
+export class NotificationsPage implements ViewWillEnter {
   public notifications: notification[] = []
   constructor(public mainService:MainServicesService) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.mainService.getNotifications().subscribe(
       (response: any) => {
-        this.notifications = response;
+        this.notifications = response.reverse();
       },
       error => {
 

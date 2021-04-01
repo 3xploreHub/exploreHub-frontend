@@ -37,7 +37,8 @@ export class NotificationCardComponent implements OnInit {
         if (this.notif.type.split("-")[0] == "booking") {
           this.router.navigate(["/service-provider/view-booking", this.notif.booking, "notification"])
         } else {
-          this.router.navigate(["/service-provider/dashboard", this.notif.page.pageType, this.notif.page._id])
+          this.router.navigate(["/service-provider/dashboard", this.notif.page.pageType, this.notif.page._id], 
+          { queryParams: { notification: true } })
         }
 
       }

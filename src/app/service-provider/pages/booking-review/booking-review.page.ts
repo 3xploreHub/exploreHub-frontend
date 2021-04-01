@@ -12,6 +12,7 @@ export class BookingReviewPage implements OnInit {
   public pageType: string = "";
   public pageId: string = "";
   public bookingId: string = "";
+  public fromNotification:boolean= false;
   public booking: bookingData = {
     _id: "",
     tourist: "",
