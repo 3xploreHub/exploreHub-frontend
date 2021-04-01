@@ -15,10 +15,16 @@ export class ViewBookingAsProviderPage implements OnInit {
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
   public pageType: string;
+  public fromNotification:boolean = false;
   public pageId: string;
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(param => {
+      if (param && param.notification) {
+        this.fromNotification = true
+      }
+    })
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
       this.bookingStatus = param.get("bookingStatus");
@@ -28,7 +34,12 @@ export class ViewBookingAsProviderPage implements OnInit {
     })
   }
   goBack() {
-    this.router.navigate(["./service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/" + this.bookingStatus])
+    if (this.fromNotification) {
+      this.router.navigate(["/service-provider/notifications"])
+    } else {
+
+      this.router.navigate(["./service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/" + this.bookingStatus])
+    } 
   }
 
   goTo(clicked: string, path, tab: HTMLElement) {
