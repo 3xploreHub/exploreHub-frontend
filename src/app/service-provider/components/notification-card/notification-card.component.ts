@@ -34,12 +34,17 @@ export class NotificationCardComponent implements OnInit {
   viewNotification() {
     this.mainService.viewNotification(this.notif._id).subscribe(
       response => {
-        if (this.notif.type.split("-")[0] == "booking") {
-          this.router.navigate(["/service-provider/view-booking", this.notif.booking, "notification"])
-        } else {
-          this.router.navigate(["/service-provider/dashboard", this.notif.page.pageType, this.notif.page._id], 
-          { queryParams: { notification: true } })
-        }
+        const type = this.notif.type
+
+          if (type == "booking") {
+            this.router.navigate(["/service-provider/view-booking", this.notif.booking._id, "notification"])
+          } else if (type == "page") {
+            this.router.navigate(["/service-provider/dashboard", this.notif.page.pageType, this.notif.page._id], 
+            { queryParams: { notification: true } })
+          }
+          else if (type == "page-booking") {
+            this.router.navigate(["./service-provider/view-booking-as-provider", this.notif.page._id, this.notif.page.pageType, this.notif.booking._id, this.notif.booking.status])
+          }
 
       }
 

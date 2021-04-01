@@ -3,7 +3,7 @@ export interface notification {
     receiver: any;
     initiator: any;
     page: any;
-    booking: any[];
+    booking: any;
     type: string;
     createdAt: string;
     opened: boolean;
