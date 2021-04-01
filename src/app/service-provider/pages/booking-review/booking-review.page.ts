@@ -22,6 +22,7 @@ export class BookingReviewPage implements OnInit {
     selectedServices: [],
     bookingType: "",
     status: "",
+    createdAt: "",
   }
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 

@@ -8,4 +8,5 @@ export interface bookingData {
     selectedServices: any[];
     bookingType: string;
     status: string;
+    createdAt: string;
 }

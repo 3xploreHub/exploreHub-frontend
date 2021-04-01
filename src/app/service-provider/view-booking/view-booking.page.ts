@@ -78,7 +78,11 @@ export class ViewBookingPage {
 
   goBack() {
     // this.navCtrl.pop()
-    this.router.navigate(["/service-provider/bookings", this.bookingStatus])
+    if (this.bookingStatus == "notification") {
+      this.router.navigate(["/service-provider/notifications"])
+    } else {
+      this.router.navigate(["/service-provider/bookings", this.bookingStatus])
+    }
   }
 
   goTo(clicked:string,path, tab: HTMLElement) {

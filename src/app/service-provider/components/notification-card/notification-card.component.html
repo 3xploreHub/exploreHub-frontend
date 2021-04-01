@@ -1,4 +1,4 @@
-<div class="notifCard" [class.unread]="status == 'unread'">
+<div class="notifCard" [class.unread]="!notif.opened" (click)="viewNotification()">
 
   <div class="notifPicHolder">
     <div class="notifPic">
@@ -8,9 +8,9 @@
 
   <div class="notifInfo">
     <div class="notifTitle">
-      Your booking to <b>Testing touristds spot</b> has been approved df
+      {{notif.message}}
     </div>
-    <div class="notifDate">Sep. 23, 2021</div>
+    <div class="notifDate">{{notif.createdAt.split('T')[0]}}</div>
   </div>
   <div class="options">
     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>

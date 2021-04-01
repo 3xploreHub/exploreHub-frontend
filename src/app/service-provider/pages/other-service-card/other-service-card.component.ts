@@ -11,7 +11,7 @@ export class OtherServiceCardComponent implements OnInit {
   @Input() bigCard: boolean = false;
   @Output() viewService: EventEmitter<any> = new EventEmitter();
   constructor() {
-    this.service = {_id: "", status: "", pageType: "", otherServices: [],creator: "", hostTouristSpot: "", components:[], services: [], bookingInfo: []}
+    this.service = {_id: "", status: "", pageType: "", otherServices: [],creator: "", hostTouristSpot: "", components:[], services: [], bookingInfo: [], createdAt: ""}
   }
 
   ngOnInit() {}

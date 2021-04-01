@@ -8,4 +8,5 @@ export interface Page {
     services: any[];
     otherServices: any[];
     bookingInfo:any[];
+    createdAt: any
 }

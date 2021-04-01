@@ -9,9 +9,6 @@
 
 <ion-content>
   <div class="cont lightBackground">
-    <app-notification-card></app-notification-card>
-    <app-notification-card></app-notification-card>
-    <app-notification-card [status]="'unread'"></app-notification-card>
-    <app-notification-card></app-notification-card>
+    <app-notification-card *ngFor="let notif of notifications" [notif]="notif"></app-notification-card>
   </div>
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { notification } from '../provider-services/interfaces/notification';
+import { MainServicesService } from '../provider-services/main-services.service';
 
 @Component({
   selector: 'app-notifications',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
-
-  constructor() { }
+  public notifications: notification[] = []
+  constructor(public mainService:MainServicesService) { }
 
   ngOnInit() {
+    this.mainService.getNotifications().subscribe(
+      (response: any) => {
+        this.notifications = response;
+      },
+      error => {
+
+      }
+    )
   }
 
 }

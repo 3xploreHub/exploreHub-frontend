@@ -24,6 +24,7 @@ export class BookingCardComponent implements OnInit {
     selectedServices: [],
     bookingType: "",
     status: "",
+    createdAt: "",
   }
   public photo: string = null;
   public name: string = "Untitled";
@@ -53,6 +54,9 @@ export class BookingCardComponent implements OnInit {
       if (this.booking.page || (this.booking.pageId && typeof this.booking.pageId == "object")) {
         this.name = this.getName();
         this.photo = this.getPhoto();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+        const date = new Date(this.booking.createdAt)
+        this.booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getUTCHours()}:${date.getUTCMinutes()}`;
       }
     }
 
@@ -134,7 +138,7 @@ export class BookingCardComponent implements OnInit {
         {
           text: "Delete",
           handler: () => {
-            this.delete()
+            this.deleteBookingConfirm()
           },
         },
         {
@@ -147,13 +151,33 @@ export class BookingCardComponent implements OnInit {
     await alert.present();
   }
 
-  delete() {
-    this.mainService.deleteBooking(this.booking._id).subscribe(
-      (response) => {
-        this.deleted = true;
-      }
-    )
+  
+  async deleteBookingConfirm() {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: "Are you sure you want to delete this?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            this.mainService.deleteBooking(this.booking._id).subscribe(
+              (response) => {
+                this.deleted = true;
+              }
+            )
+          },
+        },
+        {
+          text: "No",
+          handler: () => {
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
+
+
 
 
   getStatus(status) {
@@ -182,7 +206,7 @@ export class BookingCardComponent implements OnInit {
     setTimeout(() => {
       
       if (type == "delete") {
-        this.delete()
+        this.deleteBookingConfirm()
       }
       else if (type == "edit") {
         this.viewBooking()

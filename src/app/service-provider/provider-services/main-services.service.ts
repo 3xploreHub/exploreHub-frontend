@@ -82,4 +82,12 @@ export class MainServicesService {
   deleteBooking(bookingId) {
     return this.http.delete(`${this.apiUrl}/deleteBooking/${bookingId}`)
   }
+
+  getNotifications() {
+    return this.http.get(`${this.apiUrl}/getNotifications`)
+  }
+
+  viewNotification(notifId) {
+    return this.http.put(`${this.apiUrl}/viewNotification/${notifId}`, {})
+  }
 }

@@ -22,7 +22,7 @@ export class DashboardPage implements OnInit {
     public alert: AlertController,
     private route: ActivatedRoute,
   ) {
-    this.page = { _id: '',pageType: "", otherServices: [], components: [], services: [], bookingInfo: [], status: '', creator: "", hostTouristSpot: '' }
+    this.page = { _id: '',pageType: "", otherServices: [], components: [], services: [], bookingInfo: [], status: '', creator: "", hostTouristSpot: '', createdAt: "" }
   }
 
   ngOnInit() {

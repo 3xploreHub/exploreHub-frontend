@@ -11,7 +11,11 @@ export class PageCardComponent implements OnInit {
   @Output() viewPage: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+        const date = new Date(this.page.createdAt)
+        this.page.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getUTCHours()}:${date.getUTCMinutes()}`;
+  }
 
   view() {
     setTimeout(() => {

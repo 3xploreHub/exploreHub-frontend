@@ -54,7 +54,7 @@ export class PageCreatorComponent implements OnInit {
     public alert: AlertController,
     public router: Router,
   ) {
-    this.page = { _id: null, creator: null, status: "",pageType: "",otherServices: [], components: [], services: [], bookingInfo: [], hostTouristSpot: null }
+    this.page = { _id: null, creator: null, status: "",pageType: "",otherServices: [], components: [], services: [], bookingInfo: [], hostTouristSpot: null, createdAt: "" }
   }
 
   ngOnInit() {
