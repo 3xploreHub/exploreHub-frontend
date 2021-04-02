@@ -12,6 +12,7 @@ import { DateInputDisplayComponent } from 'src/app/modules/page-input-field-disp
 import { NumberInputDisplayComponent } from 'src/app/modules/page-input-field-display/number-input-display/number-input-display.component';
 import { TextInputDisplayComponent } from 'src/app/modules/page-input-field-display/text-input-display/text-input-display.component';
 import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/item-list-display/item-list-display.component';
+import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
@@ -22,7 +23,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @Input() page: Page = { _id: "",pageType: "", otherServices: [], status: "", components: [{},{data: {text: "----------"}}], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
+  @Input() page: Page = { _id: "", pageType: "", otherServices: [], status: "", components: [{}, { data: { text: "----------" } }], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -142,6 +143,16 @@ export class ViewPagePage implements OnInit {
     }
   }
 
+  createBooking() {
+    setTimeout(() => {
+      const data = { pageId: this.page._id, pageType: this.page.pageType, firstService: null, bookingId: "create_new" };
+      this.mainService.createBooking(data).subscribe(
+        (response: bookingData) => {
+          this.router.navigate(["/service-provider/select-service", this.page._id, response._id])
+        }
+      )
+    }, 100);
+  }
 
   catchEvent(data) {
     if (data.userInput) {

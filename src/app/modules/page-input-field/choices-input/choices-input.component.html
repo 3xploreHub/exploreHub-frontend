@@ -1,8 +1,9 @@
 <div *ngIf="!footerData.deleted">
   <div *ngIf="!footerData.done  && !creator.preview; else display" class="wrapper boxShadowed2 mainLightBg">
 
-    <ion-textarea class="inputLabel" (keyup)="values.data.label? footerData.hasValue = true: footerData.hasValue = false" [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1"
-      placeholder="Enter label here">
+    <ion-textarea class="inputLabel"
+      (keyup)="values.data.label? footerData.hasValue = true: footerData.hasValue = false"
+      [(ngModel)]="values.data.label" (change)="saveChanges()" auto-grow="true" rows="1" placeholder="Enter label here">
     </ion-textarea>
     <ion-textarea class="inputLabel otherInfo" [(ngModel)]="values.data.instructions" (change)="saveChanges()"
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
@@ -58,10 +59,12 @@
   </div>
   <ng-template #display>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
-        (edit)="footerData.done = false; creator.clickedComponent = null" (delete)="delete()" (close)="creator.clickedComponent = null"
-        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-choices-input-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-choices-input-display>
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview"
+        [isDefault]="values.default" (edit)="footerData.done = false; creator.clickedComponent = null"
+        (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
+        class="componentPopup"></app-edit-or-delete-popup>
+      <app-choices-input-display (click)="creator.clickedComponent = !creator.preview? values._id: null"
+        [values]="values"></app-choices-input-display>
     </div>
   </ng-template>
 </div>

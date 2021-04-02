@@ -257,7 +257,8 @@
 
 .bookSectionCont {
     padding:20px 10px;
-    background-color: #ffff;
+    // background-color: #f4f6f8 !important;
+    // background-color: #ffff;
     .bookSection {
         background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
         color:#ffff;
@@ -326,4 +327,11 @@
 
 .hasError {
     border:1px solid red !important;
+}
+
+.notItemSelected {
+    text-align:center;
+    color:gray;
+    padding:8px;
+    background-color: rgb(233, 236, 240);
 }

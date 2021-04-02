@@ -12,22 +12,23 @@
 
     <div class="selectedServices mainLightBg2">
       <div class="sectionTitle">Selected Services
-        <div (click)="editSelectedServices()"  class="editBtn">
-          <ion-icon name="create-outline"></ion-icon>Edit
+        <div (click)="editSelectedServices()" class="editBtn">
+          <ion-icon name="create-outline"></ion-icon>{{booking.selectedServices .length > 0 ? "Edit":"Add"}}
         </div>
-        
+
       </div>
       <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
       </app-selected-service-card>
+      <div *ngIf="booking.selectedServices.length == 0" class="notItemSelected">No selected service</div>
     </div>
     <div class="inputValueDisplay">
-        <div class="editBtnHolder">
-          Booking Info
-          <div (click)="editBookingInfo()" class="editBtn">
-            <ion-icon name="create-outline"></ion-icon>Edit
-          </div>
+      <div class="editBtnHolder">
+        Booking Info
+        <div (click)="editBookingInfo()" class="editBtn">
+          <ion-icon name="create-outline"></ion-icon>{{booking.bookingInfo.length > 0 ? "Edit":"Add"}}
         </div>
-     <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+      </div>
+      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
       <div class="bookSectionCont">
         <div (click)="submitBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
           <p>Book Now</p>

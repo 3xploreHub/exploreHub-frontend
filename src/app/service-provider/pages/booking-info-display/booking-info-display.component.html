@@ -7,5 +7,5 @@
       <app-labelled-text-display [isDate]="value.inputFieldType == 'date-input'" [values]="makeComponent(value)"></app-labelled-text-display>
     </ng-template>
   </div>
-   
+  <div *ngIf="inputValues.length == 0" class="notItemSelected noInfo">No booking info</div>
 </div>

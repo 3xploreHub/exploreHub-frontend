@@ -21,8 +21,8 @@
         </div>
       </div>
 
-      <div *ngIf="page.bookingInfo.length > 0" class="bookSectionCont">
-        <div class="bookSection ion-activatable ripple-parent boxShadowed2">
+      <div *ngIf="page.bookingInfo.length > 0" class="bookSectionCont noBackground">
+        <div (click)="createBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
           <p>Book Now</p>
           <ion-icon name="arrow-forward-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>

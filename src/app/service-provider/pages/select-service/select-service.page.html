@@ -9,7 +9,7 @@
 
 <ion-content>
   <div class="container">
-    <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
+    <div class="selectedServices mainLightBg2">
       <div class="sectionTitle">Selected Services</div>
       <app-selected-service-card (changeItem)="changeItem($event)" *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
       <div class="notItemSelected" *ngIf="booking.selectedServices.length == 0">Not item selected</div>
