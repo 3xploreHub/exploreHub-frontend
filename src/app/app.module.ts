@@ -45,6 +45,7 @@ import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
 import { BookingInfoDisplayComponent } from "./service-provider/pages/booking-info-display/booking-info-display.component";
 import { ComponentsModulePageModule } from "./components-module/components-module.module";
 import { NotificationCardComponent } from "./service-provider/components/notification-card/notification-card.component";
+import { OptionPopupComponent } from "./service-provider/components/option-popup/option-popup.component";
 
 @NgModule({
   declarations: [

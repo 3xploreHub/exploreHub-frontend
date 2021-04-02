@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { MainServicesService } from '../../provider-services/main-services.service';
@@ -12,6 +12,7 @@ export class CreateBookingGuardGuard implements CanActivate {
   public pageType: string = "";
   constructor(public alert: AlertController,
     public mainService: MainServicesService,
+    public route: ActivatedRoute,
     public router: Router) {
 
   }
@@ -29,7 +30,7 @@ export class CreateBookingGuardGuard implements CanActivate {
     | boolean
     | UrlTree {
 
- 
+
     console.log("idsss", this.pageId, this.pageType)
     if (this.mainService.canLeave) {
       return true;
@@ -49,14 +50,13 @@ export class CreateBookingGuardGuard implements CanActivate {
           text: "Save",
           handler: () => {
             this.mainService.canLeave = true;
-            const url = this.router.url.split("?")
-            if (url.length >  1) {
-              if (url[1].includes("draft")) {
-                console.log("herer")
-                this.router.navigate(["/service-provider/bookings", "Unfinished"])
-              }
+            let draft = false;
+            this.route.queryParams.subscribe(params => {
+              draft = params && params.draft;
+            })
+            if (draft) {
+              this.router.navigate(["/service-provider/bookings", "Unfinished"])
             } else {
-
               if (this.mainService.currentPage) {
                 this.pageId = this.mainService.currentPage._id;
                 this.pageType = this.mainService.currentPage.pageType
@@ -93,7 +93,7 @@ export class CreateBookingGuardGuard implements CanActivate {
               (response) => {
                 this.mainService.canLeave = true;
                 const url = this.router.url.split("?")
-                if (url.length >  1) {
+                if (url.length > 1) {
                   if (url[1].includes("draft")) {
                     console.log("herer")
                     this.router.navigate(["/service-provider/bookings", "Unfinished"])

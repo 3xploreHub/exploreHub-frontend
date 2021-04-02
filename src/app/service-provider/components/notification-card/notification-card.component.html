@@ -1,6 +1,6 @@
 <div class="notifCard" [class.unread]="!notif.opened" (click)="viewNotification()">
 
-  <div class="notifPicHolder">
+  <div class="notifPicHolder" [class.unreadsPic]="!notif.opened">
     <div class="notifPic">
       <ion-icon name="notifications-outline"></ion-icon>
     </div>

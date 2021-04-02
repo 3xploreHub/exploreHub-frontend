@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
+import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { MainServicesService } from '../provider-services/main-services.service';
 
 @Component({
@@ -13,7 +14,11 @@ export class ListOfPagesPage implements OnInit {
   public pages: Page[] =[];
   public pagesStatus: string;
   public loading:boolean = true;
+  public showOption: boolean = false;
+  public deleted: string[] = []
+  public pageClicked: string =""
   constructor(
+    public creator: PageCreatorService,
     public router: Router,
     public mainService: MainServicesService,
     public route: ActivatedRoute,
@@ -48,11 +53,12 @@ export class ListOfPagesPage implements OnInit {
   goToDashBoard(page) {
     const type = page.hostTouristSpot ? "service" : "tourist_spot"
     const pageTypge = type == 'service'? "create-service-page": "create-tourist-spot-page";
+    const opts = page.status == "Unfinished"? {queryParams: {fromDraft: true}}: {}
     setTimeout(() => {
       if (page.status != "Unfinished") {
-        this.router.navigate(["/service-provider/dashboard", type, page._id])
+        this.router.navigate(["/service-provider/dashboard", type, page._id], opts)
       } else {
-        this.router.navigate([`/service-provider/${pageTypge}`, page._id])
+        this.router.navigate([`/service-provider/${pageTypge}`, page._id], opts)
       }
     }, 200);
   }
@@ -64,6 +70,57 @@ export class ListOfPagesPage implements OnInit {
       'pendingBg': status == 'Pending',
       'rejectedBg': status == 'Rejected' || status == 'Unfinished'
     }
+  }
+
+  clickOption(e, id) {
+    e.stopPropagation()
+    setTimeout(() => {
+      this.pageClicked = id;
+      this.showOption = true;
+    }, 200);
+  }
+  clickOpt(type) {
+    setTimeout(() => {
+      if (type == "delete") {
+        this.deletePageConfirm()
+      }
+      else if (type == "edit") {
+        const page = this.pages.filter(item => item._id == this.pageClicked)        
+        if (page.length > 0) {
+          this.goToDashBoard(page[0])
+        }
+      }else {
+        this.pageClicked = "";
+      }
+      this.showOption = false;
+
+    }, 100);
+  }
+
+  async deletePageConfirm() {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: "Are you sure you want to delete this?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            const page = this.pages.filter(page => page._id == this.pageClicked)
+            this.creator.deletePage(this.pageClicked, page[0].pageType).subscribe(
+              (response) => {
+                this.deleted.push(this.pageClicked)
+              }
+            )
+          },
+        },
+        {
+          text: "No",
+          handler: () => {
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
 }

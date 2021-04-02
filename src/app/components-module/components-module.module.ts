@@ -15,6 +15,7 @@ import { SelectedServiceCardComponent } from '../service-provider/pages/selected
 import { MessageBoxComponent } from '../service-provider/components/message-box/message-box.component';
 import { NotificationCardComponent } from '../service-provider/components/notification-card/notification-card.component';
 import { BulletFormTextDisplayComponent } from '../modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component';
+import { OptionPopupComponent } from '../service-provider/components/option-popup/option-popup.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { BulletFormTextDisplayComponent } from '../modules/page-elements-display
     LabelledTextDisplayComponent,
     BookingCardComponent,
     NotificationCardComponent,
+    OptionPopupComponent,
     BulletFormTextDisplayComponent,
     SelectedServiceCardComponent],
   exports: [
@@ -39,7 +41,9 @@ import { BulletFormTextDisplayComponent } from '../modules/page-elements-display
     BulletFormTextDisplayComponent,
     NotificationCardComponent,
     SelectedServiceCardComponent,
-    MessageBoxComponent
+    MessageBoxComponent,
+    OptionPopupComponent
+
   ]
 })
 export class ComponentsModulePageModule { }

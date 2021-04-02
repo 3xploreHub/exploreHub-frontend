@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
@@ -11,6 +11,7 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
   constructor(
     private creator: PageCreatorService,
     private router: Router,
+    private route: ActivatedRoute,
     public alert: AlertController
   ) { }
 
@@ -37,6 +38,12 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
   }
 
   async alertAtLeave() {
+    let url = ["/service-provider"]
+    this.route.queryParams.subscribe(params => {
+      if (params && params.fromDraft) {
+        url = ["/service-provider/list-of-pages", "unfinished"]
+      }
+    })
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
       header:
@@ -47,15 +54,14 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
           handler: () => {
             this.creator.canLeave = true;
             this.creator.preview = false;
-            this.router.navigate(["/service-provider"])
+            this.router.navigate(url)
           },
         },
         {
           text: "Delete",
           handler: () => {
             this.creator.canLeave = false;
-            this.discardPage()
-            // this.router.navigate(["/service-provider"])
+            this.discardPage(url)
           },
         },
       ],
@@ -63,7 +69,7 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
     await alert.present();
   }
 
-  async discardPage() {
+  async discardPage(url) {
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
       header:
@@ -76,7 +82,7 @@ export class PageCreatorRouteManagerGuard implements CanActivate {
               (response) => {
                 this.creator.canLeave = true;
                 this.creator.preview = false;
-                this.router.navigate(["/service-provider"])
+                this.router.navigate(url)
               }
             )
           },

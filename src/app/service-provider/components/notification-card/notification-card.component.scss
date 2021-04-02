@@ -9,10 +9,10 @@
 
     .notifPicHolder {
         flex-shrink: 0;
-        height: 70px;
-        width: 70px;
+        height: 60px;
+        width: 60px;
         border-radius: 4px;
-        background-color: lightsteelblue;
+        background-color: rgba(219, 228, 241, 0.5);
 
         .notifPic {
             height: 100%;
@@ -22,7 +22,18 @@
             width:100%;
 
             ion-icon {
+                color:rgb(92, 108, 122);
                 font-size: 25px;
+            }
+        }
+    }
+
+    .unreadsPic {
+        background-color: rgba(114, 194, 231, 0.8) !important;
+
+        .notifPic {
+            ion-icon {
+                color: rgb(2, 79, 124) !important;
             }
         }
     }

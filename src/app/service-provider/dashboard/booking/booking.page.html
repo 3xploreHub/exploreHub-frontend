@@ -3,11 +3,15 @@
     <ion-title>{{bookingStatus}}</ion-title>
   </ion-toolbar>
 </ion-header> -->
+<div>
 
-<div class="empty" *ngIf="bookings.length == 0 && !loading">
-  <div class="iholder">
-    <ion-icon name="folder-open-outline"></ion-icon>
+  <div class="empty" *ngIf="bookings.length == 0 && !loading">
+    <div class="iholder">
+      <ion-icon name="folder-open-outline"></ion-icon>
+    </div>
+    <p>There's nothing here.</p>
   </div>
-  <p>There's nothing here.</p>
+  <app-booking-card (view)="viewBooking($event)" [forDashboard]="true" *ngFor="let booking of bookings"
+    [booking]="booking"></app-booking-card>
+
 </div>
-<app-booking-card (view)="viewBooking($event)" [forDashboard]="true" *ngFor="let booking of bookings" [booking]="booking"></app-booking-card>

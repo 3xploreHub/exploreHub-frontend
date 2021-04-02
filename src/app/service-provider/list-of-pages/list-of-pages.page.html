@@ -16,7 +16,7 @@
       <p>There's nothing here.</p>
     </div>
     <div class="list">
-      <div class="page ion-activatable ripple-parent  " *ngFor="let page of pages" (click)="goToDashBoard(page)">
+      <div class="page ion-activatable ripple-parent  " *ngFor="let page of pages" [class.deleted]="deleted.includes(page._id)" (click)="goToDashBoard(page)">
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
@@ -37,7 +37,12 @@
           </div>
         </div>
         <ion-ripple-effect></ion-ripple-effect>
+        <div *ngIf="page.status == 'Unfinished'" (click)="clickOption($event, page._id)" class="cardOptions ion-activatable ripple-parent">
+          <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
       </div>
     </div>
   </div>
+  <app-option-popup [show]="showOption" (clickOpt)="clickOpt($event)"></app-option-popup>
 </ion-content>

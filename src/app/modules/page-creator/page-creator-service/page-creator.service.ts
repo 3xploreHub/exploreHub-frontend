@@ -168,8 +168,10 @@ export class PageCreatorService {
   }
 
 
-  deletePage() {
-    return this.http.delete(`${this.apiUrl}/deletePage/${this.currentPageId}/${this.pageType}`);
+  deletePage(id:string = null, type: string = null) {
+    const pageId = id ? id : this.currentPageId
+    const pageType = type? type: this.pageType
+    return this.http.delete(`${this.apiUrl}/deletePage/${pageId}/${pageType}`);
   }
 
   

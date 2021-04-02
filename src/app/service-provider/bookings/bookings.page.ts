@@ -12,6 +12,9 @@ import { MainServicesService } from '../provider-services/main-services.service'
 export class BookingsPage implements OnInit {
   public status: string = "";
   public loading: boolean = true;
+  public showOption: boolean = false;
+  public bookingClicked: string;
+  public deleted: string[] = [];
   public bookings: bookingData[] = [];
   constructor(
     public mainService: MainServicesService,
@@ -46,5 +49,53 @@ export class BookingsPage implements OnInit {
         })
       }
     }
+  }
+
+  displayOption(id) {
+    this.showOption = true;
+    this.bookingClicked = id
+  }
+
+  clickOpt(type) {
+    setTimeout(() => {
+      if (type == "delete") {
+        this.deleteBookingConfirm()
+      }
+      else if (type == "edit") {
+        const booking = this.bookings.filter(item => item._id == this.bookingClicked)        
+        if (booking.length > 0) {
+          this.viewBooking(booking[0])
+        }
+      }else {
+        this.bookingClicked = "";
+      }
+      this.showOption = false;
+
+    }, 100);
+  }
+
+  async deleteBookingConfirm() {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: "Are you sure you want to delete this?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            this.mainService.deleteBooking(this.bookingClicked).subscribe(
+              (response) => {
+                this.deleted.push(this.bookingClicked);
+              }
+            )
+          },
+        },
+        {
+          text: "No",
+          handler: () => {
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

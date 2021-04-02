@@ -11,9 +11,9 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./booking-card.component.scss', "../../list-of-pages/list-of-pages.page.scss"],
 })
 export class BookingCardComponent implements OnInit {
-  public displayOption: boolean = false;
+  @Output() displayOption: EventEmitter<any> = new EventEmitter();
   @Input() forDashboard: boolean = false;
-  public deleted:boolean = false;
+  public deleted: boolean = false;
   @Input() booking: bookingData = {
     _id: "",
     tourist: "",
@@ -151,7 +151,7 @@ export class BookingCardComponent implements OnInit {
     await alert.present();
   }
 
-  
+
   async deleteBookingConfirm() {
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
@@ -193,26 +193,8 @@ export class BookingCardComponent implements OnInit {
 
   clickOption(e) {
     e.stopPropagation()
-    this.displayOption = true
-  }
-
-  clickBox(e) {
-    e.stopPropagation()
-    this.displayOption = false;
-  }
-
-  clickOpt(e, type) {
-    e.stopPropagation()
     setTimeout(() => {
-      
-      if (type == "delete") {
-        this.deleteBookingConfirm()
-      }
-      else if (type == "edit") {
-        this.viewBooking()
-      }else {
-        this.displayOption = false
-      }
-    }, 100);
+      this.displayOption.emit(this.booking._id);
+    }, 200);
   }
 }
