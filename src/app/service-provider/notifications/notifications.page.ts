@@ -10,12 +10,14 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class NotificationsPage implements ViewWillEnter {
   public notifications: notification[] = []
+  public loading: boolean = true;
   constructor(public mainService:MainServicesService) { }
 
   ionViewWillEnter() {
     this.mainService.getNotifications().subscribe(
       (response: any) => {
         this.notifications = response.reverse();
+        this.loading = false
       },
       error => {
 

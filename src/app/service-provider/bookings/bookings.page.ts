@@ -14,7 +14,6 @@ export class BookingsPage implements OnInit {
   public loading: boolean = true;
   public showOption: boolean = false;
   public bookingClicked: string;
-  public deleted: string[] = [];
   public bookings: bookingData[] = [];
   constructor(
     public mainService: MainServicesService,
@@ -84,7 +83,8 @@ export class BookingsPage implements OnInit {
           handler: () => {
             this.mainService.deleteBooking(this.bookingClicked).subscribe(
               (response) => {
-                this.deleted.push(this.bookingClicked);
+                this.bookings = this.bookings.filter(booking => booking._id != this.bookingClicked)
+                this.bookingClicked = ""
               }
             )
           },

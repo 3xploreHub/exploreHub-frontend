@@ -13,7 +13,7 @@ const routes: Routes = [
         loadChildren: () => import('../booking-information/booking-information.module').then( m => m.BookingInformationPageModule)
       },
       {
-        path: 'transaction',
+        path: 'conversation',
         loadChildren: () => import('../transaction/transaction.module').then( m => m.TransactionPageModule)
       },
       {

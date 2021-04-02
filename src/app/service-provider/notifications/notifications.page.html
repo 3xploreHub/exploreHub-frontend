@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <div class="empty" *ngIf="notifications.length == 0 && !loading">
+    <div class="iholder">
+      <ion-icon name="folder-open-outline"></ion-icon>
+    </div>
+    <p>There's nothing here.</p>
+  </div>
   <div class="cont lightBackground">
     <app-notification-card *ngFor="let notif of notifications" [notif]="notif"></app-notification-card>
   </div>

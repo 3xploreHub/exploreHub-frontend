@@ -15,7 +15,6 @@ export class ListOfPagesPage implements OnInit {
   public pagesStatus: string;
   public loading:boolean = true;
   public showOption: boolean = false;
-  public deleted: string[] = []
   public pageClicked: string =""
   constructor(
     public creator: PageCreatorService,
@@ -108,7 +107,8 @@ export class ListOfPagesPage implements OnInit {
             const page = this.pages.filter(page => page._id == this.pageClicked)
             this.creator.deletePage(this.pageClicked, page[0].pageType).subscribe(
               (response) => {
-                this.deleted.push(this.pageClicked)
+                this.pages = this.pages.filter(page => page._id != this.pageClicked);
+                this.pageClicked = ""
               }
             )
           },

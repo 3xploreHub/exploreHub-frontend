@@ -50,7 +50,7 @@ export class ViewBookingAsProviderPage implements OnInit {
       case 'Booking Info':
         this.boxPosition = 0;
         break;
-      case 'Transaction':
+      case 'Conversation':
         this.boxPosition = width;
         break;
       default:

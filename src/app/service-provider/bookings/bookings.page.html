@@ -22,7 +22,7 @@
     </div> -->
     <app-option-popup [show]="showOption" (clickOpt)="clickOpt($event)"></app-option-popup>
 
-    <app-booking-card [class.deleted]="deleted.includes(booking._id)" (displayOption)="displayOption($event)" (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking">
+    <app-booking-card (displayOption)="displayOption($event)" (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking">
     </app-booking-card>
   </div>
 </ion-content>
