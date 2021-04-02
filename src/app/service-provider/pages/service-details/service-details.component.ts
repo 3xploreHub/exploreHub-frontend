@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
@@ -54,13 +55,14 @@ export class ServiceDetailsComponent implements OnInit {
     public router: Router,
     public creator: PageCreatorService) {
     this.values = { _id: "", type: "item", data: [], styles: [], default: false }
-    this.serviceInfo = { pageId: "", serviceGroupName: "", serviceGroupId: "", pageType: "", bookingId:"" }
+    this.serviceInfo = { pageId: "", serviceGroupName: "", serviceGroupId: "", pageType: "", bookingId: "" }
   }
 
   ngOnInit() {
     this.pageWidth = window.innerWidth;
     this.pageHeight = window.innerHeight - 30;
     this.setPage()
+
   }
 
   setPage() {
@@ -78,13 +80,12 @@ export class ServiceDetailsComponent implements OnInit {
 
   selectService() {
     const firstServiceSelected = { service: this.values._id, serviceGroupName: this.serviceInfo.serviceGroupName, serviceGroupId: this.serviceInfo.serviceGroupId }
-    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId? this.serviceInfo.bookingId: null};
-    
+    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId ? this.serviceInfo.bookingId : null };
     this.mainService.createBooking(data).subscribe(
       (response: bookingData) => {
-        
         this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id])
       })
+
   }
 
 

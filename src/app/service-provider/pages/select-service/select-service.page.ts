@@ -12,9 +12,9 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './select-service.page.html',
   styleUrls: ['./select-service.page.scss'],
 })
-export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
+export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public booking: bookingData = {
-    _id: "",  tourist: "",page: [], createdAt: "",services: [], pageId:"", bookingInfo:[], bookingType: "", selectedServices: [], status: ""
+    _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "", selectedServices: [], status: ""
   };
   public pageId: string;
   public pageServices: ElementValues[];
@@ -60,7 +60,7 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
     });
     if (!name && defaultName == "name" && data.type == "item-list") {
       if (data.data[0].type == "text") {
-        name = data.data[0].data.text;  
+        name = data.data[0].data.text;
       }
     }
     return name;
@@ -82,6 +82,7 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
         }
       })
       if (!selected) {
+        this.notSelected = this.notSelected.filter(item => item._id != itemList._id)
         this.notSelected.push(itemList);
       }
     });
@@ -112,12 +113,23 @@ export class SelectServicePage implements  AfterViewInit, ViewWillEnter {
   bookNow() {
     setTimeout(() => {
       this.mainService.canLeave = true;
-      this.router.navigate(["/service-provider/book", this.pageId,this.booking.bookingType, this.booking._id])
+      this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id])
     }, 200);
   }
 
   viewItem(data) {
     this.mainService.canLeave = true;
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
+  }
+
+  changeItem(id) {
+    this.mainService.removeSelectedItem(this.booking._id, id).subscribe(
+      (response: any) => {
+        this.booking.selectedServices = this.booking.selectedServices.filter(item => item._id != id)
+        this.checkAvailedServices();
+        const serv = this.notSelected.length == 0 ? this.pageServices : this.notSelected
+        this.renderServices(serv);
+      }
+    )
   }
 }

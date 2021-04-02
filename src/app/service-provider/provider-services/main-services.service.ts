@@ -90,4 +90,8 @@ export class MainServicesService {
   viewNotification(notifId) {
     return this.http.put(`${this.apiUrl}/viewNotification/${notifId}`, {})
   }
+
+  removeSelectedItem(bookingId, selectedId) {
+    return this.http.put(`${this.apiUrl}/removeSelectedItem/${bookingId}/${selectedId}`, {})
+  }
 }

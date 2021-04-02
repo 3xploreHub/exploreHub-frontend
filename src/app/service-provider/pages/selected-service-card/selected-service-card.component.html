@@ -12,7 +12,7 @@
       <div class="serviceName">{{getServiceName(item.service, 'name')}}</div>
       <div class="servicePrice">{{getServiceName(item.service, 'price')? 'P
         '+formatNumber(getServiceName(item.service, 'price')): 0}}</div>
-        <div *ngIf="editable" class="changeItem">Remove</div>
+        <div *ngIf="editable" (click)="changeService()" class="changeItem">Change</div>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { SelectedService } from '../../provider-services/interfaces/selectedService';
 
 @Component({
@@ -9,6 +9,7 @@ import { SelectedService } from '../../provider-services/interfaces/selectedServ
 export class SelectedServiceCardComponent implements OnInit {
   @Input() item: SelectedService;
   @Input() editable: boolean = true;
+  @Output() changeItem: EventEmitter<any> = new EventEmitter();
   constructor() {
     this.item = {
       _id: "",
@@ -64,5 +65,8 @@ export class SelectedServiceCardComponent implements OnInit {
       }
     }
     return name;
+  }
+  changeService() {
+    this.changeItem.emit(this.item._id);
   }
 }
