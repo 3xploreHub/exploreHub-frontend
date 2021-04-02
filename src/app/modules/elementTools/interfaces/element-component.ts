@@ -7,4 +7,5 @@ export interface ElementComponent {
     parent: string;
     grandParentId: string;
     emitEvent: EventEmitter<any>;
+    hasError: boolean;
 }

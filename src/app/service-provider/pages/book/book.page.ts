@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { InputValue } from 'src/app/modules/elementTools/interfaces/InputValues';
@@ -22,7 +22,8 @@ export class BookPage implements OnInit, ViewWillEnter {
   public bookingId: String;
   public pageType: string;
   public pageId: string;
-  public update:boolean = false;
+  public requiredInputs: string[] = []
+  public update: boolean = false;
   public inputValue: InputValue[] = [];
   components = {
     'text-input': TextInputDisplayComponent,
@@ -35,6 +36,7 @@ export class BookPage implements OnInit, ViewWillEnter {
     public route: ActivatedRoute,
     public mainService: MainServicesService,
     public creator: PageCreatorService,
+    public alertController: AlertController,
     public router: Router,
     public componentFactoryResolver: ComponentFactoryResolver
   ) { }
@@ -53,7 +55,6 @@ export class BookPage implements OnInit, ViewWillEnter {
             this.inputValue = response.booking.bookingInfo;
             this.setValues();
           }
-
           this.setPage(this.bookingInfo);
         }
       )
@@ -82,19 +83,25 @@ export class BookPage implements OnInit, ViewWillEnter {
     this.creator.preview = true;
     setTimeout(() => {
       this.bookingInfo.forEach((component: any) => {
-
-        this.renderComponent(component, "page_booking_info")
+        let hasError = false
+        this.requiredInputs.forEach(field => {
+          if (field == component._id) {
+            hasError = true
+          }
+        })
+        this.renderComponent(component, "page_booking_info", hasError)
       })
     }, 100);
   }
 
-  renderComponent(componentValues: any, parent) {
+  renderComponent(componentValues: any, parent, hasError = false) {
     if (componentValues.type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
       const comp = this.pageInputField.createComponent<ElementComponent>(factory);
       comp.instance.values = componentValues.unSaved ? null : componentValues;
       comp.instance.parentId = this.pageId
       comp.instance.parent = parent;
+      comp.instance.hasError = hasError
       comp.instance.emitEvent = new EventEmitter();
       comp.instance.emitEvent.subscribe(data => this.catchEvent(data))
     }
@@ -117,14 +124,51 @@ export class BookPage implements OnInit, ViewWillEnter {
   }
 
   submitBooking() {
-    setTimeout(() => {
-      this.mainService.canLeave = true;
-      this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
-        (response: bookingData) => {
-          this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId])
+    const requiredFields = []
+    const requiredInputs = []
+    let hasError: boolean = false;
+    this.bookingInfo.forEach(data => {
+      if (data.data.required) {
+        let hasValue = false;
+        this.inputValue.forEach(value => {
+          if (value.inputId == data._id && value.value) {
+            hasValue = true;
+          }
+        })
+        if (!hasValue) {
+          requiredInputs.push(data._id)
+          requiredFields.push(data.data.label)
+          hasError = true
         }
-      )
-    }, 100);
+      }
+    })
+    this.requiredInputs = requiredInputs
+    if (!hasError) {
+
+      setTimeout(() => {
+        this.mainService.canLeave = true;
+        this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
+          (response: bookingData) => {
+            this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId])
+          }
+        )
+      }, 100);
+    } else {
+      const error = "Required field"+(requiredFields.length > 1? "s": "" )+": "+requiredFields.join(", ");
+      this.presentAlert(error);
+      this.setValues();
+      this.setPage(this.bookingInfo);
+    }
+
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertController.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
 }

@@ -11,6 +11,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 export class DateInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   @Output() emitEvent: EventEmitter<any> = new EventEmitter();
+  @Input() hasError: boolean = false;
   currentYear = new Date().getFullYear()
   allDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -56,6 +57,7 @@ export class DateInputDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.hasError)
     this.customDaysDisplay = this.values.data.customDays.map(day => {
       let name = " "+this.daysName[this.allDays.indexOf(day)];
       if (this.values.data.customDays.indexOf(day) == this.values.data.customDays.length - 1) {

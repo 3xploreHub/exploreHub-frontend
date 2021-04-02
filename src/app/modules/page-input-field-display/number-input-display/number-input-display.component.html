@@ -1,7 +1,7 @@
-<div [class.hasError]="hasError" class="textInputHolder">
+<div [class.hasErrors]="hasErrors" class="textInputHolder">
   <div *ngIf="!creator.preview" class="overlay">
   </div>
   <ion-label>{{values.data.label}}</ion-label>
-  <ion-input class="inputField" type="number" [(ngModel)]="number" (change)="finalValidation()" (keyup)="validate()" [min]="min" [max]="max" placeholder="Enter number here"></ion-input>
+  <ion-input [class.hasError]="hasError" class="inputField" type="number" [(ngModel)]="number" (change)="finalValidation()" (keyup)="validate()" [min]="min" [max]="max" placeholder="Enter number here"></ion-input>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>

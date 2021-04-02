@@ -30,7 +30,13 @@ export class BookingInfoDisplayComponent implements OnInit {
 
 
   makeComponent(value) {
-    return { _id: "", type: "labelled-text", styles: [], data: { label: value.inputLabel, text: value.value } };
+    let component;
+    if (value.settings && value.settings.multiple) {
+      component = { _id: "", type: "bullet-form-text", styles: [], data: { label: value.inputLabel, list: value.value } };
+    } else {
+      component =  { _id: "", type: "labelled-text", styles: [], data: { label: value.inputLabel, text: value.value } };
+    }
+    return component
   }
 
 }

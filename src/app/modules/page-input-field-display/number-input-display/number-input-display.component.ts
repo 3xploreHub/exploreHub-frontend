@@ -11,11 +11,12 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 
 export class NumberInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() hasError: boolean = false;
   @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   min = null;
   max = null;
   number = null;
-  hasError = false;
+  hasErrors = false;
   message = null
   constructor(
     public toastController: ToastController,
@@ -42,19 +43,19 @@ export class NumberInputDisplayComponent implements OnInit {
   validate() {
     if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentToast(this.message)
-      this.hasError = true;
+      this.hasErrors = true;
     }
     else {
-      this.hasError = false
+      this.hasErrors = false
     }
   }
 
   finalValidation() {
     if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentAlert(this.message)
-      this.hasError = true;
+      this.hasErrors = true;
     } else {
-      this.hasError = false;
+      this.hasErrors = false;
       this.passData();
     }
   }

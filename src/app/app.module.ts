@@ -60,7 +60,7 @@ import { NotificationCardComponent } from "./service-provider/components/notific
     ItemComponent,
     ItemListComponent,
     EditOrDeletePopupComponent,
-    BulletFormTextDisplayComponent,
+    // BulletFormTextDisplayComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,
     ItemDisplayComponent,

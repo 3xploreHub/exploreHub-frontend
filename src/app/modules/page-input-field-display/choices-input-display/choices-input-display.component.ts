@@ -9,6 +9,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class ChoicesInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() hasError: boolean = false;
   @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   selected = []
   showChoices = false;

@@ -9,6 +9,7 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class TextInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() hasError: boolean = false;
   @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   constructor(public creator: PageCreatorService) { }
 
