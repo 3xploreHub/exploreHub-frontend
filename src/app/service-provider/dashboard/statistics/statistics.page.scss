@@ -18,25 +18,40 @@
     background-color: #fff;
 
     .itemName {
-        border-top:5px solid rgb(67, 105, 143);
+        // border-top:5px solid rgb(67, 105, 143);
         padding:4px;
         border-bottom: 1px solid lightgray;
         font-size: 15px;
-        font-weight: bold;
-        position: relative;
+        display: flex;
+        justify-content: space-between;
+        // position: relative;
 
-        p {
-            margin:5px;
+        .name {
+             font-weight: bold;
+             padding:5px;
+             margin-right: 5px;
+             display: flex;
+             align-items: center;
         }
 
-        ion-icon {
-            position: absolute;
-            right:0;
-            top:0;
+        .expandList {
+            display: flex;
+            align-items: center;
             color:rgb(116, 122, 129);
-            padding:8px;
-            background-color: #ffff;
-            font-size: 23px;
+            flex-shrink: 0;
+             
+            span {
+                font-size: 13px;
+            }
+
+            ion-icon {
+                // position: absolute;
+                // right:0;
+                // top:0;
+                padding:5px;
+                background-color: #ffff;
+                font-size: 20px;
+            }
         }
     }
 
@@ -145,10 +160,22 @@
         display: block;
         overflow: scroll;
         // background-color: rgb(215, 228, 238);
-        background-color: rgb(211, 222, 236);
+        // background-color: rgb(211, 222, 236);
+        background-color:#ffff;
         right: 0;
         bottom:0;
         padding-top: 75px;
+
+        .fullWidth {
+            // background-color: #fff;
+            // padding:10px;
+            height: 75%;
+            overflow: scroll;
+            // border-radius: 5px;
+            // display: block !important;
+            max-height: unset !important;
+        }
+        
 
         .expandMenu {
             display: flex;
@@ -172,15 +199,7 @@
         }
     }
 
-    .fullWidth {
-        // background-color: #fff;
-        // padding:10px;
-        height: 100%;
-        border-radius: 5px;
-        display: block !important;
-        min-height: unset !important;
-        max-height: unset !important;
-    }
+    
 
     .items {
         overflow:hidden;
@@ -193,6 +212,7 @@
         .scrollable {
             overflow:auto;
             max-height: 412px;
+            min-height: none;
             transition: .5s;
         }
         
@@ -250,6 +270,7 @@
                 
                 .percentBar {
                     width: 50%;
+                    border-radius: 3px;
                     height: 100%;
                     background-color: dodgerblue;
                 }

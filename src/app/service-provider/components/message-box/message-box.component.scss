@@ -48,11 +48,12 @@
         display: flex;
         justify-content: flex-start;
         .messageContent {
-            padding:8px;
+            padding:10px;
             max-width: 80%;
             border-radius: 5px;
             display: inline-block;
-            background-color: rgb(220, 233, 245);
+            color: rgb(45, 65, 87);
+            background-color: rgb(208, 223, 240);
             
         }
     }
