@@ -305,4 +305,9 @@ export class StatisticsPage implements OnInit {
     return total;
   }
 
+  getPercentage(quant, booked) {
+    if (!quant || !booked) return 0
+    return booked/quant * 100
+  }
+
 }

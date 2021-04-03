@@ -12,6 +12,7 @@
 .itemList {
     margin:8px;
     // height: 300px;
+    margin-bottom: 30px;
     border-radius:5px;
     overflow:visible;
     background-color: #fff;
@@ -35,7 +36,7 @@
             color:rgb(116, 122, 129);
             padding:8px;
             background-color: #ffff;
-            font-size: 19px;
+            font-size: 23px;
         }
     }
 
@@ -143,7 +144,8 @@
         box-sizing: border-box;
         display: block;
         overflow: scroll;
-        background-color: rgb(202, 213, 221);
+        // background-color: rgb(215, 228, 238);
+        background-color: rgb(211, 222, 236);
         right: 0;
         bottom:0;
         padding-top: 75px;
@@ -190,8 +192,7 @@
 
         .scrollable {
             overflow:auto;
-            min-height: 240px;
-            max-height: 300px;
+            max-height: 412px;
             transition: .5s;
         }
         
@@ -229,11 +230,33 @@
 
         .item {
             padding:2px;
+            padding-top: 5px;
             border-radius: 5px;
             overflow:visible;
             margin:5px 0;
             margin-bottom: 10px;
             background-color:rgb(225, 233, 243);
+            position: relative;
+
+            .percent {
+                position: absolute;
+                overflow: hidden;
+                top: 0;
+                border-radius: 3px;
+                left:0;
+                right:0;
+                height: 6px;
+                background-color: rgb(197, 213, 235);
+                
+                .percentBar {
+                    width: 50%;
+                    height: 100%;
+                    background-color: dodgerblue;
+                }
+                .max {
+                    background-color: rgb(252, 17, 162) !important;
+                }
+            }
                 .first {
                     bottom:unset !important;
                     top:80px;

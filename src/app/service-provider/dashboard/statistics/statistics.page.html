@@ -47,8 +47,10 @@
             <div class="item" *ngFor="let item of filterItem(service.data); let i = index" [ngClass]="{inExpandCont: expandList == service._id,
                  fadeItem: itemClicked != item._id && itemClicked,
                   focusItem: itemClicked == item._id && expandList != service._id}">
-
-
+              <div class="percent">
+                <div class="percentBar" [class.max]="getPercentage(getValue(item.data, 'quantity'), item.booked) >= 90" [ngStyle]="{width: getPercentage(getValue(item.data, 'quantity'), item.booked)+'%'}"></div>
+              </div>
+              
               <div class="popupHolder">
                 <div [class.first]="i < 2" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
                   class="updateItem">
