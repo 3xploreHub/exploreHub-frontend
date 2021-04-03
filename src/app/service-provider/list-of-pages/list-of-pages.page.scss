@@ -2,6 +2,7 @@
 
 .outerWrapper {
     padding:10px;
+    padding-bottom: 90px;
 }
 
 div {
@@ -117,5 +118,40 @@ div {
 .spotPage {
     background-color: rgb(198, 241, 233);
     
+}
+
+.createPage {
+    position: fixed;
+    bottom:0;
+    right:0;
+    margin:15px;
+    display: flex;
+    align-items: center;
+    background-color: #ffff;
+    color: rgb(65, 77, 88);
+    padding:8px;
+    color: dodgerblue;
+    border-radius: 40px;
+    box-shadow: 0 2px 7px lightslategrey;
+
+    .text {
+        font-size: 17px;
+        padding:0 5px;
+    }
+    
+    .add {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(226, 234, 243);
+
+        ion-icon {
+            color: rgb(9, 100, 192);
+            font-size: 30px;
+        }
+    }
 }
 

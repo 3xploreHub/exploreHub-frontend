@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'booking/booked',
+        redirectTo: 'booking/Booked',
         pathMatch: 'full'
       }
     ]

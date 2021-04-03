@@ -34,5 +34,8 @@
 }
 
 .pageContainer {
-    padding-bottom: 57px;
+    padding-bottom: 57px !important;
+    box-sizing: none;
+    background-color: #ffff !important;
+    height: 100%;
 }

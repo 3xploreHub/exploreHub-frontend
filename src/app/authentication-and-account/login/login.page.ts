@@ -76,7 +76,7 @@ export class LoginPage implements OnInit {
           if (resp.unfinished_registration) {
             this.router.navigate(["/verification"]);
           } else {
-            this.router.navigate([this.authservice.hasAttemptedUrl()]);
+            this.router.navigate(["/service-provider/list-of-pages/submitted"]);
           }
         },
         (err) => {

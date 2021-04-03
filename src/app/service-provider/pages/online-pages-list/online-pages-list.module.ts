@@ -9,13 +9,15 @@ import { OnlinePagesListPageRoutingModule } from './online-pages-list-routing.mo
 import { OnlinePagesListPage } from './online-pages-list.page';
 import { OnlinePagesComponent } from 'src/app/modules/common-components/online-pages/online-pages.component';
 import { PageCardComponent } from 'src/app/service-provider/pages/page-card/page-card.component';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OnlinePagesListPageRoutingModule
+    OnlinePagesListPageRoutingModule,
+    ComponentsModulePageModule
   ],
   declarations: [OnlinePagesListPage, OnlinePagesComponent, PageCardComponent]
 })

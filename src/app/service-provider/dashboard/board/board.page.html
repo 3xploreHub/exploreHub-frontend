@@ -26,13 +26,13 @@
       </div>
 
       <div class="activeIndicator">
-        <div [routerLink]="['booking' , 'Booked']" (click)="goToSection('Booked', tab)" class="csTab">
+        <div (click)="goToSection('Booked', tab, ['booking' , 'Booked'])" class="csTab">
           <div class="box" #tab [ngStyle]="{'left.px': boxPosition}">
             <div class="shadow">{{clickedTab}}</div>
           </div>
         </div>
-        <div [routerLink]="['booking', 'Pending']" (click)="goToSection('Pending', tab)" class="csTab"></div>
-        <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
+        <div (click)="goToSection('Pending', tab, ['booking', 'Pending'])" class="csTab"></div>
+        <div (click)="goToSection('Statistics', tab, ['statistics'])" class="csTab"></div>
       </div>
     </div>
   </div>

@@ -123,4 +123,10 @@ export class ListOfPagesPage implements OnInit {
     await alert.present();
   }
 
+  createPage() {
+    setTimeout(() => {
+      this.router.navigate(["/service-provider/select-page-type"])
+    }, 200);
+  }
+
 }

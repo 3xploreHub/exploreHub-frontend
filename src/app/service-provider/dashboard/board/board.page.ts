@@ -1,5 +1,6 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './board.page.html',
   styleUrls: ['./board.page.scss'],
 })
-export class BoardPage implements OnInit, AfterViewInit {
+export class BoardPage implements OnInit, AfterViewInit, ViewWillEnter {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
@@ -17,12 +18,20 @@ export class BoardPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
   }
-  ngAfterViewInit() {
-    setTimeout(() => {
-      const url = this.router.url.split('/');
-      const path = url[url.length - 1];
-      let currentTab = path[0].toUpperCase() + path.substring(1);
 
+  ionViewWillEnter() {
+    this.init()
+  }
+
+  ngAfterViewInit() {
+    this.init()
+  }
+
+  init() {
+    setTimeout(() => {
+      const url = this.router.url.split('/').reverse();
+      const path = url[0];
+      let currentTab = path[0].toUpperCase() + path.substring(1);
       currentTab = currentTab.includes("?") ? currentTab.split("?")[0] : currentTab;
 
       if (this.tab) {
@@ -31,9 +40,15 @@ export class BoardPage implements OnInit, AfterViewInit {
     }, 500);
   }
 
-  goToSection(tab: string, div: HTMLElement) {
-    this.clickedTab = tab;
+  goToSection(tab: string, div: HTMLElement, url = null) {
     const width = div.clientWidth;
+    this.clickedTab  = tab
+    if (url) {
+      const currentPage = this.mainService.currentPage
+      const route = ["/service-provider/dashboard/" + currentPage.pageType + "/" + currentPage._id + "/board/" + url[0]]
+      if (url.length > 1) route.push(url[1])
+      this.router.navigate(route)
+    }
     switch (tab) {
       case 'Booked':
         this.boxPosition = 0;
@@ -47,4 +62,4 @@ export class BoardPage implements OnInit, AfterViewInit {
     }
   }
 }
-  
+
