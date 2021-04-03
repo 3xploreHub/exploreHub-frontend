@@ -73,7 +73,9 @@ export class PhotoComponent implements OnInit {
           this.footerData.saving = false
         },
         (error) => {
-          this.presentAlert("Oops! Something went wrong. Please try again later!")
+          this.presentAlert("It maybe because of invalid file type!")
+          
+          this.footerData.saving = false;
         },
       )
     }
@@ -144,7 +146,9 @@ export class PhotoComponent implements OnInit {
         }
 
       }, (error) => {
-        this.presentAlert("Oops! Something went wrong. Please try again later!")
+        this.presentAlert("The problem is maybe cuased by an invalid file type being uploaded!")
+        
+        this.footerData.saving = false;
       });
     } catch (err) {
     }
@@ -173,7 +177,9 @@ export class PhotoComponent implements OnInit {
       }, 100);
 
     }, (error) => {
-      this.presentAlert("Oops! Something went wrong. Please try again later!")
+      this.presentAlert("The problem is maybe due to invalid file type being uploaded!")
+      
+      this.footerData.saving = false;
     });
   }
 
@@ -225,7 +231,7 @@ export class PhotoComponent implements OnInit {
 
       },
       (error) => {
-        this.presentAlert("Oops! Something went wrong. Please try again later!")
+        this.presentAlert("The problem is maybe due to invalid file type being uploaded!")
       },
       () => {
         this.footerData.saving = false;

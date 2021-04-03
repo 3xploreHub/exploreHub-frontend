@@ -19,11 +19,11 @@
         </div>
         <div class="quant booked">
           <p class="qlabel">Booked</p>
-          <p class="num">0</p>
+          <p class="num">{{getBookedTotal(service.data)}}</p>
         </div>
         <div class="quant available">
           <p class="qlabel">Available</p>
-          <p class="num">{{getTotalQuantity(service)}}</p>
+          <p class="num">{{getTotalQuantity(service) - getBookedTotal(service.data)}}</p>
         </div>
       </div>
       <div class="items">
@@ -86,13 +86,13 @@
                       Booked
 
                     </span>
-                    {{getBooked(item.data)}}
+                    {{item.booked}}
                   </div>
                   <div class="statsNum withBorder">
                     <span>
                       Available
                     </span>
-                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - getBooked(item.data): 'Unli.'}}
+                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - item.booked: 'Unli.'}}
                   </div>
                 </div>
               </div>

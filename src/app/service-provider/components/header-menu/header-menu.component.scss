@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     z-index: 99999;
+    padding-top: 5px;
     top:0px;
     box-shadow: 0 1px 2px rgb(97, 100, 104);
     background-color: #ffff;
@@ -18,12 +19,15 @@
 
             ion-icon {
                 line-height: 8px;
+                color: rgb(68, 91, 112) !important;
                 padding:5px 9px;
                 margin:0;
             }
 
             .title {
+                color: rgb(44, 91, 138);
                 font-size: 20px;
+                font-weight: bold;
             }
         }
 
@@ -33,6 +37,7 @@
             align-items: center;
             
             ion-icon {
+                color: rgb(68, 91, 112);
                 padding: 5px 9px;
                 font-size: 26px;
             }
@@ -48,6 +53,7 @@
             padding:8px;
             border-radius: 5px;
             flex-shrink: 0;
+            color:rgb(64, 98, 133);
             margin:4px;
             background-color: rgb(219, 227, 236);
         }
@@ -56,10 +62,13 @@
 
 .iconHolder {
     padding:0;
+    background-color: rgb(238, 241, 247);
     display: flex;
     border-radius: 4px;
     align-items: center;
     margin:4px;
+}
 
-
+.nBg {
+    background-color: #ffff !important;
 }

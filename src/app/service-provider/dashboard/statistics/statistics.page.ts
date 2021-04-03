@@ -27,6 +27,7 @@ export class StatisticsPage implements OnInit {
   public serviceId: string;
   public amountForQuantity: number = 1;
   public amountForAvailable: number = 1;
+  public totalBooked: number = 0;
 
   constructor(
     public creator: PageCreatorService,
@@ -136,7 +137,7 @@ export class StatisticsPage implements OnInit {
 
     //           values.data['unlimited'] = true;
     //           values.data.text = 0;
-              
+
     //         } else {
     //           values.data['unlimited'] = false
     //           if (res < values.data.booked && !add && values.data.booked) {
@@ -167,7 +168,7 @@ export class StatisticsPage implements OnInit {
     //           valid = false;
     //         }
     //       }
-          
+
     //       if (valid) {
     //         this.updating = true;
     //         this.creator.editComponent(values, serviceId, item._id, "component").subscribe(
@@ -175,7 +176,7 @@ export class StatisticsPage implements OnInit {
     //             this.updating = false;
     //             let data = component.length > 0 ? component[0] : null
     //             if (valueToEdit == 'quantity') {
-                  
+
     //               // data.data.text = this.updateQuant(data.data.text, add, amount);
     //               data.data = values.data;
     //               if (data.data.text <= -1) { 
@@ -184,7 +185,7 @@ export class StatisticsPage implements OnInit {
     //               } else {
     //                 data.data['unlimited'] = false;
     //               }
-                  
+
     //               if (parseInt(data.data.text) == 0) {
     //                 this.presentAlert("This item will no longer be visible online to customers");
     //               }
@@ -290,6 +291,18 @@ export class StatisticsPage implements OnInit {
       }
     }
 
+  }
+
+  getBookedTotal(service) {
+    let total = 0;
+    service.forEach(item => {
+      if (item.type == "item") {
+        if (item.booked) {
+          total += parseInt(item.booked)
+        }
+      }
+    });
+    return total;
   }
 
 }
