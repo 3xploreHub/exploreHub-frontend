@@ -96,20 +96,24 @@
         }
     }
 }
-
 .total {
-    border-left:2px solid rgb(36, 137, 238);
+    border-left:4px solid rgb(184, 197, 218);
+    color: rgb(14, 110, 206) !important;
+}
+.bookedManual {
+    border-left:4px solid rgb(36, 137, 238);
     color: rgb(14, 110, 206) !important;
 }
 
-.booked {
-    border-left:2px solid rgb(5, 207, 113);
+.bookedOnline {
+    border-left:4px solid rgb(5, 207, 113);
     color:rgb(11, 155, 87) !important;
+
 }
 
 .available {
-    border-left:2px solid rgb(238, 35, 120);
-    color: rgb(185, 11, 84) !important;
+    border-left:4px solid rgb(170, 187, 211);
+    // color: rgb(185, 11, 84) !important;
 }
 
 .body {
@@ -265,14 +269,21 @@
                 border-radius: 3px;
                 left:0;
                 right:0;
-                height: 6px;
+                height: 7px;
                 background-color: rgb(197, 213, 235);
                 
                 .percentBar {
                     width: 50%;
                     border-radius: 3px;
                     height: 100%;
-                    background-color: dodgerblue;
+                    background-color: rgb(1, 226, 159);
+
+                    .manaullyBookedPercent {
+                        background-color: dodgerblue;
+                        width: 0;
+                        height: 100%;
+                        border-radius: 3px;
+                    }
                 }
                 .max {
                     background-color: rgb(252, 17, 162) !important;
@@ -311,7 +322,7 @@
                         
                         
                         span {
-                            color: rgb(204, 230, 255);
+                            color: rgb(243, 247, 252);
                             padding:10px;
                             border-radius: 5px;
                         }

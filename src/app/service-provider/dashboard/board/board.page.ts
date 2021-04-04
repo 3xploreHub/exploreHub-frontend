@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { MainServicesService } from '../../provider-services/main-services.service';
@@ -8,7 +8,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './board.page.html',
   styleUrls: ['./board.page.scss'],
 })
-export class BoardPage implements OnInit, AfterViewInit, ViewWillEnter {
+export class BoardPage implements OnInit, AfterViewInit,OnDestroy {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
@@ -17,27 +17,31 @@ export class BoardPage implements OnInit, AfterViewInit, ViewWillEnter {
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter() {
     this.init()
   }
+
+  // ionViewWillEnter() {
+  //   this.init()
+  // }
 
   ngAfterViewInit() {
-    this.init()
+    // this.init()
+  }
+
+  ngOnDestroy() {
+    this.clickedTab = 'Booked'
   }
 
   init() {
-    setTimeout(() => {
+    // setTimeout(() => {
       const url = this.router.url.split('/').reverse();
       const path = url[0];
       let currentTab = path[0].toUpperCase() + path.substring(1);
       currentTab = currentTab.includes("?") ? currentTab.split("?")[0] : currentTab;
-
       if (this.tab) {
         this.goToSection(currentTab, this.tab.element.nativeElement);
       }
-    }, 500);
+    // }, 500);
   }
 
   goToSection(tab: string, div: HTMLElement, url = null) {
