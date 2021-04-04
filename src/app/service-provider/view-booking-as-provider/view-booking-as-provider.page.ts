@@ -17,12 +17,18 @@ export class ViewBookingAsProviderPage implements OnInit {
   public pageType: string;
   public fromNotification:boolean = false;
   public pageId: string;
+  public isManual: boolean = false;
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(param => {
-      if (param && param.notification) {
-        this.fromNotification = true
+      if (param) {
+        if (param.notification) {
+          this.fromNotification = true
+        }
+        if (param.isManual) {
+          this.isManual =true;
+        } 
       }
     })
     this.route.paramMap.subscribe(param => {

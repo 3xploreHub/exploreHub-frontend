@@ -9,4 +9,5 @@ export interface bookingData {
     bookingType: string;
     status: string;
     createdAt: string;
+    isManual: boolean;
 }

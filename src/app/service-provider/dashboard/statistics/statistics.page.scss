@@ -80,11 +80,11 @@
             flex-grow: 1;
             border-radius: 5px;
             padding:2px;
-            background-color:rgb(225, 233, 243);
+            background-color:rgb(234, 239, 245);
 
             p {   
                 margin:1px 3px;
-                padding:3px;
+                padding:1px 3px;
                 color:rgb(52, 69, 82);
                 font-size: 13px;
             }
@@ -96,24 +96,65 @@
         }
     }
 }
+
+.legend{
+    width: 35px;
+    height: 6px;
+    display: inline-block;
+    margin:0;
+    border-radius: 3px;
+}
 .total {
-    border-left:4px solid rgb(184, 197, 218);
-    color: rgb(14, 110, 206) !important;
+    background-color: rgb(169, 191, 192);
+    
 }
 .bookedManual {
-    border-left:4px solid rgb(36, 137, 238);
-    color: rgb(14, 110, 206) !important;
+    background-color: rgb(36, 137, 238);
+    
 }
 
 .bookedOnline {
-    border-left:4px solid rgb(5, 207, 113);
-    color:rgb(11, 155, 87) !important;
-
+    background-color: rgb(5, 207, 113);
 }
 
 .available {
-    border-left:4px solid rgb(170, 187, 211);
-    // color: rgb(185, 11, 84) !important;
+    background-color: rgb(170, 187, 211);
+}
+
+.totalPercentage {
+    width:100% !important;
+    border-radius: unset !important;
+    position: unset !important;
+
+   
+}
+
+.percent {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    border-radius: 3px;
+    left:0;
+    right:0;
+    height: 6px;
+    background-color: rgb(197, 213, 235);
+    
+    .percentBar {
+        border-radius: 3px;
+        height: 100%;
+        width: 0;
+        background-color: rgb(1, 226, 159);
+
+        .manaullyBookedPercent {
+            background-color: dodgerblue;
+            width: 0;
+            height: 100%;
+            border-radius: 3px;
+        }
+    }
+    .max {
+        background-color: rgb(252, 17, 162) !important;
+    }
 }
 
 .body {
@@ -262,33 +303,7 @@
             background-color:rgb(225, 233, 243);
             position: relative;
 
-            .percent {
-                position: absolute;
-                overflow: hidden;
-                top: 0;
-                border-radius: 3px;
-                left:0;
-                right:0;
-                height: 7px;
-                background-color: rgb(197, 213, 235);
-                
-                .percentBar {
-                    width: 50%;
-                    border-radius: 3px;
-                    height: 100%;
-                    background-color: rgb(1, 226, 159);
-
-                    .manaullyBookedPercent {
-                        background-color: dodgerblue;
-                        width: 0;
-                        height: 100%;
-                        border-radius: 3px;
-                    }
-                }
-                .max {
-                    background-color: rgb(252, 17, 162) !important;
-                }
-            }
+            
                 .first {
                     bottom:unset !important;
                     top:80px;
@@ -334,17 +349,14 @@
                 }
 
             .itemTitle {
-                padding:5px;
+                padding:8px;
                 font-size: 14px;
                 // background-color: rgb(217, 227, 240);
                 overflow:hidden;
                 width: 100%;
                 color:rgb(58, 87, 104);
                 font-weight: 600;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
+    
                 
             }
             .itemStats {

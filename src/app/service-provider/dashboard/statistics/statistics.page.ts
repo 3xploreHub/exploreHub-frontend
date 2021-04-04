@@ -16,7 +16,8 @@ export interface modalData {
   itemName: string;
   itemQuantity: number,
   quatityPercentage: number,
-  manuallyBookedPercent: number
+  manuallyBookedPercent: number,
+  serviceGroupName: string,
 }
 @Component({
   selector: 'app-statistics',
@@ -164,6 +165,10 @@ export class StatisticsPage implements OnInit {
     toast.present();
   }
 
+  getServiceTotalPercentage(booked, total) {
+    return booked / total * 100
+  }
+
   getBookedTotal(service, manual = false) {
     let total = 0;
     service.forEach(item => {
@@ -193,19 +198,23 @@ export class StatisticsPage implements OnInit {
 
 
 
-  clickItemToUpdate(item, serviceId) {
-    const quantity = this.getValue(item.data, 'quantity')
-    this.updateItem = true;
-    this.modalData = {
-      pageId: this.pageId,
-      pageType: this.pageType,
-      serviceId: serviceId,
-      item: item,
-      itemName: this.getItemName(item),
-      itemQuantity: quantity,
-      quatityPercentage: this.getPercentage(item),
-      manuallyBookedPercent: this.getPercentage(item, true)
-    }
+  clickItemToUpdate(item, service) {
+    setTimeout(() => {
+      
+      const quantity = this.getValue(item.data, 'quantity')
+      this.updateItem = true;
+      this.modalData = {
+        pageId: this.pageId,
+        pageType: this.pageType,
+        serviceId: service._id,
+        item: item,
+        itemName: this.getItemName(item),
+        itemQuantity: quantity,
+        quatityPercentage: this.getPercentage(item),
+        manuallyBookedPercent: this.getPercentage(item, true),
+        serviceGroupName: service.data[0].data.text,
+      }
+    }, 300);
   }
 
   modalClosed() {

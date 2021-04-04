@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -12,7 +14,7 @@ export class BookingReviewPage implements OnInit {
   public pageType: string = "";
   public pageId: string = "";
   public bookingId: string = "";
-  public fromNotification:boolean= false;
+  public fromNotification: boolean = false;
   public booking: bookingData = {
     _id: "",
     tourist: "",
@@ -24,8 +26,9 @@ export class BookingReviewPage implements OnInit {
     bookingType: "",
     status: "",
     createdAt: "",
+    isManual: false
   }
-  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
+  constructor(public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.mainService.canLeave = false;
@@ -45,18 +48,61 @@ export class BookingReviewPage implements OnInit {
     this.mainService.canLeave = true;
     this.router.navigate(['/service-provider/book', this.pageId, this.pageType, this.bookingId])
   }
-  
+
   editSelectedServices() {
     this.mainService.canLeave = true;
-    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId])
+    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], {
+      queryParams: { fromReviewBooking: true }
+    })
   }
 
-  submitBooking() {
-    this.mainService.submitBooking(this.booking._id).subscribe(
-      (response: any) => {
-        this.mainService.canLeave = true;
-        this.router.navigate(['/service-provider/bookings', "Pending"])
+  getValue(components, type) {
+    let result = type == "quantity" ? 0 : "Untitled"
+    components.forEach(comp => {
+      const data = comp.data
+      if (data.defaultName && data.defaultName == type) {
+        result = data.text
       }
+    });
+    return result
+  }
+
+
+  submitBooking() {
+    let valid = true;
+    let selectedservices = []
+    this.booking.selectedServices.forEach(data => {
+      const service = data.service
+      service.booked = service.booked? service.booked: 0;
+      service.manuallyBooked = service.manuallyBooked? service.manuallyBooked: 0
+      if (service.booked + service.manuallyBooked + 1 > this.getValue(service.data, "quantity")) {
+        this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
+        valid = false
+      }
+      let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
+
+      selectedservices.push(updateData)
+
+      console.log(selectedservices)
+    }
     )
+    if (valid) {
+
+      this.mainService.submitBooking(this.booking._id, selectedservices).subscribe(
+        (response: any) => {
+          this.mainService.canLeave = true;
+          this.router.navigate(['/service-provider/bookings', "Pending"])
+        }
+      )
+    }
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertController.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 }

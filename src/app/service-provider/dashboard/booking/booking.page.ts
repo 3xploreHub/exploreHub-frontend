@@ -37,7 +37,8 @@ export class BookingPage implements OnInit {
   }
 
   viewBooking(booking) {
-    this.router.navigate(["./service-provider/view-booking-as-provider", this.pageId, this.pageType, booking._id, this.bookingStatus])
+    const params = booking.isManual ? {queryParams: {isManual: true}}: {}
+    this.router.navigate(["./service-provider/view-booking-as-provider", this.pageId, this.pageType, booking._id, this.bookingStatus], params)
   }
 
 }

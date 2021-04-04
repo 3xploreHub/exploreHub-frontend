@@ -23,6 +23,7 @@ export class BookingInformationPage implements OnInit {
     bookingType: "",
     status: "",
     createdAt: "",
+    isManual: false,
   }
   constructor(public route: ActivatedRoute,public router: Router, public mainService: MainServicesService) { }
 

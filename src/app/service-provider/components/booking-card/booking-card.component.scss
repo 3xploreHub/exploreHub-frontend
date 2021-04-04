@@ -27,8 +27,17 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            ion-icon {
+                        font-size:40px;
+                        color:rgb(255, 255, 255);
+                    }
         }
+
+        
+
         p {
             font-size: 11px;
         }
@@ -112,6 +121,10 @@
             color:rgb(194, 186, 186);
         }
     }
+}
+
+.isManual {
+    color:rgb(96, 202, 100);
 }
 
 

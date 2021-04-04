@@ -1,12 +1,15 @@
 <div *ngIf="!deleted" [class.hasOption]="booking.status == 'Unfinished'" class="cardBody ion-activatable ripple-parent"
   (click)="viewBooking()">
   <div class="cardPhotoHolder">
-    <p *ngIf="!photo">No photo</p>
-    <div class="cardPhoto" *ngIf="photo" [ngStyle]="{'background-image': 'url('+photo+')' }">
+    <!-- <p *ngIf="!photo">No photo</p> -->
+    
+    <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
+      <ion-icon *ngIf="!photo && !forDashboard" name="golf-outline"></ion-icon>
+      <ion-icon *ngIf="!photo && forDashboard" name="card-outline"></ion-icon>
     </div>
   </div>
   <div class="cardInfo">
-    <div class="cardTitle">{{name}}</div>
+    <div class="cardTitle" [class.isManual]="booking.isManual">{{booking.isManual? "Manually Booked": name}}</div>
     <div class="servicesHolder">
 
       <div class="selectedServices">

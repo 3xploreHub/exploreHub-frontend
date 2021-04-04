@@ -12,19 +12,22 @@ export class BookingInformationPage implements OnInit {
   public name: string = "---------------";
   public photo: string = "";
   public address: string = "------ ------ ------";
-  public booking: bookingData = {
-    _id: "",
-    tourist: "",
-    pageId: '',
-    page: [],
-    services: [],
-    bookingInfo: [],
-    selectedServices: [],
-    bookingType: "",
-    status: "",
-    createdAt: "",
-  }
-  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
+  public booking: bookingData;
+  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
+    this.booking =  {
+      _id: "",
+      tourist: "",
+      pageId: '',
+      page: [],
+      services: [],
+      bookingInfo: [],
+      selectedServices: [],
+      bookingType: "",
+      status: "",
+      createdAt: "",
+      isManual: false
+    }
+   }
 
   ngOnInit() {
       const bookingId = this.router.url.split("/").reverse()[2]

@@ -161,6 +161,10 @@ export class BookPage implements OnInit, ViewWillEnter {
     }
 
   }
+  editSelectedServices() {
+    this.mainService.canLeave = true;
+    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId])
+  }
 
   async presentAlert(message) {
     const alert = await this.alertController.create({

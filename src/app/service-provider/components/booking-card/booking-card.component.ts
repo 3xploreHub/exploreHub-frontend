@@ -25,6 +25,7 @@ export class BookingCardComponent implements OnInit {
     bookingType: "",
     status: "",
     createdAt: "",
+    isManual: false
   }
   public photo: string = null;
   public name: string = "Untitled";

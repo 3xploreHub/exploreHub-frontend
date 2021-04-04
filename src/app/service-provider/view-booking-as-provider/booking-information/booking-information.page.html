@@ -1,4 +1,3 @@
-
 <div>
   <div [ngClass]="getStatus(booking.status)" class="bookingStatus">Status:
     <b>
@@ -6,18 +5,24 @@
     </b>
   </div>
   <div class="page">
-    <div class="cardPhotoHolder">
-      <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-        <div class="noPhoto" *ngIf="!photo">
-          <ion-icon name="person-outline"></ion-icon>
+    <div *ngIf="booking.isManual; else notManual" class="manuallyBooked">
+      Booked Manually
+    </div>
+    <ng-template #notManual>
+      <div class="cardPhotoHolder">
+        <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
+          <div class="noPhoto" *ngIf="!photo">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="pageInfo">
-      <div class="pageName">{{booking.tourist.fullName}}</div>
-      <div class="address">{{booking.tourist.address}}</div>
-    </div>
+      <div class="pageInfo">
+        <div class="pageName">{{booking.tourist.fullName}}</div>
+        <div class="address">{{booking.tourist.address}}</div>
+      </div>
+    </ng-template>
   </div>
+
   <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
     <div class="sectionTitle title">Selected Services</div>
     <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">

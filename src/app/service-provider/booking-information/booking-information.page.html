@@ -7,7 +7,7 @@
   <div class="page">
     <div class="cardPhotoHolder">
       <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-        <p *ngIf="!photo">No photo</p>
+        <ion-icon *ngIf="!photo" name="golf-outline"></ion-icon>
       </div>
     </div>
     <div class="pageInfo">

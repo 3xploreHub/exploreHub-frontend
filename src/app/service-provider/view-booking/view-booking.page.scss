@@ -4,7 +4,9 @@
     overflow: scroll;
     padding-top: 100px !important;
 }
-
+.noHeader {
+    padding-top: 50px !important;
+}
 .inputValueDisplay {
     border-top:2px solid #ffff;
 }
@@ -108,6 +110,11 @@
             background-position: center;
             background-repeat: no-repeat;
             
+
+            ion-icon {
+                font-size:40px;
+                color:rgb(77, 97, 109);
+            }
             p {
                 font-size: 11px;
             }

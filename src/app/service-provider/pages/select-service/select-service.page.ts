@@ -14,13 +14,14 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public booking: bookingData = {
-    _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "", selectedServices: [], status: ""
+    _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "",isManual: false, selectedServices: [], status: ""
   };
   public pageId: string;
   public pageServices: ElementValues[];
   @ViewChild('services', { read: ViewContainerRef }) services: ViewContainerRef;
   public selected: any[] = []
   public notSelected: ElementValues[] = []
+  public fromReviewBooking: boolean = false;
   constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
   ionViewWillEnter() {
@@ -31,6 +32,12 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   }
 
   ngAfterViewInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.fromReviewBooking) {
+        this.fromReviewBooking = true
+      }
+    
+    })
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
       this.mainService.currentBooking = bookingId;
@@ -113,12 +120,17 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   bookNow() {
     setTimeout(() => {
       this.mainService.canLeave = true;
-      this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id])
+      if (!this.fromReviewBooking) {
+        this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id])
+      } else {
+        this.router.navigate(["/service-provider/booking-review", this.pageId, this.booking.bookingType, this.booking._id])
+      }
     }, 200);
   }
 
   viewItem(data) {
     this.mainService.canLeave = true;
+    
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
   }
 
@@ -132,4 +144,15 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
       }
     )
   }
+
+  getValue(components, type) {
+    components.forEach(comp => {
+      const data = comp.data
+      if (data.defaultName && data.defaultName == type) {
+        return data.text
+      }
+    });
+    return type == "quantity"? 0: "Untitled"
+  }
+
 }

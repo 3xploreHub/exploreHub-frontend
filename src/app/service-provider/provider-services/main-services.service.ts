@@ -12,6 +12,7 @@ export class MainServicesService {
   public currentPage: Page;
   public canLeave: boolean = true;
   public currentBooking: string = "";
+  public creatingManual: boolean = false;
   public hasUnfinishedBooking:boolean = false;
 
   constructor(
@@ -48,7 +49,7 @@ export class MainServicesService {
   }
 
   createBooking(data) {
-    return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}/${data.bookingId}`, { firstService: data.firstService })
+    return this.http.post(`${this.apiUrl}/createBooking/${data.pageId}/${data.pageType}/${data.bookingId}`, { firstService: data.firstService, isManual: data.isManual })
   }
 
   getBooking(bookingId, purpose = "add_services") {
@@ -63,8 +64,9 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getPageBookingInfo/${data.pageId}/${data.pageType}/${data.bookingId}`)
   }
 
-  submitBooking(bookingId) {
-    return this.http.post(`${this.apiUrl}/submitBooking/${bookingId}`, {})
+  submitBooking(bookingId, selectedServices= null) {
+    const data = this.creatingManual ? {isManual: true, selectedServices:selectedServices}: {}
+    return this.http.post(`${this.apiUrl}/submitBooking/${bookingId}`, data)
   }
 
   getBookings(status) {

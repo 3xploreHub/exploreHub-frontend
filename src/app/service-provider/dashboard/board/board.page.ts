@@ -8,7 +8,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './board.page.html',
   styleUrls: ['./board.page.scss'],
 })
-export class BoardPage implements OnInit, AfterViewInit,OnDestroy {
+export class BoardPage implements  AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
@@ -16,24 +16,13 @@ export class BoardPage implements OnInit, AfterViewInit,OnDestroy {
 
   constructor(public router: Router, public mainService: MainServicesService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.init()
   }
 
-  // ionViewWillEnter() {
-  //   this.init()
-  // }
-
-  ngAfterViewInit() {
-    // this.init()
-  }
-
-  ngOnDestroy() {
-    this.clickedTab = 'Booked'
-  }
 
   init() {
-    // setTimeout(() => {
+    setTimeout(() => {
       const url = this.router.url.split('/').reverse();
       const path = url[0];
       let currentTab = path[0].toUpperCase() + path.substring(1);
@@ -41,7 +30,7 @@ export class BoardPage implements OnInit, AfterViewInit,OnDestroy {
       if (this.tab) {
         this.goToSection(currentTab, this.tab.element.nativeElement);
       }
-    // }, 500);
+    }, 500);
   }
 
   goToSection(tab: string, div: HTMLElement, url = null) {

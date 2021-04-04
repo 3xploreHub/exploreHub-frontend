@@ -10,7 +10,7 @@ div {
 }
 
 .photoHolder {
-    background-color: rgb(127, 141, 158);
+    background-color: rgb(183, 195, 209);
     border-radius: 5px;
     height: 100%;
     width:130px;
@@ -28,9 +28,13 @@ div {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 40px;
+    color:rgb(255, 255, 255);
 
     .noPhoto {
         color:#ffff;
+
+
     }
 }
 

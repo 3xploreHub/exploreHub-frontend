@@ -5,7 +5,8 @@
     <div class="photoHolder">
       <div class="photo"
         [ngStyle]="{'background-image': 'url('+ getPhoto(item.service) +')' }">
-        <p *ngIf="!getPhoto(item.service)" class="noPhoto">No Picture</p>
+        <!-- <p *ngIf="!getPhoto(item.service)" class="noPhoto">No Picture</p> -->
+        <ion-icon *ngIf="!getPhoto(item.service)" name="card-outline"></ion-icon>
       </div>
     </div>
     <div class="itemInfo">

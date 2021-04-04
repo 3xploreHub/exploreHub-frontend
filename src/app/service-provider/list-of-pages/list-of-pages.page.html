@@ -20,7 +20,9 @@
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
-            <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
+            <!-- <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p> -->
+            <ion-icon *ngIf="page.components[0].data.length == 0" name="golf-outline"></ion-icon>
+            
           </div>
         </div>
         <div class="pageInfo">
