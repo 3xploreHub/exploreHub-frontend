@@ -214,7 +214,7 @@ export class StatisticsPage implements OnInit {
         manuallyBookedPercent: this.getPercentage(item, true),
         serviceGroupName: service.data[0].data.text,
       }
-    }, 300);
+    }, 100);
   }
 
   modalClosed() {

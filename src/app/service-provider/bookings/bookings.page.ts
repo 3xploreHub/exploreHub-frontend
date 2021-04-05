@@ -30,7 +30,7 @@ export class BookingsPage implements OnInit {
           this.loading = false;
 
           this.bookings = response;
-          this.bookings = this.bookings.filter(booking => !booking.isManual || booking.isManual == undefined)
+          // this.bookings = this.bookings.filter(booking => !booking.isManual || booking.isManual == undefined)
         }
       )
     })

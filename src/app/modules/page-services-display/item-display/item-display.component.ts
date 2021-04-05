@@ -56,6 +56,16 @@ export class ItemDisplayComponent implements OnInit {
   setPage(component) {
     setTimeout(() => {
       component.forEach((component: any) => {
+        if (component.data.defaultName == "quantity") {
+          component.data.label = "Available"
+          const booked = (this.values["booked"] + this.values["manuallyBooked"])
+          
+          console.log(component.data.text - booked);
+          
+          const available = component.data.text - booked 
+          component.data.text = available == null || available == NaN? 0: available
+          
+        }
         this.renderComponent(component.type, component)
         this.checkHeight();
       })
