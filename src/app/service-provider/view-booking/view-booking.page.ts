@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
+import { popupData } from '../view-booking-as-provider/view-booking-as-provider.page';
 
 @Component({
   selector: 'app-view-booking',
@@ -18,6 +19,8 @@ export class ViewBookingPage {
   public bookingStatus: string = '';
   public clickedTab:string =  'Booking Info';
   public boxPosition: number;
+  public popupData: popupData;
+
   // public name: string = "---------------";
   // public photo: string = "";
   // public address: string = "------ ------ ------";
@@ -30,7 +33,14 @@ export class ViewBookingPage {
   //   bookingType: "",
   //   status: "",
   // }
-  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController) { }
+  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController) { 
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
+  }
   
   ngOnInit() {
     this.route.paramMap.subscribe(param => {
@@ -102,4 +112,25 @@ export class ViewBookingPage {
       this.router.navigate(['./service-provider/view-booking/'+this.bookingId+'/'+this.bookingStatus+'/'+path])
   }
 
+  clicked(action) {
+    if ("yes") {
+
+    }
+    else {
+
+    }
+    this.popupData.show = false;
+  }
+
+  cancel() {
+    setTimeout(() => {
+      
+      this.popupData = {
+        title: "Are you sure you want to cancel this booking?",
+        type: 'cancel',
+        otherInfo: "This booking will be moved to the cancelled bookings of your service, to view all cancelled bookings click settings on the top portion of your service dashboard.",
+        show: true
+      }
+    }, 200);
+  }
 }

@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
+
+export interface popupData {
+  title: string;
+  otherInfo: string;
+  type: string;
+  show: boolean;
+}
 
 @Component({
   selector: 'app-view-booking-as-provider',
@@ -15,10 +23,18 @@ export class ViewBookingAsProviderPage implements OnInit {
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
   public pageType: string;
-  public fromNotification:boolean = false;
+  public fromNotification: boolean = false;
   public pageId: string;
   public isManual: boolean = false;
-  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
+  public popupData: popupData;
+  constructor(public alert: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(param => {
@@ -27,8 +43,8 @@ export class ViewBookingAsProviderPage implements OnInit {
           this.fromNotification = true
         }
         if (param.isManual) {
-          this.isManual =true;
-        } 
+          this.isManual = true;
+        }
       }
     })
     this.route.paramMap.subscribe(param => {
@@ -45,7 +61,7 @@ export class ViewBookingAsProviderPage implements OnInit {
     } else {
 
       this.router.navigate(["./service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/" + this.bookingStatus])
-    } 
+    }
   }
 
   goTo(clicked: string, path, tab: HTMLElement) {
@@ -66,4 +82,55 @@ export class ViewBookingAsProviderPage implements OnInit {
     this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
   }
 
+  async presentAlertLoggingOut() {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: "Are you sure you want to log out?",
+      buttons: [
+        {
+          text: "Yes",
+          role: "OK",
+          handler: () => {
+          },
+        },
+        {
+          text: "Cancel",
+          role: "cancel",
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  clicked(action) {
+    if ("yes") {
+    }
+    else {
+    }
+    this.popupData.show = false;
+  }
+
+  done() {
+    setTimeout(() => {
+
+      this.popupData = {
+        type: 'done',
+        title: "Are you sure this booking is done?",
+        otherInfo: "This booking will be moved to the booking history of your service, to go to booking history click settings on the top portion of your service dashboard.",
+        show: true
+      }
+    }, 200);
+  }
+
+  cancel() {
+    setTimeout(() => {
+
+      this.popupData = {
+        type: 'cancel',
+        title: "Are you sure you want to cancel this booking?",
+        otherInfo: "This booking will be moved to the cancelled bookings of your service, to view all cancelled bookings click settings on the top portion of your service dashboard.",
+        show: true
+      }
+    }, 200);
+  }
 }

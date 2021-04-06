@@ -16,10 +16,12 @@
           <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
         </div>
         <div class="optionsTop">
-          <div class="cancel edit">Edit
-            <ion-icon class="editIcon" name="create-outline"></ion-icon>
+          <div *ngIf="bookingStatus != 'Pending'" class="cancel edit ion-activatable ripple-parent" (click)="done()">Done
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon class="editIcon" name="checkmark-outline"></ion-icon>
           </div>
-          <div class="cancel">Cancel
+          <div *ngIf="bookingStatus != 'Pending'" class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel
+            <ion-ripple-effect></ion-ripple-effect>
             <ion-icon class="cancelIcon" name="close-outline"></ion-icon>
           </div>
         </div>
@@ -51,4 +53,6 @@
     </div>
     <router-outlet></router-outlet>
   </div>
+  <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">
+  </app-confirm-popup>
 </ion-content>

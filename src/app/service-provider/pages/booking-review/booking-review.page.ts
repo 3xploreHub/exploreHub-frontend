@@ -71,26 +71,36 @@ export class BookingReviewPage implements OnInit {
   submitBooking() {
     let valid = true;
     let selectedservices = []
-    this.booking.selectedServices.forEach(data => {
-      const service = data.service
-      service.booked = service.booked? service.booked: 0;
-      service.manuallyBooked = service.manuallyBooked? service.manuallyBooked: 0
-      if (service.booked + service.manuallyBooked + 1 > this.getValue(service.data, "quantity")) {
-        this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
-        valid = false
+    if (this.mainService.creatingManual) {
+
+      this.booking.selectedServices.forEach(data => {
+        const service = data.service
+        service.booked = service.booked ? service.booked : 0;
+        service.manuallyBooked = service.manuallyBooked ? service.manuallyBooked : 0
+        if (service.booked + service.manuallyBooked + 1 > this.getValue(service.data, "quantity")) {
+          this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
+          valid = false
+        }
+        let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
+
+        selectedservices.push(updateData)
+
       }
-      let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
-
-      selectedservices.push(updateData)
-
-      console.log(selectedservices)
+      )
     }
-    )
     if (valid) {
-
-      this.mainService.submitBooking(this.booking._id, selectedservices).subscribe(
+      const notificationData = {
+        receiver: this.booking.pageId.creator,
+        initiator: this.booking.tourist,
+        page: this.booking.pageId._id,
+        booking: this.booking._id,
+        type: "page-booking",
+      }
+      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices).subscribe(
         (response: any) => {
           this.mainService.canLeave = true;
+          this.mainService.creatingManual = false;
+
           this.router.navigate(['/service-provider/bookings', "Pending"])
         }
       )
