@@ -20,6 +20,7 @@ export class ViewBookingPage {
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
   public popupData: popupData;
+  public fromNotification: boolean = false;
   public booking: bookingData;
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
     this.popupData = {
@@ -31,6 +32,11 @@ export class ViewBookingPage {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.notification) {
+        this.fromNotification = true;
+      }
+    });
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
       this.bookingStatus = param.get("bookingStatus");
@@ -45,9 +51,10 @@ export class ViewBookingPage {
 
 
   goBack() {
-    if (this.bookingStatus == "notification") {
+    if (this.fromNotification) {
       this.router.navigate(["/service-provider/notifications"])
-    } else {
+    }
+    else {
       this.router.navigate(["/service-provider/bookings", this.bookingStatus])
     }
   }
