@@ -206,6 +206,13 @@
     }
 }
 
+.unfinishedBg {
+    color: rgb(184, 179, 179) !important;
+    div {
+        background-color: rgb(184, 179, 179) !important;
+    }
+}
+
 .rejectedBg {
     color: red !important;
     div {

@@ -17,23 +17,11 @@ export class ViewBookingPage {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public bookingStatus: string = '';
-  public clickedTab:string =  'Booking Info';
+  public clickedTab: string = 'Booking Info';
   public boxPosition: number;
   public popupData: popupData;
-
-  // public name: string = "---------------";
-  // public photo: string = "";
-  // public address: string = "------ ------ ------";
-  // public booking: bookingData = {
-  //   _id: "",
-  //   tourist: "",
-  //   pageId: '',
-  //   bookingInfo: [],
-  //   selectedServices: [],
-  //   bookingType: "",
-  //   status: "",
-  // }
-  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController) { 
+  public booking: bookingData;
+  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
     this.popupData = {
       title: "",
       otherInfo: "",
@@ -41,50 +29,20 @@ export class ViewBookingPage {
       show: false
     }
   }
-  
+
   ngOnInit() {
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
       this.bookingStatus = param.get("bookingStatus");
-      // this.mainService.viewBooking(bookingId).subscribe(
-      //   (response: bookingData) => {
-      //     this.booking = response;
-      //     if (this.booking && this.booking.pageId) {
-      //       this.getPageInfo();
-      //       this.getAddress();
-      //     }
-      //   }
-      // )
+      this.mainService.viewBooking(this.bookingId).subscribe(
+        (response: bookingData) => {
+          this.booking = response;
+          this.bookingStatus = this.booking.status
+        }
+      )
     })
   }
 
-
-
-
-
-  // getPageInfo() {
-  //   this.booking.pageId.components.forEach(comp => {
-  //     if (comp.type == "photo") {
-  //       this.photo = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
-  //     }
-  //     if (comp && comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
-  //       this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
-  //     }
-  //   });
-  // }
-
-  // getAddress() {
-  //   let add = ["barangay", "municipality", "province"]
-  //   let address = []
-  //   add.forEach(i => {
-  //     this.booking.pageId.components.forEach(comp => {
-  //       if (comp.data.defaultName && comp.data.defaultName == i) {
-  //         address.push(comp.data.text)
-  //       }
-  //     });
-  //   })
-  //   this.address = address.join(", ")
-  // }
 
   goBack() {
     if (this.bookingStatus == "notification") {
@@ -94,9 +52,9 @@ export class ViewBookingPage {
     }
   }
 
-  goTo(clicked:string,path, tab: HTMLElement) {
+  goTo(clicked: string, path, tab: HTMLElement) {
     this.clickedTab = clicked;
-    
+
     const width = tab.clientWidth;
     switch (clicked) {
       case 'Booking Info':
@@ -109,12 +67,27 @@ export class ViewBookingPage {
         break;
 
     }
-      this.router.navigate(['./service-provider/view-booking/'+this.bookingId+'/'+this.bookingStatus+'/'+path])
+    this.router.navigate(['./service-provider/view-booking/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
   }
 
   clicked(action) {
-    if ("yes") {
-
+    if (action == "yes") {
+      if (this.popupData.type == "cancel") {
+        const curBooking = this.mainService.currentBooking
+        const notificationData: any = {
+          receiver: curBooking.pageId.creator,
+          page: curBooking.pageId._id,
+          booking: curBooking._id,
+          type: "page-booking"
+        }
+        this.mainService.cancelBooking(notificationData).subscribe(
+          (response: any) => {
+            this.router.navigate(["/service-provider/bookings", 'Pending'])
+          }
+        )
+      } else if ('resubmit') {
+        this.resubmit()
+      }
     }
     else {
 
@@ -122,15 +95,56 @@ export class ViewBookingPage {
     this.popupData.show = false;
   }
 
+  resubmit() {
+    this.mainService.creatingManual = false;
+
+    const booking = this.mainService.currentBooking
+    const notificationData = {
+      receiver: this.booking.pageId.creator,
+      initiator: this.booking.tourist,
+      page: this.booking.pageId._id,
+      booking: this.booking._id,
+      type: "page-booking",
+    }
+    this.mainService.submitBooking(this.booking._id, notificationData).subscribe(
+      (response: any) => {
+        this.mainService.canLeave = true;
+
+        this.router.navigate(['/service-provider/bookings', "Pending"])
+      }
+    )
+  }
+
   cancel() {
     setTimeout(() => {
-      
+
       this.popupData = {
         title: "Are you sure you want to cancel this booking?",
         type: 'cancel',
-        otherInfo: "This booking will be moved to the cancelled bookings of your service, to view all cancelled bookings click settings on the top portion of your service dashboard.",
+        otherInfo: "",
         show: true
       }
     }, 200);
+  }
+
+  resubmitConf() {
+    setTimeout(() => {
+
+      this.popupData = {
+        title: "Are you sure you want to resubmit this booking?",
+        type: 'resubmit',
+        otherInfo: "",
+        show: true
+      }
+    }, 200);
+  }
+
+  editBooking() {
+    this.router.navigate(["/service-provider/booking-review", this.booking.pageId._id, this.booking.bookingType, this.booking._id],
+        {
+          queryParams: {
+            edit: true
+          }
+        })
   }
 }

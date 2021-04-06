@@ -23,6 +23,7 @@ export class BookPage implements OnInit, ViewWillEnter {
   public pageType: string;
   public pageId: string;
   public requiredInputs: string[] = []
+  public fromDraft: boolean = false
   public update: boolean = false;
   public inputValue: InputValue[] = [];
   components = {
@@ -43,6 +44,15 @@ export class BookPage implements OnInit, ViewWillEnter {
 
   ngOnInit() {
     this.mainService.canLeave = false;
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        if (params.edit) {
+          this.mainService.canLeave = true
+        } 
+
+      }
+
+    })
     this.route.paramMap.subscribe(params => {
       this.pageId = params.get('pageId');
       this.pageType = params.get('pageType');

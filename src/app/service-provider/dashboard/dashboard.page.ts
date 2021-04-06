@@ -107,7 +107,8 @@ export class DashboardPage implements OnInit {
     return {
       'onlineBg': status == 'Online',
       'pendingBg': status == 'Pending',
-      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+      'unfinishedBg': status == 'Unfinished',
+      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
   }
 

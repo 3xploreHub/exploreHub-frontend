@@ -103,7 +103,7 @@ export class ViewBookingAsProviderPage implements OnInit {
   }
 
   clicked(action) {
-    if ("yes") {
+    if (action == "yes") {
     }
     else {
     }

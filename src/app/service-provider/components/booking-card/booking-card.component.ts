@@ -186,7 +186,8 @@ export class BookingCardComponent implements OnInit {
       'onlineBg': status == 'Booked',
       'pendingBg': status == 'Pending',
       'doneBg': status == "Closed",
-      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+      'unfinishedBg': status == 'Unfinished',
+      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
   }
 

@@ -34,6 +34,7 @@ export class BookingInformationPage implements OnInit {
       this.mainService.viewBooking(bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;
+          this.mainService.currentBooking = this.booking
           if (this.booking && this.booking.pageId) {
             this.getPageInfo();
             this.getAddress();
@@ -75,7 +76,8 @@ export class BookingInformationPage implements OnInit {
       'onlineBg': status == 'Booked',
       'pendingBg': status == 'Pending',
       'doneBg': status == "Closed",
-      'rejectedBg': status == 'Rejected' || status == 'Unfinished'
+      'unfinishedBg': status == 'Unfinished',
+      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
   }
 

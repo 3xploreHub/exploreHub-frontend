@@ -7,11 +7,15 @@
           <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
         </div>
         <div class="optionsTop">
-          <div *ngIf="bookingStatus !='Booked' || bookingStatus !='Closed' " class="cancel ion-activatable ripple-parent edit">Edit
+          <div *ngIf="bookingStatus !='Booked' && bookingStatus !='Closed'" (click)="editBooking()" class="cancel ion-activatable ripple-parent edit">Edit&nbsp;
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="create-outline"></ion-icon>
           </div>
-          <div class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel
+          <div *ngIf="bookingStatus == 'Cancelled' " (click)="resubmitConf()" class="cancel ion-activatable ripple-parent edit">Resubmit
+            <ion-ripple-effect></ion-ripple-effect>&nbsp;
+            <ion-icon name="send-outline"></ion-icon>
+          </div>
+          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="close-outline"></ion-icon>
           </div>

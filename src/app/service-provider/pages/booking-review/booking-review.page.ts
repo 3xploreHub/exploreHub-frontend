@@ -13,7 +13,9 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class BookingReviewPage implements OnInit {
   public pageType: string = "";
   public pageId: string = "";
+  public editing: boolean = false;
   public bookingId: string = "";
+  public fromDraft: boolean = false;
   public fromNotification: boolean = false;
   public booking: bookingData = {
     _id: "",
@@ -31,7 +33,21 @@ export class BookingReviewPage implements OnInit {
   constructor(public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    this.mainService.canLeave = false;
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        if (params.edit) {
+          this.editing = true
+          this.mainService.canLeave = true;
+        } else {
+          this.mainService.canLeave = false;
+        }
+        if (params.draft) {
+          this.fromDraft = true;
+        }
+
+      }
+    })
+
     this.route.paramMap.subscribe(params => {
       this.bookingId = params.get('bookingId')
       this.pageType = params.get('pageType')
@@ -46,14 +62,18 @@ export class BookingReviewPage implements OnInit {
 
   editBookingInfo() {
     this.mainService.canLeave = true;
-    this.router.navigate(['/service-provider/book', this.pageId, this.pageType, this.bookingId])
+    let params = {queryParams: {}}
+    if (this.editing) params.queryParams["edit"] = true
+    if (this.fromDraft) params.queryParams["draft"] = true
+    this.router.navigate(['/service-provider/book', this.pageId, this.pageType, this.bookingId], params)
   }
 
   editSelectedServices() {
     this.mainService.canLeave = true;
-    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], {
-      queryParams: { fromReviewBooking: true }
-    })
+    let params = { queryParams: { fromReviewBooking: true } }
+    if (this.editing) params.queryParams["edit"] = true
+    if (this.fromDraft) params.queryParams["draft"] = true
+    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], params)
   }
 
   getValue(components, type) {
@@ -96,7 +116,7 @@ export class BookingReviewPage implements OnInit {
         booking: this.booking._id,
         type: "page-booking",
       }
-      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices).subscribe(
+      this.mainService.submitBooking(this.booking._id, notificationData).subscribe(
         (response: any) => {
           this.mainService.canLeave = true;
           this.mainService.creatingManual = false;

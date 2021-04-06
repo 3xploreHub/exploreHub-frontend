@@ -10,6 +10,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class CreateBookingGuardGuard implements CanActivate {
   public pageId: string = "";
   public pageType: string = "";
+  public fromDraft: boolean = false;
   constructor(public alert: AlertController,
     public mainService: MainServicesService,
     public route: ActivatedRoute,
@@ -30,8 +31,14 @@ export class CreateBookingGuardGuard implements CanActivate {
     | boolean
     | UrlTree {
 
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        if (params.draft) {
+          this.fromDraft = true;
+        }
+      }
+    })
 
-    console.log("idsss", this.pageId, this.pageType)
     if (this.mainService.canLeave) {
       return true;
     }
@@ -50,11 +57,8 @@ export class CreateBookingGuardGuard implements CanActivate {
           text: "Save",
           handler: () => {
             this.mainService.canLeave = true;
-            let draft = false;
-            this.route.queryParams.subscribe(params => {
-              draft = params && params.draft;
-            })
-            if (draft) {
+
+            if (this.fromDraft) {
               this.router.navigate(["/service-provider/bookings", "Unfinished"])
             } else {
               if (this.mainService.currentPage) {
@@ -91,13 +95,8 @@ export class CreateBookingGuardGuard implements CanActivate {
             const url = this.router.url.split("/").reverse();
             this.mainService.deleteBooking(url[0]).subscribe(
               (response) => {
-                this.mainService.canLeave = true;
-                const url = this.router.url.split("?")
-                if (url.length > 1) {
-                  if (url[1].includes("draft")) {
-                    console.log("herer")
-                    this.router.navigate(["/service-provider/bookings", "Unfinished"])
-                  }
+                if (this.fromDraft) {
+                  this.router.navigate(["/service-provider/bookings", "Unfinished"])
                 } else {
                   this.router.navigate(["/service-provider/online-pages-list"])
                 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { environment } from 'src/environments/environment';
+import { bookingData } from './interfaces/bookingData';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class MainServicesService {
   private apiUrl = `${environment.apiUrl}/service-provider`;
   public currentPage: Page;
   public canLeave: boolean = true;
-  public currentBooking: string = "";
+  public currentBookingId: string = "";
+  public currentBooking:bookingData;
   public creatingManual: boolean = false;
   public hasUnfinishedBooking:boolean = false;
 
@@ -95,5 +97,9 @@ export class MainServicesService {
 
   removeSelectedItem(bookingId, selectedId) {
     return this.http.put(`${this.apiUrl}/removeSelectedItem/${bookingId}/${selectedId}`, {})
+  }
+
+  cancelBooking(notificationData) {
+    return this.http.post(`${this.apiUrl}/cancelBooking`, notificationData)
   }
 }

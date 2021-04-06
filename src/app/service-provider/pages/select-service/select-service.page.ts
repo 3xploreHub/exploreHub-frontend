@@ -14,13 +14,15 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public booking: bookingData = {
-    _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "",isManual: false, selectedServices: [], status: ""
+    _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "", isManual: false, selectedServices: [], status: ""
   };
   public pageId: string;
   public pageServices: ElementValues[];
   @ViewChild('services', { read: ViewContainerRef }) services: ViewContainerRef;
   public selected: any[] = []
   public notSelected: ElementValues[] = []
+  public fromDraft: boolean = false;
+  public editing: boolean = false
   public fromReviewBooking: boolean = false;
   constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
@@ -28,19 +30,15 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     this.selected = [];
     this.notSelected = []
     this.mainService.canLeave = false;
+    this.checkParams()
     this.mainService.hasUnfinishedBooking = true;
   }
 
   ngAfterViewInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params && params.fromReviewBooking) {
-        this.fromReviewBooking = true
-      }
-    
-    })
+   this.checkParams()
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
-      this.mainService.currentBooking = bookingId;
+      this.mainService.currentBookingId = bookingId;
       this.pageId = params.get("pageId")
       this.mainService.getBooking(bookingId).subscribe(
         (response: any) => {
@@ -55,6 +53,24 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
           }
         }
       )
+    })
+  }
+
+  checkParams() {
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        if (params.fromReviewBooking) {
+          this.fromReviewBooking = true
+        }
+        if (params.draft) {
+          this.fromDraft = true
+        }
+        if (params.edit) {
+          this.mainService.canLeave = true
+          this.editing = true;
+        }
+      }
+
     })
   }
 
@@ -130,8 +146,8 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
 
   viewItem(data) {
     this.mainService.canLeave = true;
-    
-    this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id])
+    const params = this.fromDraft ? {queryParams: {draft: true}}: {}
+    this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id], params)
   }
 
   changeItem(id) {
@@ -152,7 +168,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
         return data.text
       }
     });
-    return type == "quantity"? 0: "Untitled"
+    return type == "quantity" ? 0 : "Untitled"
   }
 
 }
