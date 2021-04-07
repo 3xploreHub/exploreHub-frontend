@@ -102,4 +102,8 @@ export class MainServicesService {
   changeBookingStatus(status, notificationData) {
     return this.http.post(`${this.apiUrl}/changeBookingStatus/${status}`, notificationData)
   }
+
+  getNotificationsCount() {
+    return this.http.get(`${this.apiUrl}/getNotificationsCount`, { headers: { hideLoadingIndicator: "true" } })
+  }
 }

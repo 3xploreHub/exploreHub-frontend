@@ -17,6 +17,7 @@ export class DashboardPage implements OnInit {
   public boxPosition: number;
   public pageType: string;
   public name: string;
+  public notificationsCount: number;
   public fromNotification: boolean = false;
 
   constructor(public router: Router,
@@ -28,6 +29,7 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
+    
     this.route.queryParams.subscribe(params => {
       if (params && params.notification) {
         this.fromNotification = true;
@@ -57,6 +59,11 @@ export class DashboardPage implements OnInit {
       } else {
         this.router.navigate(["/service-provider/list-of-pages", "submitted"])
       }
+      this.mainService.getNotificationsCount().subscribe(
+        (response: any) => {
+          this.notificationsCount = response
+        }
+      )
     })
   }
 

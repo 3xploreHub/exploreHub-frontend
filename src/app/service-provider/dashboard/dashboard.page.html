@@ -6,16 +6,21 @@
         <ion-ripple-effect></ion-ripple-effect>
       </div>
       <div class="topCol">
-        <div class="topCol ion-activatable ripple-parent smIcon">
-          <ion-icon class="topIcon" name="chatbubble-ellipses-outline"></ion-icon><span>Messages</span>
+        <div class="ion-activatable ripple-parent smIcon" [routerLink]="['/service-provider/notifications']">
+          <ion-icon  name="notifications-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+          <div class="notifCount">{{notificationsCount}}</div>
+        </div>&nbsp;&nbsp;
+        <div class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>&nbsp;&nbsp;
-        <div class="topCol ion-activatable ripple-parent smIcon">
-          <ion-icon class="topIcon" name="settings-outline"></ion-icon><span>Settings</span>
+        <div class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="settings-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>&nbsp;&nbsp;
-        <div (click)="editPage()" class="topCol ion-activatable ripple-parent smIcon">
-          <ion-icon class="topIcon" name="create-outline"></ion-icon><span>Edit</span>
+        <div (click)="editPage()" class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="create-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>
       </div>

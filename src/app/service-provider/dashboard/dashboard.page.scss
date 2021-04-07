@@ -69,14 +69,39 @@
     border-radius: 4px;
     display: flex;
     align-items:center;
+    .smIcon {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background-color: rgb(255, 255, 255);
+        overflow: visible;
+        position: relative;
+
+        .notifCount {
+            position: absolute;
+            top:0;
+            right:-5px;
+            border: 1px solid #ffff;
+            background-color: red;
+            color:#ffff;
+            font-size: 10px;
+            border-radius: 3px;
+            padding:3px;
+        }
+
+        ion-icon {
+            font-size: 20px;
+            color: rgb(87, 100, 117);
+        }
+    }
     span {
         font-size: 14px !important;
     }
 }
 
-.topIcon {
-    margin-right: 2px;
-}
 
 .backIcon {
     background-color: #ffff;

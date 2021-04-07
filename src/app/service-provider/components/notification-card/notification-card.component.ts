@@ -23,11 +23,9 @@ export class NotificationCardComponent implements OnInit {
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-
-
     if (this.notif && this.notif.createdAt) {
       const date = new Date(this.notif.createdAt)
-      this.notif.createdAt = `${this.months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getUTCHours()}:${date.getUTCMinutes()}`;
+      this.notif.createdAt = `${this.months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 
