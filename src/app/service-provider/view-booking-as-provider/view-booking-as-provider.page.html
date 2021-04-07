@@ -15,8 +15,8 @@
         <div (click)="goBack()" class="backBtn">
           <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
         </div>
-        <div *ngIf="bookingStatus != 'Pending' && bookingStatus != 'Cancelled'" class="optionsTop">
-          <div class="cancel edit ion-activatable ripple-parent" (click)="done()">Done
+        <div *ngIf="bookingStatus == 'Booked'" class="optionsTop">
+          <div class="cancel edit ion-activatable ripple-parent" (click)="done()">Close
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon class="editIcon" name="checkmark-outline"></ion-icon>
           </div>

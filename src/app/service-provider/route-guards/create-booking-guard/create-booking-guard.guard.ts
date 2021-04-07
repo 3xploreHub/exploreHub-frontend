@@ -92,6 +92,7 @@ export class CreateBookingGuardGuard implements CanActivate {
         {
           text: "Yes",
           handler: () => {
+            this.mainService.canLeave = true;
             const url = this.router.url.split("/").reverse();
             this.mainService.deleteBooking(url[0]).subscribe(
               (response) => {

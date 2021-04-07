@@ -55,8 +55,11 @@ export class BoardPage implements AfterViewInit {
       case 'Pending':
         this.boxPosition = width * 2;
         break;
+      case 'Cancelled':
+        this.boxPosition = width * 3;
+        break;
       default:
-        this.boxPosition = width * 3
+        this.boxPosition = width * 4
         break;
     }
   }

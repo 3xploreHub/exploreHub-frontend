@@ -99,7 +99,7 @@ export class MainServicesService {
     return this.http.put(`${this.apiUrl}/removeSelectedItem/${bookingId}/${selectedId}`, {})
   }
 
-  cancelBooking(notificationData) {
-    return this.http.post(`${this.apiUrl}/cancelBooking`, notificationData)
+  changeBookingStatus(status, notificationData) {
+    return this.http.post(`${this.apiUrl}/changeBookingStatus/${status}`, notificationData)
   }
 }

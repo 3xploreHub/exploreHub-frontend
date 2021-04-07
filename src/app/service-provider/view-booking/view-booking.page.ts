@@ -87,8 +87,8 @@ export class ViewBookingPage {
           booking: curBooking._id,
           type: "page-booking"
         }
-        this.mainService.cancelBooking(notificationData).subscribe(
-          (response: any) => {
+        this.mainService.changeBookingStatus("Cancelled",notificationData).subscribe(
+          (response: any) => {  
             this.router.navigate(["/service-provider/bookings", 'Pending'])
           }
         )

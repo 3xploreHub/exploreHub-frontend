@@ -15,7 +15,7 @@
             <ion-ripple-effect></ion-ripple-effect>&nbsp;
             <ion-icon name="send-outline"></ion-icon>
           </div>
-          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
+          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled' && bookingStatus !='Closed'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="close-outline"></ion-icon>
           </div>

@@ -130,11 +130,26 @@ export class ViewBookingAsProviderPage implements OnInit {
           type: "booking",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
         }
-        this.mainService.cancelBooking(notificationData).subscribe(
+        this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
             this.goBack()
           }
         )
+      } else if (this.popupData.type == "done") {
+        const curBooking = this.booking
+        const notificationData: any = {
+          receiver: curBooking.tourist,
+          page: curBooking.pageId._id,
+          booking: curBooking._id,
+          type: "booking",
+          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`
+        }
+        this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
+          (response: any) => {
+            this.goBack()
+          }
+        )
+
       }
     }
     else {
@@ -147,8 +162,8 @@ export class ViewBookingAsProviderPage implements OnInit {
 
       this.popupData = {
         type: 'done',
-        title: "Are you sure this booking is done?",
-        otherInfo: "This booking will be moved to the booking history of your service, to go to booking history click settings on the top portion of your service dashboard.",
+        title: "Are you sure this booking is closed?",
+        otherInfo: 'This booking will be moved to the "Closed" tab.',
         show: true
       }
     }, 200);

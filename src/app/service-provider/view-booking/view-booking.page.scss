@@ -175,9 +175,18 @@
         }
     }
 }
-
-.bookingStatus {
-    padding:5px 15px;
-    text-align: right;
-    font-size: 14px;
+.dateAndStatus {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .dateCreated {
+        padding:0 15px;
+        color:gray;
+        font-size: 13px;
+    }
+    .bookingStatus {
+        padding:5px 15px;
+        text-align: right;
+        font-size: 14px;
+    }
 }
