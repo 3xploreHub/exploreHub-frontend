@@ -187,6 +187,7 @@ export class BookingCardComponent implements OnInit {
       'pendingBg': status == 'Pending',
       'doneBg': status == "Closed",
       'unfinishedBg': status == 'Unfinished',
+      'processingBg': status == 'Processing',
       'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
   }

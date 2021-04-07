@@ -331,6 +331,7 @@ export class PageCreatorComponent implements OnInit {
     return {
       'onlineBg': status == 'Online',
       'pendingBg': status == 'Pending',
+      'processingBg': status == 'Processing',
       'unfinishedBg': status == 'Unfinished',
       'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }

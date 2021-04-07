@@ -8,7 +8,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './board.page.html',
   styleUrls: ['./board.page.scss'],
 })
-export class BoardPage implements  AfterViewInit {
+export class BoardPage implements AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public clickedTab: string = 'Booked'
   public boxPosition: number;
@@ -34,8 +34,8 @@ export class BoardPage implements  AfterViewInit {
   }
 
   goToSection(tab: string, div: HTMLElement, url = null) {
-    const width = div.clientWidth;
-    this.clickedTab  = tab
+    const width = 110
+    this.clickedTab = tab
     if (url) {
       const currentPage = this.mainService.currentPage
       const route = ["/service-provider/dashboard/" + currentPage.pageType + "/" + currentPage._id + "/board/" + url[0]]
@@ -43,14 +43,20 @@ export class BoardPage implements  AfterViewInit {
       this.router.navigate(route)
     }
     switch (tab) {
+      case 'Closed':
+        this.boxPosition = -width;
+        break;
       case 'Booked':
         this.boxPosition = 0;
         break;
-      case 'Pending':
+      case 'Processing':
         this.boxPosition = width;
         break;
+      case 'Pending':
+        this.boxPosition = width * 2;
+        break;
       default:
-        this.boxPosition = width * 2
+        this.boxPosition = width * 3
         break;
     }
   }

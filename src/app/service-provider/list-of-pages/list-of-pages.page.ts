@@ -68,6 +68,7 @@ export class ListOfPagesPage implements OnInit {
       'onlineBg': status == 'Online',
       'pendingBg': status == 'Pending',
       'unfinishedBg': status == 'Unfinished',
+      'processingBg': status == 'Processing',
       'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
   }

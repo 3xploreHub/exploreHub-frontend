@@ -76,6 +76,7 @@ export class BookingInformationPage implements OnInit {
       'onlineBg': status == 'Booked',
       'pendingBg': status == 'Pending',
       'doneBg': status == "Closed",
+      'processingBg': status == "Processing",
       'unfinishedBg': status == 'Unfinished',
       'rejectedBg': status == 'Rejected' || status == 'Cancelled'
     }
