@@ -18,7 +18,7 @@
         <ion-icon name="notifications-outline">
         </ion-icon>
         <ion-ripple-effect></ion-ripple-effect>
-        <div *ngIf="notificationsCount > 0" class="notifCount">{{notificationsCount}}</div> 
+        <div *ngIf="notificationsCount || notificationsCount != 0" class="notifCount">{{notificationsCount}}</div> 
       </div>
       <div class="weather iconHolder">
         <!-- <ion-icon name="sunny-outline"></ion-icon>

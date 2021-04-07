@@ -129,7 +129,7 @@ export class ViewBookingAsProviderPage implements OnInit {
           booking: curBooking._id,
           type: "booking",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
-        }
+        } 
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
             this.goBack()
@@ -137,12 +137,18 @@ export class ViewBookingAsProviderPage implements OnInit {
         )
       } else if (this.popupData.type == "done") {
         const curBooking = this.booking
+        const selectedServices = this.booking.selectedServices.map(item => {
+          let service = {_id: item.service._id}
+          service['bookingCount'] = curBooking.isManual ? {manuallyBooked: item.service.manuallyBooked - 1} : {booked: item.service.booked - 1}
+          return service
+        })
         const notificationData: any = {
           receiver: curBooking.tourist,
           page: curBooking.pageId._id,
           booking: curBooking._id,
           type: "booking",
-          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`
+          selectedServices: selectedServices,
+          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`,
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
           (response: any) => {

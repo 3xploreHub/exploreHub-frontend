@@ -9,7 +9,7 @@
         <div class="ion-activatable ripple-parent smIcon" [routerLink]="['/service-provider/notifications']">
           <ion-icon  name="notifications-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
-          <div class="notifCount">{{notificationsCount}}</div>
+          <div *ngIf="notificationsCount && notificationsCount != 0" class="notifCount">{{notificationsCount}}</div>
         </div>&nbsp;&nbsp;
         <div class="ion-activatable ripple-parent smIcon">
           <ion-icon name="chatbubble-ellipses-outline"></ion-icon>

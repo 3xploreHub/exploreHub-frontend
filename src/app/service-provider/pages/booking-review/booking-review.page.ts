@@ -92,7 +92,7 @@ export class BookingReviewPage implements OnInit {
     let valid = true;
     let selectedservices = []
     if (this.mainService.creatingManual) {
-
+      console.log(this.booking)
       this.booking.selectedServices.forEach(data => {
         const service = data.service
         service.booked = service.booked ? service.booked : 0;
@@ -116,7 +116,7 @@ export class BookingReviewPage implements OnInit {
         booking: this.booking._id,
         type: "page-booking",
       }
-      this.mainService.submitBooking(this.booking._id, notificationData).subscribe(
+      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices).subscribe(
         (response: any) => {
           this.mainService.canLeave = true;
           this.mainService.creatingManual = false;
