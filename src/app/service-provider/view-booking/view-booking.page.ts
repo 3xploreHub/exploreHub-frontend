@@ -80,7 +80,7 @@ export class ViewBookingPage {
   clicked(action) {
     if (action == "yes") {
       if (this.popupData.type == "cancel") {
-        const curBooking = this.mainService.currentBooking
+        const curBooking = this.booking
         const notificationData: any = {
           receiver: curBooking.pageId.creator,
           page: curBooking.pageId._id,

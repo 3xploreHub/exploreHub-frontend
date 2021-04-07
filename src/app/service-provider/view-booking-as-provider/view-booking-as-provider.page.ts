@@ -19,6 +19,7 @@ export interface popupData {
 })
 export class ViewBookingAsProviderPage implements OnInit {
   public bookingId: string = '';
+  public booking: bookingData;
   public bookingStatus: string = '';
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
@@ -53,6 +54,12 @@ export class ViewBookingAsProviderPage implements OnInit {
       const url = this.router.url.split("/").reverse();
       this.pageId = url[4];
       this.pageType = url[3];
+      this.mainService.viewBooking(this.bookingId).subscribe(
+        (response: bookingData) => {
+          this.booking = response;
+          this.bookingStatus = this.booking.status
+        }
+      )
     })
   }
   goBack() {
@@ -102,8 +109,33 @@ export class ViewBookingAsProviderPage implements OnInit {
     await alert.present();
   }
 
+  getName(data) {
+    let name = "Untitled"
+    data.forEach(item => {
+      if (item.data.defaultName && item.data.defaultName == "pageName") {
+        name = item.data.text
+      }
+    });
+    return name;
+  }
+
   clicked(action) {
     if (action == "yes") {
+      if (this.popupData.type == "cancel") {
+        const curBooking = this.booking
+        const notificationData: any = {
+          receiver: curBooking.tourist,
+          page: curBooking.pageId._id,
+          booking: curBooking._id,
+          type: "booking",
+          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
+        }
+        this.mainService.cancelBooking(notificationData).subscribe(
+          (response: any) => {
+            this.goBack()
+          }
+        )
+      }
     }
     else {
     }
