@@ -81,14 +81,20 @@ export class ViewBookingPage {
     if (action == "yes") {
       if (this.popupData.type == "cancel") {
         const curBooking = this.booking
+        const selectedServices = this.booking.selectedServices.map(item => {
+          let service = { _id: item.service._id }
+          service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
+          return service
+        })
         const notificationData: any = {
           receiver: curBooking.pageId.creator,
           page: curBooking.pageId._id,
+          selectedServices: selectedServices,
           booking: curBooking._id,
           type: "page-booking"
         }
-        this.mainService.changeBookingStatus("Cancelled",notificationData).subscribe(
-          (response: any) => {  
+        this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
+          (response: any) => {
             this.router.navigate(["/service-provider/bookings", 'Pending'])
           }
         )
@@ -103,7 +109,13 @@ export class ViewBookingPage {
   }
 
   resubmit() {
-    const booking = this.mainService.currentBooking
+    const curBooking = this.booking
+    let selectedServices = []
+    if (curBooking.isManual) {
+      selectedServices = this.booking.selectedServices.map(item => {
+        return { _id: item.service._id, manuallyBooked: item.service.manuallyBooked + 1 }
+      })
+    }
     const notificationData = {
       receiver: this.booking.pageId.creator,
       initiator: this.booking.tourist,
@@ -111,7 +123,7 @@ export class ViewBookingPage {
       booking: this.booking._id,
       type: "page-booking",
     }
-    this.mainService.submitBooking(this.booking._id, notificationData).subscribe(
+    this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {
         this.mainService.canLeave = true;
         this.router.navigate(['/service-provider/bookings', "Pending"])
@@ -145,10 +157,10 @@ export class ViewBookingPage {
 
   editBooking() {
     this.router.navigate(["/service-provider/booking-review", this.booking.pageId._id, this.booking.bookingType, this.booking._id],
-        {
-          queryParams: {
-            edit: true
-          }
-        })
+      {
+        queryParams: {
+          edit: true
+        }
+      })
   }
 }

@@ -121,27 +121,27 @@ export class ViewBookingAsProviderPage implements OnInit {
 
   clicked(action) {
     if (action == "yes") {
+      const curBooking = this.booking
+      const selectedServices = this.booking.selectedServices.map(item => {
+        let service = { _id: item.service._id }
+        service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
+        return service
+      })
       if (this.popupData.type == "cancel") {
-        const curBooking = this.booking
         const notificationData: any = {
           receiver: curBooking.tourist,
           page: curBooking.pageId._id,
           booking: curBooking._id,
+          selectedServices: selectedServices,
           type: "booking",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
-        } 
+        }
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
             this.goBack()
           }
         )
       } else if (this.popupData.type == "done") {
-        const curBooking = this.booking
-        const selectedServices = this.booking.selectedServices.map(item => {
-          let service = {_id: item.service._id}
-          service['bookingCount'] = curBooking.isManual ? {manuallyBooked: item.service.manuallyBooked - 1} : {booked: item.service.booked - 1}
-          return service
-        })
         const notificationData: any = {
           receiver: curBooking.tourist,
           page: curBooking.pageId._id,
