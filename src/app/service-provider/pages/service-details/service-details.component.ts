@@ -34,6 +34,10 @@ export class ServiceDetailsComponent implements OnInit {
   @Input() serviceInfo: serviceInfo;
   public pageWidth: number;
   public pageHeight: number;
+  public fromReviewBooking:boolean = false;
+  public fromDraft: boolean = false;
+  public editing:boolean = false;
+  public isManual: boolean = false;
   slideOpts = {
     initialSlide: 0,
     speed: 400
@@ -62,7 +66,23 @@ export class ServiceDetailsComponent implements OnInit {
     this.pageWidth = window.innerWidth;
     this.pageHeight = window.innerHeight - 30;
     this.setPage()
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        if (params.fromReviewBooking) {
+          this.fromReviewBooking = true
+        }
+        if (params.manual) {
+          this.isManual = true
+        }
+        if (params.edit) {
+          this.editing = true
+        }
+        if (params.draft) {
+          this.fromDraft = true
+        }
+      }
 
+    })
   }
 
   setPage() {
@@ -83,7 +103,12 @@ export class ServiceDetailsComponent implements OnInit {
     const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId ? this.serviceInfo.bookingId : null };
     this.mainService.createBooking(data).subscribe(
       (response: bookingData) => {
-        this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id])
+        let params = { queryParams: {} }
+        if (this.fromDraft) params.queryParams["draft"] = true
+        if (this.isManual) params.queryParams["manual"] = true
+        if (this.editing) params.queryParams["edit"] = true
+        if (this.fromReviewBooking) params.queryParams["fromReviewBooking"] = true
+        this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id], params)
       })
 
   }

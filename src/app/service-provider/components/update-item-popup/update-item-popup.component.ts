@@ -51,8 +51,9 @@ export class UpdateItemPopupComponent implements OnInit {
         const data = { pageId: this.data.pageId, isManual: true, pageType: this.data.pageType, firstService: firstServiceSelected, bookingId: "create_new" };
         this.mainService.createBooking(data).subscribe(
           (response: bookingData) => {
-            this.mainService.creatingManual = true;
-            this.router.navigate(["/service-provider/select-service", this.data.pageId, response._id])
+            this.router.navigate(["/service-provider/select-service", this.data.pageId, response._id], {
+              queryParams: {manual: true}
+            })
           })
       }
     }, 300);

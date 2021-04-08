@@ -13,7 +13,8 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class BookingReviewPage implements OnInit {
   public pageType: string = "";
   public pageId: string = "";
-  public editing: boolean = false;
+  public editing: boolean = false
+  public isManual: boolean = false
   public bookingId: string = "";
   public fromDraft: boolean = false;
   public fromNotification: boolean = false;
@@ -44,7 +45,9 @@ export class BookingReviewPage implements OnInit {
         if (params.draft) {
           this.fromDraft = true;
         }
-
+        if (params.manual) {
+          this.isManual = true
+        }
       }
     })
 
@@ -62,9 +65,10 @@ export class BookingReviewPage implements OnInit {
 
   editBookingInfo() {
     this.mainService.canLeave = true;
-    let params = {queryParams: {}}
+    let params = { queryParams: {} }
     if (this.editing) params.queryParams["edit"] = true
     if (this.fromDraft) params.queryParams["draft"] = true
+    if (this.isManual) params.queryParams["manual"] = true
     this.router.navigate(['/service-provider/book', this.pageId, this.pageType, this.bookingId], params)
   }
 
@@ -72,6 +76,7 @@ export class BookingReviewPage implements OnInit {
     this.mainService.canLeave = true;
     let params = { queryParams: { fromReviewBooking: true } }
     if (this.editing) params.queryParams["edit"] = true
+    if (this.isManual) params.queryParams["manual"] = true
     if (this.fromDraft) params.queryParams["draft"] = true
     this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], params)
   }
@@ -91,8 +96,7 @@ export class BookingReviewPage implements OnInit {
   submitBooking() {
     let valid = true;
     let selectedservices = []
-    if (this.mainService.creatingManual) {
-      console.log(this.booking)
+    if (this.isManual) {
       this.booking.selectedServices.forEach(data => {
         const service = data.service
         service.booked = service.booked ? service.booked : 0;
@@ -104,9 +108,7 @@ export class BookingReviewPage implements OnInit {
         let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
 
         selectedservices.push(updateData)
-
-      }
-      )
+      })
     }
     if (valid) {
       const notificationData = {
@@ -116,12 +118,14 @@ export class BookingReviewPage implements OnInit {
         booking: this.booking._id,
         type: "page-booking",
       }
-      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices).subscribe(
+      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices, this.isManual).subscribe(
         (response: any) => {
           this.mainService.canLeave = true;
-          this.mainService.creatingManual = false;
-
-          this.router.navigate(['/service-provider/bookings', "Pending"])
+          if (this.isManual) {
+            this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
+          } else {
+            this.router.navigate(['/service-provider/bookings', "Pending"])
+          }
         }
       )
     }

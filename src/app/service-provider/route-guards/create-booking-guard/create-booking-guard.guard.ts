@@ -10,6 +10,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class CreateBookingGuardGuard implements CanActivate {
   public pageId: string = "";
   public pageType: string = "";
+  public isManual: boolean = false;
   public fromDraft: boolean = false;
   constructor(public alert: AlertController,
     public mainService: MainServicesService,
@@ -36,6 +37,20 @@ export class CreateBookingGuardGuard implements CanActivate {
         if (params.draft) {
           this.fromDraft = true;
         }
+        if (params.manual) {
+          this.isManual = true
+          const url = this.router.url.split("/").reverse()
+
+          if (url.includes("book") || url.includes("booking-review")) {
+            this.pageType = url[1]
+            this.pageId = url[2]
+          }
+          else if (this.mainService.currentPage) {
+            this.pageId = this.mainService.currentPage._id;
+            this.pageType = this.mainService.currentPage.pageType
+          }
+
+        }
       }
     })
 
@@ -60,10 +75,11 @@ export class CreateBookingGuardGuard implements CanActivate {
 
             if (this.fromDraft) {
               this.router.navigate(["/service-provider/bookings", "Unfinished"])
+
+            } else if (this.isManual) {
+              this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/statistics"])
             } else {
               if (this.mainService.currentPage) {
-                this.pageId = this.mainService.currentPage._id;
-                this.pageType = this.mainService.currentPage.pageType
                 this.router.navigate(["/service-provider/view-page", this.pageId, this.pageType])
               } else {
                 this.router.navigate(["/service-provider/online-pages-list"])
@@ -98,6 +114,8 @@ export class CreateBookingGuardGuard implements CanActivate {
               (response) => {
                 if (this.fromDraft) {
                   this.router.navigate(["/service-provider/bookings", "Unfinished"])
+                } else if (this.isManual) {
+                  this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/statistics"])
                 } else {
                   this.router.navigate(["/service-provider/online-pages-list"])
                 }

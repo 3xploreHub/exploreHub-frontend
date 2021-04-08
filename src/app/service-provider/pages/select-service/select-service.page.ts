@@ -23,6 +23,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public notSelected: ElementValues[] = []
   public fromDraft: boolean = false;
   public editing: boolean = false
+  public isManual: boolean = false;
   public fromReviewBooking: boolean = false;
   constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
@@ -68,6 +69,9 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
         if (params.edit) {
           this.mainService.canLeave = true
           this.editing = true;
+        }
+        if (params.manual) {
+          this.isManual = true
         }
       }
 
@@ -136,17 +140,25 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   bookNow() {
     setTimeout(() => {
       this.mainService.canLeave = true;
+      let params = {queryParams:{}}
+      if (this.isManual) params.queryParams["manual"] = true
+      if (this.fromDraft) params.queryParams["draft"] = true
+      if (this.editing) params.queryParams["edit"] = true
       if (!this.fromReviewBooking) {
-        this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id])
+        this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id], params)
       } else {
-        this.router.navigate(["/service-provider/booking-review", this.pageId, this.booking.bookingType, this.booking._id])
+        this.router.navigate(["/service-provider/booking-review", this.pageId, this.booking.bookingType, this.booking._id], params)
       }
     }, 200);
   }
 
   viewItem(data) {
     this.mainService.canLeave = true;
-    const params = this.fromDraft ? {queryParams: {draft: true}}: {}
+    let params = {queryParams:{}}
+    if (this.fromDraft) params.queryParams["draft"] = true
+    if (this.isManual) params.queryParams["manual"] = true
+    if (this.editing) params.queryParams["edit"] = true
+    if (this.fromReviewBooking) params.queryParams["fromReviewBooking"] = true
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id], params)
   }
 

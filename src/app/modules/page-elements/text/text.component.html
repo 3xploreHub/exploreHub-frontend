@@ -12,7 +12,6 @@
         (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-style-popup>
     </div>
   </div>
-
   <ng-template #doneBlock>
     <div class="componentWrapper">
       <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"

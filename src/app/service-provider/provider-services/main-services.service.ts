@@ -66,8 +66,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getPageBookingInfo/${data.pageId}/${data.pageType}/${data.bookingId}`)
   }
 
-  submitBooking(bookingId, notificationData= null, selectedServices= null) {
-    const data = this.creatingManual ? {isManual: true, selectedServices:selectedServices}: notificationData
+  submitBooking(bookingId, notificationData= null, selectedServices= null, isManual = false) {
+    const data = isManual ? {isManual: true, selectedServices:selectedServices}: notificationData
     return this.http.post(`${this.apiUrl}/submitBooking/${bookingId}`, data)
   }
 

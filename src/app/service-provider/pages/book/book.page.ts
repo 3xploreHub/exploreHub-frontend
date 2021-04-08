@@ -21,6 +21,7 @@ export class BookPage implements OnInit, ViewWillEnter {
   public bookingInfo: ElementValues[] = [];
   public bookingId: String;
   public pageType: string;
+  public isManual: boolean = false;
   public pageId: string;
   public requiredInputs: string[] = []
   public fromDraft: boolean = false
@@ -49,7 +50,12 @@ export class BookPage implements OnInit, ViewWillEnter {
         if (params.edit) {
           this.mainService.canLeave = true
         } 
-
+        if (params.manual) {
+          this.isManual = true
+        }
+        if (params.draft) {
+          this.fromDraft = true;
+        }
       }
 
     })
@@ -159,7 +165,10 @@ export class BookPage implements OnInit, ViewWillEnter {
         this.mainService.canLeave = true;
         this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
           (response: bookingData) => {
-            this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId])
+            let params = {queryParams:{}}
+             if (this.isManual) params.queryParams["manual"] = true
+             if (this.fromDraft) params.queryParams["draft"] = true
+            this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId], params)
           }
         )
       }, 100);
@@ -173,7 +182,10 @@ export class BookPage implements OnInit, ViewWillEnter {
   }
   editSelectedServices() {
     this.mainService.canLeave = true;
-    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId])
+    let params = {queryParams:{}}
+    if (this.isManual) params.queryParams["manual"] = true
+    if (this.fromDraft) params.queryParams["draft"] = true
+    this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], params)
   }
 
   async presentAlert(message) {

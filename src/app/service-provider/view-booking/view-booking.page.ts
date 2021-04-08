@@ -103,8 +103,6 @@ export class ViewBookingPage {
   }
 
   resubmit() {
-    this.mainService.creatingManual = false;
-
     const booking = this.mainService.currentBooking
     const notificationData = {
       receiver: this.booking.pageId.creator,
@@ -116,7 +114,6 @@ export class ViewBookingPage {
     this.mainService.submitBooking(this.booking._id, notificationData).subscribe(
       (response: any) => {
         this.mainService.canLeave = true;
-
         this.router.navigate(['/service-provider/bookings', "Pending"])
       }
     )
