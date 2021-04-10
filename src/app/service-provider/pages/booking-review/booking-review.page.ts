@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Page } from 'src/app/modules/elementTools/interfaces/page';
+import { AuthService } from 'src/app/services/auth-services/auth-service.service';
+import { NotificationHandlerComponent } from '../../components/notification-handler/notification-handler.component';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
+
+
 
 @Component({
   selector: 'app-booking-review',
   templateUrl: './booking-review.page.html',
   styleUrls: ['./booking-review.page.scss', '../select-service/select-service.page.scss'],
 })
-export class BookingReviewPage implements OnInit {
+export class BookingReviewPage implements OnInit, AfterViewInit {
+  @ViewChild(NotificationHandlerComponent) public notifHandler: NotificationHandlerComponent;
   public pageType: string = "";
   public pageId: string = "";
   public editing: boolean = false
@@ -31,7 +35,9 @@ export class BookingReviewPage implements OnInit {
     createdAt: "",
     isManual: false
   }
-  constructor(public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
+  constructor(
+    public authService: AuthService,
+    public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -49,6 +55,8 @@ export class BookingReviewPage implements OnInit {
           this.isManual = true
         }
       }
+
+
     })
 
     this.route.paramMap.subscribe(params => {
@@ -61,6 +69,10 @@ export class BookingReviewPage implements OnInit {
         }
       )
     })
+  }
+
+  ngAfterViewInit() {
+    if (this.notifHandler) this.notifHandler.init();
   }
 
   editBookingInfo() {
@@ -120,6 +132,7 @@ export class BookingReviewPage implements OnInit {
       }
       this.mainService.submitBooking(this.booking._id, notificationData, selectedservices, this.isManual).subscribe(
         (response: any) => {
+          this.notifHandler.notify({type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
           this.mainService.canLeave = true;
           if (this.isManual) {
             this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])

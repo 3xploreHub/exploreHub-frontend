@@ -14,13 +14,23 @@ export class NotificationsPage implements ViewWillEnter {
   constructor(public mainService:MainServicesService) { }
 
   ionViewWillEnter() {
-    this.mainService.getNotifications().subscribe(
+    
+    this.getNotifications();
+
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        this.getNotifications(true)
+      }
+    )
+  }
+
+  getNotifications(hideLoading = false) {
+    this.mainService.getNotifications(hideLoading).subscribe(
       (response: any) => {
         this.notifications = response.reverse();
         this.loading = false
       },
       error => {
-
       }
     )
   }

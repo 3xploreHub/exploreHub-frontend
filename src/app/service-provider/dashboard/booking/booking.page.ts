@@ -30,7 +30,7 @@ export class BookingPage implements OnInit {
       this.mainService.getPageBooking(this.bookingStatus, this.pageId).subscribe(
         (response: bookingData[]) => {
           this.loading = false;
-          this.bookings = response;
+          this.bookings = response.reverse();
         }
       )
     })

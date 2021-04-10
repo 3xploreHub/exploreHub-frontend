@@ -47,6 +47,11 @@ import { ComponentsModulePageModule } from "./components-module/components-modul
 import { NotificationCardComponent } from "./service-provider/components/notification-card/notification-card.component";
 import { OptionPopupComponent } from "./service-provider/components/option-popup/option-popup.component";
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from "src/environments/environment";
+import { NotificationHandlerComponent } from "./service-provider/components/notification-handler/notification-handler.component";
+const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,6 +99,7 @@ import { OptionPopupComponent } from "./service-provider/components/option-popup
       name: "__mydb",
       driverOrder: ["sqlite", "websql", "localstorage"],
     }),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     StatusBar,

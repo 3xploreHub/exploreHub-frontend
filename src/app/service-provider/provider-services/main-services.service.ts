@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,8 @@ import { bookingData } from './interfaces/bookingData';
   providedIn: 'root'
 })
 export class MainServicesService {
-  private apiUrl = `${environment.apiUrl}/service-provider`;
+  private apiUrl = `${environment.apiUrl}/api/service-provider`;
+  public notification: EventEmitter<any> = new EventEmitter();
   public currentPage: Page;
   public canLeave: boolean = true;
   public currentBookingId: string = "";
@@ -23,6 +24,10 @@ export class MainServicesService {
 
   getPages(status: string) {
     return this.http.get(`${this.apiUrl}/getPages/${status}`)
+  }
+
+  receiveNotification(data) {
+    this.notification.emit(data);
   }
 
   getPage(pageId: string, pageType: string) {
@@ -87,8 +92,9 @@ export class MainServicesService {
     return this.http.delete(`${this.apiUrl}/deleteBooking/${bookingId}`)
   }
 
-  getNotifications() {
-    return this.http.get(`${this.apiUrl}/getNotifications`)
+  getNotifications(hideLoading = false) {
+    const config = hideLoading? { headers: { hideLoadingIndicator: "true" }}: {}
+    return this.http.get(`${this.apiUrl}/getNotifications`, config)
   }
 
   viewNotification(notifId) {

@@ -20,7 +20,8 @@ export class DashboardPage implements OnInit {
   public notificationsCount: number;
   public fromNotification: boolean = false;
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     public mainService: MainServicesService,
     public alert: AlertController,
     private route: ActivatedRoute,
@@ -29,7 +30,6 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    
     this.route.queryParams.subscribe(params => {
       if (params && params.notification) {
         this.fromNotification = true;
@@ -59,12 +59,21 @@ export class DashboardPage implements OnInit {
       } else {
         this.router.navigate(["/service-provider/list-of-pages", "submitted"])
       }
-      this.mainService.getNotificationsCount().subscribe(
-        (response: any) => {
-          this.notificationsCount = response
-        }
-      )
+      this.getNotifications()
     })
+    this.mainService.notification.subscribe(
+      (data:any) => {
+        this.getNotifications()
+      }
+    )
+  }
+
+  getNotifications() {
+    this.mainService.getNotificationsCount().subscribe(
+      (response: any) => {
+        this.notificationsCount = response
+      }
+    )
   }
 
   async presentAlert(message) {
@@ -123,7 +132,6 @@ export class DashboardPage implements OnInit {
   getName() {
     const data = this.page.components[1];
     this.name = data.data.text ? data.data.text: "Untitled"
-    
   }
 }
 

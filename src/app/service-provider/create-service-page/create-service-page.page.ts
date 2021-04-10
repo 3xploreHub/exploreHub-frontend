@@ -27,7 +27,7 @@ export class CreateServicePagePage implements OnInit {
         this.creator.retrievePage(id, "service").subscribe(
           (response: ServicePage) => {
             this.touristSpot = response;
-            this.pageCreator.setPage(this.touristSpot, "service")  
+            this.pageCreator.setPage(this.touristSpot, "service")
           },
           error => {
             this.creator.canLeave = true;

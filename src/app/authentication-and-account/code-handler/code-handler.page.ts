@@ -61,6 +61,7 @@ export class CodeHandlerPage implements OnInit {
       this.presentAlert("Incorrect code!");
     }
   }
+  
   subscribePusher() {
     if (!this.pendingCode) {
       this.startTime();

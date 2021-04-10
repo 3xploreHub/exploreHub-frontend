@@ -29,7 +29,7 @@ export class BookingsPage implements OnInit {
         (response: bookingData[]) => {
           this.loading = false;
 
-          this.bookings = response;
+          this.bookings = response.reverse();
           // this.bookings = this.bookings.filter(booking => !booking.isManual || booking.isManual == undefined)
         }
       )

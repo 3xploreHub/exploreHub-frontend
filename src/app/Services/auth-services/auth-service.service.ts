@@ -13,7 +13,7 @@ import userTokenType from "../../services-common-helper/constantValue/user-token
 })
 
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/account`;
+  private apiUrl = `${environment.apiUrl}/api/account`;
   attemptedUrl: string;
   token = null;
 
@@ -140,6 +140,15 @@ export class AuthService {
       if (token !== null) {
         const dtoken = this.decodeToken(token);
         return dtoken.accountType
+      }
+      return null;
+    });
+  }
+
+  getCurrentUser() {
+    return this.get("currentUser").then((token) => {
+      if (token !== null) {
+        return this.decodeToken(token);
       }
       return null;
     });

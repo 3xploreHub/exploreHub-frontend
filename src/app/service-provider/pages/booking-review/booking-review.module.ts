@@ -11,13 +11,14 @@ import { BookingReviewPage } from './booking-review.page';
 import { BookingInfoDisplayComponent } from '../booking-info-display/booking-info-display.component';
 import { LabelledTextDisplayComponent } from 'src/app/modules/page-elements-display/labelled-text-display/labelled-text-display.component';
 import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
+import { NotificationHandlerComponent } from '../../components/notification-handler/notification-handler.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookingReviewPageRoutingModule ,
+    BookingReviewPageRoutingModule,
     ComponentsModulePageModule,
   ],
     

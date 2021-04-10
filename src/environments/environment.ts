@@ -5,7 +5,7 @@
 export const environment = {
   pusher_key:"b36265bb4cc959e12f16",
   cluster: "ap1",
-  apiUrl: "http://localhost:3000/api",
+  apiUrl: "http://localhost:3000",
   production: false
 };
 
