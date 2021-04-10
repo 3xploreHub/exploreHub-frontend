@@ -8,6 +8,8 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
 import { EditAccountInfoPage } from './edit-account-info/edit-account-info.page';
+import { ChangePasswordPage } from '../../change-password/change-password.page';
+
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
@@ -17,7 +19,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 
 @NgModule({
   imports: [
-  CommonModule,
+CommonModule,
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
@@ -27,6 +29,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
   declarations: [
     SettingsPage,
     EditAccountInfoPage,
+    ChangePasswordPage
   ],
   providers: [
     Camera, 

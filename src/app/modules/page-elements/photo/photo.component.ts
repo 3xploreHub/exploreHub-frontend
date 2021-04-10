@@ -127,6 +127,7 @@ export class PhotoComponent implements OnInit {
       });
 
       const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
+      console.log("MAO NI ANG BLOBDATA: ", blobData)
       this.footerData.saving = true;
       this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
         this.getResponseData(data);

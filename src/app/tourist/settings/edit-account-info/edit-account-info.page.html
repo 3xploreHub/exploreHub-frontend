@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <h3 *ngIf="images.length == 0" text-center>Please Select Image!</h3>
+  <!-- <h3 *ngIf="images.length == 0" text-center>Please Select Image!</h3> -->
 
   <div class="container">
     <div class="profile-container">
@@ -20,13 +20,14 @@
         </div> -->
 
         <div class="profile-pic-container">
-          <img id="profile-pic" [src]="url ? url : 'https://bit.ly/2Ow0Wip'">
+          <img id="profile-pic" [src]="'http://localhost:3000/' + profile">
         </div>
 
         <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
 
         <div class="upload-del-btn">
           <ion-button (click)="selectImageSource()" fill="clear" expand="full" color="medium">
+          <!-- <ion-button (click)="selectImageSource()" fill="clear" expand="full" color="medium"> -->
             <ion-icon slot="start" name="camera"></ion-icon>
             Select Image
           </ion-button>
@@ -54,7 +55,7 @@
               <p id="error" *ngIf="phone.errors.required">Phone is required</p>
             </div>
 
-            <p for="note-change-pass" style="color: gray;"><i>Please input your current password first if you wish to change it!</i></p>
+            <!-- <p for="note-change-pass" style="color: gray;"><i>Please input your current password first if you wish to change it!</i></p>
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" formControlName="password" [(ngModel)]="userPassword">
             <div *ngIf="password.invalid && (password.touched || password.dirty)">
@@ -66,7 +67,7 @@
             <input type="password" id="newPassword" name="newPassword" formControlName="newPassword" [(ngModel)]="newUserPassword" >
             <div *ngIf="newPassword.invalid && (newPassword.touched || newPassword.dirty)">
               <p id="error" *ngIf="newPassword.errors.minlength">Password must at least 8 characters</p>
-            </div>
+            </div> -->
 
           </div>
 
@@ -128,4 +129,5 @@
       </div>
     </div>
   </div>
+  <app-change-password></app-change-password>
 </ion-content>

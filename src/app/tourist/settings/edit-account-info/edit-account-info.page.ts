@@ -7,6 +7,7 @@ import { SettingsService } from "../settings.service";
 import { WebView } from "@ionic-native/ionic-webview/ngx";
 import { File, FileEntry } from "@ionic-native/File/ngx";
 import {
+  // Camera,
   CameraOptions,
   PictureSourceType,
 } from "@ionic-native/camera/ngx";
@@ -28,7 +29,7 @@ import { AlertController, IonSlides} from '@ionic/angular';
 import { FooterData } from './../../../modules/elementTools/interfaces/footer-data';
 import { PageCreatorService, Image } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
-const { Camera } = Plugins;
+const { Camera } = Plugins;    
 
 // Reactive Forms
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -49,6 +50,7 @@ export interface dataToDelete {
 })
 export class EditAccountInfoPage implements OnInit {
   userId = null;
+  profile = ''
   userAccountType = null;
   userFullname = null;
   userFirstname = null;
@@ -59,8 +61,8 @@ export class EditAccountInfoPage implements OnInit {
   userPhone = null;
   userAddress = null;
   userGender = null;
-  userPassword = null;
-  newUserPassword = null;
+  // userPassword = null;
+  // newUserPassword = null;
   userBirthday = null;
 
   noActions: boolean = true;
@@ -84,8 +86,8 @@ export class EditAccountInfoPage implements OnInit {
   updateUserForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required ),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    newPassword: new FormControl('', Validators.minLength(8)),
+    // password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    // newPassword: new FormControl('', Validators.minLength(8)),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     middleName: new FormControl('', Validators.required),
@@ -97,8 +99,8 @@ export class EditAccountInfoPage implements OnInit {
 
   get email() { return this.updateUserForm.get('email');}
   get phone() { return this.updateUserForm.get('phone');}
-  get password() { return this.updateUserForm.get('password');}
-  get newPassword() { return this.updateUserForm.get('newPassword');}
+  // get password() { return this.updateUserForm.get('password');}
+  // get newPassword() { return this.updateUserForm.get('newPassword');}
   get firstName() { return this.updateUserForm.get('firstName');}
   get lastName() { return this.updateUserForm.get('lastName');}
   get middleName() { return this.updateUserForm.get('middleName');}
@@ -112,6 +114,10 @@ export class EditAccountInfoPage implements OnInit {
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
   customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
   customPickerOptions: any;
+
+  previousData: any;
+
+  image = '';
 
 
   constructor(
@@ -135,13 +141,6 @@ export class EditAccountInfoPage implements OnInit {
     private creator: PageCreatorService,
     public alert: AlertController,
     private formBuilder: FormBuilder,
-    
-
-
-
-
-
-    
 
 //////////////////////////////////////////////////////////////////////
 
@@ -177,37 +176,37 @@ export class EditAccountInfoPage implements OnInit {
 
   ngOnInit() {
     this.getUserInfo();
-    // this.plt.ready().then(() => {
-    //   this.loadStoredImages();
-    // });
+    
   }
-  
-  currentPassword = null;
 
-  comparePassword() {
-    let result = bcrypt.compareSync(this.userPassword, this.currentPassword);
-
-    return(result == true)
+  ionViewWillEnter(){
+    this.getUserInfo();
   }
+
+  // currentPassword = null;
+
+  // comparePassword() {
+  //   let result = bcrypt.compareSync(this.userPassword, this.currentPassword);
+
+  //   return(result == true)
+  // }
 
   onSubmit() {
-    let formValues = {
-      // accountType: "Tourist",
-      email: this.userEmail.trim(),
-      contactNumber: this.userPhone,
-      password: '',
-      firstName: this.userFirstname.trim(),
-      lastName: this.userLastname.trim(),
-      middleName: this.userMiddlename.trim(),
-      address: this.userAddress.trim(),
-      fullName: this.userFullname.trim(),
-      gender: this.userGender,
-      age: this.userAge,
-      birthday: this.userBirthday,
-    }
+    // let formValues = {
+    //   email: this.userEmail.trim(),
+    //   contactNumber: this.userPhone,
+    //   password: '',
+    //   firstName: this.userFirstname.trim(),
+    //   lastName: this.userLastname.trim(),
+    //   middleName: this.userMiddlename.trim(),
+    //   address: this.userAddress.trim(),
+    //   fullName: this.userFullname.trim(),
+    //   gender: this.userGender,
+    //   age: this.userAge,
+    //   birthday: this.userBirthday,
+    // }
 
     let formValuesNoUpdatePassword = {
-      accountType: "Tourist",
       email: this.userEmail.trim(),
       contactNumber: this.userPhone,
       // password: bcrypt.hashSync(this.newUserPassword, 10),
@@ -220,40 +219,60 @@ export class EditAccountInfoPage implements OnInit {
       age: this.userAge,
       birthday: this.userBirthday,
     }
-    if(!this.userPassword && !this.newUserPassword) {
-      let updated = this.settingsService.updateUserInfo(this.userId, formValuesNoUpdatePassword);
+
+    // if(!this.userPassword && !this.newUserPassword) {
+      if(this.previousData) {
+        console.log("SAME VALUEEEEEEESSSSSSSSSSSSSSSSSSSS!!!!!!!")
+        if(JSON.stringify(this.previousData) === JSON.stringify(formValuesNoUpdatePassword)) {
+          console.log("NO VALUE CHANGE!")
+        }
+      }
+      
+      this.previousData = formValuesNoUpdatePassword;
+
+      let updated = this.settingsService.updateUserInfo(formValuesNoUpdatePassword);
       updated.subscribe((user: any) => {
         return user;
       })
       if(updated) {
+
         console.log("User's information updated successfully!");
         console.log(JSON.stringify(updated))
       }
       else{
         console.log("User's information failed to update.")
       }
-    }
-    if(this.userPassword && this.newUserPassword) {
-      formValues.password = this.userPassword;
+      this.getUserInfo();
+    // }
 
-      if(!this.comparePassword()) {
-        this.presentToast();
-      }else{
-        let updated = this.settingsService.updateUserInfo(this.userId, formValues);
-        updated.subscribe((user: any) => {
-          return user;
-        })
-        if(updated) {
-          console.log("User's information updated successfully!");
-          console.log(JSON.stringify(updated))
-        }
-        else{
-          console.log("User's information failed to update.")
-        }
-      }
-    }
-    this.userPassword = '';
-    this.newUserPassword = '';
+
+    // if(this.userPassword && this.newUserPassword) {
+    //   this.previousData = formValues;
+
+    //   formValues.password = this.userPassword;
+    //   this.settingsService.changePassword({password: this.newUserPassword})
+    //     .subscribe((updatedPassword: any) => {
+    //       return updatedPassword;
+    //     })
+
+      // if(!this.comparePassword()) {
+      //   this.presentToast();
+      // }else{
+      //   let updated = this.settingsService.updateUserInfo(this.userId, formValues);
+      //   updated.subscribe((user: any) => {
+      //     return user;
+      //   })
+      //   if(updated) {
+      //     console.log("User's information updated successfully!");
+      //     console.log(JSON.stringify(updated))
+      //   }
+      //   else{
+      //     console.log("User's information failed to update.")
+      //   }
+      // }
+    // }
+    // this.userPassword = '';
+    // this.newUserPassword = '';
   }
 
   changeEmail() {
@@ -264,16 +283,9 @@ export class EditAccountInfoPage implements OnInit {
     }
   }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Your current password is wrong.',
-      cssClass: 'my-custom-class',
-      duration: 2000
-    });
-    toast.present();
+  checkIfValuesChange(firstValues, secondValues) {
+    return (firstValues == secondValues)
   }
-
-  
 
   back() {
     this.router.navigate(["/tourist/settings"]);
@@ -293,10 +305,10 @@ export class EditAccountInfoPage implements OnInit {
       this.userAddress = userInfo.address;
       this.userGender = userInfo.gender;
       this.userBirthday = this.datePipe.transform(userInfo.birthday, "yyyy-MM-dd");
-      // this.userPassword = userInfo.password;
-      this.newUserPassword = userInfo.newPassword;
+      this.profile = userInfo.profile;
+      // this.newUserPassword = userInfo.newPassword;
 
-      this.currentPassword = userInfo.password;
+      // this.currentPassword = userInfo.password;
 
       console.log("USER INFORMATION: ", JSON.stringify(userInfo));
     });
@@ -307,7 +319,7 @@ export class EditAccountInfoPage implements OnInit {
     this.userGender = event.target.value;
   }
 
-////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 async selectImageSource() {
   this.noActions = false;
@@ -347,7 +359,7 @@ async selectImageSource() {
 
 async addImage(source: CameraSource) {
   this.noActions = false;
-
+  alert(source)
   try {
     const image = await Camera.getPhoto({
       quality: 60,
@@ -355,19 +367,16 @@ async addImage(source: CameraSource) {
       resultType: CameraResultType.Base64,
       source
     });
+    console.log("IMAGE: ", image)
+
+    console.log("BASE64STRING: ", image.base64String)
+    console.log("IMAGE FORMAT: ", image.format)
 
     const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
-    this.footerData.saving = true;
-    this.creator.uploadImage(this.grandParentId, this.parentId, this.values._id, this.parent, blobData).subscribe((data: ElementValues) => {
-      this.getResponseData(data);
 
-      // if (this.slides) {
-      //   setTimeout(() => {
-      //     this.slides.slideTo(this.values.data.length, 500);
-      //   }, 100);
-
-      // }
-
+    this.settingsService.addUserProfile(blobData) 
+      .subscribe((data: any) => {
+        this.profile  = data.profile
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
     });
@@ -379,31 +388,26 @@ async addImage(source: CameraSource) {
   // Used for browser direct file upload
   uploadFile(event: EventTarget) {
     this.noActions = false;
-
+    alert("here")
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file = target.files[0];
-    this.footerData.saving = true;
-    this.creator.uploadImageFile(this.grandParentId, this.parentId, this.values._id, this.parent, file).subscribe((data: ElementValues) => {
-      this.getResponseData(data);
-      setTimeout(() => {
-        if (this.slides) {
-          this.slides.slideTo(this.values.data.length, 500);
-        }
-      }, 100);
-
+    alert(file)
+    this.settingsService.addUserProfile2(file) 
+      .subscribe((data: any) => {
+        this.profile  = data.profile
     }, (error) => {
       this.presentAlert("Oops! Something went wrong. Please try again later!")
     });
   }
 
-  getResponseData(data) {
-    this.values.data.push(data)
-    this.images = this.values.data;
-    this.footerData.saving = false;
-    this.footerData.hasValue = true;
-    this.footerData.hasId = true;
-  }
+  // getResponseData(data) {
+  //   this.values.data.push(data)
+  //   this.images = this.values.data;
+  //   this.footerData.saving = false;
+  //   this.footerData.hasValue = true;
+  //   this.footerData.hasId = true;
+  // }
 
   removeData(image: Image) {
     const img = { ...image }
@@ -454,32 +458,32 @@ async addImage(source: CameraSource) {
     )
   }
 
-  delete() {
-    if (this.values._id) {
-      this.footerData.message = "Deleting..." 
-      this.footerData.saving = true;
-      const images = this.images.map(img => img.url);
-      this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, images, this.parent).subscribe(
-        (response) => {
-          this.footerData.deleted = true;
-        },
-        (error) => {
-          this.presentAlert("Oops! Something went wrong. Please try again later!")
-        },
-        () => {
-          this.footerData.saving = false;
-          this.footerData.message = "Uploading image..."
-        }
-      )
-    } else {
-      this.footerData.deleted = true;
-    }
-  }
+  // delete() {
+  //   if (this.values._id) {
+  //     this.footerData.message = "Deleting..." 
+  //     this.footerData.saving = true;
+  //     const images = this.images.map(img => img.url);
+  //     this.creator.deleteComponent(this.grandParentId, this.parentId, this.values._id, images, this.parent).subscribe(
+  //       (response) => {
+  //         this.footerData.deleted = true;
+  //       },
+  //       (error) => {
+  //         this.presentAlert("Oops! Something went wrong. Please try again later!")
+  //       },
+  //       () => {
+  //         this.footerData.saving = false;
+  //         this.footerData.message = "Uploading image..."
+  //       }
+  //     )
+  //   } else {
+  //     this.footerData.deleted = true;
+  //   }
+  // }
 
-  edit() {
-    this.creator.clickedComponent = null
-    this.footerData.done = false;
-  }
+  // edit() {
+  //   this.creator.clickedComponent = null
+  //   this.footerData.done = false;
+  // }
 
   // Helper function
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript

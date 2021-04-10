@@ -24,10 +24,15 @@ export class SettingsPage implements OnInit {
   gender = null;
   password = null;
   birthday = null;
+  profile = '';
 
   constructor( private router: Router, private settingsService: SettingsService, private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.getUserInfo();
+  }
+
+  ionViewWillEnter(){
     this.getUserInfo();
   }
 
@@ -61,6 +66,7 @@ export class SettingsPage implements OnInit {
       this.gender = userInfo.gender;
       this.birthday = this.datePipe.transform(userInfo.birthday, 'yyyy-MM-dd');
       this.password = userInfo.password;
+      this.profile = userInfo.profile;
 
       console.log("USER INFORMATION: ", JSON.stringify(userInfo));
     });

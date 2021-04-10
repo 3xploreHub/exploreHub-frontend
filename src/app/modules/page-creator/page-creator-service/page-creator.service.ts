@@ -124,7 +124,10 @@ export class PageCreatorService {
   uploadImage(grandParentId: string, parentId: string, childId: string, parent: string, blobData): Observable<any> {
     const formData = new FormData();
     formData.append('image', blobData);
-
+    console.log("MAO NI ANG FORMDATA: ", formData)
+    for(let obj in formData) {
+      console.log("Object: ", obj)
+    }
     const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
     const params = parent == "page" ? `${parentId}/${childId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`;
 

@@ -13,7 +13,7 @@
                     <ion-icon (click)="editAccountInfo()" name="create-outline"></ion-icon>
                 </div>
                 <div class="profile-pic-container">
-                    <img id="profile-pic" [src]="url ? url : 'https://bit.ly/2Ow0Wip'">
+                    <img id="profile-pic" [src]="'http://localhost:3000/' + profile">
                 </div>
                 <h3 class="fullname" style="text-transform: capitalize;"><b>{{firstname}} {{middlename}} {{lastname}}</b></h3>
                 <div class="contact-info-container">
