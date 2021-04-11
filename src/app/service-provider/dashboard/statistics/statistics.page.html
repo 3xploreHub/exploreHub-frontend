@@ -2,6 +2,7 @@
   <div class="tab">Services Statistics</div>
   <div class="tab">Income Statistics</div>
 </div> -->
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <div (click)="clickOutside($event)">
   <div class="itemList boxShadowed" *ngFor="let service of services">
     <div class="percent totalPercentage">

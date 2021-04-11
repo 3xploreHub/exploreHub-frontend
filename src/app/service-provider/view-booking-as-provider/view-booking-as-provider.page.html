@@ -62,6 +62,8 @@
         </b>
       </div>
     </div>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+
     <router-outlet></router-outlet>
   </div>
   <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">

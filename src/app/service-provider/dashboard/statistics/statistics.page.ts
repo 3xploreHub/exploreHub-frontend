@@ -18,6 +18,7 @@ export interface modalData {
   quatityPercentage: number,
   manuallyBookedPercent: number,
   serviceGroupName: string,
+
 }
 @Component({
   selector: 'app-statistics',
@@ -42,7 +43,7 @@ export class StatisticsPage implements OnInit {
   public totalBooked: number = 0;
   public updateItem: boolean = false;
   public modalData: modalData;
-
+  loading = true
   constructor(
     public creator: PageCreatorService,
     public mainService: MainServicesService,
@@ -56,6 +57,7 @@ export class StatisticsPage implements OnInit {
     this.pageType = url[3]
     this.mainService.getServices(url[2], url[3]).subscribe(
       (response: Page) => {
+        this.loading = false
         this.services = response.services;
       },
 

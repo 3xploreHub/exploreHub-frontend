@@ -29,6 +29,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
   public pageId: string;
   public isManual: boolean = false;
   public popupData: popupData;
+  loading = true
   constructor(public alert: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
     this.popupData = {
       title: "",
@@ -71,6 +72,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
       this.mainService.viewBooking(this.bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;
+          this.loading = false;
           this.booking.createdAt = this.formatDate(this.booking.createdAt)
           this.bookingStatus = this.booking.status
         }

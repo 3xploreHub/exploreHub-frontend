@@ -115,4 +115,12 @@ export class MainServicesService {
   getNotificationsCount() {
     return this.http.get(`${this.apiUrl}/getNotificationsCount`, { headers: { hideLoadingIndicator: "true" } })
   }
+
+  createConversation(data) {
+    return this.http.post(`${this.apiUrl}/createConversation`, data, { headers: { hideLoadingIndicator: "true" } })
+  }
+
+  getConversation(bookingId, pageId) {
+    return this.http.get(`${this.apiUrl}/getConversation/${bookingId}/${pageId}`)
+  }
 }

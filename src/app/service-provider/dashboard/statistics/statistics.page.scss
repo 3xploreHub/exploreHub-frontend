@@ -89,6 +89,10 @@
                 font-size: 13px;
             }
 
+            .qlabel {
+                color:lightslategrey;
+            }
+
         
             .num {
                 font-size: 20px !important;
@@ -114,7 +118,7 @@
 }
 
 .bookedOnline {
-    background-color: rgb(5, 207, 113);
+    background-color: rgb(1, 226, 159);
 }
 
 .available {
@@ -137,7 +141,7 @@
     left:0;
     right:0; 
     height: 4px;
-    background-color: rgb(197, 213, 235);
+    background-color: rgb(229, 236, 241);
     
     .percentBar {
         border-radius: 3px;

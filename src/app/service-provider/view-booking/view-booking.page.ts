@@ -19,6 +19,7 @@ export class ViewBookingPage implements AfterViewInit {
   public bookingStatus: string = '';
   public clickedTab: string = 'Booking Info';
   public boxPosition: number;
+  loading = true;
   public popupData: popupData;
   public fromNotification: boolean = false;
   public booking: bookingData;
@@ -75,6 +76,7 @@ export class ViewBookingPage implements AfterViewInit {
     this.mainService.viewBooking(this.bookingId).subscribe(
       (response: bookingData) => {
         this.booking = response;
+        this.loading = false;
         this.booking.createdAt = this.formatDate(this.booking.createdAt);
         this.selectedServices = this.booking.selectedServices
         this.bookingStatus = this.booking.status
@@ -86,7 +88,7 @@ export class ViewBookingPage implements AfterViewInit {
     setTimeout(() => {
       const path = this.router.url.split("/").reverse()[0]
       const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
-      this.goTo(clickedTab, "", this.tab.element.nativeElement, false)
+      this.goTo(clickedTab, "", this.tab.element.nativeElement, [], false)
     }, 500);
   }
   goBack() {
@@ -98,7 +100,7 @@ export class ViewBookingPage implements AfterViewInit {
     }
   }
 
-  goTo(clicked: string, path, tab: any, redirect = true) {
+  goTo(clicked: string, path, tab: any, params = {}, redirect = true) {
     this.clickedTab = clicked;
 
     const width = tab.clientWidth;
@@ -114,7 +116,7 @@ export class ViewBookingPage implements AfterViewInit {
     }
 
     if (redirect) {
-      this.router.navigate(['/service-provider/view-booking/' + this.bookingId + '/' + path])
+      this.router.navigate(['/service-provider/view-booking/' + this.bookingId + '/' + path], params)
     }
   }
 
