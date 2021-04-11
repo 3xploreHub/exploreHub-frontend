@@ -37,6 +37,9 @@ export class ViewBookingPage {
         this.fromNotification = true;
       }
     });
+    const path = this.router.url.split("/").reverse()[0]
+      this.clickedTab =  path.includes("booking-information") ? "Booking Info": "Conversation"
+    
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
       this.bookingStatus = param.get("bookingStatus");
@@ -95,7 +98,10 @@ export class ViewBookingPage {
         }
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
-            this.router.navigate(["/service-provider/bookings", 'Pending'])
+            this.booking.status = "Cancelled"
+            this.bookingStatus = this.booking.status
+            this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "cancel-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} cancelled ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
+            this.router.navigate(["/service-provider/view-booking" , this.booking._id, this.bookingStatus], {queryParams: {resubmit: new Date()}})
           }
         )
       } else if ('resubmit') {
@@ -125,15 +131,18 @@ export class ViewBookingPage {
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {
-        this.mainService.canLeave = true;
-        this.router.navigate(['/service-provider/bookings', "Pending"])
+        this.booking.status = "Pending"
+        this.bookingStatus = this.booking.status
+        this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "resubmit-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} resubmit ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
+        this.router.navigate(["/service-provider/view-booking", this.booking._id, this.bookingStatus], {queryParams: {resubmit: new Date()}})
+        // this.mainService.canLeave = true;
+        // this.router.navigate(['/service-provider/bookings', "Pending"])
       }
     )
   }
 
   cancel() {
     setTimeout(() => {
-
       this.popupData = {
         title: "Are you sure you want to cancel this booking?",
         type: 'cancel',
@@ -145,7 +154,6 @@ export class ViewBookingPage {
 
   resubmitConf() {
     setTimeout(() => {
-
       this.popupData = {
         title: "Are you sure you want to resubmit this booking?",
         type: 'resubmit',
@@ -162,5 +170,50 @@ export class ViewBookingPage {
           edit: true
         }
       })
+  }
+
+  formatData(booking) {
+    booking["page"] = booking.pageId
+    booking['name'] = this.getName(booking);
+    booking = this.getPhotoAndServices(booking);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+    const date = new Date(booking.createdAt)
+    booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+    return booking;
+  }
+
+  getPhotoAndServices(booking) {
+    let selectedServices = []
+    let photo = null;
+
+    booking.selectedServices.forEach((comp: any) => {
+      if (comp.service) {
+        comp.service.data.forEach(element => {
+          if (element.type == "photo") {
+            photo = element.data && element.data.length > 0 ? element.data[0].url : ""
+          }
+        });
+      }
+    });
+
+    if (booking.selectedServices.length > 0) {
+      booking.selectedServices.forEach((comp: any) => {
+        if (typeof comp.service == 'object' && comp.service) {
+          comp.service.data.forEach(element => {
+            if (element.data.defaultName == "name") {
+              selectedServices.push(element.data.text);
+            }
+          })
+        }
+      })
+      booking.selectedServices = selectedServices
+    }
+    booking["photo"] = photo
+    return booking;
+  }
+
+  getName(booking) {
+    const tourist = booking.tourist
+    return tourist ? tourist.firstName + " " + tourist.lastName : "Unknown"
   }
 }

@@ -60,12 +60,12 @@ export class DashboardPage implements OnInit {
         this.router.navigate(["/service-provider/list-of-pages", "submitted"])
       }
       this.getNotifications()
+      this.mainService.notification.subscribe(
+        (data:any) => {
+          this.getNotifications()
+        }
+      )
     })
-    this.mainService.notification.subscribe(
-      (data:any) => {
-        this.getNotifications()
-      }
-    )
   }
 
   getNotifications() {

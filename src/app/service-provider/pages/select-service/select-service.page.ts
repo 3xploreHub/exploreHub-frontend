@@ -53,7 +53,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
             this.router.navigate(["/service-provider/online-pages-list"])
           }
         }
-      )
+      ) 
     })
   }
 

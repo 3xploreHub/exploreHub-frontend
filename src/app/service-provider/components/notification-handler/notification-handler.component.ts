@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Socket } from 'ngx-socket-io';
 import { AuthService } from 'src/app/services/auth-services/auth-service.service';
@@ -9,24 +9,26 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './notification-handler.component.html',
   styleUrls: ['./notification-handler.component.scss'],
 })
-export class NotificationHandlerComponent implements OnInit {
+export class NotificationHandlerComponent {
   public user: any;
+  public eventType: string;
+  @Output() receiveNotification: EventEmitter<any> = new EventEmitter();
   constructor(private socket: Socket,
     public authService: AuthService,
     public toastCtrl: ToastController,
     public mainService: MainServicesService,
   ) { }
 
-  ngOnInit() {
-    this.init();
-  }
 
-  init() {
+  init(eventType = "") {
+    this.eventType = eventType
     this.authService.getCurrentUser().then((user: any) => {
       this.user = user;
-
+      console.log(this.user)
       this.socket.connect();
-
+      this.mainService.socket = this.socket;
+      this.mainService.user = this.user
+      this.mainService.notify = this.notify
       this.socket.fromEvent('send-notification').subscribe((data: any) => {
         if (data.receiver == this.user._id) {
           if (data.user._id != this.user._id) {
@@ -38,8 +40,14 @@ export class NotificationHandlerComponent implements OnInit {
     })
   }
 
+  disconnect() {
+    this.socket.disconnect();
+  }
+
   notify(data) {
-    data["user"] = this.user;
+    const date = new Date()
+    const notifId = "notif"+ date.getHours() + date.getMinutes() + date.getMilliseconds();
+    data["notifId"] = notifId
     this.socket.emit('notify', data)
   }
 

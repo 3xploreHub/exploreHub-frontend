@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-services/auth-service.service';
@@ -13,8 +13,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './booking-review.page.html',
   styleUrls: ['./booking-review.page.scss', '../select-service/select-service.page.scss'],
 })
-export class BookingReviewPage implements OnInit, AfterViewInit {
-  @ViewChild(NotificationHandlerComponent) public notifHandler: NotificationHandlerComponent;
+export class BookingReviewPage implements OnInit {
   public pageType: string = "";
   public pageId: string = "";
   public editing: boolean = false
@@ -71,10 +70,6 @@ export class BookingReviewPage implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit() {
-    if (this.notifHandler) this.notifHandler.init();
-  }
-
   editBookingInfo() {
     this.mainService.canLeave = true;
     let params = { queryParams: {} }
@@ -109,6 +104,7 @@ export class BookingReviewPage implements OnInit, AfterViewInit {
     let valid = true;
     let selectedservices = []
     if (this.isManual) {
+      this.booking.status = "Booked"
       this.booking.selectedServices.forEach(data => {
         const service = data.service
         service.booked = service.booked ? service.booked : 0;
@@ -121,6 +117,8 @@ export class BookingReviewPage implements OnInit, AfterViewInit {
 
         selectedservices.push(updateData)
       })
+    } else {
+      this.booking.status = "Pending"
     }
     if (valid) {
       const notificationData = {
@@ -132,7 +130,7 @@ export class BookingReviewPage implements OnInit, AfterViewInit {
       }
       this.mainService.submitBooking(this.booking._id, notificationData, selectedservices, this.isManual).subscribe(
         (response: any) => {
-          this.notifHandler.notify({type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
+          this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
           this.mainService.canLeave = true;
           if (this.isManual) {
             this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
@@ -151,5 +149,52 @@ export class BookingReviewPage implements OnInit, AfterViewInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  formatData(booking) {
+    booking["page"] = booking.pageId
+    booking['name'] = this.getName(booking);
+    booking = this.getPhotoAndServices(booking);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+    const date = new Date(booking.createdAt)
+    booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+    return booking;
+  }
+
+  getPhotoAndServices(booking) {
+    let selectedServices = []
+    let photo = null;
+
+    booking.selectedServices.forEach((comp: any) => {
+      if (comp.service) {
+        comp.service.data.forEach(element => {
+          if (element.type == "photo") {
+            photo = element.data && element.data.length > 0 ? element.data[0].url : ""
+          }
+        });
+      }
+    });
+
+    if (booking.selectedServices.length > 0) {
+      booking.selectedServices.forEach((comp: any) => {
+        if (typeof comp.service == 'object' && comp.service) {
+          comp.service.data.forEach(element => {
+            if (element.data.defaultName == "name") {
+              selectedServices.push(element.data.text);
+            }
+          })
+        }
+      })
+      booking.selectedServices = selectedServices
+    }
+
+    booking["photo"] = photo
+    return booking;
+
+  }
+
+  getName(booking) {
+    const tourist = booking.tourist
+    return tourist ? tourist.firstName + " " + tourist.lastName : "Unknown"
   }
 }

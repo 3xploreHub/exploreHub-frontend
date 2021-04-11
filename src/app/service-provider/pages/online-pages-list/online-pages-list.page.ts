@@ -9,15 +9,11 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './online-pages-list.page.html',
   styleUrls: ['./online-pages-list.page.scss'],
 })
-export class OnlinePagesListPage implements OnInit, ViewWillEnter {
+export class OnlinePagesListPage implements OnInit {
   public pages: Page[];
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    
-  }
-
-  ionViewWillEnter() {
     this.mainService.getOnlinePages().subscribe(
       (response: Page[]) => {
         this.pages = response;

@@ -10,6 +10,7 @@ import { bookingData } from './interfaces/bookingData';
 })
 export class MainServicesService {
   private apiUrl = `${environment.apiUrl}/api/service-provider`;
+
   public notification: EventEmitter<any> = new EventEmitter();
   public currentPage: Page;
   public canLeave: boolean = true;
@@ -17,7 +18,9 @@ export class MainServicesService {
   public currentBooking:bookingData;
   public creatingManual: boolean = false;
   public hasUnfinishedBooking:boolean = false;
-
+  public socket: any;
+  public user: any;
+  public notify: any;
   constructor(
     private http: HttpClient
   ) { }
@@ -94,7 +97,7 @@ export class MainServicesService {
 
   getNotifications(hideLoading = false) {
     const config = hideLoading? { headers: { hideLoadingIndicator: "true" }}: {}
-    return this.http.get(`${this.apiUrl}/getNotifications`, config)
+    return this.http.get(`${this.apiUrl}/getNotifications`, config)      
   }
 
   viewNotification(notifId) {

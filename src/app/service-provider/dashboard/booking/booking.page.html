@@ -11,6 +11,7 @@
     </div>
     <p>There's nothing here.</p>
   </div>
+  <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
   <app-booking-card (view)="viewBooking($event)" [forDashboard]="true" *ngFor="let booking of bookings"
     [booking]="booking"></app-booking-card>
 

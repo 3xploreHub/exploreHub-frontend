@@ -32,6 +32,7 @@ export class NotificationCardComponent implements OnInit {
   viewNotification() {
     this.mainService.viewNotification(this.notif._id).subscribe(
       response => {
+        this.notif.opened = true
         const type = this.notif.type
         if (type == "booking") {
           this.router.navigate(["/service-provider/view-booking", this.notif.booking._id, "notification"],

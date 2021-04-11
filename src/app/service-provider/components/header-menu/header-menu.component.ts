@@ -14,7 +14,7 @@ export class HeaderMenuComponent implements OnInit {
   ngOnInit() {
     this.getNotificationCount()
     this.mainService.notification.subscribe(
-      (data:any) => {
+      (data: any) => {
         this.getNotificationCount()
       }
     )

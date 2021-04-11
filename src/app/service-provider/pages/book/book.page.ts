@@ -57,7 +57,6 @@ export class BookPage implements OnInit, ViewWillEnter {
           this.fromDraft = true;
         }
       }
-
     })
     this.route.paramMap.subscribe(params => {
       this.pageId = params.get('pageId');

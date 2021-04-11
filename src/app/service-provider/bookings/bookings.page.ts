@@ -30,10 +30,62 @@ export class BookingsPage implements OnInit {
           this.loading = false;
 
           this.bookings = response.reverse();
-          // this.bookings = this.bookings.filter(booking => !booking.isManual || booking.isManual == undefined)
+          this.bookings = this.bookings.map(booking => {
+            booking.page = booking.page[0]
+            if (booking.services.length > 0) {
+              booking.selectedServices = booking.selectedServices.map((service: any) => {
+                booking.services.forEach((serv: any) => {
+                  if (service.service == serv._id) {
+                    service.service = serv;
+                  }
+                })
+                return service;
+              })
+            }
+            booking['name'] = this.getName(booking);
+            booking = this.getPhotoAndServices(booking);
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+            const date = new Date(booking.createdAt)
+            booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+            return booking;
+          })
         }
       )
     })
+  }
+
+  getPhotoAndServices(booking) {
+    let selectedServices = []
+    if (booking.selectedServices.length > 0) {
+      booking.selectedServices.forEach((comp: any) => {
+        if (typeof comp.service == 'object' && comp.service) {
+          comp.service.data.forEach(element => {
+            if (element.data.defaultName == "name") {
+              selectedServices.push(element.data.text);
+            }
+          })
+        }
+      })
+      booking.selectedServices = selectedServices
+    }
+
+
+    booking.page.components.forEach(comp => {
+      if (comp.type == "photo") {
+        booking["photo"] = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
+      }
+    });
+    return booking
+  }
+
+  getName(booking) {
+    let text = "Untitled";
+    booking.page.components.forEach(comp => {
+      if (comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
+        text = comp.data && comp.data.text ? comp.data.text : "Untitled"
+      }
+    });
+    return text;
   }
 
 
@@ -43,11 +95,11 @@ export class BookingsPage implements OnInit {
         this.router.navigate(["/service-provider/view-booking", booking._id, this.status])
       } else {
         this.router.navigate(["/service-provider/booking-review", booking.page._id, booking.bookingType, booking._id],
-        {
-          queryParams: {
-            draft: true
-          }
-        })
+          {
+            queryParams: {
+              draft: true
+            }
+          })
       }
     }
   }
@@ -63,11 +115,11 @@ export class BookingsPage implements OnInit {
         this.deleteBookingConfirm()
       }
       else if (type == "edit") {
-        const booking = this.bookings.filter(item => item._id == this.bookingClicked)        
+        const booking = this.bookings.filter(item => item._id == this.bookingClicked)
         if (booking.length > 0) {
           this.viewBooking(booking[0])
         }
-      }else {
+      } else {
         this.bookingClicked = "";
       }
       this.showOption = false;
