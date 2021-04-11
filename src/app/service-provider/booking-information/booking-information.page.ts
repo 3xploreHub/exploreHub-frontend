@@ -30,7 +30,7 @@ export class BookingInformationPage implements OnInit {
    }
 
   ngOnInit() {
-      const bookingId = this.router.url.split("/").reverse()[2]
+      const bookingId = this.router.url.split("/").reverse()[1]
       this.mainService.viewBooking(bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;
@@ -74,15 +74,6 @@ export class BookingInformationPage implements OnInit {
     this.address = address.join(", ")
   }
 
-  getStatus(status) {
-    return {
-      'onlineBg': status == 'Booked',
-      'pendingBg': status == 'Pending',
-      'doneBg': status == "Closed",
-      'processingBg': status == "Processing",
-      'unfinishedBg': status == 'Unfinished',
-      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
-    }
-  }
+ 
 
 }

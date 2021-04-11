@@ -12,7 +12,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './select-service.page.html',
   styleUrls: ['./select-service.page.scss'],
 })
-export class SelectServicePage implements AfterViewInit, ViewWillEnter {
+export class SelectServicePage implements AfterViewInit {
   public booking: bookingData = {
     _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "", isManual: false, selectedServices: [], status: ""
   };
@@ -27,16 +27,21 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public fromReviewBooking: boolean = false;
   constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
-  ionViewWillEnter() {
+  // ionViewWillEnter() {
+  //   this.selected = [];
+  //   this.notSelected = []
+  //   this.mainService.canLeave = false;
+  //   this.checkParams()
+  //   this.mainService.hasUnfinishedBooking = true;
+  // }
+
+  ngAfterViewInit() {
     this.selected = [];
     this.notSelected = []
     this.mainService.canLeave = false;
     this.checkParams()
     this.mainService.hasUnfinishedBooking = true;
-  }
-
-  ngAfterViewInit() {
-   this.checkParams()
+    //  this.checkParams()
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
       this.mainService.currentBookingId = bookingId;
@@ -53,7 +58,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
             this.router.navigate(["/service-provider/online-pages-list"])
           }
         }
-      ) 
+      )
     })
   }
 
@@ -140,7 +145,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   bookNow() {
     setTimeout(() => {
       this.mainService.canLeave = true;
-      let params = {queryParams:{}}
+      let params = { queryParams: {} }
       if (this.isManual) params.queryParams["manual"] = true
       if (this.fromDraft) params.queryParams["draft"] = true
       if (this.editing) params.queryParams["edit"] = true
@@ -154,7 +159,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
 
   viewItem(data) {
     this.mainService.canLeave = true;
-    let params = {queryParams:{}}
+    let params = { queryParams: {} }
     if (this.fromDraft) params.queryParams["draft"] = true
     if (this.isManual) params.queryParams["manual"] = true
     if (this.editing) params.queryParams["edit"] = true

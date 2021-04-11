@@ -18,13 +18,16 @@ export class AllServicesComponent implements OnInit {
     this.categories = []
   }
 
-  ionViewWillEnter() {
+  // ionViewWillEnter() {
+  //   this.services = [];
+  //   this.servicesCategories = []
+  //   this.categories = []
+  // }
+
+  ngOnInit() {
     this.services = [];
     this.servicesCategories = []
     this.categories = []
-  }
-
-  ngOnInit() {
     this.services.forEach(service => {
       service.components.forEach(com => {
         if (com.data.defaultName && com.data.defaultName == "category") {

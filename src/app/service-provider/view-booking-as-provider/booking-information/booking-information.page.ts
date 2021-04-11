@@ -25,24 +25,24 @@ export class BookingInformationPage implements OnInit {
     createdAt: "",
     isManual: false,
   }
-  constructor(public route: ActivatedRoute,public router: Router, public mainService: MainServicesService) { }
+  constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     const url = this.router.url.split("/").reverse();
     const bookingId = url[2]
-      this.mainService.viewBooking(bookingId).subscribe(
-        (response: bookingData) => {
-          this.booking = response;
-          if (this.booking && this.booking.pageId) {
-            this.getPageInfo();
-            this.getAddress();
-          }
-          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-          const date = new Date(this.booking.createdAt)
-          this.booking["createdAt"] = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+    this.mainService.viewBooking(bookingId).subscribe(
+      (response: bookingData) => {
+        this.booking = response;
+        if (this.booking && this.booking.pageId) {
+          this.getPageInfo();
+          this.getAddress();
         }
-      )
-    
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+        const date = new Date(this.booking.createdAt)
+        this.booking["createdAt"] = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+      }
+    )
+
   }
   getPageInfo() {
     // this.booking.pageId.components.forEach(comp => {
@@ -60,7 +60,7 @@ export class BookingInformationPage implements OnInit {
     add.forEach(i => {
       this.booking.pageId.components.forEach(comp => {
         if (comp.data.defaultName && comp.data.defaultName == i) {
-          this.address +=  comp.data.text + (i != 'province' ? ", ": "")
+          this.address += comp.data.text + (i != 'province' ? ", " : "")
         }
       });
     })

@@ -129,7 +129,7 @@ export class ViewBookingAsProviderPage implements OnInit {
       })
       if (this.popupData.type == "cancel") {
         const notificationData: any = {
-          receiver: curBooking.tourist,
+          receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,
           selectedServices: selectedServices,
@@ -138,12 +138,14 @@ export class ViewBookingAsProviderPage implements OnInit {
         }
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
+            console.log("receiver: ", notificationData.receiver)
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
             this.goBack()
           }
         )
       } else if (this.popupData.type == "done") {
         const notificationData: any = {
-          receiver: curBooking.tourist,
+          receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,
           type: "booking",
@@ -152,6 +154,7 @@ export class ViewBookingAsProviderPage implements OnInit {
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
           (response: any) => {
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Closed_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
             this.goBack()
           }
         )
@@ -165,7 +168,6 @@ export class ViewBookingAsProviderPage implements OnInit {
 
   done() {
     setTimeout(() => {
-
       this.popupData = {
         type: 'done',
         title: "Are you sure this booking is closed?",
@@ -177,7 +179,6 @@ export class ViewBookingAsProviderPage implements OnInit {
 
   cancel() {
     setTimeout(() => {
-
       this.popupData = {
         type: 'cancel',
         title: "Are you sure you want to cancel this booking?",

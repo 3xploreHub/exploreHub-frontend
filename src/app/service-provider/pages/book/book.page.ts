@@ -17,7 +17,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './book.page.html',
   styleUrls: ['./book.page.scss', '../../../modules/page-creator/page-creator.component.scss'],
 })
-export class BookPage implements OnInit, ViewWillEnter {
+export class BookPage implements OnInit {
   public bookingInfo: ElementValues[] = [];
   public bookingId: String;
   public pageType: string;
@@ -44,6 +44,7 @@ export class BookPage implements OnInit, ViewWillEnter {
   ) { }
 
   ngOnInit() {
+    this.bookingInfo = [];
     this.mainService.canLeave = false;
     this.route.queryParams.subscribe(params => {
       if (params) {
@@ -89,9 +90,9 @@ export class BookPage implements OnInit, ViewWillEnter {
     }
   }
 
-  ionViewWillEnter() {
-    this.bookingInfo = [];
-  }
+  // ionViewWillEnter() {
+  //   this.bookingInfo = [];
+  // }
 
   setPage(page) {
     if (this.pageInputField) this.pageInputField.clear()

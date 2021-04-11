@@ -13,9 +13,9 @@ import { AuthService } from '../services/auth-services/auth-service.service';
   styleUrls: ['./service-provider.page.scss'],
 })
 
-export class ServiceProviderPage implements ViewWillEnter {
-  public active:string = ''
-  public defaultType:any = accountType;
+export class ServiceProviderPage implements OnInit {
+  public active: string = ''
+  public defaultType: any = accountType;
   public accountType: string = accountType.tourist;
   constructor(public loadingService: LoadingService,
     public router: Router,
@@ -24,8 +24,8 @@ export class ServiceProviderPage implements ViewWillEnter {
     public authServices: AuthService
   ) { }
 
-  ionViewWillEnter() {
-    this.authServices.getAccountType().then((type:string) => {
+  ngOnInit() {
+    this.authServices.getAccountType().then((type: string) => {
       this.accountType = type;
     })
   }

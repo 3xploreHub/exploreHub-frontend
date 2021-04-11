@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
@@ -13,7 +13,7 @@ import { popupData } from '../view-booking-as-provider/view-booking-as-provider.
     '../pages/select-service/select-service.page.scss',
     '../components/booking-card/booking-card.component.scss'],
 })
-export class ViewBookingPage {
+export class ViewBookingPage implements AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public bookingStatus: string = '';
@@ -22,12 +22,26 @@ export class ViewBookingPage {
   public popupData: popupData;
   public fromNotification: boolean = false;
   public booking: bookingData;
+  public selectedServices: any[];
   constructor(public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
     this.popupData = {
       title: "",
       otherInfo: "",
       type: '',
       show: false
+    }
+    this.booking = {
+      _id: "",
+      tourist: null,
+      pageId: null,
+      page: null,
+      services: [],
+      bookingInfo: [],
+      selectedServices: [],
+      bookingType: "",
+      status: "",
+      createdAt: "",
+      isManual: false,
     }
   }
 
@@ -37,32 +51,54 @@ export class ViewBookingPage {
         this.fromNotification = true;
       }
     });
-    const path = this.router.url.split("/").reverse()[0]
-      this.clickedTab =  path.includes("booking-information") ? "Booking Info": "Conversation"
-    
+
     this.route.paramMap.subscribe(param => {
       this.bookingId = param.get("bookingId");
-      this.bookingStatus = param.get("bookingStatus");
-      this.mainService.viewBooking(this.bookingId).subscribe(
-        (response: bookingData) => {
-          this.booking = response;
-          this.bookingStatus = this.booking.status
-        }
-      )
+      this.getBookingInfo();
     })
+
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        const type = data.type.split("-");
+        if (type[1] == "provider") {
+          const status = type[0].split("_")[0]
+          if (this.booking._id == data.bookingId) {
+            this.booking.status = status;
+            this.bookingStatus = this.booking.status;
+          }
+        }
+      }
+    )
   }
 
+  getBookingInfo() {
+    this.mainService.viewBooking(this.bookingId).subscribe(
+      (response: bookingData) => {
+        this.booking = response;
+        this.booking.createdAt = this.formatDate(this.booking.createdAt);
+        this.selectedServices = this.booking.selectedServices
+        this.bookingStatus = this.booking.status
+      }
+    )
+  }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const path = this.router.url.split("/").reverse()[0]
+      const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
+      this.goTo(clickedTab, "", this.tab.element.nativeElement, false)
+    }, 500);
+  }
   goBack() {
     if (this.fromNotification) {
       this.router.navigate(["/service-provider/notifications"])
     }
     else {
-      this.router.navigate(["/service-provider/bookings", this.bookingStatus])
+      this.router.navigate(["/service-provider/bookings", "Pending"])
     }
   }
 
-  goTo(clicked: string, path, tab: HTMLElement) {
+  goTo(clicked: string, path, tab: any, redirect = true) {
     this.clickedTab = clicked;
 
     const width = tab.clientWidth;
@@ -75,16 +111,20 @@ export class ViewBookingPage {
         break;
       default:
         break;
-
     }
-    this.router.navigate(['./service-provider/view-booking/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
+
+    if (redirect) {
+      console.log("here");
+
+      this.router.navigate(['/service-provider/view-booking/' + this.bookingId + '/' + path])
+    }
   }
 
   clicked(action) {
     if (action == "yes") {
       if (this.popupData.type == "cancel") {
         const curBooking = this.booking
-        const selectedServices = this.booking.selectedServices.map(item => {
+        const selectedServices = this.selectedServices.map(item => {
           let service = { _id: item.service._id }
           service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
           return service
@@ -101,7 +141,8 @@ export class ViewBookingPage {
             this.booking.status = "Cancelled"
             this.bookingStatus = this.booking.status
             this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "cancel-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} cancelled ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
-            this.router.navigate(["/service-provider/view-booking" , this.booking._id, this.bookingStatus], {queryParams: {resubmit: new Date()}})
+            this.getBookingInfo()
+            // this.router.navigate(["/service-provider/view-booking", this.booking._id, this.bookingStatus], { queryParams: { resubmit: new Date() } })
           }
         )
       } else if ('resubmit') {
@@ -118,7 +159,7 @@ export class ViewBookingPage {
     const curBooking = this.booking
     let selectedServices = []
     if (curBooking.isManual) {
-      selectedServices = this.booking.selectedServices.map(item => {
+      selectedServices = this.selectedServices.map(item => {
         return { _id: item.service._id, manuallyBooked: item.service.manuallyBooked + 1 }
       })
     }
@@ -131,10 +172,11 @@ export class ViewBookingPage {
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {
-        this.booking.status = "Pending"
+        this.booking.status = this.booking.isManual ? "Booked" : "Pending"
         this.bookingStatus = this.booking.status
         this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "resubmit-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} resubmit ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
-        this.router.navigate(["/service-provider/view-booking", this.booking._id, this.bookingStatus], {queryParams: {resubmit: new Date()}})
+        this.getBookingInfo()
+        // this.router.navigate(["/service-provider/view-booking", this.booking._id, this.bookingStatus], { queryParams: { resubmit: new Date() } })
         // this.mainService.canLeave = true;
         // this.router.navigate(['/service-provider/bookings', "Pending"])
       }
@@ -176,10 +218,13 @@ export class ViewBookingPage {
     booking["page"] = booking.pageId
     booking['name'] = this.getName(booking);
     booking = this.getPhotoAndServices(booking);
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-    const date = new Date(booking.createdAt)
-    booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
     return booking;
+  }
+
+  formatDate(createdAt) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+    const date = new Date(createdAt)
+    return `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
   }
 
   getPhotoAndServices(booking) {
@@ -215,5 +260,15 @@ export class ViewBookingPage {
   getName(booking) {
     const tourist = booking.tourist
     return tourist ? tourist.firstName + " " + tourist.lastName : "Unknown"
+  }
+  getStatus(status) {
+    return {
+      'onlineBg': status == 'Booked',
+      'pendingBg': status == 'Pending',
+      'doneBg': status == "Closed",
+      'processingBg': status == "Processing",
+      'unfinishedBg': status == 'Unfinished',
+      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
+    }
   }
 }

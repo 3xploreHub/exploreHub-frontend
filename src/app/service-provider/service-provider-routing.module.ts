@@ -85,7 +85,7 @@ const routes: Routes = [
         loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
       },
       {
-        path: 'view-booking/:bookingId/:bookingStatus',
+        path: 'view-booking/:bookingId',
         loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
       },
       {

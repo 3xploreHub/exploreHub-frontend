@@ -46,8 +46,20 @@
         </div>
       </div>
     </div>
+    <div class="dateAndStatus">
+      <div class="dateCreated">
+        {{booking.createdAt}}
+      </div>
+      <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
+        Status:
+        <b>
+          {{booking.status}}
+        </b>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
+ 
   <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">
   </app-confirm-popup>
 </ion-content>

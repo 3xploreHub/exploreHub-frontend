@@ -30,8 +30,6 @@ export class BookingPage implements OnInit {
       this.getBooking()
       this.mainService.notification.subscribe(
         (data: any) => {
-          console.log(data)
-          console.log("notiif Id : ", data.notifId)
           if (data.notifId != this.notifId) {
             this.notifId = data.notifId
 

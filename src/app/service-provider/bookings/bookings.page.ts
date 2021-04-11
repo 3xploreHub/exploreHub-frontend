@@ -52,6 +52,20 @@ export class BookingsPage implements OnInit {
         }
       )
     })
+    this.mainService.notification.subscribe(
+      (data:any) => {
+        const type = data.type.split("-");
+       if (type[1] == "provider") {
+         const status = type[0].split("_")[0]
+         this.bookings = this.bookings.map(booking => {
+           if (booking._id == data.bookingId) {
+             booking.status = status;
+           }
+           return booking;
+         })
+       }
+      }
+    )
   }
 
   getPhotoAndServices(booking) {
@@ -92,7 +106,7 @@ export class BookingsPage implements OnInit {
   viewBooking(booking) {
     if (booking.page) {
       if (this.status != "Unfinished") {
-        this.router.navigate(["/service-provider/view-booking", booking._id, this.status])
+        this.router.navigate(["/service-provider/view-booking", booking._id])
       } else {
         this.router.navigate(["/service-provider/booking-review", booking.page._id, booking.bookingType, booking._id],
           {
