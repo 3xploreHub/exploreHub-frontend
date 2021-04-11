@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
@@ -17,7 +17,8 @@ export interface popupData {
   styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss',
     "../view-booking/view-booking.page.scss"],
 })
-export class ViewBookingAsProviderPage implements OnInit {
+export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
+  @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public booking: bookingData;
   public bookingStatus: string = '';
@@ -34,6 +35,19 @@ export class ViewBookingAsProviderPage implements OnInit {
       otherInfo: "",
       type: '',
       show: false
+    }
+    this.booking = {
+      _id: "",
+      tourist:null,
+      pageId:null,
+      page:null,
+      services: [],
+      bookingInfo: [],
+      selectedServices: [],
+      bookingType: "",
+      status: "",
+      createdAt: "",
+      isManual: false
     }
   }
 
@@ -57,11 +71,37 @@ export class ViewBookingAsProviderPage implements OnInit {
       this.mainService.viewBooking(this.bookingId).subscribe(
         (response: bookingData) => {
           this.booking = response;
+          this.booking.createdAt = this.formatDate(this.booking.createdAt)
           this.bookingStatus = this.booking.status
         }
       )
     })
+
+    this.mainService.notification.subscribe(
+      (data: any) => {
+          if (data.type.split("-")[1] == "booking" && data.booking) {
+            if (this.booking._id == data.booking._id) {
+              this.booking.status = data.booking.status;
+              this.bookingStatus = this.booking.status
+            } 
+          }
+        
+
+      }
+    )
   }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const path = this.router.url.split("/").reverse()[0]
+      const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
+      if (this.tab) {
+
+        this.goTo(clickedTab, "", this.tab.element.nativeElement, false)
+      }
+    }, 500);
+  }
+
   goBack() {
     if (this.fromNotification) {
       this.router.navigate(["/service-provider/notifications"])
@@ -71,7 +111,7 @@ export class ViewBookingAsProviderPage implements OnInit {
     }
   }
 
-  goTo(clicked: string, path, tab: HTMLElement) {
+  goTo(clicked: string, path, tab: HTMLElement, redirect = true) {
     this.clickedTab = clicked;
 
     const width = tab.clientWidth;
@@ -84,9 +124,10 @@ export class ViewBookingAsProviderPage implements OnInit {
         break;
       default:
         break;
-
     }
-    this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
+    if (redirect) {
+      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
+    }
   }
 
   async presentAlertLoggingOut() {
@@ -122,20 +163,23 @@ export class ViewBookingAsProviderPage implements OnInit {
   clicked(action) {
     if (action == "yes") {
       const curBooking = this.booking
-      const selectedServices = this.booking.selectedServices.map(item => {
-        let service = { _id: item.service._id }
-        service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
-        return service
-      })
+      // const selectedServices = this.booking.selectedServices.map(item => {
+      //   let service = { _id: item.service._id }
+      //   service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
+      //   return service
+      // })
       if (this.popupData.type == "cancel") {
         const notificationData: any = {
           receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,
-          selectedServices: selectedServices,
+          isManual: curBooking.isManual,
+          updateBookingCount: true,
+          increment: false,
           type: "booking",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
         }
+
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
             console.log("receiver: ", notificationData.receiver)
@@ -148,8 +192,10 @@ export class ViewBookingAsProviderPage implements OnInit {
           receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,
+          isManual:curBooking.isManual,
+          updateBookingCount: true,
+          increment: false,
           type: "booking",
-          selectedServices: selectedServices,
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`,
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
@@ -186,5 +232,22 @@ export class ViewBookingAsProviderPage implements OnInit {
         show: true
       }
     }, 200);
+  }
+
+  formatDate(createdAt) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+    const date = new Date(createdAt)
+    return `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+  }
+
+  getStatus(status) {
+    return {
+      'onlineBg': status == 'Booked',
+      'pendingBg': status == 'Pending',
+      'doneBg': status == "Closed",
+      'processingBg': status == "Processing",
+      'unfinishedBg': status == 'Unfinished',
+      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
+    }
   }
 }

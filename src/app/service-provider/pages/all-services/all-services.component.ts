@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -8,7 +9,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './all-services.component.html',
   styleUrls: ['./all-services.component.scss'],
 })
-export class AllServicesComponent implements OnInit {
+export class AllServicesComponent implements OnInit, ViewWillEnter {
   @Input() services: Page[] = []
   public servicesCategories: any[] = [];
   public categories: any[] = [];
@@ -18,16 +19,13 @@ export class AllServicesComponent implements OnInit {
     this.categories = []
   }
 
-  // ionViewWillEnter() {
-  //   this.services = [];
-  //   this.servicesCategories = []
-  //   this.categories = []
-  // }
-
-  ngOnInit() {
+  ionViewWillEnter() {
     this.services = [];
     this.servicesCategories = []
     this.categories = []
+  }
+
+  ngOnInit() {
     this.services.forEach(service => {
       service.components.forEach(com => {
         if (com.data.defaultName && com.data.defaultName == "category") {

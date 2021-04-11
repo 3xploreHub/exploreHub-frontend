@@ -65,6 +65,7 @@ export class BookingReviewPage implements OnInit {
       this.mainService.getBooking(this.bookingId, "booking_review").subscribe(
         (response: any) => {
           this.booking = response.bookingData;
+          this.isManual = this.booking.isManual
         }
       )
     })
@@ -100,46 +101,56 @@ export class BookingReviewPage implements OnInit {
   }
 
 
-  submitBooking() {
+  async submitBooking() {
     let valid = true;
     let selectedservices = []
-    if (this.isManual) {
+    if (this.booking.isManual) {
       this.booking.status = "Booked"
-      this.booking.selectedServices.forEach(data => {
-        const service = data.service
-        service.booked = service.booked ? service.booked : 0;
-        service.manuallyBooked = service.manuallyBooked ? service.manuallyBooked : 0
-        if (service.booked + service.manuallyBooked + 1 > this.getValue(service.data, "quantity")) {
-          this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
-          valid = false
-        }
-        let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
+      this.mainService.getBooking(this.bookingId, "booking_review").subscribe((data: any) => {
+        this.booking.selectedServices = data.bookingData.selectedServices
+        this.booking.selectedServices.forEach(data => {
+          const service = data.service
+          service.booked = service.booked ? service.booked : 0;
+          service.manuallyBooked = service.manuallyBooked ? service.manuallyBooked : 0
+          if (service.booked + service.manuallyBooked + 1 > this.getValue(service.data, "quantity")) {
+            this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
+            valid = false
+          }
+          let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
 
-        selectedservices.push(updateData)
+          selectedservices.push(updateData)
+        })       
+        if (valid) this.sendRequest(selectedservices)
       })
+
+
     } else {
       this.booking.status = "Pending"
+      this.sendRequest()
     }
-    if (valid) {
-      const notificationData = {
-        receiver: this.booking.pageId.creator,
-        initiator: this.booking.tourist,
-        page: this.booking.pageId._id,
-        booking: this.booking._id,
-        type: "page-booking",
-      }
-      this.mainService.submitBooking(this.booking._id, notificationData, selectedservices, this.isManual).subscribe(
-        (response: any) => {
-          this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
-          this.mainService.canLeave = true;
-          if (this.isManual) {
-            this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
-          } else {
-            this.router.navigate(['/service-provider/bookings', "Pending"])
-          }
+
+  }
+
+  sendRequest(selectedServices = null) {
+    const notificationData = {
+      receiver: this.booking.pageId.creator,
+      initiator: this.booking.tourist,
+      page: this.booking.pageId._id,
+      booking: this.booking._id,
+      type: "page-booking",
+    }
+    this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
+      (response: any) => {
+        this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
+        this.mainService.canLeave = true;
+        if (this.isManual) {
+          this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
+        } else {
+          this.router.navigate(['/service-provider/bookings', "Pending"])
         }
-      )
-    }
+      }
+    )
+
   }
 
   async presentAlert(message) {

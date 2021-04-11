@@ -65,15 +65,4 @@ export class BookingInformationPage implements OnInit {
       });
     })
   }
-
-  getStatus(status) {
-    return {
-      'onlineBg': status == 'Booked',
-      'pendingBg': status == 'Pending',
-      'doneBg': status == "Closed",
-      'unfinishedBg': status == 'Unfinished',
-      'processingBg': status == 'Processing',
-      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
-    }
-  }
 }

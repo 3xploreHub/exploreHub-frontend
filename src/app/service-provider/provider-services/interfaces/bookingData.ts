@@ -3,7 +3,7 @@ export interface bookingData {
     tourist: any;
     pageId: any;
     page: any;
-    services: any[],
+    services: any[];
     bookingInfo: any[];
     selectedServices: any[];
     bookingType: string;

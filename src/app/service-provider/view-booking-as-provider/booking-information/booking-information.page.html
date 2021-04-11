@@ -1,15 +1,4 @@
 <div>
-  <div class="dateAndStatus">
-    <div class="dateCreated">
-      {{booking.createdAt}}
-    </div>
-    <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
-      Status:
-      <b>
-        {{booking.status}}
-      </b>
-    </div>
-  </div>
   <div class="page">
     <div *ngIf="booking.isManual; else notManual" class="manuallyBooked">
       Booked Manually

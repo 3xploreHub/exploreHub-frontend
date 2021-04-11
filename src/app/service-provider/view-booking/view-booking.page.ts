@@ -114,8 +114,6 @@ export class ViewBookingPage implements AfterViewInit {
     }
 
     if (redirect) {
-      console.log("here");
-
       this.router.navigate(['/service-provider/view-booking/' + this.bookingId + '/' + path])
     }
   }
@@ -124,16 +122,19 @@ export class ViewBookingPage implements AfterViewInit {
     if (action == "yes") {
       if (this.popupData.type == "cancel") {
         const curBooking = this.booking
-        const selectedServices = this.selectedServices.map(item => {
-          let service = { _id: item.service._id }
-          service['bookingCount'] = curBooking.isManual ? { manuallyBooked: item.service.manuallyBooked - 1 } : { booked: item.service.booked - 1 }
-          return service
-        })
+        let selectedServices = null;
+        let updateBookingCount = false;
+        if (curBooking.status == "Booked") {
+          updateBookingCount = true;
+        }
         const notificationData: any = {
           receiver: curBooking.pageId.creator,
           page: curBooking.pageId._id,
           selectedServices: selectedServices,
           booking: curBooking._id,
+          isManual: curBooking.isManual,
+          updateBookingCount: updateBookingCount,
+          increment: false,
           type: "page-booking"
         }
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(

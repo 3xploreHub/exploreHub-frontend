@@ -12,7 +12,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './select-service.page.html',
   styleUrls: ['./select-service.page.scss'],
 })
-export class SelectServicePage implements AfterViewInit {
+export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public booking: bookingData = {
     _id: "", tourist: "", page: [], createdAt: "", services: [], pageId: "", bookingInfo: [], bookingType: "", isManual: false, selectedServices: [], status: ""
   };
@@ -27,21 +27,21 @@ export class SelectServicePage implements AfterViewInit {
   public fromReviewBooking: boolean = false;
   constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
-  // ionViewWillEnter() {
-  //   this.selected = [];
-  //   this.notSelected = []
-  //   this.mainService.canLeave = false;
-  //   this.checkParams()
-  //   this.mainService.hasUnfinishedBooking = true;
-  // }
-
-  ngAfterViewInit() {
+  ionViewWillEnter() {
     this.selected = [];
     this.notSelected = []
     this.mainService.canLeave = false;
     this.checkParams()
     this.mainService.hasUnfinishedBooking = true;
-    //  this.checkParams()
+  }
+
+  ngAfterViewInit() {
+    // this.selected = [];
+    // this.notSelected = []
+    // this.mainService.canLeave = false;
+    // this.checkParams()
+    // this.mainService.hasUnfinishedBooking = true;
+     this.checkParams()
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
       this.mainService.currentBookingId = bookingId;
