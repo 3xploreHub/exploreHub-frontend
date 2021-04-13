@@ -64,6 +64,7 @@ export class AddAccountInfoPage implements OnInit {
       request.subscribe(
         (resp) => {
           this.form = this.setForm();
+          this.authService.checkUser()
           this.router.navigate([this.authService.hasAttemptedUrl()]);
         },
         (err) => {

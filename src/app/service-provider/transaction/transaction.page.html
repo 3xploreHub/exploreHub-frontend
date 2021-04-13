@@ -3,8 +3,9 @@
   <app-message-box [position]="'right'"></app-message-box>
   <app-message-box [position]="'left'"></app-message-box>
   <app-message-box [position]="'right'"></app-message-box>
-  <app-message-box [position]="'left'"></app-message-box>
   <app-message-box [position]="'left'"></app-message-box> -->
+<app-message-box *ngFor="let message of messages" [message]="message" [position]="message.sender == mainService.user._id? 'right':'left'"></app-message-box>
+
   <div class="inputMessageHolder">
     <ion-textarea auto-grow="true" rows="1"  [(ngModel)]="message" placeholder="Enter other message here" class="inputMessage" type="text">
     </ion-textarea>

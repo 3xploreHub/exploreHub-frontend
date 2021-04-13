@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="container mainLightBg2 pageContent">
+  <div [class.noHeader]="booking.isManual" class="container mainLightBg2 pageContent">
 
     <div class="headerHolder boxShadowed2">
       <div class="header topHead">
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="header">
+      <div class="header" *ngIf="!booking.isManual">
         <div class="bookingCont">
           <ion-icon name="information-circle-outline"></ion-icon>Booking Info
         </div>

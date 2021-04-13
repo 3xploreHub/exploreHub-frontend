@@ -30,6 +30,7 @@ export class TransactionPage implements OnInit {
   public bookingId: string;
   public pageId: string;
   public conversation: conversation;
+  public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
 
   ngOnInit() {
@@ -37,9 +38,12 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-      this.mainService.getConversation(this.bookingId, this.pageId).subscribe(
-          (response: conversation) => {
-            this.conversation = response
+        this.mainService.getConversation(this.bookingId, this.pageId).subscribe(
+          (response: any) => {
+            if(!response.noConversation) {
+              this.conversation = response
+              this.messages = this.conversation.messages
+            } 
           }
         )
       }
@@ -51,14 +55,20 @@ export class TransactionPage implements OnInit {
       const data = { booking: this.bookingId, page: this.pageId, message: this.message }
       this.mainService.createConversation(data).subscribe(
         (response: any) => {
-          this.message = ""
+          if(!response.noConversation) {
+            this.conversation = response
+            this.messages = this.conversation.messages
+          } 
         }
       )
     } else {
-      const data = { convoId: this.conversation._id, message: this.message }
-
+      const data = { conversationId: this.conversation._id, message: this.message }
+      this.mainService.sendMessage(data).subscribe(
+        (response: message) => {
+          this.conversation.messages.push(response);
+        }
+      )
     }
-
   }
 
 }

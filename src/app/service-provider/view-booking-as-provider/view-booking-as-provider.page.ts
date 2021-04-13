@@ -113,7 +113,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
     }
   }
 
-  goTo(clicked: string, path, tab: HTMLElement, redirect = true) {
+  goTo(clicked: string, path, tab: HTMLElement,params = {}, redirect = true) {
     this.clickedTab = clicked;
 
     const width = tab.clientWidth;
@@ -128,7 +128,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
         break;
     }
     if (redirect) {
-      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + '/' + this.bookingStatus + '/' + path])
+      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + "/"+ this.bookingStatus +'/' + path], params)
     }
   }
 

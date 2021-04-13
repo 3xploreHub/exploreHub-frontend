@@ -1,4 +1,4 @@
-<div [class.right]="position == 'right'" class="messageBox">
+<div *ngIf="message.message" [class.right]="position == 'right'" class="messageBox">
   <div class="boxHeader">
     <div class="profilePhoto">
       <div class="pPhoto">
@@ -7,14 +7,14 @@
     </div>
 
     <div class="userInfo">
-      <div class="userName">Jonathan Rivas</div>
-      <div class="date">September 23, 3000</div>
+      <div class="userName">{{message.senderFullName}}</div>
+      <div class="date">{{message.createdAt}}</div>
     </div>
   </div>
   <div class="messageHolder">
 
     <div class="messageContent">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam ratione eaque ut architecto possimus incidunt magnam amet maiores sit distinctio! Atque ullam enim neque earum, sed corporis ipsa exercitationem quasi.
+      {{message.message}}
     </div>
   </div>
 

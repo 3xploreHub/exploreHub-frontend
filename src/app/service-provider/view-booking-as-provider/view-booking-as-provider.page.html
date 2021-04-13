@@ -47,7 +47,7 @@
               </div>
             </div>
           </div>
-          <div class="box" (click)="goTo('Conversation','conversation', tab)"></div>
+          <div class="box" (click)="goTo('Conversation','conversation', tab, {queryParams: {bookingId: booking._id, pageId: booking.pageId._id}})"></div>
         </div>
       </div>
     </div>

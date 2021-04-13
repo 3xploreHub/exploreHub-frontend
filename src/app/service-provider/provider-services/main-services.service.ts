@@ -15,11 +15,12 @@ export class MainServicesService {
   public currentPage: Page;
   public canLeave: boolean = true;
   public currentBookingId: string = "";
-  public currentBooking:bookingData;
+  public currentBooking: bookingData;
   public creatingManual: boolean = false;
-  public hasUnfinishedBooking:boolean = false;
+  public hasUnfinishedBooking: boolean = false;
   public socket: any;
   public user: any;
+  public checkCurrentUser: EventEmitter<any> = new EventEmitter();
   public notify: any;
   constructor(
     private http: HttpClient
@@ -31,6 +32,10 @@ export class MainServicesService {
 
   receiveNotification(data) {
     this.notification.emit(data);
+  }
+  
+  checkUser() {
+    this.checkCurrentUser.emit();
   }
 
   getPage(pageId: string, pageType: string) {
@@ -45,7 +50,7 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getOnlinePages`);
   }
 
-  viewPage(page: any):Observable<any> {
+  viewPage(page: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/viewPage/${page.pageId}/${page.pageType}`)
   }
 
@@ -74,8 +79,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getPageBookingInfo/${data.pageId}/${data.pageType}/${data.bookingId}`)
   }
 
-  submitBooking(bookingId, notificationData= null, selectedServices= null, isManual = false) {
-    const data = isManual ? {isManual: true, selectedServices:selectedServices}: notificationData
+  submitBooking(bookingId, notificationData = null, selectedServices = null, isManual = false) {
+    const data = isManual ? { isManual: true, selectedServices: selectedServices } : notificationData
     return this.http.post(`${this.apiUrl}/submitBooking/${bookingId}`, data)
   }
 
@@ -96,8 +101,8 @@ export class MainServicesService {
   }
 
   getNotifications(hideLoading = false) {
-    const config = hideLoading? { headers: { hideLoadingIndicator: "true" }}: {}
-    return this.http.get(`${this.apiUrl}/getNotifications`, config)      
+    const config = hideLoading ? { headers: { hideLoadingIndicator: "true" } } : {}
+    return this.http.get(`${this.apiUrl}/getNotifications`, config)
   }
 
   viewNotification(notifId) {
@@ -122,5 +127,9 @@ export class MainServicesService {
 
   getConversation(bookingId, pageId) {
     return this.http.get(`${this.apiUrl}/getConversation/${bookingId}/${pageId}`)
+  }
+
+  sendMessage(data: any) {
+    return this.http.post(`${this.apiUrl}/sendMessage`, data, { headers: { hideLoadingIndicator: "" } })
   }
 }

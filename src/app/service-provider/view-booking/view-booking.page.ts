@@ -88,7 +88,9 @@ export class ViewBookingPage implements AfterViewInit {
     setTimeout(() => {
       const path = this.router.url.split("/").reverse()[0]
       const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
-      this.goTo(clickedTab, "", this.tab.element.nativeElement, [], false)
+      if (this.tab) {
+        this.goTo(clickedTab, "", this.tab.element.nativeElement, {}, false)
+      }
     }, 500);
   }
   goBack() {

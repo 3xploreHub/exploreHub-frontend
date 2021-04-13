@@ -28,6 +28,7 @@ export class ServiceProviderPage implements OnInit {
     this.authServices.getAccountType().then((type: string) => {
       this.accountType = type;
     })
+    this.authServices.checkUser()
   }
 
 

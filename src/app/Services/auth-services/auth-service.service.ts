@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, from } from "rxjs";
@@ -16,6 +16,7 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/api/account`;
   attemptedUrl: string;
   token = null;
+  public checkCurrentUser: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private http: HttpClient,
@@ -25,6 +26,10 @@ export class AuthService {
     this.get("currentUser").then((user) => {
       this.token = user;
     });
+  }
+
+  checkUser() {
+    this.checkCurrentUser.emit();
   }
 
   initialRegistration(data: user): Observable<any> {
