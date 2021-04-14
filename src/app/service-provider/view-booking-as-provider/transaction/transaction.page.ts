@@ -21,7 +21,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.mainService.getConversation(this.bookingId, this.pageId, receiver.admin).subscribe(
+        this.mainService.getConversation(this.bookingId, this.pageId, receiver.owner).subscribe(
           (response: any) => {
             if (!response.noConversation) {
               this.conversation = response
@@ -36,7 +36,7 @@ export class TransactionPage implements OnInit {
 
   send() {
     if (!this.conversation) {
-      const data = { booking: this.bookingId, page: this.pageId, message: this.message, receiver: receiver.admin}
+      const data = { booking: this.bookingId, page: this.pageId, message: this.message, receiver: receiver.owner}
       this.mainService.createConversation(data).subscribe(
         (response: any) => {
           if (!response.noConversation) {
