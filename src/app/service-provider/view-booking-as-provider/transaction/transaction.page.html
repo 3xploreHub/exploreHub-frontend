@@ -5,7 +5,9 @@
   <div class="inputMessageHolder">
     <ion-textarea auto-grow="true" [(ngModel)]="message" rows="1" placeholder="Enter other message here" class="inputMessage" type="text">
     </ion-textarea>
-    <div class="send boxShadowed2" (click)="send()">
+    <div class="send boxShadowed2 ion-activatable ripple-parent" (click)="send()">
+
+      <ion-ripple-effect></ion-ripple-effect>
       <ion-icon name="send-outline"></ion-icon>
     </div>
   </div>

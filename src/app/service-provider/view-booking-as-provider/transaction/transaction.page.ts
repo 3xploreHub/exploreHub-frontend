@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MainServicesService } from '../../provider-services/main-services.service';
-import { conversation, receiver } from '../../transaction/transaction.page';
+import { conversation } from '../../transaction/transaction.page';
 
 @Component({
   selector: 'app-transaction',
@@ -21,7 +21,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.mainService.getConversation(this.bookingId, this.pageId, receiver.owner).subscribe(
+        this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(
           (response: any) => {
             if (!response.noConversation) {
               this.conversation = response
@@ -35,35 +35,37 @@ export class TransactionPage implements OnInit {
   }
 
   send() {
-    if (!this.conversation) {
-      const data = { booking: this.bookingId, page: this.pageId, message: this.message, receiver: receiver.owner}
-      this.mainService.createConversation(data).subscribe(
-        (response: any) => {
-          if (!response.noConversation) {
+    if (this.message) {
+      if (!this.conversation) {
+        const data = { booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
+        this.mainService.createConversation(data).subscribe(
+          (response: any) => {
+            if (!response.noConversation) {
+              this.conversation = response
+              this.messages = this.conversation.messages
+              this.formatData();
+            }
+          }
+        )
+      } else {
+        const data = { conversationId: this.conversation._id, message: this.message }
+        const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
+        this.messages.push(message)
+        this.mainService.sendMessage(data).subscribe(
+          (response: conversation) => {
             this.conversation = response
             this.messages = this.conversation.messages
-            this.message = ""
+            this.formatData()
           }
-        }
-      )
-    } else {
-      const data = { conversationId: this.conversation._id, message: this.message}
-      const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
-      this.messages.push(message)
-      this.mainService.sendMessage(data).subscribe(
-        (response: conversation) => {
-          this.conversation = response
-          this.messages = this.conversation.messages
-          this.formatData()
-        }
-      )
+        )
+      }
+      this.message = ""
     }
-    this.message = ""
   }
 
   formatData() {
     for (let i = 0; i < this.messages.length; ++i) {
-      if (i != 0  && this.messages[i - 1].sender == this.messages[i].sender) {
+      if (i != 0 && this.messages[i - 1].sender == this.messages[i].sender) {
         this.messages[i]["noSender"] = true
       }
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];

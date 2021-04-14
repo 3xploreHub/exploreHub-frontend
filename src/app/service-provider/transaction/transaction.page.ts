@@ -35,8 +35,8 @@ export class TransactionPage implements OnInit {
   public message: string;
   public bookingId: string;
   public pageId: string;
-  public receiver = receiver;
-  public conReceiver: string = receiver.owner
+  public receiver = { owner: "", admin: "606eefbcfcfdc21c7c793bb0" }
+  public conReceiver: string;
   public conversation: conversation;
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
@@ -46,6 +46,8 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
+        this.receiver = { owner: params.receiverId, admin: '606eefbcfcfdc21c7c793bb0' }
+        this.conReceiver = this.receiver.owner
         this.fetchConversation()
       }
     })
@@ -68,40 +70,44 @@ export class TransactionPage implements OnInit {
 
 
   getConversation() {
-    this.conReceiver = this.conReceiver == this.receiver.owner? this.receiver.admin:this.receiver.owner
+    this.conReceiver = this.conReceiver == this.receiver.owner ? this.receiver.admin : this.receiver.owner
     this.fetchConversation();
   }
 
   send() {
-    if (!this.conversation) {
-      const data = { booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }
-      this.mainService.createConversation(data).subscribe(
-        (response: any) => {
-          if (!response.noConversation) {
+    if (this.message) {
+      if (!this.conversation) {
+        const data = { booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }
+        this.mainService.createConversation(data).subscribe(
+          (response: any) => {
+            if (!response.noConversation) {
+              this.conversation = response
+              this.messages = this.conversation.messages
+              this.formatData();
+              // this.mainService.notify({ user: this.mainService.user, conversation:this.conversation, type: "message-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} cancelled ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
+            }
+          }
+        )
+      } else {
+        const data = { conversationId: this.conversation._id, message: this.message }
+        const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
+        this.messages.push(message)
+        this.mainService.sendMessage(data).subscribe(
+          (response: conversation) => {
             this.conversation = response
             this.messages = this.conversation.messages
-            this.formatData();
+            this.formatData()
           }
-        }
-      )
-    } else {
-      const data = { conversationId: this.conversation._id, message: this.message }
-      const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
-      this.messages.push(message)
-      this.mainService.sendMessage(data).subscribe(
-        (response: conversation) => {
-          this.conversation = response
-          this.messages = this.conversation.messages
-          this.formatData()
-        }
-      )
-    }
-    this.message = ""
-  }
+        )
+      }
 
+      this.message = ""
+    }
+
+  }
   formatData() {
     for (let i = 0; i < this.messages.length; ++i) {
-      if (i != 0  && this.messages[i - 1].sender == this.messages[i].sender) {
+      if (i != 0 && this.messages[i - 1].sender == this.messages[i].sender) {
         this.messages[i]["noSender"] = true
       }
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
