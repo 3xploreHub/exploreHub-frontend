@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MainServicesService } from '../../provider-services/main-services.service';
-import { conversation } from '../../transaction/transaction.page';
+import { conversation, receiver } from '../../transaction/transaction.page';
 
 @Component({
   selector: 'app-transaction',
@@ -21,7 +21,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.mainService.getConversation(this.bookingId, this.pageId).subscribe(
+        this.mainService.getConversation(this.bookingId, this.pageId, receiver.admin).subscribe(
           (response: any) => {
             if (!response.noConversation) {
               this.conversation = response
@@ -36,7 +36,7 @@ export class TransactionPage implements OnInit {
 
   send() {
     if (!this.conversation) {
-      const data = { booking: this.bookingId, page: this.pageId, message: this.message }
+      const data = { booking: this.bookingId, page: this.pageId, message: this.message, receiver: receiver.admin}
       this.mainService.createConversation(data).subscribe(
         (response: any) => {
           if (!response.noConversation) {
@@ -47,7 +47,7 @@ export class TransactionPage implements OnInit {
         }
       )
     } else {
-      const data = { conversationId: this.conversation._id, message: this.message }
+      const data = { conversationId: this.conversation._id, message: this.message}
       const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
       this.messages.push(message)
       this.mainService.sendMessage(data).subscribe(

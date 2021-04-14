@@ -21,6 +21,11 @@ export interface conversation {
   opened: boolean;
 }
 
+export enum receiver {
+  owner = "owner",
+  admin = "admin"
+}
+
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.page.html',
@@ -30,6 +35,8 @@ export class TransactionPage implements OnInit {
   public message: string;
   public bookingId: string;
   public pageId: string;
+  public receiver = receiver;
+  public conReceiver: string = receiver.owner
   public conversation: conversation;
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
@@ -39,28 +46,41 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.mainService.getConversation(this.bookingId, this.pageId).subscribe(
-          (response: any) => {
-            if (!response.noConversation) {
-              this.conversation = response
-              this.messages = this.conversation.messages
-              this.formatData()
-            }
-          }
-        )
+        this.fetchConversation()
       }
     })
   }
 
+  fetchConversation() {
+    this.mainService.getConversation(this.bookingId, this.pageId, this.conReceiver).subscribe(
+      (response: any) => {
+        if (!response.noConversation) {
+          this.conversation = response
+          this.messages = this.conversation.messages
+          this.formatData()
+        } else {
+          this.conversation = null
+          this.messages = []
+        }
+      }
+    )
+  }
+
+
+  getConversation() {
+    this.conReceiver = this.conReceiver == this.receiver.owner? this.receiver.admin:this.receiver.owner
+    this.fetchConversation();
+  }
+
   send() {
     if (!this.conversation) {
-      const data = { booking: this.bookingId, page: this.pageId, message: this.message }
+      const data = { booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }
       this.mainService.createConversation(data).subscribe(
         (response: any) => {
           if (!response.noConversation) {
             this.conversation = response
             this.messages = this.conversation.messages
-            this.message = ""
+            this.formatData();
           }
         }
       )

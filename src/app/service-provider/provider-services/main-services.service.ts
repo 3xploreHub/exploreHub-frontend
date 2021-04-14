@@ -125,8 +125,8 @@ export class MainServicesService {
     return this.http.post(`${this.apiUrl}/createConversation`, data, { headers: { hideLoadingIndicator: "true" } })
   }
 
-  getConversation(bookingId, pageId) {
-    return this.http.get(`${this.apiUrl}/getConversation/${bookingId}/${pageId}`)
+  getConversation(bookingId, pageId, receiver) {  
+    return this.http.get(`${this.apiUrl}/getConversation/${bookingId}/${pageId}/${receiver}`)
   }
 
   sendMessage(data: any) {
