@@ -9,6 +9,7 @@ export interface message {
   message: string;
   createdAt: string;
   updatedAt: string;
+  noSender: boolean
 }
 export interface conversation {
   _id: string;
@@ -40,10 +41,11 @@ export class TransactionPage implements OnInit {
         this.pageId = params.pageId
         this.mainService.getConversation(this.bookingId, this.pageId).subscribe(
           (response: any) => {
-            if(!response.noConversation) {
+            if (!response.noConversation) {
               this.conversation = response
               this.messages = this.conversation.messages
-            } 
+              this.formatData()
+            }
           }
         )
       }
@@ -55,19 +57,36 @@ export class TransactionPage implements OnInit {
       const data = { booking: this.bookingId, page: this.pageId, message: this.message }
       this.mainService.createConversation(data).subscribe(
         (response: any) => {
-          if(!response.noConversation) {
+          if (!response.noConversation) {
             this.conversation = response
             this.messages = this.conversation.messages
-          } 
+            this.message = ""
+          }
         }
       )
     } else {
       const data = { conversationId: this.conversation._id, message: this.message }
+      const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
+      this.messages.push(message)
       this.mainService.sendMessage(data).subscribe(
-        (response: message) => {
-          this.conversation.messages.push(response);
+        (response: conversation) => {
+          this.conversation = response
+          this.messages = this.conversation.messages
+          this.formatData()
         }
       )
+    }
+    this.message = ""
+  }
+
+  formatData() {
+    for (let i = 0; i < this.messages.length; ++i) {
+      if (i != 0  && this.messages[i - 1].sender == this.messages[i].sender) {
+        this.messages[i]["noSender"] = true
+      }
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+      const date = new Date(this.messages[i].createdAt)
+      this.messages[i].createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 
