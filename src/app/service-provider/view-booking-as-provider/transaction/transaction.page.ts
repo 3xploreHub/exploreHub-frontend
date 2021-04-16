@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MainServicesService } from '../../provider-services/main-services.service';
 import { conversation } from '../../transaction/transaction.page';
@@ -9,6 +9,8 @@ import { conversation } from '../../transaction/transaction.page';
   styleUrls: ['./transaction.page.scss'],
 })
 export class TransactionPage implements OnInit {
+  @ViewChild('messagesCont') private messagesContainer: ElementRef;
+  public screenHeight: number;
   public message: string;
   public bookingId: string;
   public pageId: string;
@@ -18,6 +20,7 @@ export class TransactionPage implements OnInit {
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
 
   ngOnInit() {
+    this.screenHeight = window.innerHeight - 190
     this.route.queryParams.subscribe(params => {
       if (params) {
         this.bookingId = params.bookingId
@@ -30,6 +33,9 @@ export class TransactionPage implements OnInit {
               this.messages = this.conversation.messages
               this.formatData()
             }
+            setTimeout(() => {
+              this.scrollToBottom()
+            }, 400)
           }
         )
       }
@@ -46,9 +52,18 @@ export class TransactionPage implements OnInit {
             const message = this.messages.filter(m => m._id == data.newMessage._id)
             if (message.length == 0) this.messages.push(data.newMessage);
           }
+          setTimeout(() => {
+            this.scrollToBottom()
+          }, 400)
         }
       }
     )
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight + 600;
+    } catch (err) { }
   }
 
   send() {
@@ -61,6 +76,7 @@ export class TransactionPage implements OnInit {
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
+              this.scrollToBottom()
               this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: this.tourist, message: `You have new message` })
             }
           }
@@ -69,11 +85,15 @@ export class TransactionPage implements OnInit {
         const data = { conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
+        setTimeout(() => {
+          this.scrollToBottom()
+        }, 200)
         this.mainService.sendMessage(data).subscribe(
           (response: conversation) => {
             this.conversation = response
             this.messages = this.conversation.messages
             this.formatData()
+            this.scrollToBottom()
             this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: this.tourist, message: `You have new message` })
           }
         )

@@ -1,4 +1,4 @@
-<div class="pageContainer">
+<div #messagesCont [ngStyle]="{'height.px': screenHeight}" class="pageContainer">
   <div *ngIf="messages.length != 0">
     <app-message-box *ngFor="let message of messages" [message]="message" [position]="message.sender == mainService.user._id? 'right':'left'"></app-message-box><app-message-box [position]="'left'"></app-message-box>
   </div>

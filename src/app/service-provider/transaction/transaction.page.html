@@ -1,19 +1,30 @@
-<div class="pageContainer withTwoUser">
+<div #messagesCont [ngStyle]="{'height.px': screenHeight}" class="pageContainer withTwoUser">
   <div class="convos boxShadowed2">
-    <div class="currentConvo">
+    <div [class.otherConvo]="conReceiver != receiver.owner" class="currentConvo" (click)="getConversation(receiver.owner)">
       <div class="ccPicture">
         <ion-icon name="person-outline"></ion-icon>
       </div>
       <div class="ccText">
         <div class="current">
-          {{conReceiver == receiver.admin? "Admin": "Owner"}}
+          Owner
         </div>
-        <div class="text">Current conversation</div>
+        <div *ngIf="conReceiver == receiver.owner" class="text">Current conversation</div>
       </div>
     </div>
-    <div class="otherConvo" (click)="getConversation()">
-      <ion-icon name="person-outline"></ion-icon> {{conReceiver == receiver.owner? "Admin": "Owner"}}
+    <div [class.otherConvo]="conReceiver != receiver.admin" class="currentConvo" (click)="getConversation(receiver.admin)">
+      <div class="ccPicture">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+      <div class="ccText">
+        <div class="current">
+          Admin
+        </div>
+        <div *ngIf="conReceiver == receiver.admin" class="text">Current conversation</div>
+      </div>
     </div>
+    <!-- <div class="otherConvo" (click)="getConversation()">
+      <ion-icon name="person-outline"></ion-icon> {{conReceiver == receiver.owner? "Admin": "Owner"}}
+    </div> -->
   </div>
   <div class="currentConvoTitle">
     {{conReceiver == receiver.admin? "Admin": "Owner"}}

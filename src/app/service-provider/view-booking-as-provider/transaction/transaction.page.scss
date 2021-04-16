@@ -33,7 +33,12 @@
 
 }
 
+
 .pageContainer {
-    padding-bottom: 57px;
+    box-sizing: none;
     padding-top: 20px;
+    // padding-bottom: 10px;
+    padding-bottom: 0 !important;
+    // height: 400px;
+    overflow: scroll;
 }
