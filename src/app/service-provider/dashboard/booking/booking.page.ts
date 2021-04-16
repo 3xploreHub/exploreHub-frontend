@@ -32,7 +32,6 @@ export class BookingPage implements OnInit {
         (data: any) => {
           if (data.notifId != this.notifId) {
             this.notifId = data.notifId
-
             if (data.type.split("-")[1] == "booking" && data.booking) {
               if (this.bookingStatus != data.booking.status) {
                 this.bookings = this.bookings.filter(booking => booking._id != data.booking._id)
@@ -61,18 +60,19 @@ export class BookingPage implements OnInit {
   }
 
   viewBooking(booking) {
-    const params = booking.isManual ? { queryParams: { isManual: true } } : {}
-    this.router.navigate(["./service-provider/view-booking-as-provider", this.pageId, this.pageType, booking._id, this.bookingStatus], params)
+    let params = { queryParams: { pageId: this.pageId, pageType: this.pageType, bookingStatus: this.bookingStatus } }
+    if (booking.isManual) params.queryParams['isManual'] = true
+    this.router.navigate(["/service-provider/view-booking-as-provider/" + this.pageId + "/" + this.pageType + "/" + booking._id + "/booking-information"], params)
   }
 
   formatData(booking) {
-      booking["page"] = booking.pageId
-      booking['name'] = this.getName(booking);
-      booking = this.getPhotoAndServices(booking);
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-      const date = new Date(booking.createdAt)
-      booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
-      return booking;
+    booking["page"] = booking.pageId
+    booking['name'] = this.getName(booking);
+    booking = this.getPhotoAndServices(booking);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
+    const date = new Date(booking.createdAt)
+    booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+    return booking;
   }
 
   getPhotoAndServices(booking) {

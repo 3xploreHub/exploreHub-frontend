@@ -46,7 +46,7 @@ export class ServiceProviderPage implements OnInit {
       } else {
         this.router.navigate([`/service-provider/${page}`]);
       }
-    }, 200);
+    }, 300);
   }
 
   clickContent(e) {

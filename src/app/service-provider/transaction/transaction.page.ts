@@ -51,6 +51,22 @@ export class TransactionPage implements OnInit {
         this.fetchConversation()
       }
     })
+
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        if (data.type == "message-booking" && this.bookingId == data.bookingId && this.conReceiver == data.user._id) {
+          if (data.conversation) {
+            this.conversation = data.conversation
+            this.messages = this.conversation.messages
+          this.formatData()
+          } else {
+            const message = this.messages.filter(m => m._id == data.newMessage._id)
+            if (message.length == 0) this.messages.push(data.newMessage);
+          }
+        }
+      }
+    )
+
   }
 
   fetchConversation() {
@@ -84,7 +100,7 @@ export class TransactionPage implements OnInit {
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
-              // this.mainService.notify({ user: this.mainService.user, conversation:this.conversation, type: "message-booking", receiver: this.booking.pageId.creator, message: `${this.mainService.user.fullName} cancelled ${this.mainService.user.gender == 'Male' ? `his` : `her`} booking` })
+              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: this.conReceiver, message: `${this.mainService.user.fullName} sent you a message` })
             }
           }
         )
@@ -97,6 +113,7 @@ export class TransactionPage implements OnInit {
             this.conversation = response
             this.messages = this.conversation.messages
             this.formatData()
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: this.conReceiver, message: `${this.mainService.user.fullName} sent you a message` })
           }
         )
       }
@@ -112,7 +129,7 @@ export class TransactionPage implements OnInit {
       }
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
       const date = new Date(this.messages[i].createdAt)
-      this.messages[i].createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+      this.messages[i].createdAt = `${months[date.getMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}, ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 

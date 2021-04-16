@@ -99,7 +99,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
       const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
       if (this.tab) {
 
-        this.goTo(clickedTab, "", this.tab.element.nativeElement, false)
+        this.goTo(clickedTab, "", this.tab.element.nativeElement,{}, false)
       }
     }, 500);
   }

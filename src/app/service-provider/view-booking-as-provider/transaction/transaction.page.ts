@@ -12,6 +12,7 @@ export class TransactionPage implements OnInit {
   public message: string;
   public bookingId: string;
   public pageId: string;
+  public tourist: string;
   public conversation: conversation;
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
@@ -21,6 +22,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
+        this.tourist = params.tourist
         this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(
           (response: any) => {
             if (!response.noConversation) {
@@ -32,6 +34,21 @@ export class TransactionPage implements OnInit {
         )
       }
     })
+
+    this.mainService.notification.subscribe(
+      (data:any) => {
+        if (data.type == "message-booking" && this.bookingId == data.bookingId) {
+          if (data.conversation) {
+            this.conversation = data.conversation
+            this.messages = this.conversation.messages
+          this.formatData()
+          } else {
+            const message = this.messages.filter(m => m._id == data.newMessage._id)
+            if (message.length == 0) this.messages.push(data.newMessage);
+          }
+        }
+      }
+    )
   }
 
   send() {
@@ -44,6 +61,7 @@ export class TransactionPage implements OnInit {
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
+              this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: this.tourist, message: `You have new message` })
             }
           }
         )
@@ -56,6 +74,7 @@ export class TransactionPage implements OnInit {
             this.conversation = response
             this.messages = this.conversation.messages
             this.formatData()
+            this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: this.tourist, message: `You have new message` })
           }
         )
       }
@@ -70,7 +89,7 @@ export class TransactionPage implements OnInit {
       }
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
       const date = new Date(this.messages[i].createdAt)
-      this.messages[i].createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+      this.messages[i].createdAt = `${months[date.getMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}, ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 }
