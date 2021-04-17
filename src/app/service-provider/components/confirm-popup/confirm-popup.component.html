@@ -4,7 +4,7 @@
     <div class="title">
       {{popupData.title}}
     </div>
-    <div class="otherInfo">
+    <div *ngIf="popupData.otherInfo" class="otherInfo">
       {{popupData.otherInfo}}
     </div>
     <div class="btnHolder">

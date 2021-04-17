@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { bookingData } from '../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../provider-services/main-services.service';
 
@@ -17,7 +17,7 @@ export interface popupData {
   styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss',
     "../view-booking/view-booking.page.scss"],
 })
-export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
+export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWillEnter {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public booking: bookingData;
@@ -93,6 +93,17 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
     )
   }
 
+  ionViewWillEnter() {
+    setTimeout(() => {
+      const path = this.router.url.split("/").reverse()[0]
+      const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
+      if (this.tab) {
+
+        this.goTo(clickedTab, "", this.tab.element.nativeElement,{}, false)
+      }
+    }, 500);
+  }
+
   ngAfterViewInit() {
     setTimeout(() => {
       const path = this.router.url.split("/").reverse()[0]
@@ -128,7 +139,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
         break;
     }
     if (redirect) {
-      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + "/"+ this.bookingStatus +'/' + path], params)
+      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + "/"+ this.bookingStatus +'/' , path], params)
     }
   }
 

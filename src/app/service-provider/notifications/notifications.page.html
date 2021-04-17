@@ -15,6 +15,12 @@
     <p>There's nothing here.</p>
   </div>
   <div class="cont lightBackground">
-    <app-notification-card *ngFor="let notif of notifications" [notif]="notif"></app-notification-card>
+    <div class="notifGroup" *ngFor="let notif of notifications">
+      <div class="notifHeader">
+        <div class="title">{{getTitle(notif)}}</div>
+        <div class="numberOfNotif">{{notif.notifications.length}}</div>
+      </div>
+      <app-notification-card *ngFor="let ntf of notif.notifications.reverse()" [type]="notif.type" [page]="notif.page" [booking]="notif.booking" [notif]="ntf"></app-notification-card>
+    </div>
   </div>
 </ion-content>

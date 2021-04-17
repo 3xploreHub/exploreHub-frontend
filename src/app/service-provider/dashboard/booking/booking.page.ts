@@ -60,9 +60,9 @@ export class BookingPage implements OnInit {
   }
 
   viewBooking(booking) {
-    let params = { queryParams: { pageId: this.pageId, pageType: this.pageType, bookingStatus: this.bookingStatus } }
+    let params = { queryParams: { } }
     if (booking.isManual) params.queryParams['isManual'] = true
-    this.router.navigate(["/service-provider/view-booking-as-provider/" + this.pageId + "/" + this.pageType + "/" + booking._id + "/booking-information"], params)
+    this.router.navigate(["/service-provider/view-booking-as-provider/" + this.pageId + "/" + this.pageType + "/" + booking._id + "/" + this.bookingStatus], params)
   }
 
   formatData(booking) {

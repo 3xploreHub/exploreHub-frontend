@@ -1,10 +1,9 @@
+import { message } from "../../transaction/transaction.page";
+
 export interface notification {
     _id: string;
-    receiver: any;
-    initiator: any;
-    page: any;
-    booking: any;
-    type: string;
+    receiver: string;
+    message:string;
     createdAt: string;
     opened: boolean;
 }
