@@ -1,20 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
 import { SettingsPageRoutingModule } from './settings-routing.module';
-
 import { SettingsPage } from './settings.page';
+import { Camera } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/File/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { EditAccountInfoPage } from './edit-account-info/edit-account-info.page';
+// import { ChangePasswordPage } from './change-password/change-password.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SettingsPageRoutingModule
+    SettingsPageRoutingModule,
+    IonicStorageModule,
+    ReactiveFormsModule
   ],
-  declarations: [SettingsPage]
+  declarations: [
+    SettingsPage,
+    EditAccountInfoPage, 
+    // ChangePasswordPage
+  ],
+  providers: [
+    Camera, 
+    File, 
+    WebView, 
+    Storage,
+    FilePath
+  ]
 })
 export class SettingsPageModule {}

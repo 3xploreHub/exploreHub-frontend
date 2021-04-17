@@ -112,10 +112,15 @@ const routes: Routes = [
     path: 'tourist',
     loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
     canActivate: [AuthGuard],
-  },  {
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
+  // {
+  //   path: 'settings',
+  //   loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  // },
 
 ];
 

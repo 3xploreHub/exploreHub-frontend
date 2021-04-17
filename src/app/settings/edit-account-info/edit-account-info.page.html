@@ -20,6 +20,7 @@
         </div> -->
 
         <div class="profile-pic-container">
+          <!-- <img id="profile-pic" [src]="'http://localhost:3000/' + profile"> -->
           <img id="profile-pic" [src]="'http://localhost:3000/' + profile">
         </div>
 
@@ -27,11 +28,10 @@
 
         <div class="upload-del-btn">
           <ion-button (click)="selectImageSource()" fill="clear" expand="full" color="medium">
-          <!-- <ion-button (click)="selectImageSource()" fill="clear" expand="full" color="medium"> -->
             <ion-icon slot="start" name="camera"></ion-icon>
             Select Image
           </ion-button>
-          <ion-button fill="clear" expand="full" color="medium">
+          <ion-button [disabled]="!profile" (click)="deleteProfile()" fill="clear" expand="full" color="medium">
             <ion-icon slot="start" name="trash"></ion-icon>
             Delete
           </ion-button>
@@ -129,5 +129,4 @@
       </div>
     </div>
   </div>
-  <app-change-password></app-change-password>
 </ion-content>

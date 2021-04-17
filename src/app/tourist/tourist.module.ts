@@ -9,7 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { TouristPageRoutingModule } from './tourist-routing.module';
 
 import { TouristPage } from './tourist.page';
-import { EditAccountInfoPageModule } from './settings/edit-account-info/edit-account-info.module';
+// import { EditAccountInfoPageModule } from './settings/edit-account-info/edit-account-info.module';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { EditAccountInfoPageModule } from './settings/edit-account-info/edit-acc
     FormsModule,
     IonicModule,
     TouristPageRoutingModule, 
-    EditAccountInfoPageModule,
+    // EditAccountInfoPageModule,
   ],
   declarations: [TouristPage,],
   providers:[

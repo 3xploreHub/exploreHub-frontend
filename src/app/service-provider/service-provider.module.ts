@@ -7,12 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ServiceProviderPageRoutingModule } from './service-provider-routing.module';
 
 import { ServiceProviderPage } from './service-provider.page';
+import { SettingsPageRoutingModule } from '../settings/settings-routing.module';
+
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     // BrowserModule,
     FormsModule,
     IonicModule,
+    SettingsPageRoutingModule,
     ServiceProviderPageRoutingModule
   ],
   declarations: [ServiceProviderPage]

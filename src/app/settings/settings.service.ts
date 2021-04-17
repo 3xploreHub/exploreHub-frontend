@@ -52,20 +52,10 @@ export class SettingsService {
     })
   }
 
-  // uploadImageFile(grandParentId: string, parentId: string, childId: string, parent: string, file: File) {
-  //   const ext = file.name.split('.').pop();
-  //   const formData = new FormData();
-  //   formData.append('image', file, `myimage.${ext}`);
-
-  //   const componentGroup = parent == "page" ? "addComponentImage" : "addItemChildComponentImage";
-  //   const params = parent == "page" ? `${parentId}/${childId}/${this.pageType}` : `${this.currentPageId}/${grandParentId}/${parentId}/${childId}/${this.pageType}`;
-
-  //   return this.http.post(`${this.apiUrl}/${componentGroup}/${params}`, formData, {
-  //     headers: { hideLoadingIndicator: "", containsFiles: "" },
-  //   });
-  // }
-
-  deleteProfile(image: string) {
-    return this.http.post(`${environment.apiUrl}/account/deleteProfile`, image);
+  deleteProfile(file: string) {
+    return this.http.post(`${environment.apiUrl}/account/deleteProfile`, {profile: file}, {
+      headers: { hideLoadingIndicator: "" },
+    });
   }
+
 } 
