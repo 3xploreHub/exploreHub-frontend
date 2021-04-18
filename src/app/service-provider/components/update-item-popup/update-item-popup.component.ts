@@ -14,6 +14,7 @@ export class UpdateItemPopupComponent implements OnInit {
   @Input() show: boolean = false;
   @Output() close: EventEmitter<any> = new EventEmitter()
   @Input() data: modalData;
+  public creatingManual: boolean;
   constructor(public mainService: MainServicesService, public router: Router, public alertController: AlertController) {
     this.data = {
       pageId: "",
@@ -42,21 +43,25 @@ export class UpdateItemPopupComponent implements OnInit {
   }
 
   createBooking() {
-    setTimeout(() => {
-      const item = this.data.item
-      if (item["booked"] + item["toBeBooked"] + item["manuallyBooked"] + 1 > this.data.itemQuantity) {
-        this.presentAlert("No more available!")
-      } else {
-        const firstServiceSelected = { service: this.data.item._id, serviceGroupName: this.data.serviceGroupName, serviceGroupId: this.data.serviceId }
-        const data = { pageId: this.data.pageId, isManual: true, pageType: this.data.pageType, firstService: firstServiceSelected, bookingId: "create_new" };
-        this.mainService.createBooking(data).subscribe(
-          (response: bookingData) => {
-            this.router.navigate(["/service-provider/select-service", this.data.pageId, response._id], {
-              queryParams: {manual: true}
+    if (!this.creatingManual) {
+      this.creatingManual = true;
+      setTimeout(() => {
+        const item = this.data.item
+        if (item["booked"] + item["toBeBooked"] + item["manuallyBooked"] + 1 > this.data.itemQuantity) {
+          this.presentAlert("No more available!")
+          this.creatingManual = false;
+        } else {
+          const firstServiceSelected = { service: this.data.item._id, serviceGroupName: this.data.serviceGroupName, serviceGroupId: this.data.serviceId }
+          const data = { pageId: this.data.pageId, isManual: true, pageType: this.data.pageType, firstService: firstServiceSelected, bookingId: "create_new" };
+          this.mainService.createBooking(data).subscribe(
+            (response: bookingData) => {
+              this.router.navigate(["/service-provider/select-service", this.data.pageId, response._id], {
+                queryParams: { manual: true }
+              })
             })
-          })
-      }
-    }, 300);
+        }
+      }, 300);
+    }
   }
   async presentAlert(message) {
     const alert = await this.alertController.create({

@@ -33,7 +33,8 @@
 
         .notifPic {
             ion-icon {
-                color: rgb(2, 79, 124) !important;
+                
+                color: rgb(255, 255, 255) !important;
             }
         }
     }
@@ -51,12 +52,20 @@
 }
 
 .unread {
-    background-image: linear-gradient(to right, rgb(183, 215, 247),rgb(189, 240, 241));
-    border: 1px solid rgb(120, 175, 230);
+    // background-image: linear-gradient(to right, rgb(183, 215, 247),rgb(189, 240, 241));
+    background-color: rgb(14, 142, 216);
+    // border: 1px solid rgb(120, 175, 230);
+    color: white;
     .notifInfo {
+
         .notifTitle {
             font-weight: bold;
 
+
+        }
+
+        .notifDate {
+            color:white;
         }
     }
 }

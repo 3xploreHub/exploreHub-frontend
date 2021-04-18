@@ -55,7 +55,20 @@ export class StatisticsPage implements OnInit {
     const url = this.router.url.split('/').reverse();
     this.pageId = url[2]
     this.pageType = url[3]
-    this.mainService.getServices(url[2], url[3]).subscribe(
+    this.getPageServices()
+
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        const notifType = data.type.split("-")[1];
+        if (notifType == "fromTourist" || notifType == "fromAdmin" && data.booking) {
+          this.getPageServices()
+        }
+      }
+    )
+  }
+
+  getPageServices() {
+    this.mainService.getServices(this.pageId, this.pageType).subscribe(
       (response: Page) => {
         this.loading = false
         this.services = response.services;

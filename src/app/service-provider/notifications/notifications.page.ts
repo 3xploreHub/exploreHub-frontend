@@ -49,7 +49,7 @@ export class NotificationsPage implements OnInit {
           }
         });
       } else {
-        title = `${notif.initiator.fullName}'s booking`
+        title = `${notif.mainReceiver.fullName}'s booking`
       }
     }
     return title

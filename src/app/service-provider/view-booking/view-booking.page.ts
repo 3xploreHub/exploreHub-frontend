@@ -137,6 +137,7 @@ export class ViewBookingPage implements AfterViewInit {
           selectedServices: selectedServices,
           booking: curBooking._id,
           isManual: curBooking.isManual,
+          mainReceiver: curBooking.tourist._id,
           updateBookingCount: updateBookingCount,
           increment: false,
           type: "page-booking"
@@ -173,6 +174,7 @@ export class ViewBookingPage implements AfterViewInit {
       initiator: this.booking.tourist,
       page: this.booking.pageId._id,
       booking: this.booking._id,
+      resubmitted: true,
       type: "page-booking",
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(

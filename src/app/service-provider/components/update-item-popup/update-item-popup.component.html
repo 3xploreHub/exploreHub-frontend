@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="addBooking">
-      <div (click)="createBooking()" class="createBookingBtn ion-activatable ripple-parent">Create Booking Manually
+      <div (click)="createBooking()" class="createBookingBtn ion-activatable ripple-parent">{{ creatingManual? "Creating...": "Create Booking Manually"}} 
         <ion-ripple-effect></ion-ripple-effect>
       </div>
       <div class="createBookingBtn editItem ion-activatable ripple-parent">Edit Item
