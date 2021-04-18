@@ -78,7 +78,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
       )
     })
 
-    this.mainService.notification.subscribe(
+    this.mainService.notification.subscribe(  
       (data: any) => {
         const notifType = data.type.split("-")[1];
         if (notifType == "fromTourist" || notifType == "fromAdmin" && data.booking) {

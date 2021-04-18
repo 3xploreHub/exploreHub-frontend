@@ -44,7 +44,7 @@ export class UpdateItemPopupComponent implements OnInit {
   createBooking() {
     setTimeout(() => {
       const item = this.data.item
-      if (item["manuallyBooked"] + 1 > this.data.itemQuantity) {
+      if (item["booked"] + item["toBeBooked"] + item["manuallyBooked"] + 1 > this.data.itemQuantity) {
         this.presentAlert("No more available!")
       } else {
         const firstServiceSelected = { service: this.data.item._id, serviceGroupName: this.data.serviceGroupName, serviceGroupId: this.data.serviceId }

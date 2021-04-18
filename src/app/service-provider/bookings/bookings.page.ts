@@ -54,7 +54,6 @@ export class BookingsPage implements OnInit {
         const type = data.type.split("-");
        if (type[1] == "fromServiceProvider" || type[1] == "fromAdmin") {
          const status = type[0].split("_")[0]
-         alert(status)
          this.bookings = this.bookings.map(booking => {
            const bookingId = data.booking? data.booking._id: data.bookingId? data.bookingId: ""
            if (booking._id == bookingId) {
