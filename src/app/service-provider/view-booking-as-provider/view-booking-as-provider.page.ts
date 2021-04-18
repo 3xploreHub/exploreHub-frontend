@@ -39,9 +39,9 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
     }
     this.booking = {
       _id: "",
-      tourist:null,
-      pageId:null,
-      page:null,
+      tourist: null,
+      pageId: null,
+      page: null,
       services: [],
       bookingInfo: [],
       selectedServices: [],
@@ -80,13 +80,14 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
 
     this.mainService.notification.subscribe(
       (data: any) => {
-          if (data.type.split("-")[1] == "booking" && data.booking) {
-            if (this.booking._id == data.booking._id) {
-              this.booking.status = data.booking.status;
-              this.bookingStatus = this.booking.status
-            } 
+        const notifType = data.type.split("-")[1];
+        if (notifType == "fromTourist" || notifType == "fromAdmin" && data.booking) {
+          if (this.booking._id == data.booking._id) {
+            this.booking.status = data.booking.status;
+            this.bookingStatus = this.booking.status
           }
-        
+        }
+
 
       }
     )
@@ -98,7 +99,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
       const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
       if (this.tab) {
 
-        this.goTo(clickedTab, "", this.tab.element.nativeElement,{}, false)
+        this.goTo(clickedTab, "", this.tab.element.nativeElement, {}, false)
       }
     }, 500);
   }
@@ -109,7 +110,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
       const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
       if (this.tab) {
 
-        this.goTo(clickedTab, "", this.tab.element.nativeElement,{}, false)
+        this.goTo(clickedTab, "", this.tab.element.nativeElement, {}, false)
       }
     }, 500);
   }
@@ -123,7 +124,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
     }
   }
 
-  goTo(clicked: string, path, tab: HTMLElement,params = {}, redirect = true) {
+  goTo(clicked: string, path, tab: HTMLElement, params = {}, redirect = true) {
     this.clickedTab = clicked;
 
     const width = tab.clientWidth;
@@ -138,7 +139,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
         break;
     }
     if (redirect) {
-      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + "/"+ this.bookingStatus +'/' , path], params)
+      this.router.navigate(['./service-provider/view-booking-as-provider/' + this.pageId + '/' + this.pageType + '/' + this.bookingId + "/" + this.bookingStatus + '/', path], params)
     }
   }
 
@@ -194,7 +195,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
 
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
-            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-fromServiceProvider", receiver: [notificationData.receiver], message: notificationData.message })
             this.goBack()
           }
         )
@@ -203,7 +204,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
           receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,
-          isManual:curBooking.isManual,
+          isManual: curBooking.isManual,
           updateBookingCount: true,
           increment: false,
           type: "booking",
@@ -211,7 +212,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
           (response: any) => {
-            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Closed_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Closed_booking-fromServiceProvider", receiver: [notificationData.receiver], message: notificationData.message })
             this.goBack()
           }
         )

@@ -141,7 +141,7 @@ export class BookingReviewPage implements OnInit {
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {
-        this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new-booking", receiver: this.booking.pageId.creator, message: "A new booking was submitted to your service" })
+        this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new_booking-fromTourist", receiver: [this.booking.pageId.creator], message: "A new booking was submitted to your service" })
         this.mainService.canLeave = true;
         if (this.isManual) {
           this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])

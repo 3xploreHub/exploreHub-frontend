@@ -52,10 +52,12 @@ export class BookingsPage implements OnInit {
     this.mainService.notification.subscribe(
       (data:any) => {
         const type = data.type.split("-");
-       if (type[1] == "provider") {
+       if (type[1] == "fromServiceProvider" || type[1] == "fromAdmin") {
          const status = type[0].split("_")[0]
+         alert(status)
          this.bookings = this.bookings.map(booking => {
-           if (booking._id == data.bookingId) {
+           const bookingId = data.booking? data.booking._id: data.bookingId? data.bookingId: ""
+           if (booking._id == bookingId) {
              booking.status = status;
            }
            return booking;

@@ -32,7 +32,9 @@ export class BookingPage implements OnInit {
         (data: any) => {
           if (data.notifId != this.notifId) {
             this.notifId = data.notifId
-            if (data.type.split("-")[1] == "booking" && data.booking) {
+            const notifType = data.type.split("-")[1]
+            if (notifType == "fromTourist" || notifType == "fromAdmin" && data.booking) {
+              if (!data.booking.name && !data.booking.photo) data.booking = this.formatData(data.booking)
               if (this.bookingStatus != data.booking.status) {
                 this.bookings = this.bookings.filter(booking => booking._id != data.booking._id)
               } else if (this.bookingStatus == data.booking.status) {
@@ -60,7 +62,7 @@ export class BookingPage implements OnInit {
   }
 
   viewBooking(booking) {
-    let params = { queryParams: { } }
+    let params = { queryParams: {} }
     if (booking.isManual) params.queryParams['isManual'] = true
     this.router.navigate(["/service-provider/view-booking-as-provider/" + this.pageId + "/" + this.pageType + "/" + booking._id + "/" + this.bookingStatus], params)
   }

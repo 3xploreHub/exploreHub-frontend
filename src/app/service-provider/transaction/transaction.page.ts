@@ -115,7 +115,7 @@ export class TransactionPage implements OnInit {
               this.messages = this.conversation.messages
               this.formatData();
               this.scrollToBottom()
-              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: this.conReceiver, message: `${this.mainService.user.fullName} sent you a message` })
+              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.conReceiver], message: `${this.mainService.user.fullName} sent you a message` })
             }
           }
         )
@@ -132,7 +132,7 @@ export class TransactionPage implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
             this.scrollToBottom()
-            this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: this.conReceiver, message: `${this.mainService.user.fullName} sent you a message` })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: [this.conReceiver], message: `${this.mainService.user.fullName} sent you a message` })
           }
         )
       }

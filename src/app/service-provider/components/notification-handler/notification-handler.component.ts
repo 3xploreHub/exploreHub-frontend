@@ -32,7 +32,7 @@ export class NotificationHandlerComponent {
       this.socket.fromEvent('send-notification').subscribe((data: any) => {
         console.log(data);
         
-        if (data.receiver == this.user._id) {
+        if (data.receiver.includes(this.user._id)) {
           if (data.user._id != this.user._id) {
             this.showToast(data.message);
           }

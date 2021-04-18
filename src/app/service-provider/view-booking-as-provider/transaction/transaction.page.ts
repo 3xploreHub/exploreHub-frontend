@@ -42,12 +42,12 @@ export class TransactionPage implements OnInit {
     })
 
     this.mainService.notification.subscribe(
-      (data:any) => {
+      (data: any) => {
         if (data.type == "message-booking" && this.bookingId == data.bookingId) {
           if (data.conversation) {
             this.conversation = data.conversation
             this.messages = this.conversation.messages
-          this.formatData()
+            this.formatData()
           } else {
             const message = this.messages.filter(m => m._id == data.newMessage._id)
             if (message.length == 0) this.messages.push(data.newMessage);
@@ -77,7 +77,7 @@ export class TransactionPage implements OnInit {
               this.messages = this.conversation.messages
               this.formatData();
               this.scrollToBottom()
-              this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: this.tourist, message: `You have new message` })
+              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
             }
           }
         )
@@ -94,7 +94,7 @@ export class TransactionPage implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
             this.scrollToBottom()
-            this.mainService.notify({ user: this.mainService.user,bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: this.tourist, message: `You have new message` })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: [this.tourist], message: `You have new message` })
           }
         )
       }
