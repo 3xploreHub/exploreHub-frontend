@@ -107,9 +107,6 @@ export class TransactionPage implements OnInit {
       if (i != 0 && this.messages[i - 1].sender == this.messages[i].sender) {
         this.messages[i]["noSender"] = true
       }
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-      const date = new Date(this.messages[i].createdAt)
-      this.messages[i].createdAt = `${months[date.getMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}, ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 }

@@ -73,7 +73,6 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
         (response: bookingData) => {
           this.booking = response;
           this.loading = false;
-          this.booking.createdAt = this.formatDate(this.booking.createdAt)
           this.bookingStatus = this.booking.status
         }
       )
@@ -195,7 +194,6 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
 
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
-            console.log("receiver: ", notificationData.receiver)
             this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
             this.goBack()
           }
@@ -245,12 +243,6 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
         show: true
       }
     }, 200);
-  }
-
-  formatDate(createdAt) {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-    const date = new Date(createdAt)
-    return `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
   }
 
   getStatus(status) {

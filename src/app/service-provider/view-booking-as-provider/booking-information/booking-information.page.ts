@@ -37,9 +37,6 @@ export class BookingInformationPage implements OnInit {
           this.getPageInfo();
           this.getAddress();
         }
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-        const date = new Date(this.booking.createdAt)
-        this.booking["createdAt"] = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
       }
     )
 

@@ -11,11 +11,11 @@
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="create-outline"></ion-icon>
           </div>
-          <div *ngIf="bookingStatus == 'Cancelled' " (click)="resubmitConf()" class="cancel ion-activatable ripple-parent edit">Resubmit
+          <div *ngIf="bookingStatus == 'Cancelled' || bookingStatus == 'Rejected'" (click)="resubmitConf()" class="cancel ion-activatable ripple-parent edit">Resubmit
             <ion-ripple-effect></ion-ripple-effect>&nbsp;
             <ion-icon name="send-outline"></ion-icon>
           </div>
-          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled' && bookingStatus !='Closed'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
+          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled' && bookingStatus !='Closed'  && bookingStatus != 'Rejected'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="close-outline"></ion-icon>
           </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="dateAndStatus">
       <div class="dateCreated">
-        {{booking.createdAt}}
+        {{booking.createdAt | date:'medium'}}
       </div>
       <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
         Status:

@@ -36,12 +36,6 @@ export class NotificationsPage implements OnInit {
     )
   }
 
-  formatDate(createdAt) {
-    const date = new Date(createdAt)
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-    return`${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
-  }
-
 
   getTitle(notif) {
     const curUser = this.mainService.user._id

@@ -17,7 +17,7 @@
         <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0">No services availed</div>
       </div>
     </div>
-    <div class="cardDate">{{booking.createdAt}}</div>
+    <div class="cardDate">{{booking.createdAt | date:'medium'}}</div>
   </div>
 
   <div class="bottomRow">

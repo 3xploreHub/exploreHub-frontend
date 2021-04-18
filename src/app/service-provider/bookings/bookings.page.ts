@@ -44,9 +44,6 @@ export class BookingsPage implements OnInit {
             }
             booking['name'] = this.getName(booking);
             booking = this.getPhotoAndServices(booking);
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-            const date = new Date(booking.createdAt)
-            booking.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
             return booking;
           })
         }

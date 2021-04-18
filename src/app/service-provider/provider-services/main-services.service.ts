@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+  import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { environment } from 'src/environments/environment';
@@ -20,8 +20,8 @@ export class MainServicesService {
   public hasUnfinishedBooking: boolean = false;
   public socket: any;
   public user: any;
-  public checkCurrentUser: EventEmitter<any> = new EventEmitter();
   public notify: any;
+  public checkCurrentUser: EventEmitter<any> = new EventEmitter();
   constructor(
     private http: HttpClient
   ) { }

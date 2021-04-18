@@ -77,7 +77,6 @@ export class ViewBookingPage implements AfterViewInit {
       (response: bookingData) => {
         this.booking = response;
         this.loading = false;
-        this.booking.createdAt = this.formatDate(this.booking.createdAt);
         this.selectedServices = this.booking.selectedServices
         this.bookingStatus = this.booking.status
       }
@@ -224,12 +223,6 @@ export class ViewBookingPage implements AfterViewInit {
     booking['name'] = this.getName(booking);
     booking = this.getPhotoAndServices(booking);
     return booking;
-  }
-
-  formatDate(createdAt) {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-    const date = new Date(createdAt)
-    return `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
   }
 
   getPhotoAndServices(booking) {

@@ -30,9 +30,7 @@ export class AppComponent implements OnDestroy, OnInit {
       (data: any) => {
         this.authService.getCurrentUser().then(
           (data:any) => {
-            this.mainService.user = data
-            console.log("first: ", data);
-            
+            this.mainService.user = data            
           }
         )
       }
@@ -41,9 +39,7 @@ export class AppComponent implements OnDestroy, OnInit {
       (data: any) => {
         this.authService.getCurrentUser().then(
           (data:any) =>{
-            this.mainService.user = data
-            console.log(data);
-            
+            this.mainService.user = data            
           }
         )
       }

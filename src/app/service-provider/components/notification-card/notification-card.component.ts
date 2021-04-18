@@ -26,9 +26,6 @@ export class NotificationCardComponent implements OnInit {
 
   ngOnInit() {
     if (this.notif && this.notif.createdAt) {
-      const date = new Date(this.notif.createdAt)
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"];
-      this.notif.createdAt = `${months[date.getMonth()]}  ${date.getUTCDate()}, ${date.getUTCFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
     }
   }
 
