@@ -36,7 +36,7 @@ export class TransactionPage implements OnInit {
   public message: string;
   public bookingId: string;
   public pageId: string;
-  public receiver = { owner: "", admin: "606eefbcfcfdc21c7c793bb0" }
+  public receiver = { owner: "", admin: "605839a8268f4b69047e4bb1" }
   public conReceiver: string;
   public screenHeight: number;
   public conversation: conversation;
@@ -49,7 +49,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.receiver = { owner: params.receiverId, admin: '606eefbcfcfdc21c7c793bb0' }
+        this.receiver = { owner: params.receiverId, admin: '605839a8268f4b69047e4bb1' }
         this.conReceiver = this.receiver.owner
         this.fetchConversation()
       }
