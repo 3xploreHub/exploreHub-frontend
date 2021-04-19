@@ -106,8 +106,19 @@ export class TransactionPage implements OnInit {
 
   send() {
     if (this.message) {
+      const notificationData = {
+        receiver: this.conReceiver,
+        mainReceiver: this.mainService.user._id,
+        page: this.pageId,
+        booking: this.bookingId,
+        isMessage: true,
+        subject: this.bookingId,
+        sender: this.mainService.user._id,
+        message: `${this.mainService.user.fullName} sent you a message`,
+        type: "booking-message",
+      }
       if (!this.conversation) {
-        const data = { booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }
+        const data = {notificationData: notificationData, booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }
         this.mainService.createConversation(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {
@@ -120,7 +131,7 @@ export class TransactionPage implements OnInit {
           }
         )
       } else {
-        const data = { conversationId: this.conversation._id, message: this.message }
+        const data = {notificationData:notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {

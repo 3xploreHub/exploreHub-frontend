@@ -27,9 +27,23 @@ export class NotificationsPage implements OnInit {
 
   getNotifications(hideLoading = false) {
     this.mainService.getNotifications(hideLoading).subscribe(
-      (response: any) => {
-        this.notifications = response;
+      (notifications: any) => {
+        notifications = notifications.map(notif => {
+          const msgNotif = notif.notifications.filter(n => n.isMessage)
+          if (msgNotif.length > 0) {
+            msgNotif.forEach(msg => {
+              if (!msg.opened) {
+                const notifs = notif.notifications.filter(n => n._id != msg._id)
+                notifs.push(msg);
+                notif.notifications = notifs;
+              }
+            });
+            console.log(notif)
+          }
+          return notif
+        })
         this.loading = false
+        this.notifications = notifications
       },
       error => {
       }

@@ -171,7 +171,6 @@ export class ViewBookingPage implements AfterViewInit {
     }
     const notificationData = {
       receiver: this.booking.pageId.creator,
-      initiator: this.booking.tourist,
       page: this.booking.pageId._id,
       booking: this.booking._id,
       resubmitted: true,

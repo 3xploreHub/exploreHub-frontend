@@ -134,7 +134,6 @@ export class BookingReviewPage implements OnInit {
   sendRequest(selectedServices = null) {
     const notificationData = {
       receiver: this.booking.pageId.creator,
-      initiator: this.booking.tourist,
       page: this.booking.pageId._id,
       booking: this.booking._id,
       type: "page-booking",
