@@ -140,7 +140,7 @@ export class ViewBookingPage implements AfterViewInit {
           mainReceiver: curBooking.tourist._id,
           updateBookingCount: updateBookingCount,
           increment: false,
-          type: "page-booking"
+          type: "booking-provider"
         }
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
@@ -174,7 +174,7 @@ export class ViewBookingPage implements AfterViewInit {
       page: this.booking.pageId._id,
       booking: this.booking._id,
       resubmitted: true,
-      type: "page-booking",
+      type: "booking-provider",
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {

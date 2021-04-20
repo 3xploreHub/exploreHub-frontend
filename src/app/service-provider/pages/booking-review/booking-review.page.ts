@@ -136,7 +136,7 @@ export class BookingReviewPage implements OnInit {
       receiver: this.booking.pageId.creator,
       page: this.booking.pageId._id,
       booking: this.booking._id,
-      type: "page-booking",
+      type: "booking-provider",
     }
     this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
       (response: any) => {

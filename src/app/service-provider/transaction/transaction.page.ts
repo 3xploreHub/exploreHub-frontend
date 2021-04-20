@@ -115,7 +115,7 @@ export class TransactionPage implements OnInit {
         subject: this.bookingId,
         sender: this.mainService.user._id,
         message: `${this.mainService.user.fullName} sent you a message`,
-        type: "booking-message",
+        type: "booking-provider",
       }
       if (!this.conversation) {
         const data = {notificationData: notificationData, booking: this.bookingId, page: this.pageId, receiver: this.conReceiver, message: this.message }

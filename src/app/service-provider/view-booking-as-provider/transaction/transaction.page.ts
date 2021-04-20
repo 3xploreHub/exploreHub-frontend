@@ -19,6 +19,8 @@ export class TransactionPage implements OnInit {
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
 
+  
+
   ngOnInit() {
     this.screenHeight = window.innerHeight - 190
     this.route.queryParams.subscribe(params => {
@@ -77,7 +79,7 @@ export class TransactionPage implements OnInit {
         sender: this.mainService.user._id,
         subject: this.bookingId,
         message: `${this.mainService.user.fullName} sent you a message`,
-        type: "booking-message",
+        type: "booking-tourist",
       }
       if (!this.conversation) {
         const data = {notificationData:notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }

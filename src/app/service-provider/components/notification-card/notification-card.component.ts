@@ -34,14 +34,14 @@ export class NotificationCardComponent implements OnInit {
       response => {
         this.notif.opened = true
         const type = this.type
-        if (type == "booking") {
+        if (type == "booking-tourist" ) {
           this.router.navigate(["/service-provider/view-booking", this.booking._id],
           { queryParams: { notification: true } })
         } else if (type == "page") {
           this.router.navigate(["/service-provider/dashboard", this.page.pageType, this.page._id],
             { queryParams: { notification: true } })
         }
-        else if (type == "page-booking") {
+        else if (type == "booking-provider") {
           this.router.navigate(["./service-provider/view-booking-as-provider", this.booking.pageId, this.booking.bookingType, this.booking._id, this.booking.status],
             { queryParams: { notification: true } })
         }

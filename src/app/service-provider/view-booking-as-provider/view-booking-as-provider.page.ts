@@ -17,7 +17,7 @@ export interface popupData {
   styleUrls: ['./view-booking-as-provider.page.scss', '../pages/booking-review/booking-review.page.scss', '../pages/select-service/select-service.page.scss',
     "../view-booking/view-booking.page.scss"],
 })
-export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWillEnter {
+export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
   @ViewChild('tab', { read: ViewContainerRef }) tab: ViewContainerRef;
   public bookingId: string = '';
   public booking: bookingData;
@@ -93,16 +93,16 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
     )
   }
 
-  ionViewWillEnter() {
-    setTimeout(() => {
-      const path = this.router.url.split("/").reverse()[0]
-      const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
-      if (this.tab) {
+  // ionViewWillEnter() {
+  //   setTimeout(() => {
+  //     const path = this.router.url.split("/").reverse()[0]
+  //     const clickedTab = path.includes("booking-information") ? "Booking Info" : "Conversation"
+  //     if (this.tab) {
 
-        this.goTo(clickedTab, "", this.tab.element.nativeElement, {}, false)
-      }
-    }, 500);
-  }
+  //       this.goTo(clickedTab, "", this.tab.element.nativeElement, {}, false)
+  //     }
+  //   }, 500);
+  // }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -190,7 +190,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
           isManual: curBooking.isManual,
           updateBookingCount: true,
           increment: false,
-          type: "booking",
+          type: "booking-tourist",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
         }
 
@@ -209,7 +209,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit, ViewWil
           mainReceiver: curBooking.tourist._id,
           updateBookingCount: true,
           increment: false,
-          type: "booking",
+          type: "booking-tourist",
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`,
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
