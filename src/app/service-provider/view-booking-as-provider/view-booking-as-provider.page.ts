@@ -191,6 +191,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
           updateBookingCount: true,
           increment: false,
           type: "booking-tourist",
+          messageForAdmin: `${curBooking.tourist.fullName} booking was cancelled by the owner of the service`,
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
         }
 
@@ -210,6 +211,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
           updateBookingCount: true,
           increment: false,
           type: "booking-tourist",
+          messageForAdmin: `${curBooking.tourist.fullName} booking has been closed`,
           message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`,
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
