@@ -11,11 +11,12 @@
     .notifHeader {
         display: flex;
         padding:3px 10px;
+        color: rgb(106, 113, 122);
         justify-content: space-between;
 
         .numberOfNotif {
             padding:5px;
-            background-color: rgb(203, 215, 230);
+            background-color: rgb(203, 215, 230) !important;
             font-size: 11px;
             border-radius: 4px;
         }

@@ -23,13 +23,16 @@ export class UpdateItemPopupComponent implements OnInit {
       item: null,
       itemName: "",
       itemQuantity: 0,
+      toBeBooked: 0,
       quatityPercentage: 0,
       manuallyBookedPercent: 0,
       serviceGroupName: "",
+      processingPercent:0
     }
   }
 
   ngOnInit() {
+    
   }
 
   closeModal(e) {

@@ -7,8 +7,9 @@
   <div class="itemList boxShadowed" *ngFor="let service of services">
     <div class="percent totalPercentage">
       <div class="percentBar"
-        [ngStyle]="{width: getServiceTotalPercentage((getBookedTotal(service.data) + getBookedTotal(service.data, true)), getTotalQuantity(service)) +'%'}">
-        <div [ngStyle]="{width: getServiceTotalPercentage(getBookedTotal(service.data, true), (getBookedTotal(service.data) + getBookedTotal(service.data, true)))  +'%'}" class="manaullyBookedPercent"></div>
+        [ngStyle]="{width: getServiceTotalPercentage(getTotalOccupied(service.data), getTotalQuantity(service)) +'%'}">
+        <div [ngStyle]="{width: getServiceTotalPercentage(getProcessingTotal(service.data), getTotalOccupied(service.data)) +'%'}" class="processingPercent"></div>
+        <div [ngStyle]="{width: getServiceTotalPercentage(getBookedTotal(service.data, true), getTotalOccupied(service.data))  +'%'}" class="manaullyBookedPercent"></div>
       </div>
     </div>
     <div class="itemName">
@@ -43,8 +44,13 @@
           <div class="bookedManual legend"></div>
         </div>
         <div class="quant">
+          <p class="qlabel">Processing</p>
+          <p class="num">{{getProcessingTotal(service.data)}}</p>
+          <div class="toBeBooked legend"></div>
+        </div>
+        <div class="quant">
           <p class="qlabel">Available</p>
-          <p class="num">{{getTotalQuantity(service) - getBookedTotal(service.data)}}</p>
+          <p class="num">{{getTotalQuantity(service) - getTotalOccupied(service.data)}}</p>
           <div class="available legend"></div>
         </div>
       </div>
@@ -72,9 +78,10 @@
               class="item ion-activatable ripple-parent" *ngFor="let item of filterItem(service.data); let i = index" [ngClass]="{fadeItem: itemClicked != item._id && itemClicked,
                   focusItem: itemClicked == item._id  }">
                   <ion-ripple-effect></ion-ripple-effect>
-              <div class="percent">
+              <div class="percent itemsPercent">
                 <div class="percentBar"
                   [ngStyle]="{width: getPercentage(item)+'%'}">
+                  <div [ngStyle]="{width: getProcessingPercent(item) +'%'}" class="processingPercent"></div>
                   <div [ngStyle]="{width: getPercentage(item, true) +'%'}" class="manaullyBookedPercent"></div>
                 </div>
               </div>
@@ -95,15 +102,23 @@
 
 
               <div>
-                <div class="itemTitle">{{getItemName(item)}}
+                <div class="itemTitle">
+                  <div>
+                    {{getItemName(item)}}
+
+                  </div>
+                  <div class="statFract">
+                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}/{{getValue(item.data, 'quantity')}}
+                  </div>
                   <!-- <div class="editIcon ion-activatable ripple-parent">
                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
                     <ion-ripple-effect></ion-ripple-effect>
                   </div> -->
 
                 </div>
-                <div class="itemStats">
-                  <div class="statsNum">
+                <!-- <div class="itemStats"> -->
+                  <!-- {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}/{{getValue(item.data, 'quantity')}} -->
+                  <!-- <div class="statsNum">
                     <span>
                       Quantity
                     </span>
@@ -111,19 +126,18 @@
                   </div>
                   <div class="statsNum withBorder">
                     <span>
-                      Booked
-
+                      Taken
                     </span>
-                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0)}}
+                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}
                   </div>
                   <div class="statsNum withBorder">
                     <span>
                       Available
                     </span>
-                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - (item.booked + (item.manuallyBooked? item.manuallyBooked:0)):
+                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - (item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)):
                     'Unli.'}}
-                  </div>
-                </div>
+                  </div> -->
+                <!-- </div> -->
               </div>
             </div>
           </div>

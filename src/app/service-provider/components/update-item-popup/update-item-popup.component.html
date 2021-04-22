@@ -9,19 +9,22 @@
       <div>
         <div class="percent prcnt">
           <div class="percentBar" [ngStyle]="{width: data.quatityPercentage +'%'}">
+            <div [ngStyle]="{width: data.processingPercent +'%'}" class="processingPercent"></div>
             <div [ngStyle]="{width: data.manuallyBookedPercent +'%'}" class="manaullyBookedPercent"></div>
           </div>
         </div>
         <div class="quantity">
           <div class="bkd">
-            <p>Booked Online: <b>{{data.item.booked}}</b></p>
-            <p class="manual">Booked Manually: <b>{{data.item.manuallyBooked}}</b></p>
+            <p>Booked Online: <b class="number">{{data.item.booked}}</b></p>
+            <p class="manual">Booked Manually: <b class="number">{{data.item.manuallyBooked}}</b></p>
+            <p class="processing">Processing: <b class="number">{{data.toBeBooked}}</b></p>
           </div>
           <div class="quant">
-            <p>Available: <b>{{data.itemQuantity - (data.item.booked + data.item.manuallyBooked)}}</b></p>
+            <p>Available: <b  class="number">{{data.itemQuantity - (data.item.booked + data.item.manuallyBooked + data.toBeBooked)}}</b></p>
           </div>
         </div>
-        <div class="totalQuant">Quantity: <b>{{data.itemQuantity}}</b></div>
+        <div class="totalQuant">Quantity: <b  class="number">{{data.itemQuantity}}</b></div>
+       
       </div>
     </div>
     <div class="addBooking">

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MainServicesService } from '../../provider-services/main-services.service';
 import { message } from '../../transaction/transaction.page';
 
 
@@ -14,7 +15,7 @@ export class MessageBoxComponent implements OnInit {
   showDate = false;
   @Input() message: message = {
     _id: "", sender: "", senderFullName: "", message: "", createdAt: null, updatedAt: null,noSender: false}
-  constructor() {
+  constructor(public mainService:MainServicesService) {
 
    }
 

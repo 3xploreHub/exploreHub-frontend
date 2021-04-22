@@ -18,6 +18,8 @@ export interface modalData {
   quatityPercentage: number,
   manuallyBookedPercent: number,
   serviceGroupName: string,
+  toBeBooked: number,
+  processingPercent: number,
 
 }
 @Component({
@@ -184,6 +186,19 @@ export class StatisticsPage implements OnInit {
     return booked / total * 100
   }
 
+  getProcessingTotal(service) {
+    let total = 0;
+    service.forEach(item => {
+      if (item.type == "item") {
+        if (item.toBeBooked) {
+          total += parseInt(item.toBeBooked)
+        }
+
+      }
+    });
+    return total;
+  }
+
   getBookedTotal(service, manual = false) {
     let total = 0;
     service.forEach(item => {
@@ -191,31 +206,46 @@ export class StatisticsPage implements OnInit {
         if (manual && item.manuallyBooked) {
           total += parseInt(item.manuallyBooked)
         } else if (!manual && item.booked) {
-            total += parseInt(item.booked)
-          }
-        
+          total += parseInt(item.booked)
+        }
+
       }
     });
     return total;
   }
 
+  getTotalOccupied(data) {
+    return this.getBookedTotal(data) + this.getBookedTotal(data, true) + this.getProcessingTotal(data)
+  }
+
   getPercentage(item, manual = false) {
     const booked = item.booked ? item.booked : 0
     const manuallyBooked = item.manuallyBooked ? item.manuallyBooked : 0
+    const toBeBooked = item.toBeBooked ? item.toBeBooked : 0
     let quantity = this.getValue(item.data, 'quantity')
     quantity = quantity ? quantity : 0
-    const quant = manual ? booked + manuallyBooked : quantity
-    const total = manual ? manuallyBooked : booked + manuallyBooked
+    const quant = manual ? booked + manuallyBooked + toBeBooked : quantity
+    const total = manual ? manuallyBooked : booked + manuallyBooked + toBeBooked
     const result = total / quant * 100
     if (result == NaN) return 0
     return result
   }
 
-
+  getProcessingPercent(item) {
+    const booked = item.booked ? item.booked : 0
+    const manuallyBooked = item.manuallyBooked ? item.manuallyBooked : 0
+    const toBeBooked = item.toBeBooked ? item.toBeBooked : 0
+    let quantity = this.getValue(item.data, 'quantity')
+    quantity = quantity ? quantity : 0
+    const total = booked + manuallyBooked + toBeBooked
+    const result = toBeBooked / total * 100
+    if (result == NaN) return 0
+    return result
+  }
 
   clickItemToUpdate(item, service) {
     setTimeout(() => {
-      
+
       const quantity = this.getValue(item.data, 'quantity')
       this.updateItem = true;
       this.modalData = {
@@ -228,7 +258,10 @@ export class StatisticsPage implements OnInit {
         quatityPercentage: this.getPercentage(item),
         manuallyBookedPercent: this.getPercentage(item, true),
         serviceGroupName: service.data[0].data.text,
+        toBeBooked: item.toBeBooked,
+        processingPercent: this.getProcessingPercent(item)
       }
+      console.log(this.modalData)
     }, 100);
   }
 

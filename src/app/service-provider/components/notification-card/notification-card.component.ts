@@ -18,9 +18,7 @@ export class NotificationCardComponent implements OnInit {
     message: "",
     opened: false,
   }
-  @Input() booking: bookingData;
-  @Input() page: Page;
-  @Input() type: string;
+  @Input() notificationGroup:any;  
   
   constructor(public router: Router, public mainService: MainServicesService) { }
 
@@ -30,19 +28,22 @@ export class NotificationCardComponent implements OnInit {
   }
 
   viewNotification() {
-    this.mainService.viewNotification(this.notif._id).subscribe(
+    this.mainService.viewNotification(this.notificationGroup._id).subscribe(
       response => {
-        this.notif.opened = true
-        const type = this.type
+        this.notificationGroup.notifications = this.notificationGroup.notifications.map(notif => {
+          notif.opened = true
+          return notif
+        })
+        const type = this.notificationGroup.type
         if (type == "booking-tourist" ) {
-          this.router.navigate(["/service-provider/view-booking", this.booking._id],
+          this.router.navigate(["/service-provider/view-booking", this.notificationGroup.booking._id],
           { queryParams: { notification: true } })
         } else if (type == "page") {
-          this.router.navigate(["/service-provider/dashboard", this.page.pageType, this.page._id],
+          this.router.navigate(["/service-provider/dashboard", this.notificationGroup.page.pageType, this.notificationGroup.page._id],
             { queryParams: { notification: true } })
         }
         else if (type == "booking-provider") {
-          this.router.navigate(["./service-provider/view-booking-as-provider", this.booking.pageId, this.booking.bookingType, this.booking._id, this.booking.status],
+          this.router.navigate(["./service-provider/view-booking-as-provider", this.notificationGroup.booking.pageId, this.notificationGroup.booking.bookingType, this.notificationGroup.booking._id, this.notificationGroup.booking.status],
             { queryParams: { notification: true } })
         }
 
