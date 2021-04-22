@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PageHostedServicesPageRoutingModule } from './page-hosted-services-routing.module';
 
 import { PageHostedServicesPage } from './page-hosted-services.page';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PageHostedServicesPageRoutingModule
+    PageHostedServicesPageRoutingModule,
+    ComponentsModulePageModule
   ],
   declarations: [PageHostedServicesPage]
 })

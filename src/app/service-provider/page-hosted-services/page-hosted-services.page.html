@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>page-hosted-services</ion-title>
+    <ion-title>Hosted Services</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="container lightBackground">
+    <app-page-list-card *ngFor="let page of hostedPages" [page]="page"></app-page-list-card>
+  </div>
 </ion-content>

@@ -15,12 +15,12 @@
           <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>&nbsp;&nbsp;
+        <div (click)="viewStats()" class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>  &nbsp;&nbsp;
         <div class="ion-activatable ripple-parent smIcon" (click)="goTo(['/service-provider/page-settings', page._id], {queryParams: {test: true}})">
           <ion-icon name="settings-outline"></ion-icon>
-          <ion-ripple-effect></ion-ripple-effect>
-        </div>&nbsp;&nbsp;
-        <div (click)="editPage()" class="ion-activatable ripple-parent smIcon">
-          <ion-icon name="create-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>
       </div>

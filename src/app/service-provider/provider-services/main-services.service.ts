@@ -136,4 +136,8 @@ export class MainServicesService {
   changePageStatus(data: any) {
     return this.http.post(`${this.apiUrl}/changePageStatus`, data)
   }
+
+  getHostedPages(id) {
+    return this.http.get(`${this.apiUrl}/getHostedPages/${id}`)
+  }
 }

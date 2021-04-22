@@ -157,20 +157,24 @@
         overflow: hidden;
         width: 0;
         display:flex;
+        border-radius: 2px;
         background-color: rgb(1, 226, 159);
 
         .manaullyBookedPercent {
             background-color: dodgerblue;
             width: 0;
             height: 100%;
-            border-radius: 0;
+            // border-radius: 0;
+            border-radius: 2px;
         }
 
+        
         .processingPercent {
             background-color: rgb(3, 233, 221);
             width: 0;
             height: 100%;   
-            border-radius: 0;
+            border-radius: 2px;
+            // border-radius: 0;
         }
     }
     .max {

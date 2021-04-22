@@ -16,11 +16,11 @@
       <p>There's nothing here.</p>
     </div>
     <div class="list">
-      <div class="page ion-activatable ripple-parent  " *ngFor="let page of pages" (click)="goToDashBoard(page)">
+      <app-page-list-card *ngFor="let page of pages" [page]="page" (clickOption)="clickOption($event)" (viewPage)="goToDashBoard($event)"></app-page-list-card>
+      <!-- <div class="page ion-activatable ripple-parent  " *ngFor="let page of pages" (click)="goToDashBoard(page)">
         <div class="photoHolder">
           <div class="pagePhoto"
             [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
-            <!-- <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p> -->
             <ion-icon *ngIf="page.components[0].data.length == 0" name="golf-outline"></ion-icon>
             
           </div>
@@ -44,7 +44,7 @@
           <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>  
   <app-option-popup [show]="showOption" (clickOpt)="clickOpt($event)"></app-option-popup>

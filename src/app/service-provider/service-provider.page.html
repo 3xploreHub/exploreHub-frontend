@@ -59,7 +59,7 @@
             <ion-ripple-effect></ion-ripple-effect>
           </ion-item>
 
-          <ion-item *ngIf="accountType != defaultType.tourist" [class.active]="active == ''" (click)="gotTo($event, '')" class="ion-activatable ripple-parent">
+          <ion-item *ngIf="accountType != defaultType.tourist" [class.active]="active == 'select-page-type'" (click)="gotTo($event, 'select-page-type')" class="ion-activatable ripple-parent">
             <div>
               <ion-icon name="create-outline"></ion-icon>
               <ion-label>Create New Page</ion-label>

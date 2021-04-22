@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
+import { AuthService } from 'src/app/services/auth-services/auth-service.service';
 import { MainServicesService } from '../provider-services/main-services.service';
 import { popupData } from '../view-booking-as-provider/view-booking-as-provider.page';
 
@@ -15,12 +16,25 @@ export class PageSettingsPage implements OnInit {
   public online: boolean;
   public popupData: popupData;
   constructor(public route: ActivatedRoute,
-    public router: Router, public mainService: MainServicesService) {
+    public router: Router, public mainService: MainServicesService, public authService: AuthService) {
     this.popupData = {
       title: "",
       otherInfo: "",
       type: '',
       show: false
+    }
+
+    this.page = {
+      _id: "",
+      status: "",
+      creator: "",
+      pageType: "",
+      hostTouristSpot: "",
+      components: [],
+      services: [],
+      otherServices: [],
+      bookingInfo: [],
+      createdAt: null
     }
   }
 
@@ -33,9 +47,14 @@ export class PageSettingsPage implements OnInit {
 
             this.page = page
             this.online = this.page.status == 'Online'
-            if (this.page.creator != this.mainService.user._id && (this.page.status == "Online" || this.page.status == "Not Operating")) {
-              this.router.navigate(["/service-provider/online-pages-list"])
-            }
+            this.authService.getCurrentUser().then((user: any) => {
+
+              if (page.creator == user._id) {
+                if (this.page.creator != user._id) {
+                  this.router.navigate(["/service-provider/online-pages-list"])
+                }
+              }
+            })
           }
         )
       }
@@ -54,13 +73,25 @@ export class PageSettingsPage implements OnInit {
     }, 200);
   }
 
+  goTo(path, params) {
+    setTimeout(() => {
+      this.router.navigate(path, params)
+    }, 200);
+  }
+
+  editPage() {
+    setTimeout(() => {
+      const type = this.page.pageType == 'service' ? "create-service-page" : "create-tourist-spot-page";
+      this.router.navigate([`/service-provider/${type}`, this.page._id])
+    }, 200);
+  }
 
   clicked(action) {
     if (action == "yes") {
       if (this.popupData.type == "change_page_status") {
         let status = this.online ? "Not Operating" : "Online"
         if (this.page.creator == this.mainService.user._id) {
-          this.mainService.changePageStatus({pageId: this.page._id, status}).subscribe(
+          this.mainService.changePageStatus({ pageId: this.page._id, status }).subscribe(
             (response: any) => {
               this.page.status = status;
               this.online = this.page.status == "Online"

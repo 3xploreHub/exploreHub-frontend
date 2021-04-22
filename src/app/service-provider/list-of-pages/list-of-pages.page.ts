@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
+import { AuthService } from 'src/app/services/auth-services/auth-service.service';
 import { MainServicesService } from '../provider-services/main-services.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class ListOfPagesPage implements OnInit {
     public router: Router,
     public mainService: MainServicesService,
     public route: ActivatedRoute,
+    public authService: AuthService,
     public alert: AlertController) { }
 
   ngOnInit() {
@@ -50,32 +52,26 @@ export class ListOfPagesPage implements OnInit {
   }
 
   goToDashBoard(page) {
-    const type = page.hostTouristSpot ? "service" : "tourist_spot"
-    const pageTypge = type == 'service'? "create-service-page": "create-tourist-spot-page";
-    const opts = page.status == "Unfinished"? {queryParams: {fromDraft: true}}: {}
-    setTimeout(() => {
-      if (page.status != "Unfinished") {
-        this.router.navigate(["/service-provider/dashboard", type, page._id], opts)
+    this.authService.getCurrentUser().then((user: any) => {
+      if (page.creator == user._id) {
+        const type = page.hostTouristSpot ? "service" : "tourist_spot"
+        const pageTypge = type == 'service' ? "create-service-page" : "create-tourist-spot-page";
+        const opts = page.status == "Unfinished" ? { queryParams: { fromDraft: true } } : {}
+        setTimeout(() => {
+          if (page.status != "Unfinished") {
+            this.router.navigate(["/service-provider/dashboard", type, page._id], opts)
+          } else {
+            this.router.navigate([`/service-provider/${pageTypge}`, page._id], opts)
+          }
+        }, 200);
       } else {
-        this.router.navigate([`/service-provider/${pageTypge}`, page._id], opts)
+        alert("not allowed")
       }
-    }, 200);
+    })
   }
 
-  getStatus(page) {
-    const status = page.status;
-    return {
-      'onlineBg': status == 'Online',
-      'pendingBg': status == 'Pending',
-      'unfinishedBg': status == 'Unfinished',
-      'processingBg': status == 'Processing',
-      'notOperatingBg': status == "Not Operating",
-      'rejectedBg': status == 'Rejected' || status == 'Cancelled'
-    }
-  }
 
-  clickOption(e, id) {
-    e.stopPropagation()
+  clickOption(id) {
     setTimeout(() => {
       this.pageClicked = id;
       this.showOption = true;

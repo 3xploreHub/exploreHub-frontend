@@ -9,7 +9,7 @@
 
 <ion-content>
   <div class="container">
-    <div class="statusCont" >
+    <div class="statusCont" *ngIf="page.status == 'Online' || page.status == 'Not Operating'">
       <div class="settingLabel">Status</div>
       <div class="onlineStat" (click)="changePageStatus($event)">
         <div class="overlay"></div>
@@ -17,7 +17,33 @@
         <ion-toggle readOnly color="success" [checked]="online"></ion-toggle>
       </div>
     </div>
+    <div *ngIf="page.status == 'Online' || page.status == 'Not Operating'" class="otherSettingsLabel">Other Settings</div>
+    <br *ngIf="page.status != 'Online' && page.status != 'Not Operating'">
+    <br *ngIf="page.status != 'Online' && page.status != 'Not Operating'">
+    <div class="settings">
+      <div *ngIf="page.pageType == 'tourist_spot'" class="otherSetting ion-activatable ripple-parent" (click)="goTo(['/service-provider/page-hosted-services'], {queryParams: {pageId: page._id, creator:page.creator}})">
+        <div class="text">
+          Hosted Services
+        </div>
+        <ion-icon name="copy-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="otherSetting ion-activatable ripple-parent" (click)="editPage()">
+        <div class="text">
+          Edit Page
+        </div>
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="otherSetting ion-activatable ripple-parent">
+        <div class="text">
+          Delete Page
+        </div>
+        <ion-icon name="trash-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
   </div>
-  <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">
+  <app-confirm-popup [popupData]="popupData" (clicked)="clicked($event)">
   </app-confirm-popup>
 </ion-content>

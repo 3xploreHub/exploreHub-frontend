@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateBookingGuardGuard } from './route-guards/create-booking-guard/create-booking-guard.guard';
+import { PageGuardGuard } from './route-guards/page-guard/page-guard.guard';
 import { PageCreatorRouteManagerGuard } from './route-guards/route-page-creator/page-creator-route-manager.guard';
 import { ServiceProviderRouteGuardGuard } from './route-guards/service-provider-route-guard/service-provider-route-guard.guard';
 
@@ -120,8 +121,7 @@ const routes: Routes = [
       
     ]
   },
-  
-  
+
 ];
 
 @NgModule({

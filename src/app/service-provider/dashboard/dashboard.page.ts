@@ -107,6 +107,12 @@ export class DashboardPage implements OnInit {
     }, 200);
   }
 
+  viewStats() {
+    setTimeout(() => {
+      this.router.navigate(["/service-provider/dashboard/" + this.page.pageType + "/" + this.page._id + "/board/statistics" ])
+    }, 200);
+  }
+
   getStatus() {
     const status = this.page.status;
     return {

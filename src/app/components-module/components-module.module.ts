@@ -20,6 +20,7 @@ import { HeaderMenuComponent } from '../service-provider/components/header-menu/
 import { UpdateItemPopupComponent } from '../service-provider/components/update-item-popup/update-item-popup.component';
 import { ConfirmPopupComponent } from '../service-provider/components/confirm-popup/confirm-popup.component';
 import { NotificationHandlerComponent } from '../service-provider/components/notification-handler/notification-handler.component';
+import { PageListCardComponent } from '../service-provider/page-list-card/page-list-card.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { NotificationHandlerComponent } from '../service-provider/components/not
     HeaderMenuComponent,
     UpdateItemPopupComponent,
     ConfirmPopupComponent,
+    PageListCardComponent,
     NotificationHandlerComponent,
     SelectedServiceCardComponent],
   exports: [
@@ -54,7 +56,8 @@ import { NotificationHandlerComponent } from '../service-provider/components/not
     ConfirmPopupComponent,
     SelectedServiceCardComponent,
     MessageBoxComponent,
-    OptionPopupComponent
+    OptionPopupComponent,
+    PageListCardComponent
 
   ]
 })
