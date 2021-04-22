@@ -10,6 +10,7 @@ import { MainServicesService } from '../provider-services/main-services.service'
 })
 export class PageHostedServicesPage implements OnInit {
   public pageId: string;
+  public parentPageCreator: string;
   public hostedPages: Page[] = []
   constructor(public route: ActivatedRoute, 
     public router: Router, public mainService: MainServicesService) { }
@@ -19,6 +20,7 @@ export class PageHostedServicesPage implements OnInit {
       (params: any) => {
         if (params && params.pageId) {
           this.pageId = params.pageId;
+          this.parentPageCreator = params.creator
           if (this.mainService.user._id != params.creator) {
             this.router.navigate(["/service-provider/online-pages-list"])
           } else {
@@ -30,6 +32,10 @@ export class PageHostedServicesPage implements OnInit {
           }
         }
       })
+  }
+
+  viewPage(page) {
+    this.router.navigate(["/service-provider/view-page", page._id, page.pageType], {queryParams: {fromHostedList: true, parentPageCreator: this.parentPageCreator}})
   }
 
 }

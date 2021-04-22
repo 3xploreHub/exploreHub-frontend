@@ -72,6 +72,23 @@
         <div class="boxes"></div>
       </div>
 
+      <div class="parentPageCreatorOption" *ngIf="fromHostedList">
+        <div class="options ion-activatable ripple-parent messageCont">
+          <ion-icon class="message" name="chatbubble-ellipses"></ion-icon>
+          Message
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <div class="options">
+          <p class="approve ion-activatable ripple-parent">Approve
+            <ion-ripple-effect></ion-ripple-effect>
+          </p>
+          <p class="decline ion-activatable ripple-parent">Decline
+            <ion-ripple-effect></ion-ripple-effect>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
+  <app-confirm-popup [popupData]="popupData" (clicked)="clicked($event)">
+  </app-confirm-popup>
 </ion-content>

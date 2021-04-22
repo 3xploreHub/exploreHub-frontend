@@ -10,13 +10,15 @@ import { ViewPagePage } from './view-page.page';
 import { ViewPageComponent } from 'src/app/modules/common-components/view-page/view-page.component';
 import { OtherServiceCardComponent } from '../other-service-card/other-service-card.component';
 import { AllServicesComponent } from '../all-services/all-services.component';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewPagePageRoutingModule
+    ViewPagePageRoutingModule,
+    ComponentsModulePageModule
   ],
   declarations: [ViewPagePage, ViewPageComponent, OtherServiceCardComponent, AllServicesComponent]
 })

@@ -12,8 +12,10 @@ import { DateInputDisplayComponent } from 'src/app/modules/page-input-field-disp
 import { NumberInputDisplayComponent } from 'src/app/modules/page-input-field-display/number-input-display/number-input-display.component';
 import { TextInputDisplayComponent } from 'src/app/modules/page-input-field-display/text-input-display/text-input-display.component';
 import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/item-list-display/item-list-display.component';
+import { AuthService } from 'src/app/services/auth-services/auth-service.service';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
+import { popupData } from '../../view-booking-as-provider/view-booking-as-provider.page';
 
 @Component({
   selector: 'app-view-page',
@@ -27,6 +29,9 @@ export class ViewPagePage implements OnInit {
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
+  public fromHostedList: boolean;
+  public parentPageCreator: string;
+  public popupData: popupData;
   screenHeight = window.innerHeight - 80;
   components = {
     'text': TextDisplayComponent,
@@ -44,13 +49,34 @@ export class ViewPagePage implements OnInit {
     public componentFactoryResolver: ComponentFactoryResolver,
     public route: ActivatedRoute,
     public router: Router,
+    public authService: AuthService,
     public creator: PageCreatorService) {
+
+      this.popupData = {
+        title: "",
+        otherInfo: "",
+        type: '',
+        show: false
+      }
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(
+      (params: any) => {
+        if (params && params.fromHostedList && params.parentPageCreator) {
+          this.authService.getCurrentUser().then((user: any) => {
+            if (user._id == params.parentPageCreator) {
+              this.parentPageCreator = params.parentPageCreator
+              this.fromHostedList = true
+            }
+          })
+        }
+      }
+    )
     this.route.paramMap.subscribe(params => {
       const pageId = params.get('pageId');
       this.pageType = params.get('pageType')
+
       this.mainService.viewPage({ pageId: pageId, pageType: this.pageType }).subscribe(
         (response: any) => {
           this.page = response;
@@ -173,5 +199,16 @@ export class ViewPagePage implements OnInit {
     this.router.navigate(["/service-provider/all-services", this.page._id])
   }
 
+  approve(e) {
+    e.stopPropagation()
+    setTimeout(() => {
+      this.popupData = {
+        type: 'change_page_status',
+        title: this.page.status == "Online" ? `Are you sure you want to set page status to "Not Operating"` : `Are you sure want set the page status to "Online"?`,
+        otherInfo: this.page.status == "Online" ? 'The page will no longer be visible online.' : 'The page will be visible online by the tourist and other service providers',
+        show: true
+      }
+    }, 200);
+  }
 
 }

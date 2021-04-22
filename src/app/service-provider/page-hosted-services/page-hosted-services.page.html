@@ -9,6 +9,6 @@
 
 <ion-content>
   <div class="container lightBackground">
-    <app-page-list-card *ngFor="let page of hostedPages" [page]="page"></app-page-list-card>
+    <app-page-list-card *ngFor="let page of hostedPages" [page]="page" (viewPage)="viewPage($event)"></app-page-list-card>
   </div>
 </ion-content>
