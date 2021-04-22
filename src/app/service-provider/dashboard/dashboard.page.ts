@@ -40,7 +40,7 @@ export class DashboardPage implements OnInit {
       const pageId = params.get('pageId');
       this.pageType = params.get('pageType');
       if (pageId && this.pageType) {
-        this.mainService.getPage(pageId, this.pageType).subscribe(
+        this.mainService.getPage(pageId).subscribe(
           (response: Page) => {
             this.page = response;
             this.mainService.currentPage = this.page;
@@ -95,22 +95,11 @@ export class DashboardPage implements OnInit {
     }, 200);
   }
 
-  // goToSection(tab: string, div: HTMLElement) {
-  //   this.clickedTab = tab;
-  //   const width = div.clientWidth;
-  //   switch (tab) {
-  //     case 'Booked':
-  //       this.boxPosition = 0;
-  //       break;
-  //     case 'Pending':
-  //       this.boxPosition = width;
-  //       break;
-  //     default:
-  //       this.boxPosition = width * 2
-  //       break;
-  //   }
-  // }
-
+  goTo(path, queryParams = {}) {
+    setTimeout(() => {
+      this.router.navigate(path, queryParams)
+    }, 200);
+  }
   editPage() {
     setTimeout(() => {
       const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";

@@ -98,11 +98,29 @@ const routes: Routes = [
         loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
       },
       {
-        path: '',
-        redirectTo: '/service-provider/select-page-type'
+        path: 'page-settings/:pageId',
+        loadChildren: () => import('./page-settings/page-settings.module').then( m => m.PageSettingsPageModule)
       },
+      {
+        path: 'page-conversations',
+        loadChildren: () => import('./page-conversations/page-conversations.module').then( m => m.PageConversationsPageModule)
+      },
+      {
+        path: 'page-hosted-services',
+        loadChildren: () => import('./page-hosted-services/page-hosted-services.module').then( m => m.PageHostedServicesPageModule)
+      },
+      {
+        path: 'page-chat',
+        loadChildren: () => import('./page-chat/page-chat.module').then( m => m.PageChatPageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/service-provider/online-pages-list'
+      },
+      
     ]
   },
+  
   
 ];
 

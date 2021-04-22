@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -9,7 +10,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class HeaderMenuComponent implements OnInit {
   public notificationsCount: number;
-  constructor(public mainService:MainServicesService) { }
+  constructor(public mainService:MainServicesService, public router: Router) { }
 
   ngOnInit() {
     this.getNotificationCount()
@@ -18,6 +19,10 @@ export class HeaderMenuComponent implements OnInit {
         this.getNotificationCount()
       }
     )
+  }
+
+  goTo(path) {
+    this.router.navigate(path, {queryParams: {formDashboard: true}})
   }
 
   getNotificationCount() {

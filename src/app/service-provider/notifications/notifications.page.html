@@ -1,8 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!formDashboard; else backBtn">
       <ion-menu-button content-id="main-content"></ion-menu-button>
     </ion-buttons>
+
+    <ng-template #backBtn>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+      </ion-buttons>
+    </ng-template>
     <ion-title>Notifications</ion-title>
   </ion-toolbar>
 </ion-header>

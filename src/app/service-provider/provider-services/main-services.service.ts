@@ -38,8 +38,8 @@ export class MainServicesService {
     this.checkCurrentUser.emit();
   }
 
-  getPage(pageId: string, pageType: string) {
-    return this.http.get(`${this.apiUrl}/getPage/${pageId}/${pageType}`)
+  getPage(pageId: string) {
+    return this.http.get(`${this.apiUrl}/getPage/${pageId}`)
   }
 
   getServices(pageId: string, pageType: string) {

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { NotificationHandlerComponent } from '../components/notification-handler/notification-handler.component';
 import { notification } from '../provider-services/interfaces/notification';
@@ -13,13 +14,20 @@ import { MainServicesService } from '../provider-services/main-services.service'
 export class NotificationsPage implements OnInit {
   public notifications: notificationGroup[] = []
   public loading: boolean = true;
-  constructor(public mainService:MainServicesService) { }
+  public formDashboard:boolean;
+  constructor(public mainService:MainServicesService, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getNotifications();
     this.mainService.notification.subscribe(
       (data: any) => {
         this.getNotifications(true)
+      }
+    )
+
+    this.route.queryParams.subscribe(
+      (params: any) => {
+        if(params && params.formDashboard) this.formDashboard = true
       }
     )
   }
