@@ -125,8 +125,8 @@ export class MainServicesService {
     return this.http.post(`${this.apiUrl}/createConversation`, data, { headers: { hideLoadingIndicator: "true" } })
   }
 
-  createConvoForHostApproval(data) {
-    return this.http.post(`${this.apiUrl}/createConvoForHostApproval`, data, { headers: { hideLoadingIndicator: "true" } })
+  createConvoForPageSubmission(data) {
+    return this.http.post(`${this.apiUrl}/createConvoForPageSubmission`, data, { headers: { hideLoadingIndicator: "true" } })
   }
 
   getConversation(bookingId, pageId, receiver) {  
@@ -153,8 +153,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getPageConversation/${id}`)
   }
 
-  getConvoForHostApproval(pageId) {
-    return this.http.get(`${this.apiUrl}/getConvoForHostApproval/${pageId}/`)
+  getConvoForPageSubmission(pageId, type) {
+    return this.http.get(`${this.apiUrl}/getConvoForPageSubmission/${pageId}/${type}`)
   }
 
   getAllConversations(pageId) {

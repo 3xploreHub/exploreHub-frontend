@@ -6,8 +6,8 @@
     </div>
   </div>
   <div class="cardText">
-    <div class="name">{{conversation.receiver.fullName}}</div>
-    <div class="lastMessage">{{getLastMessage()}}</div>
+    <div class="name">{{name}}</div>
+    <div class="lastMessage">{{lastMessage}}</div>
     <div class="time">{{conversation.updatedAt | date:'medium'}}</div>
   </div>
   <div (click)="clickOption($event)" class="cardOptions">

@@ -20,14 +20,14 @@ export class PageChatPage implements OnInit {
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 190
+    this.screenHeight = window.innerHeight - 120
     this.route.queryParams.subscribe(params => {
       if (params) {
         this.pageId = params.pageId
         if (params.type == "host_page_creator_approval") {
           this.receiver = params.pageName
           this.conversationId = params.conversationId
-          this.mainService.getConvoForHostApproval(this.pageId).subscribe(
+          this.mainService.getConvoForPageSubmission(this.pageId, "host_page_creator_approval").subscribe(
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
@@ -46,7 +46,7 @@ export class PageChatPage implements OnInit {
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
-                this.receiver = this.conversation.receiver.fullName
+                this.receiver = this.conversation.receiver ? this.conversation.receiver.fullName : this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
                 this.messages = this.conversation.messages
                 this.formatData()
               }
@@ -100,7 +100,7 @@ export class PageChatPage implements OnInit {
       // }
       if (!this.conversation) {
         const data = { notificationData: null, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.mainService.user._id }
-        this.mainService.createConvoForHostApproval(data).subscribe(
+        this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {
               this.conversation = response

@@ -9,6 +9,8 @@ import { conversation } from '../../transaction/transaction.page';
 })
 export class ConversationCardComponent implements OnInit {
   @Input() conversation: conversation;
+  public name:string;
+  public lastMessage: string = ""
   constructor(private router: Router) {
     this.conversation = {
       _id: "",
@@ -22,22 +24,31 @@ export class ConversationCardComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.getName()
+    this.getLastMessage()
+  }
 
+  getName() {
+    if (this.conversation) {
+
+      this.name = this.conversation.receiver ? this.conversation.receiver.fullName :  this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
+    }
+  }
 
   getLastMessage() {
-    
     if (this.conversation.messages.length > 0) {
-      return this.conversation.messages.reverse()[0].message
-
+      let message = this.conversation.messages.reverse()[0].message
+      this.lastMessage = message.length > 25? message.substring(0,25)+ "...": message
+    
     }
-    return "--------------"
   }
 
   openConvo(e) {
     e.stopPropagation()
     setTimeout(() => {
-      this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: this.conversation.receiver.fullName ,type: "page_conversation", conversationId:this.conversation._id}})
+      this.getName()
+      this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: name,type: "page_conversation", conversationId:this.conversation._id}})
     }, 200);
   }
   clickOption(e) {
