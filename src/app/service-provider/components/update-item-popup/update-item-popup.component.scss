@@ -28,20 +28,21 @@
 .stats {
     div {
         border-radius: 5px;
-        background-color: rgb(238, 242, 247);
+        // background-color: rgb(242, 248, 248);
         .percent {
             overflow: hidden;
             top: 0;
-            border-radius: 3px;
+            border-radius: 5px;
             left:0;
             right:0;
             height: 9px;
             background-color: rgb(227, 234, 245);
             
             .percentBar {
-                border-radius: 3px;
+                // border-radius: 3px;
                 height: 100%;
                 display: flex;
+                border-radius: 0;
                 background-color:rgb(1, 226, 159);
                 
                 .manaullyBookedPercent {

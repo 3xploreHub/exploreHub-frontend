@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../provider-services/main-services.service';
+import { popupData } from '../view-booking-as-provider/view-booking-as-provider.page';
 
 @Component({
   selector: 'app-page-settings',
@@ -11,7 +12,17 @@ import { MainServicesService } from '../provider-services/main-services.service'
 export class PageSettingsPage implements OnInit {
   public pageId: string;
   public page: Page;
-  constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
+  public online: boolean;
+  public popupData: popupData;
+  constructor(public route: ActivatedRoute,
+    public router: Router, public mainService: MainServicesService) {
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -19,11 +30,47 @@ export class PageSettingsPage implements OnInit {
         this.pageId = params.get("pageId")
         this.mainService.getPage(this.pageId).subscribe(
           (page: Page) => {
+
             this.page = page
+            this.online = this.page.status == 'Online'
+            if (this.page.creator != this.mainService.user._id && (this.page.status == "Online" || this.page.status == "Not Operating")) {
+              this.router.navigate(["/service-provider/online-pages-list"])
+            }
           }
         )
       }
     )
   }
 
+  changePageStatus(e) {
+    e.stopPropagation()
+    setTimeout(() => {
+      this.popupData = {
+        type: 'change_page_status',
+        title: this.page.status == "Online" ? `Are you sure you want to set page status to "Not Operating"` : `Are you sure want set the page status to "Online"?`,
+        otherInfo: this.page.status == "Online" ? 'The page will no longer be visible online.' : 'The page will be visible online by the tourist and other service providers',
+        show: true
+      }
+    }, 200);
+  }
+
+
+  clicked(action) {
+    if (action == "yes") {
+      if (this.popupData.type == "change_page_status") {
+        let status = this.online ? "Not Operating" : "Online"
+        if (this.page.creator == this.mainService.user._id) {
+          this.mainService.changePageStatus({pageId: this.page._id, status}).subscribe(
+            (response: any) => {
+              this.page.status = status;
+              this.online = this.page.status == "Online"
+            }
+          )
+        }
+      } else {
+      }
+    }
+
+    this.popupData.show = false;
+  }
 }

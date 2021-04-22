@@ -132,4 +132,8 @@ export class MainServicesService {
   sendMessage(data: any) {
     return this.http.post(`${this.apiUrl}/sendMessage`, data, { headers: { hideLoadingIndicator: "" } })
   }
+
+  changePageStatus(data: any) {
+    return this.http.post(`${this.apiUrl}/changePageStatus`, data)
+  }
 }

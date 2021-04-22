@@ -31,6 +31,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
   public popupData: popupData;
   loading = true
   constructor(public alert: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
+    
     this.popupData = {
       title: "",
       otherInfo: "",

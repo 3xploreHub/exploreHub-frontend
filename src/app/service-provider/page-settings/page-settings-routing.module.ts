@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
+import { ComponentsModulePage } from 'src/app/components-module/components-module.page';
 
 import { PageSettingsPage } from './page-settings.page';
 

@@ -1,0 +1,33 @@
+
+.statusCont {
+    padding:10px;
+    .settingLabel  {
+        font-size: 13px;
+        color:rgb(121, 129, 139);
+    }
+    
+    .onlineStat {
+        font-size: 18px;
+        display: flex;
+        background-color: rgb(237, 243, 245);
+        padding:8px;
+        position: relative;
+        align-items: center;
+        border-radius: 2px;
+        justify-content: space-between;
+        color:rgb(4, 212, 91);
+        .overlay {
+            position: absolute;
+            right:0;
+            left:0;
+            background-color: transparent;
+            z-index:99999;
+            bottom:0;
+            top:0;
+        }
+    }
+
+    .offline{
+        color:rgb(173, 196, 189);
+    }
+}

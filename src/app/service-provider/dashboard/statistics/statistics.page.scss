@@ -149,11 +149,12 @@
     right:0; 
     height: 6px;
     // background-color: rgb(229, 236, 241);
-    background-color: rgb(222, 228, 238);
+    background-color: rgb(232, 239, 241);
     
     .percentBar {
-        border-radius: 3px;
+        // border-radius: 5px;
         height: 100%;
+        overflow: hidden;
         width: 0;
         display:flex;
         background-color: rgb(1, 226, 159);
@@ -319,8 +320,8 @@
             border-radius: 5px;
             overflow:visible;
             margin:5px 0;
-            margin-bottom: 10px;
-            background-color:rgb(241, 244, 248);
+            margin-bottom: 8px;
+            // background-color:rgb(241, 244, 248);
             position: relative;
 
             
@@ -369,8 +370,9 @@
                 }
 
             .itemTitle {
-                padding:8px;
-                padding-top: 19px;
+                padding:8px 0;
+                // padding-top: 19px;
+                padding-bottom: 20px;
                 font-size: 15px;
                 // background-color: rgb(217, 227, 240);
                 overflow:hidden;
