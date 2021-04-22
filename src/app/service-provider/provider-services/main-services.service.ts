@@ -125,6 +125,10 @@ export class MainServicesService {
     return this.http.post(`${this.apiUrl}/createConversation`, data, { headers: { hideLoadingIndicator: "true" } })
   }
 
+  createConvoForHostApproval(data) {
+    return this.http.post(`${this.apiUrl}/createConvoForHostApproval`, data, { headers: { hideLoadingIndicator: "true" } })
+  }
+
   getConversation(bookingId, pageId, receiver) {  
     return this.http.get(`${this.apiUrl}/getConversation/${bookingId}/${pageId}/${receiver}`)
   }
@@ -143,5 +147,17 @@ export class MainServicesService {
 
   changeInitialStatus(data: any) {
     return this.http.post(`${this.apiUrl}/changeInitialStatus`, data)
+  }
+
+  getPageConversation(id) {
+    return this.http.get(`${this.apiUrl}/getPageConversation/${id}`)
+  }
+
+  getConvoForHostApproval(pageId) {
+    return this.http.get(`${this.apiUrl}/getConvoForHostApproval/${pageId}/`)
+  }
+
+  getAllConversations(pageId) {
+    return this.http.get(`${this.apiUrl}/getAllConversations/${pageId}/`)
   }
 }

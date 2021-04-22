@@ -16,6 +16,7 @@ export interface conversation {
   page: any;
   booking: any;
   messages: message[];
+  receiver: any;
   createdAt: string;
   updatedAt: string;
   opened: boolean;

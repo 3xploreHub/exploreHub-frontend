@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{page.components[1].data.text}}</ion-title>
+    <ion-title>{{getPageName()}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, others, tab)">
@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="innerCont" >
-          <div class="options ion-activatable ripple-parent messageCont">
+          <div class="options ion-activatable ripple-parent messageCont" (click)="message()">
             <ion-icon class="message" name="chatbubble-ellipses"></ion-icon>&nbsp;
             Message
             <ion-ripple-effect></ion-ripple-effect>

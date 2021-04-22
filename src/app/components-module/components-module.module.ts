@@ -21,6 +21,7 @@ import { UpdateItemPopupComponent } from '../service-provider/components/update-
 import { ConfirmPopupComponent } from '../service-provider/components/confirm-popup/confirm-popup.component';
 import { NotificationHandlerComponent } from '../service-provider/components/notification-handler/notification-handler.component';
 import { PageListCardComponent } from '../service-provider/page-list-card/page-list-card.component';
+import { ConversationCardComponent } from '../service-provider/components/conversation-card/conversation-card.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { PageListCardComponent } from '../service-provider/page-list-card/page-l
     UpdateItemPopupComponent,
     ConfirmPopupComponent,
     PageListCardComponent,
+    ConversationCardComponent,
     NotificationHandlerComponent,
     SelectedServiceCardComponent],
   exports: [
@@ -54,6 +56,7 @@ import { PageListCardComponent } from '../service-provider/page-list-card/page-l
     NotificationCardComponent,
     NotificationHandlerComponent,
     ConfirmPopupComponent,
+    ConversationCardComponent,
     SelectedServiceCardComponent,
     MessageBoxComponent,
     OptionPopupComponent,

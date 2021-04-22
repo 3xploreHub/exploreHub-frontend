@@ -1,0 +1,48 @@
+.card {
+    background-color: white;
+    margin:10px;
+    display: flex;
+    position: relative;
+    border-radius: 3px;
+    padding:6px;
+    align-items: center;
+    box-shadow: 0 1px 2px rgb(191, 196, 202);
+    
+    .picHolder {
+        height: 70px;
+        width: 70px;
+        overflow: hidden;
+        border-bottom: 3px;
+        background-color: lightgray;
+    
+        .pic {
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+    }
+
+    .cardText {
+        padding:0 7px;
+        .name {
+            font-size: 18px;
+            color:rgb(35, 42, 49);
+        }
+
+        .lastMessage {
+            margin:5px 0;
+            color: rgb(59, 120, 206);
+            font-size: 15px;
+        }
+        .time {
+            font-size: 14px;
+            color: rgb(106, 118, 134);
+        }
+    }
+
+}

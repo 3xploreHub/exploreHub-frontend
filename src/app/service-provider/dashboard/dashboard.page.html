@@ -11,7 +11,7 @@
           <ion-ripple-effect></ion-ripple-effect>
           <div *ngIf="notificationsCount && notificationsCount != 0" class="notifCount">{{notificationsCount}}</div>
         </div>&nbsp;&nbsp;
-        <div class="ion-activatable ripple-parent smIcon">
+        <div (click)="goTo(['/service-provider/page-conversations'], {queryParams: {pageId: page._id, creator: page.creator}})" class="ion-activatable ripple-parent smIcon">
           <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
           <ion-ripple-effect></ion-ripple-effect>
         </div>&nbsp;&nbsp;

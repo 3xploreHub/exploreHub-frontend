@@ -236,4 +236,19 @@ export class ViewPagePage implements OnInit {
     this.popupData.show = false;
   }
 
+  getPageName() {
+    let name = "Untitled"
+    this.page.components.forEach(comp => {
+      if (comp.data && comp.data.defaultName == "pageName") {
+        name = comp.data.text;
+      }
+    })
+    return name;
+  }
+
+  message() {
+    setTimeout(() => {
+      this.router.navigate(["/service-provider/page-chat"], {queryParams: {pageId: this.page._id,type: "host_page_creator_approval", pageName: this.getPageName()}})
+    }, 200);
+  }
 }
