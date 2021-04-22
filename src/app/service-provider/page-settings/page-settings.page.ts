@@ -33,7 +33,7 @@ export class PageSettingsPage implements OnInit {
       components: [],
       services: [],
       otherServices: [],
-      bookingInfo: [],
+      bookingInfo: [],initialStatus:"",
       createdAt: null
     }
   }

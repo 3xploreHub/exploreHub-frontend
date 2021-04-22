@@ -25,7 +25,7 @@ import { popupData } from '../../view-booking-as-provider/view-booking-as-provid
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @Input() page: Page = { _id: "", pageType: "", otherServices: [], status: "", components: [{}, { data: { text: "----------" } }], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
+  @Input() page: Page = { _id: "", pageType: "", otherServices: [], status: "",initialStatus: "", components: [{}, { data: { text: "----------" } }], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -203,12 +203,37 @@ export class ViewPagePage implements OnInit {
     e.stopPropagation()
     setTimeout(() => {
       this.popupData = {
-        type: 'change_page_status',
-        title: this.page.status == "Online" ? `Are you sure you want to set page status to "Not Operating"` : `Are you sure want set the page status to "Online"?`,
-        otherInfo: this.page.status == "Online" ? 'The page will no longer be visible online.' : 'The page will be visible online by the tourist and other service providers',
+        type: 'approve',
+        title: `Are you sure you want to approve this service`,
+        otherInfo: 'This service will be visible within your page in the "Other Services" section.',
         show: true
       }
     }, 200);
+  }
+
+  decline(e) {
+    e.stopPropagation()
+    setTimeout(() => {
+      this.popupData = {
+        type: 'decline',
+        title: `Are you sure you want to decline this service`,
+        otherInfo: 'This service will not be visible within your page',
+        show: true
+      }
+    }, 200);
+  }
+
+  clicked(action) {
+    if (action == "yes") {
+      let status  = "Declined"
+      if (this.popupData.type == "approve") status = "Approved"
+      this.mainService.changeInitialStatus({pageId: this.page._id, status: status}).subscribe(
+        (data:any) => {
+          this.page.initialStatus = status          }
+      )
+    } else {
+    }
+    this.popupData.show = false;
   }
 
 }

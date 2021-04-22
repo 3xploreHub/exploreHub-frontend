@@ -140,4 +140,8 @@ export class MainServicesService {
   getHostedPages(id) {
     return this.http.get(`${this.apiUrl}/getHostedPages/${id}`)
   }
+
+  changeInitialStatus(data: any) {
+    return this.http.post(`${this.apiUrl}/changeInitialStatus`, data)
+  }
 }
