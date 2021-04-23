@@ -14,7 +14,10 @@ export class PageChatPage implements OnInit {
   public message: string;
   public pageId: string;
   public conversationId: string;
+  public receiverName: string;
+  public type: string;
   public receiver: string;
+  public notifType = {host_page_creator_approval: "page-provider", admin_approval: "page-admin", tourist_message: "page-tourist"}
   public conversation: conversation;
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
@@ -24,14 +27,19 @@ export class PageChatPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params) {
         this.pageId = params.pageId
-        if (params.type == "host_page_creator_approval") {
-          this.receiver = params.pageName
+        this.type = params.type;
+        if (this.type == "host_page_creator_approval") {
+          this.receiverName = params.pageName
+          this.receiver = params.receiver
           this.conversationId = params.conversationId
-          this.mainService.getConvoForPageSubmission(this.pageId, "host_page_creator_approval").subscribe(
+          this.mainService.getConvoForPageSubmission(this.pageId, this.type).subscribe(
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
+                this.type = this.conversation["type"]
                 this.messages = this.conversation.messages
+                this.receiver =  this.conversation.page.creator
+                this.receiverName =  this.receiverName = this.conversation.receiver.fullName ? this.conversation.receiver.fullName : this.conversation.receiver.username  == "admin"? "Admin": "Unknown"
                 this.formatData()
               }
               setTimeout(() => {
@@ -40,14 +48,17 @@ export class PageChatPage implements OnInit {
             }
           )
         } else {
-          this.receiver = params.receiverName
+          this.receiverName = params.receiverName
           this.conversationId = params.conversationId
           this.mainService.getPageConversation(this.conversationId).subscribe(
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
-                this.receiver = this.conversation.receiver ? this.conversation.receiver.fullName : this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
+                this.pageId = this.conversation.page._id
+                this.type = this.conversation["type"]
+                this.receiverName = this.conversation.receiver.fullName ? this.conversation.receiver.fullName : this.conversation.receiver.username  == "admin"? "Admin": "Unknown"
                 this.messages = this.conversation.messages
+                this.receiver = this.conversation.receiver == this.mainService.user._id? this.conversation.page.creator: this.conversation.receiver._id
                 this.formatData()
               }
               setTimeout(() => {
@@ -60,23 +71,25 @@ export class PageChatPage implements OnInit {
       }
     })
 
-    // this.mainService.notification.subscribe(
-    //   (data: any) => {
-    //     if (data.type == "message-booking" && this.bookingId == data.bookingId) {
-    //       if (data.conversation) {
-    //         this.conversation = data.conversation
-    //         this.messages = this.conversation.messages
-    //         this.formatData()
-    //       } else {
-    //         const message = this.messages.filter(m => m._id == data.newMessage._id)
-    //         if (message.length == 0) this.messages.push(data.newMessage);
-    //       }
-    //       setTimeout(() => {
-    //         this.scrollToBottom()
-    //       }, 400)
-    //     }
-    //   }
-    // )
+     this.mainService.notification.subscribe(
+      (data: any) => {
+        if (data.type == "message-page" && this.pageId == data.pageId) {
+          if (this.conversation && data.conversationId != this.conversation._id) return;
+          if (data.conversation) {
+            this.conversation = data.conversation
+            this.messages = this.conversation.messages
+            this.formatData()
+          } else {
+            const message = this.messages.filter(m => m._id == data.newMessage._id)
+            if (message.length == 0) this.messages.push(data.newMessage);
+            this.formatData()
+          }
+          setTimeout(() => {
+            this.scrollToBottom()
+          }, 400)
+        }
+      }
+    )
   }
 
   scrollToBottom(): void {
@@ -87,19 +100,19 @@ export class PageChatPage implements OnInit {
 
   send() {
     if (this.message) {
-      // const notificationData = {
-      //   receiver:  this.receiver,
-      //   mainReceiver: this.receiver,
-      //   page: this.pageId,
-      //   booking: null,
-      //   isMessage: true,
-      //   sender: this.mainService.user._id,
-      //   subject: this.pageId,
-      //   message: `${this.mainService.user.fullName} sent you a message`,
-      //   type: "booking-tourist",
-      // }
+      const notificationData = {
+        receiver:  this.receiver,
+        mainReceiver: this.mainService.user._id,
+        page: this.pageId,
+        booking: null,
+        isMessage: true,
+        sender: this.mainService.user._id,
+        subject: this.pageId,
+        message: `${this.mainService.user.fullName} sent you a message`,
+        type: this.notifType[this.type],
+      }
       if (!this.conversation) {
-        const data = { notificationData: null, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.mainService.user._id }
+        const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.mainService.user._id }
         this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {
@@ -107,12 +120,12 @@ export class PageChatPage implements OnInit {
               this.messages = this.conversation.messages
               this.formatData();
               this.scrollToBottom()
-              // this.mainService.notify({ user: this.mainService.user, bookingId: null, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
+              this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversation: this.conversation, type: "message-page", receiver: [this.receiver], message:  `${this.mainService.user.fullName} sent you a message` })
             }
           }
         )
       } else {
-        const data = { notificationData: null, conversationId: this.conversation._id, message: this.message }
+        const data = { notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {
@@ -124,7 +137,7 @@ export class PageChatPage implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
             this.scrollToBottom()
-            // this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-booking", receiver: [this.tourist], message: `You have new message` })
+            this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-page", receiver: [this.receiver], message:  `${this.mainService.user.fullName} sent you a message` })
           }
         )
       }

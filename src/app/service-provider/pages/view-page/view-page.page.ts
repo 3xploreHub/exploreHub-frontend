@@ -248,7 +248,7 @@ export class ViewPagePage implements OnInit {
 
   message() {
     setTimeout(() => {
-      this.router.navigate(["/service-provider/page-chat"], {queryParams: {pageId: this.page._id,type: "host_page_creator_approval", pageName: this.getPageName()}})
+      this.router.navigate(["/service-provider/page-chat"], {queryParams: {pageId: this.page._id,type: "host_page_creator_approval", receiver: this.page.creator, pageName: this.getPageName()}})
     }, 200);
   }
 }

@@ -105,8 +105,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getNotifications`, config)
   }
 
-  viewNotification(notifId) {
-    return this.http.put(`${this.apiUrl}/viewNotification/${notifId}`, {})
+  viewNotification(data) {
+    return this.http.put(`${this.apiUrl}/viewNotification`, data)
   }
 
   removeSelectedItem(bookingId, selectedId) {

@@ -46,7 +46,6 @@ export class NotificationsPage implements OnInit {
                 notif.notifications = notifs;
               }
             });
-            console.log(notif)
           }
           return notif
         })
@@ -73,6 +72,12 @@ export class NotificationsPage implements OnInit {
       } else {
         title = `${notif.mainReceiver.fullName}'s booking`
       }
+    } else {
+      notif.page.components.forEach(comp => {
+        if (comp.data.defaultName == "pageName") {
+          title = comp.data.text
+        }
+      });
     }
     return title
   }
