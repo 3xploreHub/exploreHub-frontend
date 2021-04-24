@@ -32,6 +32,7 @@ export class ServiceDetailsComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Input() serviceInfo: serviceInfo;
+  @Input() noAvailable = false
   public pageWidth: number;
   public pageHeight: number;
   public fromReviewBooking:boolean = false;

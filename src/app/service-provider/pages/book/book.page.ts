@@ -49,7 +49,7 @@ export class BookPage implements OnInit, ViewWillEnter {
       if (params) {
         if (params.edit) {
           this.mainService.canLeave = true
-        } 
+        }
         if (params.manual) {
           this.isManual = true
         }
@@ -58,6 +58,7 @@ export class BookPage implements OnInit, ViewWillEnter {
         }
       }
     })
+ 
     this.route.paramMap.subscribe(params => {
       this.pageId = params.get('pageId');
       this.pageType = params.get('pageType');
@@ -65,12 +66,15 @@ export class BookPage implements OnInit, ViewWillEnter {
       this.mainService.getPageBookingInfo({ pageId: this.pageId, pageType: this.pageType, bookingId: this.bookingId }).subscribe(
         (response: any) => {
           this.bookingInfo = response.bookingInfo;
+          this.makeInputValueCont()
+          console.log(this.inputValue)
           if (response.booking) {
             this.update = response.booking.bookingInfo.length > 0;
-            this.inputValue = response.booking.bookingInfo;
+            if (response.booking.bookingInfo.length > 0) this.inputValue = response.booking.bookingInfo;
             this.setValues();
+            console.log(this.inputValue)
           }
-          this.setPage(this.bookingInfo);
+          this.setPage();
         }
       )
     })
@@ -93,14 +97,14 @@ export class BookPage implements OnInit, ViewWillEnter {
     this.bookingInfo = [];
   }
 
-  setPage(page) {
+  setPage() {
     if (this.pageInputField) this.pageInputField.clear()
     this.creator.preview = true;
     setTimeout(() => {
       this.bookingInfo.forEach((component: any) => {
         let hasError = false
         this.requiredInputs.forEach(field => {
-          if (field == component._id) {
+          if (field == component._id && !component.data.defaultValue) {
             hasError = true
           }
         })
@@ -122,9 +126,24 @@ export class BookPage implements OnInit, ViewWillEnter {
     }
   }
 
+  makeInputValueCont() {
+    this.bookingInfo.forEach(data => {
+      let value:InputValue;
+      value = {
+        inputFieldType: data.type,
+        inputId: data._id,
+        value: data.data.defaultValue,
+        inputLabel: data.data.label,
+        settings: {}
+      }
+      this.inputValue.push(value)
+    })
+  }
+
   catchEvent(data) {
     if (data.userInput) {
       let updated = false;
+      console.log(data)
       this.inputValue = this.inputValue.map((val: InputValue) => {
         if (val.inputId == data.data.inputId) {
           val = data.data
@@ -136,9 +155,12 @@ export class BookPage implements OnInit, ViewWillEnter {
         this.inputValue.push(data.data);
       }
     }
+    console.log(this.inputValue);
+    
   }
 
   submitBooking() {
+    console.log("at submit: ", this.inputValue)
     const requiredFields = []
     const requiredInputs = []
     let hasError: boolean = false;
@@ -146,11 +168,17 @@ export class BookPage implements OnInit, ViewWillEnter {
       if (data.data.required) {
         let hasValue = false;
         this.inputValue.forEach(value => {
-          if (value.inputId == data._id && value.value) {
+          if (value.inputId == data._id && value.value || data.data.defaultValue) {
             hasValue = true;
           }
         })
         if (!hasValue) {
+          // if (data.data.defaultValue) {
+          //   const value: InputValue = {
+          //     inputLabel: data.data.label, inputId: data._id, inputFieldType: data.type, value: data.data.defaultValue, settings: {}
+          //   }
+          //   this.inputValue.push(value)
+          // }
           requiredInputs.push(data._id)
           requiredFields.push(data.data.label)
           hasError = true
@@ -159,29 +187,28 @@ export class BookPage implements OnInit, ViewWillEnter {
     })
     this.requiredInputs = requiredInputs
     if (!hasError) {
-
       setTimeout(() => {
         this.mainService.canLeave = true;
         this.mainService.addBookingInfo(this.bookingId, this.inputValue).subscribe(
           (response: bookingData) => {
-            let params = {queryParams:{}}
-             if (this.isManual) params.queryParams["manual"] = true
-             if (this.fromDraft) params.queryParams["draft"] = true
+            let params = { queryParams: {} }
+            if (this.isManual) params.queryParams["manual"] = true
+            if (this.fromDraft) params.queryParams["draft"] = true
             this.router.navigate(["/service-provider/booking-review", this.pageId, this.pageType, this.bookingId], params)
           }
         )
       }, 100);
     } else {
-      const error = "Required field"+(requiredFields.length > 1? "s": "" )+": "+requiredFields.join(", ");
+      const error = "Required field" + (requiredFields.length > 1 ? "s" : "") + ": " + requiredFields.join(", ");
       this.presentAlert(error);
       this.setValues();
-      this.setPage(this.bookingInfo);
+      this.setPage();
     }
 
   }
   editSelectedServices() {
     this.mainService.canLeave = true;
-    let params = {queryParams:{}}
+    let params = { queryParams: {} }
     if (this.isManual) params.queryParams["manual"] = true
     if (this.fromDraft) params.queryParams["draft"] = true
     this.router.navigate(["/service-provider/select-service", this.pageId, this.bookingId], params)

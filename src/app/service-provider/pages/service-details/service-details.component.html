@@ -1,12 +1,13 @@
 <div class="container mainLightBg2" [ngStyle]="{'width.px': pageWidth, 'height.px': pageHeight}">
   <ng-template #pageElement></ng-template>
   <div class="selectServiceBtnHolder ion-activatable ripple-parent">
-    <div class="selectServiceBtn" (click)="selectService()">
+    <div *ngIf="!noAvailable" class="selectServiceBtn" (click)="selectService()">
       <p>
         Select
       </p>
       <ion-icon name="arrow-forward-outline"></ion-icon>
       <ion-ripple-effect></ion-ripple-effect>
     </div>
+    <div *ngIf="noAvailable" class="noAvailable">No Available</div>
   </div>
 </div>
