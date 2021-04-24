@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ViewWillEnter } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NotificationHandlerComponent } from './service-provider/components/notification-handler/notification-handler.component';
@@ -12,7 +12,7 @@ import { AuthService } from './services/auth-services/auth-service.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnDestroy, OnInit {
+export class AppComponent implements OnDestroy, ViewWillEnter, OnInit {
   @ViewChild(NotificationHandlerComponent) public notifHandler: NotificationHandlerComponent;
   public isLoading = false;
   constructor(
@@ -23,6 +23,10 @@ export class AppComponent implements OnDestroy, OnInit {
     public authService: AuthService,
   ) {
     this.initializeApp();
+  }
+
+  ionViewWillEnter() {
+
   }
 
   ngOnInit() {

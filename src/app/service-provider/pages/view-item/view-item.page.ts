@@ -32,7 +32,25 @@ export class ViewItemPage implements OnInit {
       this.mainService.viewItems({ pageId: this.pageId, serviceId: this.serviceId, pageType: this.pageType }).subscribe(
         (response: any) => {
           this.values.data = response;
+          this.values.data = this.values.data.map(component => {
+            let available = 0;
+            if (component.data.defaultName == "quantity") {
+              component.data.label = "Available"
+              const booked = (this.values["booked"] + this.values["manuallyBooked"] + this.values["toBeBooked"])
+              
+              available = component.data.text - booked 
+              available = available == null || available == NaN? 0: available
+              if (available != 0) {
+              
+              }
+              component.data.text = available
+              
+            }
+            if (available != 0) return component
+          });
 
+          this.values.data = this.values.data.filter(item => item)
+          console.log(this.values.data)
           this.values.data = this.values.data.filter(item => item.type == "item")
           for (let i = 0; i < this.values.data.length; i++) {
             const element = this.values.data[i];

@@ -33,14 +33,14 @@ export class RegisterPage implements OnInit {
     return this.formBuilder.group({
       accountType: [""],
       contactNumber: [
-        "639755663973",
+        "",
         CValidator.validate([
           { v: "required" },
           { v: "pattern", r: "^[0-9]*$", m: ["numbers"] },
         ]),
       ],
       email: [
-        "rivas@gmail.com",
+        "",
         CValidator.validate([
           { v: "required" },
           {
@@ -51,7 +51,7 @@ export class RegisterPage implements OnInit {
         ]),
       ],
       password: [
-        "Jrivas2398",
+        "",
         CValidator.validate([
           { v: "required" },
           { v: "minLength", r: 8 },
@@ -63,7 +63,7 @@ export class RegisterPage implements OnInit {
           },
         ]),
       ],
-      confirmPassword: ["Jrivas2398", CValidator.validate([{ v: "required" }])],
+      confirmPassword: ["", CValidator.validate([{ v: "required" }])],
     });
   }
 

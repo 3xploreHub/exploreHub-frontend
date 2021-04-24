@@ -46,15 +46,9 @@ export class NotificationCardComponent implements OnInit {
           this.router.navigate(["/service-provider/view-booking", this.notificationGroup.booking._id],
             { queryParams: { notification: true } })
         } else if (type == "page-provider") {
-          if (this.notificationGroup.page.creator == this.notificationGroup.receiver) {
+          if (this.notif["isMessage"]) {
 
-            this.router.navigate(['/service-provider/page-chat'], { queryParams: { receiverName: "test", pageId: this.notificationGroup.page, conversationId: this.notif["conversation"] } })
-          }
-          // this.router.navigate(["/service-provider/dashboard", this.notificationGroup.page.pageType, this.notificationGroup.page._id],
-          //   { queryParams: { notification: true } })
-          else {
-
-            this.router.navigate(["/service-provider/page-chat"], { queryParams: { pageId: this.notificationGroup.page._id, type: "host_page_creator_approval", receiver: this.notificationGroup.page.creator, pageName: "Test" } })
+            this.router.navigate(['/service-provider/page-chat'], { queryParams: {pageId: this.notificationGroup.page, conversationId: this.notif["conversation"] } })
           }
         }
         else if (type == "booking-provider") {

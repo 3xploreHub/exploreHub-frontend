@@ -17,6 +17,7 @@ export class ItemDisplayComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @Input() values: ElementValues;
   @Input() parentId: string;
+  noAvailable = false
   @Input() onEditing: boolean = false;
   @Output() onClick: EventEmitter<any>  = new EventEmitter();
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
@@ -56,12 +57,15 @@ export class ItemDisplayComponent implements OnInit {
   setPage(component) {
     setTimeout(() => {
       component.forEach((component: any) => {
+        let available = 0
         if (component.data.defaultName == "quantity") {
           component.data.label = "Available"
           const booked = (this.values["booked"] + this.values["manuallyBooked"] + this.values["toBeBooked"])
           
-          const available = component.data.text - booked 
-          component.data.text = available == null || available == NaN? 0: available
+          available = component.data.text - booked 
+          available = available == null || available == NaN? 0: available
+          this.noAvailable = available == 0
+          component.data.text = available
           
         }
         this.renderComponent(component.type, component)

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MainServicesService } from '../../provider-services/main-services.service';
 import { conversation } from '../../transaction/transaction.page';
 
 @Component({
@@ -10,8 +11,10 @@ import { conversation } from '../../transaction/transaction.page';
 export class ConversationCardComponent implements OnInit {
   @Input() conversation: conversation;
   public name:string;
+  public receiver: string;
+  public receiverName: string;
   public lastMessage: string = ""
-  constructor(private router: Router) {
+  constructor(private router: Router, public mainService: MainServicesService) {
     this.conversation = {
       _id: "",
       page: null,
@@ -31,7 +34,18 @@ export class ConversationCardComponent implements OnInit {
 
   getName() {
     if (this.conversation) {
-      this.name = this.conversation.receiver ? this.conversation.receiver.fullName :  this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
+      if (this.conversation["participants"]) {
+        let receiver = this.conversation["participants"].filter(par => par._id != this.mainService.user._id)
+        console.log(receiver, "reciver")
+        if (receiver.length > 0) {
+          this.receiver = receiver[0]._id
+          this.receiverName = receiver[0].fullName
+          console.log(this.receiverName, this.receiver);
+          
+        }
+      } else {
+        this.name = this.conversation.receiver ? this.conversation.receiver.fullName :  this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
+      }
     }
   }
 
@@ -45,8 +59,7 @@ export class ConversationCardComponent implements OnInit {
   openConvo(e) {
     e.stopPropagation()
     setTimeout(() => {
-      this.getName()
-      this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: this.name, pageId: this.conversation.page, conversationId:this.conversation._id}})
+      this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId:this.conversation._id}})
     }, 200);
   }
   clickOption(e) {

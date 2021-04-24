@@ -25,7 +25,7 @@ import { popupData } from '../../view-booking-as-provider/view-booking-as-provid
 export class ViewPagePage implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('pageService', { read: ViewContainerRef }) pageService: ViewContainerRef;
-  @Input() page: Page = { _id: "", pageType: "", otherServices: [], status: "",initialStatus: "", components: [{}, { data: { text: "----------" } }], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
+  @Input() page: Page = { _id: "", pageType: "", otherServices: [], status: "", initialStatus: "", components: [{}, { data: { text: "----------" } }], services: [], bookingInfo: [], creator: "", hostTouristSpot: "", createdAt: "" }
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
@@ -52,12 +52,12 @@ export class ViewPagePage implements OnInit {
     public authService: AuthService,
     public creator: PageCreatorService) {
 
-      this.popupData = {
-        title: "",
-        otherInfo: "",
-        type: '',
-        show: false
-      }
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
   }
 
   ngOnInit() {
@@ -80,6 +80,36 @@ export class ViewPagePage implements OnInit {
       this.mainService.viewPage({ pageId: pageId, pageType: this.pageType }).subscribe(
         (response: any) => {
           this.page = response;
+          // this.page.services = this.page.services.map(service => {
+          //   service.data = service.data.map(item => {
+          //     let available = 0
+          //     if (item.type == "item") {
+          //       item.data = item.data.map(component => {
+          //         if (component.data.defaultName == "quantity") {
+          //           component.data.label = "Available"
+          //           const booked = (item["booked"] + item["manuallyBooked"] + item["toBeBooked"])
+
+          //           available = component.data.text - booked
+          //           available = available == null || available == NaN ? 0 : available
+          //           component.data.text = available
+          //         }
+          //         return component
+          //       })
+          //       if (available != 0) return item
+          //     } else {
+
+          //       return item
+          //     }
+          //   })
+          //   service.data = service.data.filter(serv => serv)
+          //   const items = service.data.filter(serv => serv.type == "item")
+          //   if (items.length > 0) return service
+          // })
+          // this.page.services = this.page.services.filter(service =>  service)
+
+          
+          console.log(this.page.services);
+          
           this.otherServices = this.page.otherServices
           this.mainService.currentPage = this.page;
 
@@ -225,11 +255,12 @@ export class ViewPagePage implements OnInit {
 
   clicked(action) {
     if (action == "yes") {
-      let status  = "Declined"
+      let status = "Declined"
       if (this.popupData.type == "approve") status = "Approved"
-      this.mainService.changeInitialStatus({pageId: this.page._id, status: status}).subscribe(
-        (data:any) => {
-          this.page.initialStatus = status          }
+      this.mainService.changeInitialStatus({ pageId: this.page._id, status: status }).subscribe(
+        (data: any) => {
+          this.page.initialStatus = status
+        }
       )
     } else {
     }
@@ -248,7 +279,7 @@ export class ViewPagePage implements OnInit {
 
   message() {
     setTimeout(() => {
-      this.router.navigate(["/service-provider/page-chat"], {queryParams: {pageId: this.page._id,type: "host_page_creator_approval", receiver: this.page.creator, pageName: this.getPageName()}})
+      this.router.navigate(["/service-provider/page-chat"], { queryParams: { pageId: this.page._id, type: "host_page_creator_approval", receiver: this.page.creator, receiverName: this.getPageName() } })
     }, 200);
   }
 }

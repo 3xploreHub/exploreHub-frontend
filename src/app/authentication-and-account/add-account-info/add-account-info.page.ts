@@ -27,7 +27,7 @@ export class AddAccountInfoPage implements OnInit {
   setForm() {
     return this.formBuilder.group({
       firstName: [
-        "Jonathan",
+        "",
         [
           CValidator.validate([
             { v: "required" },
@@ -37,14 +37,14 @@ export class AddAccountInfoPage implements OnInit {
         "",
       ],
       lastName: [
-        "Rivas",
+        "",
         CValidator.validate([
           { v: "required" },
           { v: "pattern", r: "^[a-zA-Z .]*$", m: ["letters"] },
         ]),
       ],
       address: [
-        "Nasipit, talamban, Cebu",
+        "",
         CValidator.validate([{ v: "required" }]),
       ],
       gender: ["Female ", CValidator.validate([{ v: "required" }])],

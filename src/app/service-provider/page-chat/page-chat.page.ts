@@ -28,18 +28,22 @@ export class PageChatPage implements OnInit {
       if (params) {
         this.pageId = params.pageId
         this.type = params.type;
-        if (this.type == "host_page_creator_approval") {
-          this.receiverName = params.pageName
-          this.receiver = params.receiver
-          this.conversationId = params.conversationId
+
+        this.receiverName = params.receiverName
+        this.receiver = params.receiver
+        this.conversationId = params.conversationId
+        if (this.type == "host_page_creator_approval") {         
           this.mainService.getConvoForPageSubmission(this.pageId, this.type).subscribe(
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
                 this.type = this.conversation["type"]
                 this.messages = this.conversation.messages
-                this.receiver =  this.conversation.page.creator
-                this.receiverName =  this.receiverName = this.conversation.receiver.fullName ? this.conversation.receiver.fullName : this.conversation.receiver.username  == "admin"? "Admin": "Unknown"
+                // this.receiver =  this.conversation.page.creator
+                // this.receiverName =  this.receiverName = this.conversation.receiver.fullName ? this.conversation.receiver.fullName : this.conversation.receiver.username  == "admin"? "Admin": "Unknown"
+                // if (this.receiver == this.mainService.user._id) {
+                //   this.receiverName = params.pageName
+                // }
                 this.formatData()
               }
               setTimeout(() => {
@@ -48,17 +52,19 @@ export class PageChatPage implements OnInit {
             }
           )
         } else {
-          this.receiverName = params.receiverName
-          this.conversationId = params.conversationId
           this.mainService.getPageConversation(this.conversationId).subscribe(
             (response: any) => {
               if (!response.noConversation) {
                 this.conversation = response
                 this.pageId = this.conversation.page._id
                 this.type = this.conversation["type"]
-                this.receiverName = this.conversation.receiver.fullName ? this.conversation.receiver.fullName : this.conversation.receiver.username  == "admin"? "Admin": "Unknown"
                 this.messages = this.conversation.messages
-                this.receiver = this.conversation.receiver == this.mainService.user._id? this.conversation.page.creator: this.conversation.receiver._id
+                this.conversation["participants"].forEach(par => {
+                  if (par._id != this.mainService.user._id) {
+                    this.receiverName = par.fullName
+                    this.receiver = par._id
+                  }
+                });
                 this.formatData()
               }
               setTimeout(() => {
@@ -112,7 +118,7 @@ export class PageChatPage implements OnInit {
         type: this.notifType[this.type],
       }
       if (!this.conversation) {
-        const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.mainService.user._id }
+        const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.receiver }
         this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {

@@ -6,6 +6,7 @@ import { PageCreatorService } from '../modules/page-creator/page-creator-service
 import accountType from '../services-common-helper/constantValue/accountType';
 import { LoadingService } from '../services-common-helper/loadingService/loading-service.service';
 import { AuthService } from '../services/auth-services/auth-service.service';
+import { MainServicesService } from './provider-services/main-services.service';
 
 @Component({
   selector: 'app-service-provider',
@@ -21,14 +22,25 @@ export class ServiceProviderPage implements OnInit {
     public router: Router,
     public creator: PageCreatorService,
     public menu: MenuController,
-    public authServices: AuthService
+    public mainService: MainServicesService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.authServices.getAccountType().then((type: string) => {
+    this.authService.getAccountType().then((type: string) => {
       this.accountType = type;
     })
-    this.authServices.checkUser()
+    this.authService.checkUser()
+    this.authService.checkCurrentUser.subscribe(
+      (data: any) => {
+        this.authService.getCurrentUser().then(
+          (data:any) => {
+            this.mainService.user = data     
+            this.accountType = data.accountType       
+          }
+        )
+      }
+    )
   }
 
 
@@ -67,7 +79,7 @@ export class ServiceProviderPage implements OnInit {
   logout() {
     this.loadingService.show();
     setTimeout(() => {
-      this.authServices.logOut();
+      this.authService.logOut();
       this.loadingService.hide();
       this.router.navigate(["/login"])
     }, 100);
