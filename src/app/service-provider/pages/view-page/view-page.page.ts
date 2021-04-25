@@ -288,7 +288,7 @@ export class ViewPagePage implements OnInit {
       this.mainService.changeInitialStatus({ pageId: this.page._id, status: status , notificationData: notificationData}).subscribe(
         (data: any) => {
           this.page.initialStatus = status
-          this.mainService.notify({user: this.mainService.user, receiver: [this.page.creator, "admin"], type: "page-submission", message: message})
+          this.mainService.notify({user: this.mainService.user,pageId: this.page._id, initialStatus: status, receiver: [this.page.creator, "admin"], type: "page-submission", message: message})
         }
       )
     } else {

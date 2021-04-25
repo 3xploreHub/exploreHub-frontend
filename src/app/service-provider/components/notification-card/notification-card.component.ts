@@ -52,8 +52,7 @@ export class NotificationCardComponent implements OnInit {
             if (page.creator == this.mainService.user._id) {
               this.router.navigate([`/service-provider/dashboard/${page.pageType}/${page._id}/board/booking/Booked`], {queryParams: {fromNotification: true}})
             } else {
-              //http://localhost:4200/service-provider/view-page/6081346dbd2f9d115cab0bbb/service?fromHostedList=true&parentPageCreator=606eee43fcfdc21c7c793b6c
-              this.router.navigate(["/service-provider/view-page",page._id,page.pageType], {queryParams: {fromHostedList: true, parentPageCreator: page.creator}})
+              this.router.navigate(["/service-provider/view-page",page._id, page.pageType], {queryParams: {fromHostedList: true, parentPageCreator: this.mainService.user._id}})
             }
           }
         }
@@ -61,14 +60,11 @@ export class NotificationCardComponent implements OnInit {
           this.router.navigate(["./service-provider/view-booking-as-provider", this.notificationGroup.booking.pageId, this.notificationGroup.booking.bookingType, this.notificationGroup.booking._id, this.notificationGroup.booking.status],
             { queryParams: { notification: true } })
         }
-
       }
-
     )
   }
   getName(conversation) {
     return conversation.receiver ? conversation.receiver.fullName : conversation["type"] == "admin_approval" ? "Admin" : "Unknown"
-
   }
 
 }

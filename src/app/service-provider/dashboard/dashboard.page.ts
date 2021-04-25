@@ -26,7 +26,7 @@ export class DashboardPage implements OnInit {
     public alert: AlertController,
     private route: ActivatedRoute,
   ) {
-    this.page = { _id: '',pageType: "",initialStatus:"", otherServices: [], components: [], services: [], bookingInfo: [], status: '', creator: "", hostTouristSpot: '', createdAt: "" }
+    this.page = { _id: '', pageType: "", initialStatus: "", otherServices: [], components: [], services: [], bookingInfo: [], status: '', creator: "", hostTouristSpot: '', createdAt: "" }
   }
 
   ngOnInit() {
@@ -61,8 +61,12 @@ export class DashboardPage implements OnInit {
       }
       this.getNotifications()
       this.mainService.notification.subscribe(
-        (data:any) => {
+        (data: any) => {
           if (!data.receiver.includes("all)")) {
+            if (data.type == "page-provider" && data.pageId == this.page._id) {
+              if (data.initialStatus) this.page.initialStatus = data.initialStatus
+              if (data.status) this.page.status = data.status
+            }
             this.getNotifications()
           }
         }
@@ -104,14 +108,14 @@ export class DashboardPage implements OnInit {
   }
   editPage() {
     setTimeout(() => {
-      const type = this.pageType == 'service'? "create-service-page": "create-tourist-spot-page";
+      const type = this.pageType == 'service' ? "create-service-page" : "create-tourist-spot-page";
       this.router.navigate([`/service-provider/${type}`, this.page._id])
     }, 200);
   }
 
   viewStats() {
     setTimeout(() => {
-      this.router.navigate(["/service-provider/dashboard/" + this.page.pageType + "/" + this.page._id + "/board/statistics" ])
+      this.router.navigate(["/service-provider/dashboard/" + this.page.pageType + "/" + this.page._id + "/board/statistics"])
     }, 200);
   }
 
@@ -129,7 +133,7 @@ export class DashboardPage implements OnInit {
 
   getName() {
     const data = this.page.components[1];
-    this.name = data.data.text ? data.data.text: "Untitled"
+    this.name = data.data.text ? data.data.text : "Untitled"
   }
 }
 
