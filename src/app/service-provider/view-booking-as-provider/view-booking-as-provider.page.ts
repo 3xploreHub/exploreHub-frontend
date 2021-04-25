@@ -198,7 +198,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
 
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
           (response: any) => {
-            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-fromServiceProvider", receiver: [notificationData.receiver], message: notificationData.message })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Cancelled_booking-fromServiceProvider", receiver: [notificationData.receiver, "admin"], message: notificationData.message })
             this.goBack()
           }
         )
@@ -217,7 +217,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
           (response: any) => {
-            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Closed_booking-fromServiceProvider", receiver: [notificationData.receiver], message: notificationData.message })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.booking._id, type: "Closed_booking-fromServiceProvider", receiver: [notificationData.receiver, "admin"], message: notificationData.message })
             this.goBack()
           }
         )

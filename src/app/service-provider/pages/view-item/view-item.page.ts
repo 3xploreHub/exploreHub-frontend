@@ -14,6 +14,7 @@ export class ViewItemPage implements OnInit {
   public serviceId: string;
   public itemId: string;
   public pageId: string;
+  public notOperating: boolean;
   public bookingId: string;
   item: any;
   noAvailable = false;
@@ -25,6 +26,11 @@ export class ViewItemPage implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((param: any) => {
+      if (param && param.notOperating) {
+        this.notOperating = true
+      }
+    })
     this.route.paramMap.subscribe(params => {
       this.serviceId = params.get('serviceId');
       this.itemId = params.get('itemId');

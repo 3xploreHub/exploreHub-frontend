@@ -119,7 +119,7 @@ export class BookingReviewPage implements OnInit {
           let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
 
           selectedservices.push(updateData)
-        })       
+        })
         if (valid) this.sendRequest(selectedservices)
       })
 
@@ -138,17 +138,24 @@ export class BookingReviewPage implements OnInit {
       booking: this.booking._id,
       type: "booking-provider",
     }
-    this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
-      (response: any) => {
-        this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new_booking-fromTourist", receiver: [this.booking.pageId.creator], message: "A new booking was submitted to your service" })
-        this.mainService.canLeave = true;
-        if (this.isManual) {
-          this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
-        } else {
-          this.router.navigate(['/service-provider/bookings', "Pending"])
-        }
+    this.mainService.getBooking(this.bookingId, "booking_review").subscribe((data: any) => {
+      if (data.bookingData.pageId.status != "Not Operating" && data.bookingData.pageId.initialStatus == "Approved") {
+        this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
+          (response: any) => {
+            this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new_booking-fromTourist", receiver: [this.booking.pageId.creator, "admin"], message: "A new booking was submitted to your service" })
+            this.mainService.canLeave = true;
+            if (this.isManual) {
+              this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
+            } else {
+              this.router.navigate(['/service-provider/bookings', "Pending"])
+            }
+          }
+        )
+      } else {
+        this.presentAlert("Sorry. This service is no longer operating.")
       }
-    )
+    })
+
 
   }
 

@@ -19,6 +19,19 @@ export class OnlinePagesListPage implements OnInit {
         this.pages = response;
       }
     )
+    // this.mainService.notification.subscribe((data:any) => {
+    //   if (data.type == "page-status-edit") {
+    //     this.pages = this.pages.map(page => {
+    //       if (page._id == data.pageId) {
+    //         page.status = data.status
+    //         if (data.status == "Online") return page
+    //       } else  {
+    //         return page
+    //       }
+    //     })
+    //     this.pages = this.pages.filter(page => page)
+    //   }
+    // })
   }
 
   viewPage(page) {

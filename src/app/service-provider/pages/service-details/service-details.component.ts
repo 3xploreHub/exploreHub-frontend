@@ -33,6 +33,7 @@ export class ServiceDetailsComponent implements OnInit {
   @Input() values: ElementValues;
   @Input() serviceInfo: serviceInfo;
   @Input() noAvailable = false
+  @Input() notOperating: boolean;
   public pageWidth: number;
   public pageHeight: number;
   public fromReviewBooking:boolean = false;

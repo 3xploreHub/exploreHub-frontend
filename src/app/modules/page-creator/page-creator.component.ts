@@ -4,6 +4,7 @@ import { Filesystem } from '@capacitor/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
+import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
 import { Page } from '../elementTools/interfaces/page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
@@ -52,6 +53,7 @@ export class PageCreatorComponent implements OnInit {
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
     public alert: AlertController,
+    public mainService: MainServicesService,
     public router: Router,
   ) {
     this.page = { _id: null, creator: null, status: "",initialStatus: "",pageType: "",otherServices: [], components: [], services: [], bookingInfo: [], hostTouristSpot: null, createdAt: "" }
@@ -203,8 +205,10 @@ export class PageCreatorComponent implements OnInit {
         (response) => {
           this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;
+          this.mainService.notify({user: this.mainService.user, receiver:[this.page.hostTouristSpot["creator"], "admin"], type: "page-submission", message: "A service is submitted under your page"})
           this.creator.preview = false;
           this.router.navigate([`/service-provider/dashboard`, this.creator.pageType, this.page._id])
+
         },
         error => {
           this.presentAlert("Unexpected error occured! Please try again later.")

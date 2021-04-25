@@ -1,6 +1,6 @@
 <div class="container mainLightBg2" [ngStyle]="{'width.px': pageWidth, 'height.px': pageHeight}">
   <ng-template #pageElement></ng-template>
-  <div class="selectServiceBtnHolder ion-activatable ripple-parent">
+  <div *ngIf="!notOperating" class="selectServiceBtnHolder ion-activatable ripple-parent">
     <div *ngIf="!noAvailable" class="selectServiceBtn" (click)="selectService()">
       <p>
         Select

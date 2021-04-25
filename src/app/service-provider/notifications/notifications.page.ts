@@ -21,6 +21,7 @@ export class NotificationsPage implements OnInit {
     this.getNotifications();
     this.mainService.notification.subscribe(
       (data: any) => {
+        if (!data.receiver.includes("all"))
         this.getNotifications(true)
       }
     )

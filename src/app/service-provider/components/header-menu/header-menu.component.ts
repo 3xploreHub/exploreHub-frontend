@@ -16,7 +16,10 @@ export class HeaderMenuComponent implements OnInit {
     this.getNotificationCount()
     this.mainService.notification.subscribe(
       (data: any) => {
-        this.getNotificationCount()
+        if (!data.receiver.includes("all")) {
+          this.getNotificationCount()
+        }
+        
       }
     )
   }

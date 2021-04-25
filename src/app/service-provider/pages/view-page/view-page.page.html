@@ -22,12 +22,15 @@
           </div>
         </div>
 
-        <div *ngIf="page.bookingInfo.length > 0" class="bookSectionCont noBackground">
-          <div (click)="createBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
+        <div *ngIf="page.bookingInfo.length > 0 " class="bookSectionCont noBackground">
+          <div *ngIf="page.status != 'Not Operating'; else notOperating" (click)="createBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
             <p>Book Now</p>
             <ion-icon name="arrow-forward-outline"></ion-icon>
             <ion-ripple-effect></ion-ripple-effect>
           </div>
+          <ng-template #notOperating>
+            <div class="notOperating">This service is not operating at this moment</div>
+          </ng-template>
         </div>
       </div>
 

@@ -62,7 +62,9 @@ export class DashboardPage implements OnInit {
       this.getNotifications()
       this.mainService.notification.subscribe(
         (data:any) => {
-          this.getNotifications()
+          if (!data.receiver.includes("all)")) {
+            this.getNotifications()
+          }
         }
       )
     })

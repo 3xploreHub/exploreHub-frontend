@@ -31,9 +31,9 @@ export class NotificationHandlerComponent {
       this.mainService.notify = this.notify
       this.socket.fromEvent('send-notification').subscribe((data: any) => {
         console.log(data);
-        
-        if (data.receiver.includes(this.mainService.user._id)) {
-          if (data.user._id != this.user._id) {
+
+        if (data.receiver.includes(this.mainService.user._id) || data.receiver.includes("all")) {
+          if (data.user._id != this.user._id && !data.receiver.includes("all")) {
             this.showToast(data.message);
           }
           this.mainService.receiveNotification(data)

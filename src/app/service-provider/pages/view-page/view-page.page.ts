@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
@@ -48,6 +49,7 @@ export class ViewPagePage implements OnInit {
     public mainService: MainServicesService,
     public componentFactoryResolver: ComponentFactoryResolver,
     public route: ActivatedRoute,
+    public alert:AlertController,
     public router: Router,
     public authService: AuthService,
     public creator: PageCreatorService) {
@@ -117,6 +119,19 @@ export class ViewPagePage implements OnInit {
         }
       )
     })
+    this.mainService.notification.subscribe((data: any) => {
+      if (data.type == "page-status-edit" && data.pageId == this.page._id) {
+        this.page.status = data.status
+      }
+    })
+  }
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
   setPage(page) {
     if (this.pageElement) this.pageElement.clear()
@@ -218,7 +233,8 @@ export class ViewPagePage implements OnInit {
   }
 
   viewItem(data) {
-    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType, "create_new"])
+    const params = this.page.status == "Not Operating"? {queryParams: {notOperating: true}}: {}
+    this.router.navigate(["/service-provider/view-item", this.page._id, data.serviceId, data.itemId, this.pageType, "create_new"], params)
   }
 
   viewService(serviceId) {

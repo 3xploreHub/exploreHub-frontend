@@ -95,6 +95,7 @@ export class PageSettingsPage implements OnInit {
             (response: any) => {
               this.page.status = status;
               this.online = this.page.status == "Online"
+              this.mainService.notify({user: this.mainService.user, receiver:["admin", "all"], pageId: this.page._id, status: status, type: "page-status-edit", message: `${this.mainService.user.fullName} change his page status`})
             }
           )
         }

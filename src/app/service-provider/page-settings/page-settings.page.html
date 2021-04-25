@@ -12,7 +12,9 @@
     <div class="statusCont" *ngIf="page.status == 'Online' || page.status == 'Not Operating'">
       <div class="settingLabel">Status</div>
       <div class="onlineStat" (click)="changePageStatus($event)">
-        <div class="overlay"></div>
+        <div class="overlay ion-activatable ripple-parent">
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
         <div [class.offline]="!online">{{online? "Online / Operating": "Not Operating"}}</div>
         <ion-toggle readOnly color="success" [checked]="online"></ion-toggle>
       </div>
