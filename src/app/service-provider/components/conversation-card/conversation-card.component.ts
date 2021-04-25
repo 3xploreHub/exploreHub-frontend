@@ -61,9 +61,13 @@ export class ConversationCardComponent implements OnInit {
 
   openConvo(e) {
     e.stopPropagation()
-    setTimeout(() => {
-      this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId:this.conversation._id}})
-    }, 200);
+    this.mainService.openConvo(this.conversation._id).subscribe(
+      (response:any) => {
+        this.conversation.opened = true
+        this.router.navigate(['/service-provider/page-chat'], {queryParams: {receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId:this.conversation._id}})
+      }
+    )
+    
   }
   clickOption(e) {
     e.stopPropagation()

@@ -160,4 +160,8 @@ export class MainServicesService {
   getAllConversations(pageId) {
     return this.http.get(`${this.apiUrl}/getAllConversations/${pageId}/`)
   }
+
+  openConvo(convoId) {
+    return this.http.post(`${this.apiUrl}/openConvo`, {convoId:convoId})
+  }
 }

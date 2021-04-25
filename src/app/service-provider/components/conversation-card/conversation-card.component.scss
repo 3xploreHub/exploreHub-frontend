@@ -13,7 +13,7 @@
         width: 70px;
         overflow: hidden;
         border-bottom: 3px;
-        background-color: rgb(184, 202, 230);
+        background-color: rgba(184, 202, 230, .5);
     
         .pic {
             height: 100%;
@@ -45,7 +45,7 @@
             color: rgb(106, 118, 134);
         }
     }
-
+}
 
 
 .pageName {
@@ -53,5 +53,38 @@
     margin:0 5px;
     display: inline;
     font-size: 16px;
-    font-weight: bold;
-}}
+    // font-weight: bold;
+}
+
+.unread {
+    background-color: #0682ca;
+    .cardText {
+        .name {
+            color:white !important;
+            font-weight: bold !important;
+
+            .pageName {
+                color: rgb(214, 219, 228);
+            }
+        }
+        .lastMessage {
+            color: #ffff !important;
+        }
+        .time {
+            color: rgb(235, 235, 235) !important;
+        }
+    }
+    .picHolder {
+        
+        background-color: rgba(145, 181, 238, 0.5);
+    
+        .pic {
+            color:white;
+            
+        }
+    }
+    .cardOptions {
+        color: #ffff !important;
+    }
+
+}

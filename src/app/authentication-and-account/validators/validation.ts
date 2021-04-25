@@ -129,10 +129,10 @@ export class CValidator {
       let error = ""
       if (!requirements.includes("lowercase")) error += ` at least one lowercase|`
       if (!requirements.includes("uppercase")) error += ` at least one uppercase|`
-      if (!requirements.includes("numberOrSpecial")) error += ` a number or special character`
+      if (!requirements.includes("numberOrSpecial")) error += ` a number or a special character`
       return {
         type: "pattern",
-        message: `Must be consist of ${error.split("|")}`,
+        message: `Must have ${error.split("|")}`,
       };
     }
     return null;
