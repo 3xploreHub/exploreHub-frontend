@@ -200,8 +200,22 @@ export class PageCreatorComponent implements OnInit {
   async submit() {
     this.submitting = true;
     const result = await this.validatePage()
+
     if (result) {
-      this.creator.submitPage().subscribe(
+      let notificationData;
+      if (this.page.hostTouristSpot) {
+        notificationData = {
+          receiver:  this.page.hostTouristSpot["creator"],
+          mainReceiver: this.mainService.user._id,
+          page: this.page._id,
+          booking: null,
+          sender: this.mainService.user._id,
+          subject: this.page._id,
+          message: `${this.mainService.user.fullName} created a service under your page`,
+          type: "page-provider",
+        }
+      }
+      this.creator.submitPage(notificationData).subscribe(
         (response) => {
           this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;

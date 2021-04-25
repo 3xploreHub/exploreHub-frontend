@@ -273,9 +273,22 @@ export class ViewPagePage implements OnInit {
     if (action == "yes") {
       let status = "Declined"
       if (this.popupData.type == "approve") status = "Approved"
-      this.mainService.changeInitialStatus({ pageId: this.page._id, status: status }).subscribe(
+      let name = this.getPageName()
+      let message = this.popupData.type == "approve"? `The owner of "${this.getPageName(this.page.hostTouristSpot)}" approved your service named "${name}"` :`The owner of "${this.getPageName(this.page.hostTouristSpot)}" declined your service named "${name}"`
+      let notificationData = {
+        receiver:  this.page.creator,
+        mainReceiver: this.page.creator,
+        page: this.page._id,
+        booking: null,
+        sender: this.mainService.user._id,
+        subject: this.page._id,
+        message:message ,
+        type: "page-provider",
+      }
+      this.mainService.changeInitialStatus({ pageId: this.page._id, status: status , notificationData: notificationData}).subscribe(
         (data: any) => {
           this.page.initialStatus = status
+          this.mainService.notify({user: this.mainService.user, receiver: [this.page.creator, "admin"], type: "page-submission", message: message})
         }
       )
     } else {
@@ -283,9 +296,10 @@ export class ViewPagePage implements OnInit {
     this.popupData.show = false;
   }
 
-  getPageName() {
+  getPageName(page: any = null) {
     let name = "Untitled"
-    this.page.components.forEach(comp => {
+    const pageData:Page = page? page: this.page
+    pageData.components.forEach(comp => {
       if (comp.data && comp.data.defaultName == "pageName") {
         name = comp.data.text;
       }

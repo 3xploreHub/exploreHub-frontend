@@ -28,7 +28,6 @@ export class NotificationCardComponent implements OnInit {
   }
 
   viewNotification() {
-
     this.mainService.viewNotification({ notifId:  this.notif["isMessage"]? this.notif._id: this.notificationGroup._id, isMessage: this.notif["isMessage"] }).subscribe(
       response => {
         if (this.notif["isMessage"]) {
@@ -46,9 +45,16 @@ export class NotificationCardComponent implements OnInit {
           this.router.navigate(["/service-provider/view-booking", this.notificationGroup.booking._id],
             { queryParams: { notification: true } })
         } else if (type == "page-provider") {
+          const page =  this.notificationGroup.page
           if (this.notif["isMessage"]) {
-
-            this.router.navigate(['/service-provider/page-chat'], { queryParams: {pageId: this.notificationGroup.page, conversationId: this.notif["conversation"] } })
+            this.router.navigate(['/service-provider/page-chat'], { queryParams: {pageId: page._id, conversationId: this.notif["conversation"] } })
+          } else {
+            if (page.creator == this.mainService.user._id) {
+              this.router.navigate([`/service-provider/dashboard/${page.pageType}/${page._id}/board/booking/Booked`], {queryParams: {fromNotification: true}})
+            } else {
+              //http://localhost:4200/service-provider/view-page/6081346dbd2f9d115cab0bbb/service?fromHostedList=true&parentPageCreator=606eee43fcfdc21c7c793b6c
+              this.router.navigate(["/service-provider/view-page",page._id,page.pageType], {queryParams: {fromHostedList: true, parentPageCreator: page.creator}})
+            }
           }
         }
         else if (type == "booking-provider") {

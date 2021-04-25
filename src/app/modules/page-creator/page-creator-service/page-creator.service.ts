@@ -192,8 +192,8 @@ export class PageCreatorService {
     return this.http.get(`${this.apiUrl}/getDefaultCategories/${this.pageType}`)
   }
 
-  submitPage() {
-    return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, null)
+  submitPage(notificationData = null) {
+    return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, notificationData)
   }
 
   applyStyle(styles: any, style: string) {

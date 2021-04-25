@@ -155,8 +155,6 @@ export class BookingReviewPage implements OnInit {
         this.presentAlert("Sorry. This service is no longer operating.")
       }
     })
-
-
   }
 
   async presentAlert(message) {
