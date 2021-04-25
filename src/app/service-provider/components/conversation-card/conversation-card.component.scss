@@ -1,11 +1,11 @@
 .card {
     background-color: white;
     margin:10px;
+    align-items: flex-start;
     display: flex;
     position: relative;
     border-radius: 3px;
     padding:6px;
-    align-items: center;
     box-shadow: 0 1px 2px rgb(191, 196, 202);
     
     .picHolder {
@@ -13,11 +13,12 @@
         width: 70px;
         overflow: hidden;
         border-bottom: 3px;
-        background-color: lightgray;
+        background-color: rgb(184, 202, 230);
     
         .pic {
             height: 100%;
             width: 100%;
+            font-size: 20px;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
@@ -30,7 +31,7 @@
     .cardText {
         padding:0 7px;
         .name {
-            font-size: 18px;
+            font-size: 16px;
             color:rgb(35, 42, 49);
         }
 
@@ -45,4 +46,12 @@
         }
     }
 
-}
+
+
+.pageName {
+    color: rgb(0, 132, 255);
+    margin:0 5px;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+}}

@@ -13,6 +13,7 @@ export class ConversationCardComponent implements OnInit {
   public name:string;
   public receiver: string;
   public receiverName: string;
+  public pageName:string =""
   public lastMessage: string = ""
   constructor(private router: Router, public mainService: MainServicesService) {
     this.conversation = {
@@ -36,13 +37,15 @@ export class ConversationCardComponent implements OnInit {
     if (this.conversation) {
       if (this.conversation["participants"]) {
         let receiver = this.conversation["participants"].filter(par => par._id != this.mainService.user._id)
-        console.log(receiver, "reciver")
         if (receiver.length > 0) {
           this.receiver = receiver[0]._id
-          this.receiverName = receiver[0].fullName
-          console.log(this.receiverName, this.receiver);
-          
+          this.receiverName = receiver[0].fullName          
         }
+        this.conversation.page.components.forEach(comp => {
+          if (comp.data.defaultName == "pageName") {
+            this.pageName += comp.data.text
+          }
+        });
       } else {
         this.name = this.conversation.receiver ? this.conversation.receiver.fullName :  this.conversation["type"] == "admin_approval"? "Admin": "Unknown"
       }
