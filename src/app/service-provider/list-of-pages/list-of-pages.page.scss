@@ -18,6 +18,20 @@ div {
     overflow: hidden;
     flex-shrink: 0;
 }
+.approvedPage {
+    background-color: rgb(0, 214, 0);
+    height: 30px;
+    width:30px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    font-size: 25px;
+    margin:5px;
+    border: 2px solid white;
+    color: #ffff;
+}
 
 .pagePhoto {
     width:100%;

@@ -165,41 +165,41 @@ export class ViewPagePage implements OnInit {
   }
 
   onScroll(event, info: HTMLElement, services: HTMLElement, bookingInfo: HTMLElement, div: HTMLElement) {
-    const width = div.clientWidth;
+    // const width = div.clientWidth;
 
 
-    const scrolled = event.detail.scrollTop + 100;
+    // const scrolled = event.detail.scrollTop + 100;
 
-    if (info && info.clientHeight >= scrolled) {
-      this.boxPosition = 0;
-    }
-    if (info && info.clientHeight <= scrolled) {
-      this.boxPosition = width;
-    }
+    // if (info && info.clientHeight >= scrolled) {
+    //   this.boxPosition = 0;
+    // }
+    // if (info && info.clientHeight <= scrolled) {
+    //   this.boxPosition = width;
+    // }
 
-    if (info && services && (info.clientHeight + services.clientHeight) <= scrolled) {
-      this.boxPosition = width * 2;
-    }
+    // if (info && services && (info.clientHeight + services.clientHeight) <= scrolled) {
+    //   this.boxPosition = width * 2;
+    // }
   }
 
   goToSection(el: HTMLElement, tab: string, div: HTMLElement) {
-    const width = div.clientWidth;
-    switch (tab) {
-      case 'others':
-        if (this.otherServices.length > 0) {
-          this.boxPosition = width * 2;
-        }
-        break;
-      case 'services':
-        if (this.page.services.length > 0) {
-          this.boxPosition = width;
-        }
-        break;
-      default:
-        this.boxPosition = 0
-        break;
-    }
-    if (el) el.scrollIntoView();
+    // const width = div.clientWidth;
+    // switch (tab) {
+    //   case 'others':
+    //     if (this.otherServices.length > 0) {
+    //       this.boxPosition = width * 2;
+    //     }
+    //     break;
+    //   case 'services':
+    //     if (this.page.services.length > 0) {
+    //       this.boxPosition = width;
+    //     }
+    //     break;
+    //   default:
+    //     this.boxPosition = 0
+    //     break;
+    // }
+    // if (el) el.scrollIntoView();
   }
 
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {

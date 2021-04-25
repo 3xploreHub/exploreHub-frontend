@@ -3,7 +3,7 @@
 }
 
 .pageView {
-    padding-bottom: 45px !important;
+    // padding-bottom: 45px !important;
 
 }
 
@@ -23,6 +23,13 @@
     text-align: center;
     font-size: 18px;
     color:orangered;
+}
+
+.noService {
+    text-align: center;
+    color: gray;
+    height: 100%;
+    padding:20px;
 }
 
 .none {
