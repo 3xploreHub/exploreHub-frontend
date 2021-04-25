@@ -57,9 +57,8 @@ export class RegisterPage implements OnInit {
           { v: "minLength", r: 8 },
           { v: "maxLength", r: 25 },
           {
-            v: "pattern",
-            r: "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$",
-            m: ["uppercase", "lowercase", "numbers"],
+            v: "passwordPattern",
+            r: "",
           },
         ]),
       ],

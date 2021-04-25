@@ -70,7 +70,7 @@
         </div>
         <div class="fieldHolder">
           <div class="inputLabel">Password</div>
-          <input class="inputField" name="password" type="password" formControlName="password">
+          <input class="inputField" name="password" type="text" autocomplete="off" formControlName="password">
           <ul class="validationError"
             *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null">
             <li *ngFor="let error of form.get('password').errors.validations">

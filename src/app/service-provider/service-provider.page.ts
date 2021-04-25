@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, ViewWillEnter } from '@ionic/angular';
+import { AlertController, MenuController, ViewWillEnter } from '@ionic/angular';
 import { Page } from '../modules/elementTools/interfaces/page';
 import { PageCreatorService } from '../modules/page-creator/page-creator-service/page-creator.service';
 import accountType from '../services-common-helper/constantValue/accountType';
@@ -23,6 +23,7 @@ export class ServiceProviderPage implements OnInit {
     public creator: PageCreatorService,
     public menu: MenuController,
     public mainService: MainServicesService,
+    public alertController: AlertController,
     public authService: AuthService,
   ) { }
 
@@ -77,12 +78,32 @@ export class ServiceProviderPage implements OnInit {
   }
 
   logout() {
-    this.loadingService.show();
     setTimeout(() => {
-      this.authService.logOut();
-      this.loadingService.hide();
-      this.router.navigate(["/login"])
-    }, 100);
+      this.presentAlertLoggingOut();
+    }, 300);
+  }
+
+  async presentAlertLoggingOut() {
+    const alert = await this.alertController.create({
+      cssClass: "my-custom-class",
+      header: "Are you sure you want to log out?",
+      buttons: [
+        {
+          text: "Yes",
+          role: "OK",
+          handler: () => {
+            this.authService.logOut();
+            this.loadingService.hide();
+            this.router.navigate(["/login"])
+          },
+        },
+        {
+          text: "Cancel",
+          role: "cancel",
+        },
+      ],
+    });
+    await alert.present();
   }
 
 }
