@@ -1,19 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-edit-account-info',
-//   templateUrl: './edit-account-info.page.html',
-//   styleUrls: ['./edit-account-info.page.scss'],
-// })
-// export class EditAccountInfoPage implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
 import { DatePipe } from "@angular/common";
 import {
   Component,
@@ -28,11 +12,6 @@ import { SettingsService } from "../settings.service";
 
 import { WebView } from "@ionic-native/ionic-webview/ngx";
 import { File, FileEntry } from "@ionic-native/File/ngx";
-import {
-  // Camera,
-  CameraOptions,
-  PictureSourceType,
-} from "@ionic-native/camera/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
 import {
   ActionSheetController,
@@ -62,11 +41,7 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
-import * as bcrypt from "bcryptjs";
-import { timeStamp } from "console";
 import { FooterData } from "src/app/modules/elementTools/interfaces/footer-data";
-
-const STORAGE_KEY = "my_images";
 
 export interface dataToDelete {
   _id: string;
@@ -177,24 +152,11 @@ export class EditAccountInfoPage implements OnInit {
     private router: Router,
     private settingsService: SettingsService,
     private datePipe: DatePipe,
-
-    // private camera: Camera,
-    private file: File,
-    private http: HttpClient,
-    private webview: WebView,
-    private actionSheetController: ActionSheetController,
     private actionSheetCtrl: ActionSheetController,
-    private toastController: ToastController,
-    private storage: Storage,
     private plt: Platform,
-    private loadingController: LoadingController,
-    private ref: ChangeDetectorRef,
-    private filePath: FilePath,
-
     private creator: PageCreatorService,
     public alert: AlertController,
-    private formBuilder: FormBuilder
-  ) //////////////////////////////////////////////////////////////////////
+  )
 
   {
     this.footerData = {
@@ -251,15 +213,15 @@ export class EditAccountInfoPage implements OnInit {
     };
 
     // if(!this.userPassword && !this.newUserPassword) {
-    if (this.previousData) {
-      console.log("SAME VALUEEEEEEESSSSSSSSSSSSSSSSSSSS!!!!!!!");
-      if (
-        JSON.stringify(this.previousData) ===
-        JSON.stringify(formValuesNoUpdatePassword)
-      ) {
-        console.log("NO VALUE CHANGE!");
-      }
-    }
+    // if (this.previousData) {
+    //   console.log("SAME VALUEEEEEEESSSSSSSSSSSSSSSSSSSS!!!!!!!");
+    //   if (
+    //     JSON.stringify(this.previousData) ===
+    //     JSON.stringify(formValuesNoUpdatePassword)
+    //   ) {
+    //     console.log("NO VALUE CHANGE!");
+    //   }
+    // }
 
     this.previousData = formValuesNoUpdatePassword;
 
@@ -359,8 +321,6 @@ export class EditAccountInfoPage implements OnInit {
     await actionSheet.present();
   }
 
-  save: boolean = false;
-
   async addImage(source: CameraSource) {
     this.noActions = false;
     console.log("IMAGE SOURCE: ", source);
@@ -371,11 +331,7 @@ export class EditAccountInfoPage implements OnInit {
         resultType: CameraResultType.Base64,
         source,
       });
-      console.log("IMAGE: ", image);
 
-      console.log("BASE64STRING: ", image.base64String);
-      console.log("IMAGE FORMAT: ", image.format);
-      console.log("Walay na print")
       const blobData = this.b64toBlob(
         image.base64String,
         `image/${image.format}`
