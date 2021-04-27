@@ -46,8 +46,8 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getServices/${pageId}/${pageType}`, { headers: { hideLoadingIndicator: "true" } });
   }
 
-  getOnlinePages() {
-    return this.http.get(`${this.apiUrl}/getOnlinePages`);
+  getOnlinePages(category: string) {
+    return this.http.get(`${this.apiUrl}/getOnlinePages/${category}`);
   }
 
   viewPage(page: any): Observable<any> {
@@ -168,5 +168,13 @@ export class MainServicesService {
 
   searchTouristSpot(data) {
     return this.http.post(`${this.apiUrl}/searchTouristSpot`, data,{ headers: { hideLoadingIndicator: "true" } } )
+  }
+
+  getAllCategories() {
+    return this.http.get(`${this.apiUrl}/getAllCategories`)
+  }
+
+  retrieveTouristSpotByCategory(data) {
+    return this.http.post(`${this.apiUrl}/retrieveTouristSpotByCategory`, data)
   }
 }

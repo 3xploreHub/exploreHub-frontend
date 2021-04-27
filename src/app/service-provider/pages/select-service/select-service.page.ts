@@ -158,14 +158,15 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
           }
         })
         if (!hasSelected) {
-          requiredServices += requiredServices != "" ? ", ": ""
+          requiredServices = requiredServices.includes("|and|")? requiredServices.split("|and|").join(", "): requiredServices
+          requiredServices += requiredServices != "" ? "|and|":""
           requiredServices += this.getValue(service.data, "name")
           hasRequired = true;
         }
       }
     })
     if (hasRequired) {
-      this.presentAlert(`Please select ${requiredServices}.`)
+      this.presentAlert(`Please select a ${requiredServices.split("|and|").join(", and ")}.`)
     } else {
       setTimeout(() => {
         this.mainService.canLeave = true;

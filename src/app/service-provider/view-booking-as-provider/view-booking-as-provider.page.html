@@ -53,7 +53,7 @@
     </div>
     <div class="dateAndStatus">
       <div class="dateCreated">
-        {{booking.createdAt | date:'medium'}}
+        {{booking.createdAt | date:'short'}}
       </div>
       <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
         Status:

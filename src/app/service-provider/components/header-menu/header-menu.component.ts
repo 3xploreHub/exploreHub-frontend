@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
+import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
 @Component({
@@ -10,6 +11,10 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class HeaderMenuComponent implements OnInit {
   @Input() notificationsCount: number;
+  @Input() categories: any[];
+  @Input() currentCategory: string;
+  @Output() changeCategory: EventEmitter<any> = new EventEmitter();
+  public pages: Page[] =[]
   constructor(public mainService:MainServicesService, public router: Router) { }
 
   ngOnInit() {
@@ -30,5 +35,12 @@ export class HeaderMenuComponent implements OnInit {
       }
     )
   }
+
+  retrieveTouristSpotByCategory(category) {
+    this.currentCategory = category
+    this.router.navigate(["/service-provider/online-pages-list"], {queryParams: {category: category}})
+  }
+
+
 
 }

@@ -13,7 +13,7 @@ export class OnlinePagesComponent implements OnInit {
   constructor(public mainService: MainServicesService) { }
 
   ngOnInit() {
-    this.mainService.getOnlinePages().subscribe(
+    this.mainService.getOnlinePages("test").subscribe(
       (response: Page[]) => {
         this.pages = response;
       }

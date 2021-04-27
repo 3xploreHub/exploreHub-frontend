@@ -68,6 +68,7 @@
     background: #ffff;
     border-top: 1px solid lightgray;
     padding: 20px 0;
+    height: 100%;
     // padding-bottom: 50px;
 }
 
@@ -75,9 +76,10 @@
     background-color: rgb(244, 246, 248) !important;
     border-bottom: 1px solid rgb(167, 167, 167);
     padding:20px 15px;
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
     padding-bottom: 40px !important;
+    height: 100% !important;
 
     .innerHolder {
         width: 320px;

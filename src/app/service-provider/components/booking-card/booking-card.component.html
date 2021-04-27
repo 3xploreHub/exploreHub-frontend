@@ -14,10 +14,10 @@
 
       <div class="selectedServices">
         <div class="service" *ngFor="let item of booking.selectedServices">{{item}}</div>
-        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0">No services availed</div>
+        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0 && booking.page.services.length > 0">No services availed</div>
       </div>
     </div>
-    <div class="cardDate">{{booking.createdAt | date:'medium'}}</div>
+    <div class="cardDate">{{booking.createdAt | date:'short'}}</div>
   </div>
 
   <div class="bottomRow">

@@ -18,7 +18,7 @@
         <ion-icon name="notifications-outline">
         </ion-icon>
         <ion-ripple-effect></ion-ripple-effect>
-        <div *ngIf="notificationsCount || notificationsCount != 0" class="notifCount">{{notificationsCount}}</div> 
+        <div *ngIf="notificationsCount || notificationsCount != 0" class="notifCount">{{notificationsCount}}</div>
       </div>
       <div class="weather iconHolder">
         <!-- <ion-icon name="sunny-outline"></ion-icon>
@@ -29,20 +29,13 @@
     </div>
   </div>
   <div class="categories">
-    <div class="categoryTab ion-activatable ripple-parent">All
+    <div class="categoryTab ion-activatable ripple-parent" [class.currentTab]="currentCategory == 'all'" (click)="retrieveTouristSpotByCategory('all')">All
       <ion-ripple-effect></ion-ripple-effect>
     </div>
-    <div class="categoryTab ion-activatable ripple-parent">Island Hopping
+    <div class="categoryTab ion-activatable ripple-parent" [class.currentTab]="currentCategory == category.name" *ngFor="let category of categories"
+      (click)="retrieveTouristSpotByCategory(category.name)">{{category.name}}
       <ion-ripple-effect></ion-ripple-effect>
     </div>
-    <div class="categoryTab ion-activatable ripple-parent">Beach Resorts
-      <ion-ripple-effect></ion-ripple-effect>
-    </div>
-    <div class="categoryTab ion-activatable ripple-parent">Mountains/Peaks
-      <ion-ripple-effect></ion-ripple-effect>
-    </div>
-    <div class="categoryTab ion-activatable ripple-parent">Mountains/Peaks
-      <ion-ripple-effect></ion-ripple-effect>
-    </div>
+
   </div>
 </div>

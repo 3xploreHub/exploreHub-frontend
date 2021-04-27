@@ -8,7 +8,7 @@
 </ion-header> -->
 
 <ion-content>
-  <app-header-menu [notificationsCount]="notificationsCount"></app-header-menu>
+  <app-header-menu [currentCategory]="category" (changeCategory)="onChangeCategory($event)" [notificationsCount]="notificationsCount" [categories]="categories"></app-header-menu>
     <div class="wrapper lightBackground">
       <div class="pagesCont">
         <app-page-card *ngFor="let page of pages" (viewPage)="viewPage($event)" [page]="page"></app-page-card>

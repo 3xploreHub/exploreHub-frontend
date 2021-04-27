@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../../provider-services/main-services.service';
@@ -11,39 +11,31 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 })
 export class OnlinePagesListPage implements OnInit, ViewWillEnter {
   public pages: Page[];
-  notificationsCount = 0 
-  constructor(public router: Router, public mainService: MainServicesService) { }
+  notificationsCount = 0
+  public category: string = "all"
+  public categories = []
+  constructor(public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
   ngOnInit() {
-    this.mainService.getOnlinePages().subscribe(
-      (response: Page[]) => {
-        this.pages = response;
-      }
-    )
-    this.getNotificationCount()
-    this.mainService.notification.subscribe(
-      (data: any) => {
-        if (!data.receiver.includes("all")) {
-          this.getNotificationCount()
+    this.route.queryParams.subscribe(params => {
+      this.category = params && params.category ? params.category : "all"
+      this.mainService.getOnlinePages(this.category).subscribe(
+        (response: Page[]) => {
+          this.pages = response;
         }
-      }
-    )
-    // this.mainService.notification.subscribe((data:any) => {
-    //   if (data.type == "page-status-edit") {
-    //     this.pages = this.pages.map(page => {
-    //       if (page._id == data.pageId) {
-    //         page.status = data.status
-    //         if (data.status == "Online") return page
-    //       } else  {
-    //         return page
-    //       }
-    //     })
-    //     this.pages = this.pages.filter(page => page)
-    //   }
-    // })
+      )
+      this.getNotificationCount()
+      this.mainService.notification.subscribe(
+        (data: any) => {
+          if (!data.receiver.includes("all")) {
+            this.getNotificationCount()
+          }
+        }
+      )
+    })
   }
   ionViewWillEnter() {
-
+    this.getAllCategories()
     this.getNotificationCount()
   }
 
@@ -55,7 +47,21 @@ export class OnlinePagesListPage implements OnInit, ViewWillEnter {
     )
   }
 
+  getAllCategories() {
+    this.mainService.getAllCategories().subscribe(
+      (response: any) => {
+        this.categories = response.categories
+      }
+    )
+  }
+
   viewPage(page) {
     this.router.navigate(['/service-provider/view-page', page.pageId, page.pageType])
   }
+
+  onChangeCategory(data) {
+    console.log(data)
+    this.pages = data.pages
+  }
+
 }

@@ -84,6 +84,7 @@ export class LabelledTextComponent implements OnInit {
       this.values.data.label = label ? label.trim() : null;
       this.values.data.text = text ? text.trim() : null;
     }
+    
     this.footerData.hasValue = (label || text) || (label && text)
     this.pending = true;
     if (this.footerData.hasValue) {
@@ -91,6 +92,9 @@ export class LabelledTextComponent implements OnInit {
 
         if (this.hasChanges) {
           this.footerData.saving = true;
+          if (this.values.data.defaultName == "category") {
+            this.values.data["category"] = this.values.data.text
+          }
           this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
             (response) => {
               // this.values = response;
