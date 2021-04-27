@@ -11,7 +11,7 @@
   <div #booking>
     <div *ngIf="bookingInfo.length > 0" class="servicesSection bookingInfoSection">
       <div class="innerHolder">
-        <div class="editSelected" (click)="editSelectedServices()">
+        <div *ngIf="!noServices" class="editSelected" (click)="editSelectedServices()">
           <ion-icon name="arrow-back-outline"></ion-icon>
           Edit Selected Services</div>
         <div class="divider">

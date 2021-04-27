@@ -11,7 +11,7 @@ import { conversation } from '../transaction/transaction.page';
 export class PageConversationsPage implements OnInit {
   public pageId: string;
   loading = true
-  public conversations: conversation[] = []
+  public conversations: any[] = []
   constructor(private mainService: MainServicesService, private route: ActivatedRoute) { }
 
   ngOnInit() {

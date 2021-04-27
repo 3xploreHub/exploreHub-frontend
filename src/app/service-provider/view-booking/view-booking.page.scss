@@ -14,6 +14,7 @@
 .headerHolder {
     position: fixed;
     z-index: 99999;
+    box-shadow: 0 1px 2px rgba(167, 174, 180, 0.7);
     width:100%;
     top:0;
     background-color: #ffff;
@@ -67,7 +68,6 @@
 
     
     .header {
-       
         display: flex;
         justify-content: space-around;
         align-items: center;

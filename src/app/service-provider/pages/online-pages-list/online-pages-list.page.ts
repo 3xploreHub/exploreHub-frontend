@@ -9,14 +9,23 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   templateUrl: './online-pages-list.page.html',
   styleUrls: ['./online-pages-list.page.scss'],
 })
-export class OnlinePagesListPage implements OnInit {
+export class OnlinePagesListPage implements OnInit, ViewWillEnter {
   public pages: Page[];
+  notificationsCount = 0 
   constructor(public router: Router, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.mainService.getOnlinePages().subscribe(
       (response: Page[]) => {
         this.pages = response;
+      }
+    )
+    this.getNotificationCount()
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        if (!data.receiver.includes("all")) {
+          this.getNotificationCount()
+        }
       }
     )
     // this.mainService.notification.subscribe((data:any) => {
@@ -32,6 +41,18 @@ export class OnlinePagesListPage implements OnInit {
     //     this.pages = this.pages.filter(page => page)
     //   }
     // })
+  }
+  ionViewWillEnter() {
+
+    this.getNotificationCount()
+  }
+
+  getNotificationCount() {
+    this.mainService.getNotificationsCount().subscribe(
+      (response: any) => {
+        this.notificationsCount = response
+      }
+    )
   }
 
   viewPage(page) {

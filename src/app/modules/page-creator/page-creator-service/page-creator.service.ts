@@ -168,13 +168,13 @@ export class PageCreatorService {
   }
 
 
-  deletePage(id:string = null, type: string = null) {
+  deletePage(id: string = null, type: string = null) {
     const pageId = id ? id : this.currentPageId
-    const pageType = type? type: this.pageType
+    const pageType = type ? type : this.pageType
     return this.http.delete(`${this.apiUrl}/deletePage/${pageId}/${pageType}`);
   }
 
-  
+
   createPage(pageType, hostTouristSpot = null) {
     return this.http.post(`${this.apiUrl}/createPage/${pageType}`, hostTouristSpot)
   }
@@ -185,7 +185,7 @@ export class PageCreatorService {
 
 
   retrieveAllTouristSpotsPage() {
-     return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
+    return this.http.get(`${this.apiUrl}/retrieveAllTouristSpotsPage`);
   }
 
   getDefaultCategories() {
@@ -193,7 +193,7 @@ export class PageCreatorService {
   }
 
   submitPage(notificationData = null) {
-    return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, notificationData)
+    return this.http.post(`${this.apiUrl}/submitPage/${this.currentPageId}/${this.pageType}`, { notificationData: notificationData })
   }
 
   applyStyle(styles: any, style: string) {
@@ -207,9 +207,14 @@ export class PageCreatorService {
     return styles;
   }
 
+  editServiceSettings(data:any) {
+    data["pageId"] = this.currentPageId
+    return this.http.post(`${this.apiUrl}/editServiceSettings`, data, { headers: { hideLoadingIndicator: "true" } })
+  }
+
   checkIfHasValue(data, onService = false) {
     let items = [];
-    this.unfilledFields = {components: [], services: [], bookingInfo: []}
+    this.unfilledFields = { components: [], services: [], bookingInfo: [] }
     if (data.length == 0) return false
     data.forEach(item => {
       switch (item.type) {

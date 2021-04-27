@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MainServicesService } from '../provider-services/main-services.service';
 import { conversation } from '../transaction/transaction.page';
@@ -8,7 +8,7 @@ import { conversation } from '../transaction/transaction.page';
   templateUrl: './page-chat.page.html',
   styleUrls: ['./page-chat.page.scss'],
 })
-export class PageChatPage implements OnInit {
+export class PageChatPage implements OnInit, OnDestroy {
   @ViewChild('messagesCont') private messagesContainer: ElementRef;
   public screenHeight: number;
   public message: string;
@@ -98,6 +98,14 @@ export class PageChatPage implements OnInit {
     )
   }
 
+  ngOnDestroy() {
+    this.mainService.openConvo(this.conversation._id, true).subscribe(
+      (response: any) => {
+        
+      }
+    )
+  }
+
   scrollToBottom(): void {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight + 600;
@@ -131,7 +139,7 @@ export class PageChatPage implements OnInit {
           }
         )
       } else {
-        const data = { notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
+        const data = {pageConvo: true, notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {

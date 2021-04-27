@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, EventEmitter, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { ElementValues } from 'src/app/modules/elementTools/interfaces/ElementValues';
 import { ItemListDisplayComponent } from 'src/app/modules/page-services-display/item-list-display/item-list-display.component';
@@ -25,7 +25,11 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   public editing: boolean = false
   public isManual: boolean = false;
   public fromReviewBooking: boolean = false;
-  constructor(public componentFactoryResolver: ComponentFactoryResolver, public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
+  constructor(public componentFactoryResolver: ComponentFactoryResolver,
+    public router: Router,
+    public route: ActivatedRoute,
+    public alert: AlertController,
+    public mainService: MainServicesService) { }
 
   ionViewWillEnter() {
     this.selected = [];
@@ -41,7 +45,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     // this.mainService.canLeave = false;
     // this.checkParams()
     // this.mainService.hasUnfinishedBooking = true;
-     this.checkParams()
+    this.checkParams()
     this.route.paramMap.subscribe(params => {
       const bookingId = params.get("bookingId")
       this.mainService.currentBookingId = bookingId;
@@ -113,7 +117,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
           });
         }
       })
-      if (!selected) {
+      if (!selected || itemList["selectMultiple"]) {
         this.notSelected = this.notSelected.filter(item => item._id != itemList._id)
         this.notSelected.push(itemList);
       }
@@ -143,18 +147,39 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   }
 
   bookNow() {
-    setTimeout(() => {
-      this.mainService.canLeave = true;
-      let params = { queryParams: {} }
-      if (this.isManual) params.queryParams["manual"] = true
-      if (this.fromDraft) params.queryParams["draft"] = true
-      if (this.editing) params.queryParams["edit"] = true
-      if (!this.fromReviewBooking) {
-        this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id], params)
-      } else {
-        this.router.navigate(["/service-provider/booking-review", this.pageId, this.booking.bookingType, this.booking._id], params)
+    let hasRequired = false;
+    let requiredServices= ""
+    this.pageServices.forEach((service: any) => {
+      if (service.required) {
+        let hasSelected = false;
+        this.booking.selectedServices.forEach(selected => {
+          if (selected.serviceGroupId == service._id) {
+            hasSelected = true
+          }
+        })
+        if (!hasSelected) {
+          requiredServices += requiredServices != "" ? ", ": ""
+          requiredServices += this.getValue(service.data, "name")
+          hasRequired = true;
+        }
       }
-    }, 200);
+    })
+    if (hasRequired) {
+      this.presentAlert(`Please select ${requiredServices}.`)
+    } else {
+      setTimeout(() => {
+        this.mainService.canLeave = true;
+        let params = { queryParams: {} }
+        if (this.isManual) params.queryParams["manual"] = true
+        if (this.fromDraft) params.queryParams["draft"] = true
+        if (this.editing) params.queryParams["edit"] = true
+        if (!this.fromReviewBooking) {
+          this.router.navigate(["/service-provider/book", this.pageId, this.booking.bookingType, this.booking._id], params)
+        } else {
+          this.router.navigate(["/service-provider/booking-review", this.pageId, this.booking.bookingType, this.booking._id], params)
+        }
+      }, 200);
+    }
   }
 
   viewItem(data) {
@@ -179,13 +204,24 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   }
 
   getValue(components, type) {
+    let result = type == "quantity" ? 0 : "Untitled" 
     components.forEach(comp => {
       const data = comp.data
-      if (data.defaultName && data.defaultName == type) {
-        return data.text
+      if (typeof data == "object" && data.defaultName && data.defaultName == type) {
+        result = data.text
       }
     });
-    return type == "quantity" ? 0 : "Untitled"
+    return result
+  }
+
+
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
 }

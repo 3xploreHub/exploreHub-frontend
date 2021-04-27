@@ -12,8 +12,8 @@
       <div class="info" #info>
         <ng-template #pageElement></ng-template>
       </div>
-      <div #services *ngIf="page.services && page.services.length > 0; else noServices">
-        <div>
+      <div #services>
+        <div *ngIf="page.services && page.services.length > 0">
           <div *ngIf="page.services.length > 0" class="servicesSection">
             <div class="divider">
               <h4>Services And Offers</h4>
@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div *ngIf="page.bookingInfo.length > 0 " class="bookSectionCont noBackground">
+        <div class="bookSectionCont noBackground">
           <div *ngIf="page.status != 'Not Operating'; else notOperating" (click)="createBooking()"
             class="bookSection ion-activatable ripple-parent boxShadowed2">
             <p>Book Now</p>
@@ -34,12 +34,12 @@
           </ng-template>
         </div>
       </div>
-
+<!-- 
       <ng-template #noServices>
         <div class="noService mainLightBg2">
           No Service available this time
         </div>
-      </ng-template>
+      </ng-template> -->
 
       <div #others>
         <div class="otherOptions" [ngStyle]="{'min-height.px': screenHeight}" *ngIf="otherServices.length > 0">

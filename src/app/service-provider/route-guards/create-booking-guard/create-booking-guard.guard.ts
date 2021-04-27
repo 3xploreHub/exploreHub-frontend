@@ -32,6 +32,10 @@ export class CreateBookingGuardGuard implements CanActivate {
     | boolean
     | UrlTree {
 
+    if (this.mainService.currentPage) {
+      this.pageId = this.mainService.currentPage._id;
+      this.pageType = this.mainService.currentPage.pageType
+    }
     this.route.queryParams.subscribe(params => {
       if (params) {
         if (params.draft) {
@@ -39,16 +43,6 @@ export class CreateBookingGuardGuard implements CanActivate {
         }
         if (params.manual) {
           this.isManual = true
-          const url = this.router.url.split("/").reverse()
-
-          if (url.includes("book") || url.includes("booking-review")) {
-            this.pageType = url[1]
-            this.pageId = url[2]
-          }
-          else if (this.mainService.currentPage) {
-            this.pageId = this.mainService.currentPage._id;
-            this.pageType = this.mainService.currentPage.pageType
-          }
 
         }
       }

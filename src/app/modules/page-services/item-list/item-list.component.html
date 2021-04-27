@@ -14,8 +14,8 @@
         </ion-slide>
         <ion-slide *ngIf="items.length == 0">
           <div class="noItem">
-          No item in this list
-        </div>
+            No item in this list
+          </div>
         </ion-slide>
       </ion-slides>
     </div>
@@ -24,15 +24,33 @@
     <p class="addComp boxShadowed2 ion-activatable ripple-parent" (click)="addItem()">Add new item
       <ion-ripple-effect></ion-ripple-effect>
     </p>
+
+    <div class="settings">
+      <div class="options" (click)="values.required = !values.required; editServiceSettings()"><span
+          [class.clicked]="values.required">
+          Required for submission
+        </span>
+        <ion-toggle [checked]="values.required"></ion-toggle>
+      </div>
+
+      <div class="options" [class.clicked]="values.selectMultiple"
+        (click)="values.selectMultiple = !values.selectMultiple; editServiceSettings()">
+        <span [class.clicked]="values.selectMultiple">
+          Can select multiple
+        </span>
+        <ion-toggle [checked]="values.selectMultiple"></ion-toggle>
+      </div>
+    </div>
+
     <app-element-footer class="listFooter" [data]="footerData" (render)="renderItemList()" (delete)="delete()">
     </app-element-footer>
   </div>
 
   <div *ngIf="footerData.done || creator.preview">
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
-        (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null" [deleting]="footerData.saving"
-        class="componentPopup"></app-edit-or-delete-popup>
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview"
+        [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-item-list-display (onRender)="renderItemList()" (click)="creator.clickedComponent = !creator.preview? values._id: null;
       creator.preview? presentToast('Preview'): null" [values]="values">
       </app-item-list-display>

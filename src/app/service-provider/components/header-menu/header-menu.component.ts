@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { MainServicesService } from '../../provider-services/main-services.service';
@@ -9,23 +9,18 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent implements OnInit {
-  public notificationsCount: number;
+  @Input() notificationsCount: number;
   constructor(public mainService:MainServicesService, public router: Router) { }
 
   ngOnInit() {
-    this.getNotificationCount()
-    this.mainService.notification.subscribe(
-      (data: any) => {
-        if (!data.receiver.includes("all")) {
-          this.getNotificationCount()
-        }
-        
-      }
-    )
+    
   }
 
-  goTo(path) {
-    this.router.navigate(path, {queryParams: {formDashboard: true}})
+  goTo(path, fromHome) {
+    setTimeout(() => {
+      const params = fromHome? {queryParams: {formDashboard: true}}: {}
+      this.router.navigate(path, params)
+    }, 300);
   }
 
   getNotificationCount() {

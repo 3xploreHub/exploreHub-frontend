@@ -15,44 +15,44 @@ const routes: Routes = [
       {
         path: 'select-service-type',
         loadChildren: () => import('./select-service-type/select-service-type.module').then(m => m.SelectServiceTypePageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'select-tourist-spot-category',
         loadChildren: () => import('./select-tourist-spot-category/select-tourist-spot-category.module').then(m => m.SelectTouristSpotCategoryPageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'select-host-tourist-spot',
         loadChildren: () => import('./select-host-tourist-spot/select-host-tourist-spot.module').then(m => m.SelectHostTouristSpotPageModule)
-        ,canActivate:[ServiceProviderRouteGuardGuard]
+        , canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'create-tourist-spot-page/:id',
         loadChildren: () => import('./create-tourist-spot-page/create-tourist-spot-page.module').then(m => m.CreateTouristSpotPagePageModule),
         canDeactivate: [PageCreatorRouteManagerGuard],
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'create-service-page/:id',
         loadChildren: () => import('./create-service-page/create-service-page.module').then(m => m.CreateServicePagePageModule),
         canDeactivate: [PageCreatorRouteManagerGuard],
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'list-of-pages/:status',
         loadChildren: () => import('./list-of-pages/list-of-pages.module').then(m => m.ListOfPagesPageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'dashboard/:pageType/:pageId',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'select-page-type',
         loadChildren: () => import('./select-page-type/select-page-type.module').then(m => m.SelectPageTypePageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'online-pages-list',
@@ -73,54 +73,59 @@ const routes: Routes = [
       },
       {
         path: 'book/:pageId/:pageType/:bookingId',
-        loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule),
+        loadChildren: () => import('./pages/book/book.module').then(m => m.BookPageModule),
         canDeactivate: [CreateBookingGuardGuard],
       },
       {
         path: 'booking-review/:pageId/:pageType/:bookingId',
-        loadChildren: () => import('./pages/booking-review/booking-review.module').then( m => m.BookingReviewPageModule),
+        loadChildren: () => import('./pages/booking-review/booking-review.module').then(m => m.BookingReviewPageModule),
         canDeactivate: [CreateBookingGuardGuard],
       },
       {
         path: 'bookings/:bookingStatus',
-        loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
+        loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsPageModule)
       },
       {
         path: 'view-booking/:bookingId',
-        loadChildren: () => import('./view-booking/view-booking.module').then( m => m.ViewBookingPageModule)
+        loadChildren: () => import('./view-booking/view-booking.module').then(m => m.ViewBookingPageModule)
       },
       {
         path: 'view-booking-as-provider/:pageId/:pageType/:bookingId/:bookingStatus',
-        loadChildren: () => import('./view-booking-as-provider/view-booking-as-provider.module').then( m => m.ViewBookingAsProviderPageModule),
-        canActivate:[ServiceProviderRouteGuardGuard]
+        loadChildren: () => import('./view-booking-as-provider/view-booking-as-provider.module').then(m => m.ViewBookingAsProviderPageModule),
+        canActivate: [ServiceProviderRouteGuardGuard]
       },
       {
         path: 'notifications',
-        loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+        loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule)
       },
       {
         path: 'page-settings/:pageId',
-        loadChildren: () => import('./page-settings/page-settings.module').then( m => m.PageSettingsPageModule)
+        loadChildren: () => import('./page-settings/page-settings.module').then(m => m.PageSettingsPageModule)
       },
       {
         path: 'page-conversations',
-        loadChildren: () => import('./page-conversations/page-conversations.module').then( m => m.PageConversationsPageModule)
+        loadChildren: () => import('./page-conversations/page-conversations.module').then(m => m.PageConversationsPageModule)
       },
       {
         path: 'page-hosted-services',
-        loadChildren: () => import('./page-hosted-services/page-hosted-services.module').then( m => m.PageHostedServicesPageModule)
+        loadChildren: () => import('./page-hosted-services/page-hosted-services.module').then(m => m.PageHostedServicesPageModule)
       },
       {
         path: 'page-chat',
-        loadChildren: () => import('./page-chat/page-chat.module').then( m => m.PageChatPageModule)
+        loadChildren: () => import('./page-chat/page-chat.module').then(m => m.PageChatPageModule)
+      },
+      {
+        path: 'search',
+        loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
       },
       {
         path: '',
         redirectTo: '/service-provider/online-pages-list'
       },
-      
+
     ]
   },
+
 
 ];
 

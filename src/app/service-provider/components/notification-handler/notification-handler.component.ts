@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Socket } from 'ngx-socket-io';
 import { AuthService } from 'src/app/services/auth-services/auth-service.service';
@@ -12,10 +13,12 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class NotificationHandlerComponent {
   public user: any;
   public eventType: string;
+  public show: boolean; 
+  public message: string;
   @Output() receiveNotification: EventEmitter<any> = new EventEmitter();
   constructor(private socket: Socket,
     public authService: AuthService,
-    public toastCtrl: ToastController,
+    public router: Router,
     public mainService: MainServicesService,
   ) { }
 
@@ -53,13 +56,16 @@ export class NotificationHandlerComponent {
     this.socket.emit('notify', data)
   }
 
-  async showToast(msg) {
-    let toast = await this.toastCtrl.create({
-      message: msg,
-      position: 'top',
-      duration: 2000
-    });
-    toast.present();
+  showToast(msg) {
+    this.show = true;
+    this.message = msg
+    setTimeout(() => {
+      this.show = false
+    },5000);
   }
 
+  goto(path) {
+    this.show = false;
+    this.router.navigate(path)
+  }
 }

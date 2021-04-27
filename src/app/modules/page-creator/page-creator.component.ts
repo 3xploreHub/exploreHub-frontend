@@ -202,7 +202,7 @@ export class PageCreatorComponent implements OnInit {
     const result = await this.validatePage()
 
     if (result) {
-      let notificationData;
+      let notificationData = null;
       if (this.page.hostTouristSpot) {
         notificationData = {
           receiver:  this.page.hostTouristSpot["creator"],
@@ -219,7 +219,8 @@ export class PageCreatorComponent implements OnInit {
         (response) => {
           this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;
-          this.mainService.notify({user: this.mainService.user, receiver:[this.page.hostTouristSpot["creator"], "admin"], type: "page-submission", message: "A service is submitted under your page"})
+          const creator = this.page.hostTouristSpot? this.page.hostTouristSpot["creator"]: ""
+          this.mainService.notify({user: this.mainService.user, receiver:[creator, "admin"], type: "page-submission", message: "A service is submitted under your page"})
           this.creator.preview = false;
           this.router.navigate([`/service-provider/dashboard`, this.creator.pageType, this.page._id])
 

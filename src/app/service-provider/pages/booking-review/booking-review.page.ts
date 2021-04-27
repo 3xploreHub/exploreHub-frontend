@@ -18,6 +18,7 @@ export class BookingReviewPage implements OnInit {
   public pageId: string = "";
   public editing: boolean = false
   public isManual: boolean = false
+  public noServices: boolean;
   public bookingId: string = "";
   public fromDraft: boolean = false;
   public fromNotification: boolean = false;
@@ -65,6 +66,7 @@ export class BookingReviewPage implements OnInit {
       this.mainService.getBooking(this.bookingId, "booking_review").subscribe(
         (response: any) => {
           this.booking = response.bookingData;
+          this.noServices = this.booking.pageId.services.length == 0
           this.isManual = this.booking.isManual
         }
       )
@@ -102,6 +104,9 @@ export class BookingReviewPage implements OnInit {
 
 
   async submitBooking() {
+    if (!this.noServices && this.booking.selectedServices.length == 0) {
+      // this.presentAlert()
+    }
     let valid = true;
     let selectedservices = []
     if (this.booking.isManual) {

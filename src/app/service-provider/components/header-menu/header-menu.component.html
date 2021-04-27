@@ -9,12 +9,12 @@
     </div>
 
     <div class="menu">
-      <div class="ion-activatable ripple-parent iconHolder">
+      <div class="ion-activatable ripple-parent iconHolder" (click)="goTo(['/service-provider/search'])">
         <ion-icon name="search-outline">
         </ion-icon>
         <ion-ripple-effect></ion-ripple-effect>
       </div>
-      <div class="ion-activatable ripple-parent iconHolder" (click)="goTo(['/service-provider/notifications'])">
+      <div class="ion-activatable ripple-parent iconHolder" (click)="goTo(['/service-provider/notifications'], true)">
         <ion-icon name="notifications-outline">
         </ion-icon>
         <ion-ripple-effect></ion-ripple-effect>

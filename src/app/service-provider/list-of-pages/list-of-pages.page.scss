@@ -65,7 +65,7 @@ div {
     background-color: #ffff;
     display: flex;
     margin:10px 0;
-    box-shadow: 0 1px 2px rgb(175, 182, 190);
+    box-shadow: 0 1px 2px rgba(204, 209, 214, 0.7);
     flex-direction: row;
 
 }
@@ -84,6 +84,7 @@ div {
         color: $mediumLight;
         overflow-x: auto;
         overflow-y: hidden;
+        text-overflow: ellipsis;  
     }
 
     .description {
@@ -92,6 +93,8 @@ div {
         max-height: 48px;
         overflow: hidden;
         font-size: 13px;
+        overflow: hidden;   
+        text-overflow: ellipsis;  
     }
 }
 .untitled {
@@ -178,3 +181,11 @@ div {
     }
 }
 
+.longDesc {
+    max-height: unset !important;
+    height: unset !important;
+}
+
+// .searchResultMode {
+//     box-shadow: unset !important;
+// }

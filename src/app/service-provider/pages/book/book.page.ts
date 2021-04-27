@@ -21,11 +21,13 @@ export class BookPage implements OnInit, ViewWillEnter {
   public bookingInfo: ElementValues[] = [];
   public bookingId: String;
   public pageType: string;
+  public booking: any;
   public isManual: boolean = false;
   public pageId: string;
   public requiredInputs: string[] = []
   public fromDraft: boolean = false
   public update: boolean = false;
+  public noServices: boolean;
   public inputValue: InputValue[] = [];
   components = {
     'text-input': TextInputDisplayComponent,
@@ -56,6 +58,7 @@ export class BookPage implements OnInit, ViewWillEnter {
         if (params.draft) {
           this.fromDraft = true;
         }
+        // if (params.noServices) this.noServices = true
       }
     })
  
@@ -68,11 +71,12 @@ export class BookPage implements OnInit, ViewWillEnter {
           this.bookingInfo = response.bookingInfo;
           this.makeInputValueCont()
           console.log(this.inputValue)
+          this.booking = response.booking
+          this.noServices = this.booking.pageId.services.length == 0
           if (response.booking) {
             this.update = response.booking.bookingInfo.length > 0;
             if (response.booking.bookingInfo.length > 0) this.inputValue = response.booking.bookingInfo;
             this.setValues();
-            console.log(this.inputValue)
           }
           this.setPage();
         }

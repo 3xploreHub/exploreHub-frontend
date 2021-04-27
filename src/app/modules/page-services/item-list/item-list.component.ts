@@ -12,18 +12,28 @@ import { ItemComponent } from '../item/item.component';
 import { v4 as uuidv4 } from 'uuid';
 import { ThrowStmt } from '@angular/compiler';
 import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
-
+export interface serviceValues {
+  _id: string;
+  type: string;
+  data: any;
+  styles: string[];
+  default: boolean;
+  required: boolean;
+  selectMultiple: boolean;
+}
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss'],
 })
 
+
+
 export class ItemListComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @ViewChild('itemList') itemList;
-  @Input() values: ElementValues;
+  @Input() values: serviceValues;
   @ViewChild(IonSlides) slides: IonSlides;
   @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
@@ -75,7 +85,7 @@ export class ItemListComponent implements OnInit {
       this.items = this.values.data.filter(item => item.type == 'item')
     } else {
       this.footerData.done = false;
-      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
+      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false, selectMultiple: false, required: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
@@ -115,6 +125,18 @@ export class ItemListComponent implements OnInit {
     }, 1000);
   }
 
+  editServiceSettings() {
+    this.footerData.saving = true;
+    this.creator.editServiceSettings({
+      serviceId: this.values._id,
+      required: this.values.required,
+      selectMultiple: this.values.selectMultiple
+    }).subscribe(
+      (response: any) => {
+        this.footerData.saving = false;
+      }
+    )
+  }
 
   addItem() {
     this.items.push(uuidv4())
@@ -131,7 +153,7 @@ export class ItemListComponent implements OnInit {
     setTimeout(() => {
       this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: any) => {
         this.values.data = newData
-        this.footerData.done = false; 
+        this.footerData.done = false;
         this.footerData.saving = false;
         this.renderChildren()
         this.items = this.values.data.filter(item => item.type == 'item')

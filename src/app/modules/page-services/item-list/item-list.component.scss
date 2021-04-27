@@ -14,6 +14,27 @@
     padding: 1px 0;
 } 
 
+.settings {
+    background-color: rgb(219, 222, 226);
+    margin:8px 0;
+    .options {
+        display: flex;
+        padding:5px 0;
+        align-items: center;
+        justify-content: flex-end;
+
+        span {
+           color: rgb(145, 158, 168);
+        }
+
+        .clicked{
+             color:rgb(72, 103, 134)  !important;
+        }
+    }
+
+    
+}
+
 .noItem {
     margin:50px 0;
     text-align: center;

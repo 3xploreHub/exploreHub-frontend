@@ -161,7 +161,12 @@ export class MainServicesService {
     return this.http.get(`${this.apiUrl}/getAllConversations/${pageId}/`)
   }
 
-  openConvo(convoId) {
-    return this.http.post(`${this.apiUrl}/openConvo`, {convoId:convoId})
+  openConvo(convoId, hideLoading = false) {
+    const config = hideLoading? { headers: { hideLoadingIndicator: "true" }}: {}
+    return this.http.post(`${this.apiUrl}/openConvo`, {convoId:convoId}, config)
+  }
+
+  searchTouristSpot(data) {
+    return this.http.post(`${this.apiUrl}/searchTouristSpot`, data,{ headers: { hideLoadingIndicator: "true" } } )
   }
 }

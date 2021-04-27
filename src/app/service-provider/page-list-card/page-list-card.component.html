@@ -1,4 +1,4 @@
-<div class="page ion-activatable ripple-parent"  (click)="view(page)">
+<div [class.searchResultMode]="!searchResult" class="page ion-activatable ripple-parent"  (click)="view(page)">
   <div class="photoHolder">
     <div class="pagePhoto"
       [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
@@ -8,13 +8,13 @@
     </div>
   </div>
   <div class="pageInfo">
-    <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text?
+    <p class="title" [class.untitled]="!page.components[1].data.text" [class.longDesc]="searchResult">{{page.components[1].data.text?
       page.components[1].data.text: 'Untitled'}}</p>
     <p class="description">{{page.components[6].data.text ? page.components[6].data.text: ''}}</p>
     <div class="bottomRow">
       <div class="type spotPage" [class.servicePage]="page.hostTouristSpot">{{page.hostTouristSpot? 'Service':
         'Tourist Spot'}}</div>
-      <div class="status" [ngClass]="getStatus(page)">
+      <div class="status" [ngClass]="getStatus(page)" *ngIf="!searchResult">
         <div class="statusCircle"></div>
         {{page.status}}
       </div>
@@ -26,10 +26,10 @@
     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
-  <div *ngIf="page.initialStatus == 'Approved' && mainService.user._id != page.creator" class="approvedPage">
+  <div *ngIf="page.initialStatus == 'Approved' && mainService.user._id != page.creator && !searchResult" class="approvedPage">
     <ion-icon name="checkmark-outline"></ion-icon>
   </div>
-  <div *ngIf="page.initialStatus == 'Declined' && mainService.user._id != page.creator" class="approvedPage declinedPage">
+  <div *ngIf="page.initialStatus == 'Declined' && mainService.user._id != page.creator && !searchResult" class="approvedPage declinedPage">
     <ion-icon name="close-outline"></ion-icon>
   </div>
 </div>

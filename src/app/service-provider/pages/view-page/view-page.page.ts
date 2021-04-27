@@ -219,7 +219,11 @@ export class ViewPagePage implements OnInit {
       const data = { pageId: this.page._id, pageType: this.page.pageType, firstService: null, bookingId: "create_new" };
       this.mainService.createBooking(data).subscribe(
         (response: bookingData) => {
-          this.router.navigate(["/service-provider/select-service", this.page._id, response._id])
+          if (this.page.services.length > 0) {
+            this.router.navigate(["/service-provider/select-service", this.page._id, response._id])
+          } else {
+            this.router.navigate(["/service-provider/book", this.page._id, this.page.pageType, response._id], {queryParams: {noServices: true}})
+          }
         }
       )
     }, 100);

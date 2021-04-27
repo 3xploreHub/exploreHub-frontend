@@ -13,6 +13,7 @@ export class PageListCardComponent implements OnInit {
   @Input() page: Page;
   @Output() viewPage: EventEmitter<any> = new EventEmitter();
   @Output() clickOption: EventEmitter<any> = new EventEmitter();
+  @Input() searchResult: boolean;
   constructor(public router: Router, public mainService: MainServicesService, public authService: AuthService) { }
 
   ngOnInit() { }

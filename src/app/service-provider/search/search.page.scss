@@ -1,0 +1,75 @@
+.searchHeader {
+    padding:10px 0;
+    display: flex;
+    align-items:center;
+    // background-color: rgb(216, 229, 245);
+    background-color: white;
+    justify-content: stretch;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 9999999;
+    padding-right: 5px;
+    .back {
+        font-size: 22px;
+        padding:8px 10px;
+        margin:0 5px;
+        color:rgb(62, 72, 83);
+    }
+    .searchInputHolder {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        .searchInput {
+            font-size: 16px;
+            width: 100% !important;
+            display:block !important;
+            box-sizing: border-box;
+            padding:10px;
+            // border: 1px solid rgb(79, 92, 109);
+            background-color:rgb(231, 236, 243);
+            border: none;
+            border-radius: 5px;
+        }
+        .searchIcon {
+            font-size: 25px;
+            border:none;
+            margin:0 5px;
+            padding:5px 9px;
+            border-radius: 4px;
+            background-color: rgb(231, 236, 243);
+            // background-color: lightsteelblue;
+            color:rgb(62, 72, 83);
+        }
+    }
+}
+  
+
+.searchResults {
+    padding:10px;
+}
+
+.container {
+    background-color: rgb(236, 241, 247);
+    height: 100%;
+    padding-top: 63px;
+}
+
+.loading {
+    margin:10px;
+}
+
+.noResults {
+    padding:20px;
+
+    .noPagesFound {
+        font-size: 23px;
+        color:rgb(66, 82, 99);
+    }
+
+    .subText {
+        font-size: 14px;
+        color:rgb(124, 142, 161);
+    }
+}

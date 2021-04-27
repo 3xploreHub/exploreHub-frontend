@@ -1,5 +1,5 @@
 <div #messagesCont [ngStyle]="{'height.px': screenHeight}" class="pageContainer withTwoUser">
-  <div class="convos boxShadowed2">
+  <div class="convos">
     <div [class.otherConvo]="conReceiver != receiver.owner" class="currentConvo" (click)="getConversation(receiver.owner)">
       <div class="ccPicture">
         <ion-icon name="person-outline"></ion-icon>
