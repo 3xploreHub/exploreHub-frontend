@@ -34,6 +34,7 @@ export class OnlinePagesListPage implements OnInit, ViewWillEnter {
       )
     })
   }
+  
   ionViewWillEnter() {
     this.getAllCategories()
     this.getNotificationCount()

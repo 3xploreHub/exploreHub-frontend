@@ -166,7 +166,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
       }
     })
     if (hasRequired) {
-      this.presentAlert(`Please select a ${requiredServices.split("|and|").join(", and ")}.`)
+      this.presentAlert(`Please select from ${requiredServices.split("|and|").join(", and ")}.`)
     } else {
       setTimeout(() => {
         this.mainService.canLeave = true;
