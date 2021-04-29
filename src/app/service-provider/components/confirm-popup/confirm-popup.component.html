@@ -7,7 +7,7 @@
     <div *ngIf="popupData.otherInfo" class="otherInfo">
       {{popupData.otherInfo}}
     </div>
-    <div class="btnHolder">
+    <div *ngIf="popupData.type != 'info'; else info" class="btnHolder">
       <div class="appBtn ion-activatable ripple-parent" (click)="click($event, 'yes')">Yes
         <ion-ripple-effect></ion-ripple-effect>
       </div>
@@ -15,5 +15,12 @@
         <ion-ripple-effect></ion-ripple-effect>
       </div>
     </div>
+    <ng-template #info>
+      <div class="btnHolder">
+        <div class="appBtn ion-activatable ripple-parent" (click)="click($event, 'yes')">OK
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

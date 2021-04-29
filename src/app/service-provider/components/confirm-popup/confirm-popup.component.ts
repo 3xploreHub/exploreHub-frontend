@@ -23,7 +23,6 @@ export class ConfirmPopupComponent implements OnInit {
   click(e, action) {
     e.stopPropagation()
     setTimeout(() => {
-      
       this.clicked.emit(action)
     }, 200);
   }

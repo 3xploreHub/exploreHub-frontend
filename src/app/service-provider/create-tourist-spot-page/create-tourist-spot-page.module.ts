@@ -8,13 +8,15 @@ import { CreateTouristSpotPagePageRoutingModule } from './create-tourist-spot-pa
 
 import { CreateTouristSpotPagePage } from './create-tourist-spot-page.page';
 import { PageCreatorComponent } from 'src/app/modules/page-creator/page-creator.component';
+import { ComponentsModulePageModule } from 'src/app/components-module/components-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateTouristSpotPagePageRoutingModule
+    CreateTouristSpotPagePageRoutingModule,
+    ComponentsModulePageModule
   ],
   declarations: [CreateTouristSpotPagePage, PageCreatorComponent]
 })

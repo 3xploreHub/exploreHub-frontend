@@ -44,6 +44,7 @@ import { ComponentsModulePageModule } from "./components-module/components-modul
 
 import { environment } from "src/environments/environment";
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ConfirmPopupComponent } from "./service-provider/components/confirm-popup/confirm-popup.component";
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
@@ -76,6 +77,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     ChoicesInputDisplayComponent,
     StatisticsPage,
     BookingPage,
+
   ],
   entryComponents: [],
   imports: [

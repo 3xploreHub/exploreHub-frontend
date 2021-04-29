@@ -5,6 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { PhotoComponent } from 'src/app/modules/page-elements/photo/photo.component';
 import { TextComponent } from 'src/app/modules/page-elements/text/text.component';
 import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
+import { popupData } from 'src/app/service-provider/view-booking-as-provider/view-booking-as-provider.page';
 import { ElementComponent } from '../elementTools/interfaces/element-component';
 import { Page } from '../elementTools/interfaces/page';
 import { PageElementListComponent } from '../page-element-list/page-element-list.component';
@@ -33,6 +34,7 @@ export class PageCreatorComponent implements OnInit {
   public preview: boolean = false;
   public loading: boolean = false;
   public submitting: boolean = false;
+  public popupData: popupData;
   public active: string = 'info';
   public showUnfilled: boolean = false;
   public unfilledFields = { components: [], services: [], bookingInfo: [] }
@@ -57,6 +59,12 @@ export class PageCreatorComponent implements OnInit {
     public router: Router,
   ) {
     this.page = { _id: null, creator: null, status: "",initialStatus: "",pageType: "",otherServices: [], components: [], services: [], bookingInfo: [], hostTouristSpot: null, createdAt: "" }
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
   }
 
   ngOnInit() {
@@ -150,6 +158,22 @@ export class PageCreatorComponent implements OnInit {
     el.scrollIntoView();
   }
 
+  presentInfo() {
+    setTimeout(() => {
+      this.popupData = {
+        title: "Your Page was successfully submitted",
+        type: 'info',
+        otherInfo: `The system admin will communicate with you for the payment, or you can initiate a chat with the admin. Please see "Messages" page. Thank you.`,
+        show: true
+      }
+    }, 200);
+  }
+
+  clicked(action) {
+      this.popupData.show = false
+      this.router.navigate([`/service-provider/dashboard`, this.creator.pageType, this.page._id])
+  }
+
   renderComponent(type: ViewContainerRef, componentValues: any, parent) {
     if (componentValues.type) {
       const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);
@@ -217,12 +241,11 @@ export class PageCreatorComponent implements OnInit {
       }
       this.creator.submitPage(notificationData).subscribe(
         (response) => {
-          this.presentAlert("You page is successfully submitted. It will be visible online once approved by admin.");
           this.creator.canLeave = true;
           const creator = this.page.hostTouristSpot? this.page.hostTouristSpot["creator"]: ""
           this.mainService.notify({user: this.mainService.user, receiver:[creator, "admin"], type: "page-submission", message: "A service is submitted under your page"})
           this.creator.preview = false;
-          this.router.navigate([`/service-provider/dashboard`, this.creator.pageType, this.page._id])
+          this.presentInfo()
 
         },
         error => {

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth-services/auth-service.service
 import { NotificationHandlerComponent } from '../../components/notification-handler/notification-handler.component';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
+import { popupData } from '../../view-booking-as-provider/view-booking-as-provider.page';
 
 
 
@@ -19,6 +20,7 @@ export class BookingReviewPage implements OnInit {
   public editing: boolean = false
   public isManual: boolean = false
   public noServices: boolean;
+  public popupData: popupData;
   public bookingId: string = "";
   public fromDraft: boolean = false;
   public fromNotification: boolean = false;
@@ -37,7 +39,14 @@ export class BookingReviewPage implements OnInit {
   }
   constructor(
     public authService: AuthService,
-    public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) { }
+    public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
+      this.popupData = {
+        title: "",
+        otherInfo: "",
+        type: '',
+        show: false
+      }
+     }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -152,7 +161,12 @@ export class BookingReviewPage implements OnInit {
             if (this.isManual) {
               this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
             } else {
-              this.router.navigate(['/service-provider/bookings', "Pending"])
+              if (!this.editing) {
+                this.presentInfo()
+              } else {
+                this.router.navigate(['/service-provider/view-booking', this.booking._id ])
+              }
+              
             }
           }
         )
@@ -160,6 +174,25 @@ export class BookingReviewPage implements OnInit {
         this.presentAlert("Sorry. This service is no longer operating.")
       }
     })
+  }
+
+  
+  presentInfo() {
+    setTimeout(() => {
+      this.popupData = {
+        title: "Your booking request was successfully submitted",
+        type: 'info',
+        otherInfo: `The system admin will communicate with you for the payment, or you can initiate a chat with the admin. Please see "Conversation" page. Thank you.`,
+        show: true
+      }
+    }, 200);
+  }
+
+  clicked(action) {
+    // if (action == "yes") {
+      this.popupData.show = false
+      this.router.navigate(['/service-provider/view-booking', this.booking._id ])
+    // }
   }
 
   async presentAlert(message) {
