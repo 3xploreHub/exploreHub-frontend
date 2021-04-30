@@ -72,7 +72,7 @@ export class NotificationsPage implements OnInit {
   getTitle(notif) {
     const curUser = this.mainService.user._id
     let title = "Untitled Page"
-    if (notif.booking) {
+    if (notif.booking && notif.page) {
       const bookingOwner = notif.booking.tourist
       if (curUser == bookingOwner) {
         title = `Your booking to "${this.getPageName(notif)}"`
@@ -89,11 +89,16 @@ export class NotificationsPage implements OnInit {
     } else if (!notif.page && notif.type.includes("page")) {
       return "DELETED PAGE"
     } else {
-      notif.page.components.forEach(comp => {
-        if (comp.data.defaultName == "pageName") {
-          title = comp.data.text
-        }
-      });
+      if (notif.page) {
+
+        notif.page.components.forEach(comp => {
+          if (comp.data.defaultName == "pageName") {
+            title = comp.data.text
+          }
+        });
+      } else {
+        return "DELETED PAGE"
+      }
     }
     return title
   }

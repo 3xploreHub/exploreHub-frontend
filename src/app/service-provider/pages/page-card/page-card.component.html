@@ -1,4 +1,4 @@
-<div (click)="view()" class="pageCard ion-activatable ripple-parent">
+<div *ngIf="page.pageType != 'service_group'; else serviceGroup" (click)="view()" class="pageCard ion-activatable ripple-parent">
   <div class="pageMain">
     <div class="creator">
       <div class="creatorPhotoHolder">
@@ -7,25 +7,24 @@
         </div>
       </div>
       <div class="creatorInfo">
-        <div class="creatorName">{{page.pageCreator[0].fullName}}</div>
+        <div class="creatorName">{{pageCreator}}</div>
         <div class="dateCreated">{{page.createdAt | date:'short'}}</div>
       </div>
     </div>
     <div class="photoHolder">
       <div class="pagePhoto"
-        [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+        [ngStyle]="{'background-image': 'url('+pagePhoto+')'}">
         <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
       </div>
     </div>
 
     <div class="pageInfo">
-      <p class="title" [class.untitled]="!page.components[1].data.text">{{page.components[1].data.text?
-        page.components[1].data.text: 'Untitled'}}</p>
+      <p class="title" [class.untitled]="!page.components[1].data.text">{{pageTitle}}</p>
       <div class="location">
         <ion-icon name="location-outline"></ion-icon>
-        {{page.components[2].data.text+", "+page.components[3].data.text+", "+page.components[4].data.text}}
+        {{pageLocation}}
       </div>
-      <p class="description">{{page.components[6].data.text ? shorten(page.components[6].data.text): ''}}</p>
+      <p class="description">{{pageDescription}}</p>
     </div>
   </div>
   <div class="spotInfo">
@@ -48,3 +47,6 @@
   </div> -->
   <!-- <ion-ripple-effect></ion-ripple-effect> -->
 </div>
+<ng-template #serviceGroup>
+  <app-group-of-services [data]="page"></app-group-of-services>
+</ng-template>

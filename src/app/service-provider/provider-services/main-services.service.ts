@@ -179,7 +179,7 @@ export class MainServicesService {
   }
 
   deleteConfirmedPage(data) {
-    return this.http.post(`${this.apiUrl}/deleteConfirmedPage/${data.pageId}/${data.pageType}`, {password: data.password})
+    return this.http.post(`${this.apiUrl}/deleteConfirmedPage/${data.pageId}/${data.pageType}`, data)
   } 
   
   getPageActiveBookings(pageId: string) {

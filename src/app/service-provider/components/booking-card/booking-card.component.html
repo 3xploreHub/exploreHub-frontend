@@ -14,7 +14,7 @@
 
       <div class="selectedServices">
         <div class="service" *ngFor="let item of booking.selectedServices">{{item}}</div>
-        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0 && booking.page.services.length > 0">No services availed</div>
+        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0 && booking.page && booking.page.services.length > 0">No services availed</div>
       </div>
     </div>
     <div class="cardDate">{{booking.createdAt | date:'short'}}</div>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <ion-ripple-effect></ion-ripple-effect>
-  <div *ngIf="booking.status != 'Booked' && booking.status != 'Processing'" (click)="clickOption($event)" class="cardOptions ion-activatable ripple-parent">
+  <div (click)="clickOption($event)" class="cardOptions ion-activatable ripple-parent">
     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
     <ion-ripple-effect></ion-ripple-effect>
   </div>

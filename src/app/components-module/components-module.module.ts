@@ -22,6 +22,8 @@ import { ConfirmPopupComponent } from '../service-provider/components/confirm-po
 import { NotificationHandlerComponent } from '../service-provider/components/notification-handler/notification-handler.component';
 import { PageListCardComponent } from '../service-provider/page-list-card/page-list-card.component';
 import { ConversationCardComponent } from '../service-provider/components/conversation-card/conversation-card.component';
+import { OtherServiceCardComponent } from '../service-provider/pages/other-service-card/other-service-card.component';
+import { GroupOfServicesComponent } from '../service-provider/components/group-of-services/group-of-services.component';
 
 @NgModule({
   imports: [
@@ -44,7 +46,9 @@ import { ConversationCardComponent } from '../service-provider/components/conver
     ConfirmPopupComponent,
     PageListCardComponent,
     ConversationCardComponent,
+    OtherServiceCardComponent,
     NotificationHandlerComponent,
+    GroupOfServicesComponent,
     SelectedServiceCardComponent],
   exports: [
     BookingInfoDisplayComponent,
@@ -56,6 +60,8 @@ import { ConversationCardComponent } from '../service-provider/components/conver
     NotificationCardComponent,
     NotificationHandlerComponent,
     ConfirmPopupComponent,
+    OtherServiceCardComponent,
+    GroupOfServicesComponent,
     ConversationCardComponent,
     SelectedServiceCardComponent,
     MessageBoxComponent,

@@ -138,19 +138,13 @@ export class ViewPagePage implements OnInit {
     if (this.pageService) this.pageService.clear();
     this.creator.preview = true;
     setTimeout(() => {
-      const address = this.page.components.splice(2, 3);
+      let address = this.page.components.splice(2, 3);
       const location = { ...address[0], data: { ...address[0].data } }
       location.data.text = "";
       location.data.label = "Location"
 
-
-      for (let i = 0; i < address.length; i++) {
-        const comp = address[i];
-        location.data.text += comp.data.text
-        if (i != address.length - 1) {
-          location.data.text += ", "
-        }
-      }
+      address = address.map(data => data.data.text)
+      location.data.text = address.join(", ")
 
       this.page.components = [...this.page.components.slice(0, 2), location, ...this.page.components.slice(2)]
 

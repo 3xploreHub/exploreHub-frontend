@@ -17,6 +17,7 @@ export class PageSettingsPage implements OnInit {
   public online: boolean;
   public password: string;
   public confirmDelete: boolean;
+  public showOtherServicesGroup: boolean;
   public popupData: popupData;
   constructor(public route: ActivatedRoute,
     public router: Router, public mainService: MainServicesService, public authService: AuthService) {
@@ -124,28 +125,52 @@ export class PageSettingsPage implements OnInit {
   }
 
   deleteConfirmedPage() {
-    this.confirmDelete = false
-    this.mainService.deleteConfirmedPage({ pageId: this.pageId, pageType: this.page.pageType, password: this.password }).subscribe(
-      (response: any) => {
+    if (this.password.trim()) {
 
-      },
-      (error: any) => {
-        console.log(error)
-        if (error.status == 400 && error.error.type == "incorrect_password") {
-          this.popupData = {
-            type: "info",
-            title: "The password you have entered is incorrect.",
-            otherInfo: "Please try again",
-            show: true
+      this.confirmDelete = false
+      this.mainService.deleteConfirmedPage({ pageId: this.pageId, pageType: this.page.pageType, requiredPassword: true, password: this.password, otherServices: this.page.otherServices }).subscribe(
+        (response: any) => {
+          this.router.navigate(["/service-provider/list-of-pages", "submitted"])
+        },
+        (error: any) => {
+          this.password = ""
+          if (error.status == 400 && error.error.type == "incorrect_password") {
+
+            this.popupData = {
+              type: "info",
+              title: "The password you have entered is incorrect.",
+              otherInfo: "Please try again",
+              show: true
+            }
           }
         }
-      }
-    )
+      )
+    }
+  }
+
+  hideServiceGroupToBeCreated() {
+    setTimeout(() => {
+      this.showOtherServicesGroup = false;
+    }, 300);
   }
 
   cancelDelete() {
     setTimeout(() => {
       this.confirmDelete = false
+      this.showOtherServicesGroup = false;
+
+    }, 300);
+  }
+
+  continueDeleting() {
+    setTimeout(() => {
+
+      this.popupData = {
+        type: 'delete_page',
+        title: `Are you sure you want to delete "${this.getName()}"?`,
+        otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
+        show: true
+      }
     }, 300);
   }
 
@@ -156,8 +181,8 @@ export class PageSettingsPage implements OnInit {
         if (response.bookings.length > 0) {
           const processing = response.bookings.filter(booking => booking.status == "Processing")
           const booked = response.bookings.filter(booking => booking.status == "Booked")
-          let message = processing.length > 0 ? `${processing.length} ${processing.length > 1? 'bookings are': 'booking is'} in process` : ""
-          let message2 = booked.length > 0 ? `${booked.length} ${booked.length > 1? 'bookings are': 'booking is'} ongoing` : ""
+          let message = processing.length > 0 ? `${processing.length} ${processing.length > 1 ? 'bookings are' : 'booking is'} in process` : ""
+          let message2 = booked.length > 0 ? `${booked.length} ${booked.length > 1 ? 'bookings are' : 'booking is'} ongoing` : ""
           const text = message + (message != "" ? (message2 != "" ? ", and " + message2 : "") : message2)
           this.cannotDeleted = true
           this.popupData = {
@@ -167,11 +192,15 @@ export class PageSettingsPage implements OnInit {
             show: true
           }
         } else {
-          this.popupData = {
-            type: 'delete_page',
-            title: `Are you sure you want to delete "${this.getName()}"?`,
-            otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
-            show: true
+          if (this.page.otherServices.length > 0) {
+            this.showOtherServicesGroup = true;
+          } else {
+            this.popupData = {
+              type: 'delete_page',
+              title: `Are you sure you want to delete "${this.getName()}"?`,
+              otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
+              show: true
+            }
           }
         }
       }

@@ -50,18 +50,18 @@ export class BookingsPage implements OnInit {
       )
     })
     this.mainService.notification.subscribe(
-      (data:any) => {
+      (data: any) => {
         const type = data.type.split("-");
-       if (type[1] == "fromServiceProvider" || type[1] == "fromAdmin") {
-         const status = type[0].split("_")[0]
-         this.bookings = this.bookings.map(booking => {
-           const bookingId = data.booking? data.booking._id: data.bookingId? data.bookingId: ""
-           if (booking._id == bookingId) {
-             booking.status = status;
-           }
-           return booking;
-         })
-       }
+        if (type[1] == "fromServiceProvider" || type[1] == "fromAdmin") {
+          const status = type[0].split("_")[0]
+          this.bookings = this.bookings.map(booking => {
+            const bookingId = data.booking ? data.booking._id : data.bookingId ? data.bookingId : ""
+            if (booking._id == bookingId) {
+              booking.status = status;
+            }
+            return booking;
+          })
+        }
       }
     )
   }
@@ -81,22 +81,28 @@ export class BookingsPage implements OnInit {
       booking.selectedServices = selectedServices
     }
 
+    if (booking.page) {
 
-    booking.page.components.forEach(comp => {
-      if (comp.type == "photo") {
-        booking["photo"] = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
-      }
-    });
+      booking.page.components.forEach(comp => {
+        if (comp.type == "photo") {
+          booking["photo"] = comp.data && comp.data.length > 0 ? comp.data[0].url : ""
+        }
+      });
+    }
     return booking
   }
 
   getName(booking) {
     let text = "Untitled";
-    booking.page.components.forEach(comp => {
-      if (comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
-        text = comp.data && comp.data.text ? comp.data.text : "Untitled"
-      }
-    });
+    if (booking.page) {
+      booking.page.components.forEach(comp => {
+        if (comp.type == "text" && comp.data.defaultName && comp.data.defaultName == "pageName") {
+          text = comp.data && comp.data.text ? comp.data.text : "Untitled"
+        }
+      });
+    } else {
+      text = "Deleted Page"
+    }
     return text;
   }
 
@@ -113,7 +119,18 @@ export class BookingsPage implements OnInit {
             }
           })
       }
+    } else {
+      this.presentAlert("The page is already deleted.")
     }
+  }
+  
+  async presentAlert(message) {
+    const alert = await this.alert.create({
+      cssClass: "my-custom-class",
+      header: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
   displayOption(id) {
@@ -142,7 +159,7 @@ export class BookingsPage implements OnInit {
   async deleteBookingConfirm() {
     const bookingData = this.bookings.filter(booking => booking._id == this.bookingClicked)
     console.log(bookingData);
-    
+
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
       header: `Are you sure you want to delete your booking to "${bookingData[0]["name"]}"?`,

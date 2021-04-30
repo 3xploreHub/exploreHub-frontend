@@ -28,7 +28,7 @@ export class BookingCardComponent implements OnInit {
     isManual: false
   }
   public photo: string = null;
-  public name: string = "Untitled";
+  public name: string = "------------";
   public selectedServices: string[] = [];
   @Output() view: EventEmitter<any> = new EventEmitter();
   constructor(public mainService: MainServicesService, public alert: AlertController) { }

@@ -54,9 +54,40 @@
     justify-content: space-between;
 }
 
+.showOtherServices {
+    background-color: rgb(232, 239, 243) !important;
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 99999;
+    left:0;
+    right:0;
+    // display:flex;
+    // align-items: center;
+    // justify-content: center;
+}
+.infoText {
+    // background-color: white;
+    padding:10px;
+    font-size: 16px;
+}
 
+ .btnHolder2 {
+     display: flex;
+     justify-content: flex-end;
+     padding:10px;
 
- 
+     .cancel {
+        margin-right: 10px;
+        color: rgb(76, 82, 87) !important;
+        background-color: rgb(211, 220, 230) !important;
+    }
+
+    .continue {
+        background-color: rgb(238, 46, 46);
+    }
+ }
 
   .confirmDeletion {
     background-color: rgba(0, 0, 0, .3);    
@@ -107,4 +138,10 @@
     }
   }
 
+
+  .listOfPages {
+    background-color: rgb(226, 232, 236) !important;
+    padding:10px 0;
+  }
+  
   
