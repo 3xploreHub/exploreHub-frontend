@@ -13,7 +13,10 @@ import { popupData } from '../view-booking-as-provider/view-booking-as-provider.
 export class PageSettingsPage implements OnInit {
   public pageId: string;
   public page: Page;
+  public cannotDeleted: boolean = false
   public online: boolean;
+  public password: string;
+  public confirmDelete: boolean;
   public popupData: popupData;
   constructor(public route: ActivatedRoute,
     public router: Router, public mainService: MainServicesService, public authService: AuthService) {
@@ -33,7 +36,7 @@ export class PageSettingsPage implements OnInit {
       components: [],
       services: [],
       otherServices: [],
-      bookingInfo: [],initialStatus:"",
+      bookingInfo: [], initialStatus: "",
       createdAt: null
     }
   }
@@ -61,6 +64,11 @@ export class PageSettingsPage implements OnInit {
     )
   }
 
+  getName() {
+    const component = this.page.components.filter(comp => comp.data.defaultName == "pageName")
+    return component.length > 0 ? component[0].data.text : "Untitled Page"
+  }
+
   changePageStatus(e) {
     e.stopPropagation()
     setTimeout(() => {
@@ -72,6 +80,9 @@ export class PageSettingsPage implements OnInit {
       }
     }, 200);
   }
+
+
+
 
   goTo(path, params) {
     setTimeout(() => {
@@ -86,7 +97,12 @@ export class PageSettingsPage implements OnInit {
     }, 200);
   }
 
+
+
+
   clicked(action) {
+    console.log(action);
+
     if (action == "yes") {
       if (this.popupData.type == "change_page_status") {
         let status = this.online ? "Not Operating" : "Online"
@@ -95,14 +111,70 @@ export class PageSettingsPage implements OnInit {
             (response: any) => {
               this.page.status = status;
               this.online = this.page.status == "Online"
-              this.mainService.notify({user: this.mainService.user, receiver:["admin", "all"], pageId: this.page._id, status: status, type: "page-status-edit", message: `${this.mainService.user.fullName} change his page status`})
+              this.mainService.notify({ user: this.mainService.user, receiver: ["admin", "all"], pageId: this.page._id, status: status, type: "page-status-edit", message: `${this.mainService.user.fullName} change his page status` })
             }
           )
         }
       } else {
+        this.confirmDelete = !this.cannotDeleted;
       }
     }
 
     this.popupData.show = false;
+  }
+
+  deleteConfirmedPage() {
+    this.confirmDelete = false
+    this.mainService.deleteConfirmedPage({ pageId: this.pageId, pageType: this.page.pageType, password: this.password }).subscribe(
+      (response: any) => {
+
+      },
+      (error: any) => {
+        console.log(error)
+        if (error.status == 400 && error.error.type == "incorrect_password") {
+          this.popupData = {
+            type: "info",
+            title: "The password you have entered is incorrect.",
+            otherInfo: "Please try again",
+            show: true
+          }
+        }
+      }
+    )
+  }
+
+  cancelDelete() {
+    setTimeout(() => {
+      this.confirmDelete = false
+    }, 300);
+  }
+
+  toDeletePage(e) {
+    e.stopPropagation()
+    this.mainService.getPageActiveBookings(this.pageId).subscribe(
+      (response: any) => {
+        if (response.bookings.length > 0) {
+          const processing = response.bookings.filter(booking => booking.status == "Processing")
+          const booked = response.bookings.filter(booking => booking.status == "Booked")
+          let message = processing.length > 0 ? `${processing.length} ${processing.length > 1? 'bookings are': 'booking is'} in process` : ""
+          let message2 = booked.length > 0 ? `${booked.length} ${booked.length > 1? 'bookings are': 'booking is'} ongoing` : ""
+          const text = message + (message != "" ? (message2 != "" ? ", and " + message2 : "") : message2)
+          this.cannotDeleted = true
+          this.popupData = {
+            type: "info",
+            title: "Cannot delete page with active bookings.",
+            otherInfo: text,
+            show: true
+          }
+        } else {
+          this.popupData = {
+            type: 'delete_page',
+            title: `Are you sure you want to delete "${this.getName()}"?`,
+            otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
+            show: true
+          }
+        }
+      }
+    )
   }
 }

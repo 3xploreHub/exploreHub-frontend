@@ -37,7 +37,7 @@
         <ion-icon name="create-outline"></ion-icon>
         <ion-ripple-effect></ion-ripple-effect>
       </div>
-      <div class="otherSetting ion-activatable ripple-parent">
+      <div class="otherSetting ion-activatable ripple-parent" (click)="toDeletePage($event)">
         <div class="text">
           Delete Page
         </div>
@@ -48,4 +48,19 @@
   </div>
   <app-confirm-popup [popupData]="popupData" (clicked)="clicked($event)">
   </app-confirm-popup>
+  <div *ngIf="confirmDelete" class="confirmDeletion">
+
+    <div class="inputPassword">
+      <div class="insText">Enter password to confirm</div>
+      <input class="inputField" [(ngModel)]="password" type="password"/>
+      <div class="btnHolder">
+        <button (click)="cancelDelete()" class="appBtn cancel ion-activatable ripple-parent">Cancel
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+        <button class="appBtn ion-activatable ripple-parent" (click)="deleteConfirmedPage()">Confirm
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+    </div>
+  </div>
 </ion-content>

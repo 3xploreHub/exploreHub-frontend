@@ -53,3 +53,58 @@
     align-items: center;
     justify-content: space-between;
 }
+
+
+
+ 
+
+  .confirmDeletion {
+    background-color: rgba(0, 0, 0, .3);    
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 999999;
+    left:0;
+    right:0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    .inputPassword {
+        // min-width: 270px;
+        max-width: 270px;
+        border-radius: 3px;
+        padding:15px;
+        background-color: white;
+
+        .insText {
+            font-size: 20px;
+            padding:8px 0;
+        }
+
+        .inputField {
+            width: 100%;
+            padding:10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid rgb(106, 128, 158);
+          } 
+
+
+          .btnHolder {
+              text-align: right;
+              padding-top: 10px;
+
+              .cancel {
+                  margin-right: 10px;
+                  color: rgb(76, 82, 87) !important;
+                  background-color: rgb(230, 233, 236) !important;
+              }
+          }
+
+          
+    }
+  }
+
+  

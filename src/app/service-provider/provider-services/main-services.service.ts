@@ -177,4 +177,12 @@ export class MainServicesService {
   retrieveTouristSpotByCategory(data) {
     return this.http.post(`${this.apiUrl}/retrieveTouristSpotByCategory`, data)
   }
+
+  deleteConfirmedPage(data) {
+    return this.http.post(`${this.apiUrl}/deleteConfirmedPage/${data.pageId}/${data.pageType}`, {password: data.password})
+  } 
+  
+  getPageActiveBookings(pageId: string) {
+    return this.http.get(`${this.apiUrl}/getPageActiveBookings/${pageId}`)
+  }
 }

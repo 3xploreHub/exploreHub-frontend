@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="boardHeader" >
+    <div class="boardHeader ion-activatable ripple-parent" (click)="viewPage(e)">
       <div class="boardPhotoHolder">
         <div class="boardPhoto"
           [ngStyle]="{'background-image': page.components.length > 0 && page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
@@ -38,6 +38,7 @@
           {{page.status}}
         </div>
       </div>
+      <ion-ripple-effect></ion-ripple-effect>
     </div>
 <!-- 
     <div class="csTabs boxShadowed">

@@ -14,21 +14,21 @@ import { MainServicesService } from '../provider-services/main-services.service'
 export class NotificationsPage implements OnInit {
   public notifications: notificationGroup[] = []
   public loading: boolean = true;
-  public formDashboard:boolean;
-  constructor(public mainService:MainServicesService, public route: ActivatedRoute) { }
+  public formDashboard: boolean;
+  constructor(public mainService: MainServicesService, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getNotifications();
     this.mainService.notification.subscribe(
       (data: any) => {
         if (!data.receiver.includes("all"))
-        this.getNotifications(true)
+          this.getNotifications(true)
       }
     )
 
     this.route.queryParams.subscribe(
       (params: any) => {
-        if(params && params.formDashboard) this.formDashboard = true
+        if (params && params.formDashboard) this.formDashboard = true
       }
     )
   }
@@ -58,21 +58,36 @@ export class NotificationsPage implements OnInit {
     )
   }
 
+  getPageName(notif) {
+    let title = "Untitled Page"
+    notif.page.components.forEach(comp => {
+      if (comp.data.defaultName && comp.data.defaultName == "pageName") {
+        title = comp.data.text
+      }
+    });
+    return title;
+  }
+
 
   getTitle(notif) {
     const curUser = this.mainService.user._id
     let title = "Untitled Page"
     if (notif.booking) {
-      const bookingOwner  = notif.booking.tourist
+      const bookingOwner = notif.booking.tourist
       if (curUser == bookingOwner) {
-        notif.page.components.forEach(comp => {
-          if (comp.data.defaultName && comp.data.defaultName == "pageName") {
-            title = `Your booking to "${comp.data.text}"`
-          }
-        });
+        title = `Your booking to "${this.getPageName(notif)}"`
       } else {
         title = `${notif.mainReceiver.fullName}'s booking`
       }
+    } else if (notif.type.includes("booking") && !notif.booking) {
+      const bookingOwner = notif.mainReceiver
+      if (curUser == bookingOwner) {
+        title = `Your booking to "${this.getPageName(notif)}" | DELETED`
+      } else {
+        title = `${notif.mainReceiver.fullName}'s booking | DELETED`
+      }
+    } else if (!notif.page && notif.type.includes("page")) {
+      return "DELETED PAGE"
     } else {
       notif.page.components.forEach(comp => {
         if (comp.data.defaultName == "pageName") {

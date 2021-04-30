@@ -31,7 +31,7 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if (params && params.notification) {
+      if (params && params.fromNotification) {
         this.fromNotification = true;
       }
     });
@@ -89,6 +89,12 @@ export class DashboardPage implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  viewPage(e) {
+    setTimeout(() => {
+      this.router.navigate(["/service-provider/view-page", this.page._id, this.page.pageType])
+    }, 300);
   }
 
   goBack() {

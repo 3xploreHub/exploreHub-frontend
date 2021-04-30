@@ -95,10 +95,21 @@ export class ListOfPagesPage implements OnInit {
     }, 100);
   }
 
+  getName(page) {
+    let name = "Untitled page"
+    page.components.forEach(component => {
+      if (component.data.defaultName == "pageName") {
+        name = component.data.text
+      }
+    });
+    return name ? name: "Untitled Page";
+  }
+
   async deletePageConfirm() {
+    let pageToDelete = this.pages.filter(page => page._id == this.pageClicked);
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
-      header: "Are you sure you want to delete this?",
+      header: `Are you sure you want to delete "${this.getName(pageToDelete[0])}"?`,
       buttons: [
         {
           text: "Yes",

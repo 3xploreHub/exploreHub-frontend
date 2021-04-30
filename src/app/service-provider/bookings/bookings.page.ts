@@ -140,9 +140,12 @@ export class BookingsPage implements OnInit {
   }
 
   async deleteBookingConfirm() {
+    const bookingData = this.bookings.filter(booking => booking._id == this.bookingClicked)
+    console.log(bookingData);
+    
     const alert = await this.alert.create({
       cssClass: "my-custom-class",
-      header: "Are you sure you want to delete this?",
+      header: `Are you sure you want to delete your booking to "${bookingData[0]["name"]}"?`,
       buttons: [
         {
           text: "Yes",
