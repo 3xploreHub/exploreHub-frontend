@@ -125,7 +125,7 @@ export class PageSettingsPage implements OnInit {
   }
 
   deleteConfirmedPage() {
-    if (this.password.trim()) {
+    if (this.password && this.password.trim()) {
 
       this.confirmDelete = false
       this.mainService.deleteConfirmedPage({ pageId: this.pageId, pageType: this.page.pageType, requiredPassword: true, password: this.password, otherServices: this.page.otherServices }).subscribe(

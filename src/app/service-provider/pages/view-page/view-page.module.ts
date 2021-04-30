@@ -20,6 +20,6 @@ import { ComponentsModulePageModule } from 'src/app/components-module/components
     ViewPagePageRoutingModule,
     ComponentsModulePageModule
   ],
-  declarations: [ViewPagePage, ViewPageComponent, AllServicesComponent]
+  declarations: [ViewPagePage, ViewPageComponent]
 })
 export class ViewPagePageModule {}

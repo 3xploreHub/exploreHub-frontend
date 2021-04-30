@@ -11,9 +11,9 @@
   </div>
   <div class="total">
     <p>
-      {{services.length + (services.length > 1? " Services": "service")}}
+      {{services.length + (services.length > 1? " Services": " service")}}
     </p>
-    <p class="viewAll">
+    <p class="viewAll" (click)="viewAll()">
       View All
     </p>
   </div>

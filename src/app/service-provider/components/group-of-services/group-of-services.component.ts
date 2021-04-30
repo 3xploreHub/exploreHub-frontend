@@ -39,4 +39,8 @@ export class GroupOfServicesComponent implements OnInit {
   viewService(id) {
     this.router.navigate(["/service-provider/view-page", id, "service"])
   }
+
+  viewAll() {
+    this.router.navigate(["/service-provider/list-of-services"],{queryParams: {pageId: this.data._id}})
+  }
 }

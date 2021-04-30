@@ -119,12 +119,17 @@ const routes: Routes = [
         loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
       },
       {
+        path: 'list-of-services',
+        loadChildren: () => import('./list-of-services/list-of-services.module').then( m => m.ListOfServicesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/service-provider/online-pages-list'
       },
 
     ]
   },
+ 
 
 
 ];

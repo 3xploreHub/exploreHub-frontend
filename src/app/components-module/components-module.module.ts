@@ -24,6 +24,8 @@ import { PageListCardComponent } from '../service-provider/page-list-card/page-l
 import { ConversationCardComponent } from '../service-provider/components/conversation-card/conversation-card.component';
 import { OtherServiceCardComponent } from '../service-provider/pages/other-service-card/other-service-card.component';
 import { GroupOfServicesComponent } from '../service-provider/components/group-of-services/group-of-services.component';
+import { ListOfPagesPage } from '../service-provider/list-of-pages/list-of-pages.page';
+import { AllServicesComponent } from '../service-provider/pages/all-services/all-services.component';
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import { GroupOfServicesComponent } from '../service-provider/components/group-o
     ConversationCardComponent,
     OtherServiceCardComponent,
     NotificationHandlerComponent,
+    AllServicesComponent,
     GroupOfServicesComponent,
     SelectedServiceCardComponent],
   exports: [
@@ -61,6 +64,7 @@ import { GroupOfServicesComponent } from '../service-provider/components/group-o
     NotificationHandlerComponent,
     ConfirmPopupComponent,
     OtherServiceCardComponent,
+    AllServicesComponent,
     GroupOfServicesComponent,
     ConversationCardComponent,
     SelectedServiceCardComponent,

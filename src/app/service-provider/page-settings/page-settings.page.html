@@ -71,9 +71,9 @@
       <app-group-of-services [data]="page"></app-group-of-services>
     </div>
     <div class="infoText">{{page.otherServices.length+(page.otherServices.length > 1 ? " services are": " service is")
-    }} under your page, for {{(page.otherServices.length > 1 ? " them ": " it ")}}to remain visible online after
-    deleting your page,
-    a group of services which has the name of your services as the title is created as shown above.</div>
+    }} under your page, for {{(page.otherServices.length > 1 ? " them ": " it ")}}to remain visible online even after
+    this page is deleted,
+    a group of services which has the name of this page as the title is created as shown above.</div>
     <div class="btnHolder2">
       <button (click)="hideServiceGroupToBeCreated()" class="appBtn cancel ion-activatable ripple-parent">Cancel
         <ion-ripple-effect></ion-ripple-effect>
