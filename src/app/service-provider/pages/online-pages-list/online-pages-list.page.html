@@ -13,4 +13,10 @@
         <app-page-card *ngFor="let page of pages" (viewPage)="viewPage($event)" [page]="page"></app-page-card>
       </div>
     </div>
+    <div class="empty" *ngIf="pages.length == 0 && !loading">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
 </ion-content>

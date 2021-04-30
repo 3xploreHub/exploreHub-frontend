@@ -41,11 +41,15 @@ export class ConversationCardComponent implements OnInit {
           this.receiver = receiver[0]._id
           this.receiverName = receiver[0].fullName
         }
-        this.conversation.page.components.forEach(comp => {
-          if (comp.data.defaultName == "pageName") {
-            this.pageName += comp.data.text
-          }
-        });
+        if (this.conversation.page) {
+          this.conversation.page.components.forEach(comp => {
+            if (comp.data.defaultName == "pageName") {
+              this.pageName += comp.data.text
+            }
+          });
+        } else {
+          this.pageName += "(Page was deleted)"
+        }
       } else {
         this.name = this.conversation.receiver ? this.conversation.receiver.fullName : this.conversation["type"] == "admin_approval" ? "Admin" : "Unknown"
       }
@@ -75,7 +79,10 @@ export class ConversationCardComponent implements OnInit {
   }
 
   openMessage() {
-    this.router.navigate(['/service-provider/page-chat'], { queryParams: { receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId: this.conversation._id } })
+    if (this.conversation.page) {
+
+      this.router.navigate(['/service-provider/page-chat'], { queryParams: { receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId: this.conversation._id } })
+    } 
   }
   clickOption(e) {
     e.stopPropagation()

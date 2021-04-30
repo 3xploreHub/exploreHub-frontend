@@ -9,6 +9,8 @@
 
 .pageMain {
     display: flex;
+    padding-bottom: 0;
+    margin-bottom: 0;
     flex-direction: column;
 }
 
@@ -18,7 +20,7 @@ div {
 
 .photoHolder {
     background-color: rgb(127, 141, 158);
-    height: 190px;
+    height:300px;
     width:100%;
     box-sizing: 4px;
     overflow: hidden;
@@ -27,6 +29,7 @@ div {
 
 .pagePhoto {
     width:100%;
+    position: relative;
     background-position: center;
     height: 100%;
     background-repeat: no-repeat;
@@ -62,7 +65,7 @@ div {
     .title {
         font-size: 16px;
         margin:3px;
-        padding-top: 5px;
+        // padding-top: 5px;
         // max-height: 35px;
         font-weight: bold;
         width: 100%;
@@ -88,12 +91,15 @@ div {
 
 
 .spotInfo {
-    margin:5px; 
+    margin-top: 5px;
+    // margin:5px; 
+    background-color: rgb(244, 246, 248);
+    border-top: 1px solid rgb(208, 218, 230);
 
     .infos {
         padding:8px 0;
-        border-bottom: 1px solid rgb(210, 217, 224);
-        margin-bottom: 5px;
+        // border-bottom: 1px solid rgb(210, 217, 224);
+        // margin-bottom: 5px;
         color: rgb(64, 80, 97);
         
     }
@@ -101,8 +107,8 @@ div {
     .cardFooter {
         bottom: 0;
         width: 100%;
-        padding-top: 5px;
-        border-top: 1px solid rgb(210, 217, 224);
+        // padding-top: 5px;
+        // border-top: 1px solid rgb(210, 217, 224);
 
         .ratings {
             display: flex;
@@ -114,18 +120,26 @@ div {
                 color:rgb(127, 167, 194);
             }
 
-            .stars {
-                ion-icon {
-                    color:rgb(219, 168, 0);
-                    margin:0 1px;
-                    font-size: 16px !important;
-                }
-
-                .filledStar {
-                    color:rgb(223, 171, 0);
-                }
-            }
+            
         }
+    }
+}
+.titleHolder {
+    display: flex;
+    justify-content: space-between;
+}
+.stars {
+    margin-left:10px;
+    padding:5px;
+    flex-shrink: 0;
+    ion-icon {
+        color:rgb(219, 168, 0);
+        margin:0 1px;
+        font-size: 16px !important;
+    }
+
+    .filledStar {
+        color:rgb(223, 171, 0);
     }
 }
 
@@ -138,7 +152,7 @@ div {
     .creatorPhotoHolder {
         width: 35px;
         height: 35px;
-        border-radius: 5px;
+        border-radius: 50%;
         background-color: rgb(206, 219, 236);
         flex-shrink: 0;
         
@@ -151,6 +165,7 @@ div {
             
             ion-icon {
                 font-size: 18px;
+                color: rgb(93, 118, 150);
             }
         }
 
@@ -168,5 +183,87 @@ div {
             font-size: 12px;
             color:rgb(135, 147, 165);
         }
+    }
+}
+
+.servicesSection {
+    display: flex;
+    padding:5px;
+    overflow-y: scroll;
+    
+    .subText {
+        font-size: 13px;
+        background-color: rgb(235, 239, 245);
+    }
+}
+
+.serviceCont {
+    display: flex;
+    flex-shrink: 0;
+    // flex-direction: column;
+    margin-right:3px;
+    height: 50px;
+    overflow:hidden;
+    border-radius: 4px;
+    // background-color: rgb(232, 236, 241);
+    align-items: flex-start;
+    .subServicePic {
+        width: 50px;
+        background-position: center;
+        background-size: cover;
+        
+        height: 50px;
+        background-color: lightsteelblue;
+        // border-radius: 50%;
+        border-radius: 4px;
+        // margin:3px;
+        flex-shrink: 0;
+    }
+
+    .serviceName {
+        margin:3px;
+        max-width: 60px;
+        // width:50px;
+
+        font-size: 11px;
+    }
+}
+
+.otherServiceText {
+    padding:5px;
+    padding-bottom: 0;
+    font-size: 13px;
+}
+
+
+.subServices {
+    display:flex;
+    overflow-y: scroll;
+}
+
+
+.pageServices {
+    position: absolute;
+    bottom: 0;
+    right:0;
+    // height: 70px;
+    background-color: rgba(255, 255, 255, .4);
+    display: flex;
+    align-items: flex-end;
+    width:100%;
+    overflow-y:scroll;
+    
+    .serviceItem {
+        width:80px;
+        flex-shrink: 0;
+        height:80px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 3px;
+        border: 1px solid white;
+        background-color: lightsteelblue;
+        // box-shadow: 0 1px 3px rgb(94, 93, 93);
+        margin:5px;
     }
 }

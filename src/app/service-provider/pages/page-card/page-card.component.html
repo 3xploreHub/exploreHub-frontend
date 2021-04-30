@@ -1,4 +1,5 @@
-<div *ngIf="page.pageType != 'service_group'; else serviceGroup" (click)="view()" class="pageCard ion-activatable ripple-parent">
+<div *ngIf="page.pageType != 'service_group'; else serviceGroup" (click)="view()"
+  class="pageCard ion-activatable ripple-parent">
   <div class="pageMain">
     <div class="creator">
       <div class="creatorPhotoHolder">
@@ -12,25 +13,20 @@
       </div>
     </div>
     <div class="photoHolder">
-      <div class="pagePhoto"
-        [ngStyle]="{'background-image': 'url('+pagePhoto+')'}">
+      <div class="pagePhoto" [ngStyle]="{'background-image': 'url('+pagePhoto+')'}">
         <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
+        <div class="pageServices">
+          <div class="serviceItem" *ngFor="let Sdata of pageServicesPhotos"
+            [ngStyle]="{'background-image': 'url(' + Sdata.photo +')'}">
+          </div>
+        </div>
       </div>
+
     </div>
 
     <div class="pageInfo">
-      <p class="title" [class.untitled]="!page.components[1].data.text">{{pageTitle}}</p>
-      <div class="location">
-        <ion-icon name="location-outline"></ion-icon>
-        {{pageLocation}}
-      </div>
-      <p class="description">{{pageDescription}}</p>
-    </div>
-  </div>
-  <div class="spotInfo">
-    <div class="cardFooter">
-      <div class="ratings">
-        <span><b>100</b> tourists visited</span>
+      <div class="titleHolder">
+        <p class="title" [class.untitled]="!page.components[1].data.text">{{pageTitle}}</p>
         <div class="stars">
           <ion-icon name="star" class="filledStar"></ion-icon>
           <ion-icon name="star" class="filledStar"></ion-icon>
@@ -39,13 +35,25 @@
           <ion-icon name="star-outline"></ion-icon>
         </div>
       </div>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        {{pageLocation}}
+      </div>
+      <p class="description">{{pageDescription}}</p>
     </div>
   </div>
-  <!-- <div (click)="clickOption($event)" class="cardOptions ion-activatable ripple-parent">
-    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-    <ion-ripple-effect></ion-ripple-effect>
-  </div> -->
-  <!-- <ion-ripple-effect></ion-ripple-effect> -->
+  <div class="spotInfo" *ngIf="page.otherServices.length > 0">
+    <div class="cardFooter">
+      <div class="servicesSection">
+
+        <div class="serviceCont" *ngFor="let item of page.otherServices">
+          <div class="subServicePic" [ngStyle]="{'background-image': 'url('+item.pagePhoto+')'}"></div>
+          <div class="serviceName">{{item.pageTitle}}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #serviceGroup>
   <app-group-of-services [data]="page"></app-group-of-services>

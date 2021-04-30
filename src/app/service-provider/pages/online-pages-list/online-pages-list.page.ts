@@ -10,9 +10,10 @@ import { MainServicesService } from '../../provider-services/main-services.servi
   styleUrls: ['./online-pages-list.page.scss'],
 })
 export class OnlinePagesListPage implements OnInit, ViewWillEnter {
-  public pages: Page[];
+  public pages: Page[] = []
   notificationsCount = 0
   public category: string = "all"
+  public loading: boolean = true
   public categories = []
   constructor(public router: Router, public route: ActivatedRoute, public mainService: MainServicesService) { }
 
@@ -22,6 +23,7 @@ export class OnlinePagesListPage implements OnInit, ViewWillEnter {
       this.mainService.getOnlinePages(this.category).subscribe(
         (response: Page[]) => {
           this.pages = response;
+          this.loading = false
         }
       )
       this.getNotificationCount()
