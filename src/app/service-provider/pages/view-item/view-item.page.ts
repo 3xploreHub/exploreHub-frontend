@@ -14,8 +14,9 @@ export class ViewItemPage implements OnInit {
   public serviceId: string;
   public itemId: string;
   public pageId: string;
-  public notOperating: boolean;
+  public notOperating: boolean = false
   public bookingId: string;
+  public inputQuantity: boolean = false
   item: any;
   noAvailable = false;
   public serviceGroupName: string;
@@ -27,8 +28,9 @@ export class ViewItemPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((param: any) => {
-      if (param && param.notOperating) {
-        this.notOperating = true
+      if (param) {
+        if (param.notOperating) this.notOperating = true
+        if (param.inputQuantity == "true") this.inputQuantity = true
       }
     })
     this.route.paramMap.subscribe(params => {
@@ -43,6 +45,7 @@ export class ViewItemPage implements OnInit {
           this.values.data = this.values.data.map((item: any) => {
             let available = 0;
             if (item.type == "item") {
+              console.log("values:", this.values)
               item.data = item.data.map(component => {
                 if (component.data.defaultName == "quantity") {
                   component.data.label = "Available"
@@ -53,6 +56,7 @@ export class ViewItemPage implements OnInit {
                   if (available == 0) {
                     item["noAvailable"] = true
                   }
+                  item["inputQuantity"] = this.inputQuantity
                   component.data.text = available
                 }
                 return component

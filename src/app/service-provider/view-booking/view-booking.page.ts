@@ -128,7 +128,7 @@ export class ViewBookingPage implements AfterViewInit {
         const curBooking = this.booking
         let selectedServices = null;
         let updateBookingCount = false;
-        if (curBooking.status == "Booked") {
+        if (curBooking.status == "Booked" || curBooking.status == "Processing") {
           updateBookingCount = true;
         }
         const notificationData: any = {

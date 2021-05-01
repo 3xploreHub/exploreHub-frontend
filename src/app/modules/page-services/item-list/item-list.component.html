@@ -36,9 +36,16 @@
       <div class="options" [class.clicked]="values.selectMultiple"
         (click)="values.selectMultiple = !values.selectMultiple; editServiceSettings()">
         <span [class.clicked]="values.selectMultiple">
-          Can select multiple
+          User can select multiple
         </span>
         <ion-toggle [checked]="values.selectMultiple"></ion-toggle>
+      </div>
+      <div class="options" [class.clicked]="values.inputQuantity"
+        (click)="values.inputQuantity = !values.inputQuantity; editServiceSettings()">
+        <span [class.clicked]="values.inputQuantity">
+          User needs to input quantity on selecting
+        </span>
+        <ion-toggle [checked]="values.inputQuantity"></ion-toggle>
       </div>
     </div>
 

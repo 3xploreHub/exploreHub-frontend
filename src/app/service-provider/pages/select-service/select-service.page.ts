@@ -36,6 +36,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     this.notSelected = []
     this.mainService.canLeave = false;
     this.checkParams()
+
     this.mainService.hasUnfinishedBooking = true;
   }
 
@@ -105,6 +106,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   checkAvailedServices() {
     this.pageServices.forEach(itemList => {
       let selected = false;
+      let servQuant = 0;
       this.booking.selectedServices.forEach((item: any) => {
         if (item.serviceGroupId == itemList._id) {
           selected = true;
@@ -112,14 +114,24 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
           itemList.data.forEach(service => {
             if (service._id == item.serviceId) {
               selectedItem["service"] = service;
-              this.selected.push(selectedItem);
+              this.selected.push(selectedItem); 
+            }
+            if (service.type == "item") {
+              service.data.forEach(element => {
+                if (element.data.defaultName == "quantity") {
+                  servQuant += parseInt(element.data.text)
+                }
+              });
             }
           });
         }
       })
+      servQuant = this.getTotalValue(itemList)
       if (!selected || itemList["selectMultiple"]) {
-        this.notSelected = this.notSelected.filter(item => item._id != itemList._id)
-        this.notSelected.push(itemList);
+        if (servQuant > 0) {
+          this.notSelected = this.notSelected.filter(item => item._id != itemList._id)
+          this.notSelected.push(itemList);
+        }
       }
     });
   }
@@ -127,14 +139,34 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
   renderServices(services) {
     this.services.clear();
     if (this.services) {
+      // services = services.map(itemList => {
+      //   itemList.data = itemList.data.filter(item => {
+      //     if (item.type == "item") { 
+      //       const quantity = item.data.filter(data => {
+      //         if (data.data.defaultName == "quantity") {
+      //           return data
+      //         }
+      //       })
+      //       console.log(quantity[0].data.text, item);
+      //       if (quantity[0].data.text > 0) return item;
+      //     } else { 
+      //       return item
+      //     }
+      //   })
+      //   return itemList
+      // })
+      // console.log(services);
+      
       services.forEach(service => {
-        const factory = this.componentFactoryResolver.resolveComponentFactory(ItemListDisplayComponent);
-        const comp = this.services.createComponent<any>(factory);
-        comp.instance.values = service;
-        comp.instance.parentId = this.pageId;
-        comp.instance.parent = "page";
-        comp.instance.emitEvent = new EventEmitter();
-        comp.instance.emitEvent.subscribe(data => this.catchEvent(data))
+          
+          const factory = this.componentFactoryResolver.resolveComponentFactory(ItemListDisplayComponent);
+          const comp = this.services.createComponent<any>(factory);
+          comp.instance.values = service;
+          comp.instance.parentId = this.pageId;
+          comp.instance.parent = "page";
+          comp.instance.emitEvent = new EventEmitter();
+          comp.instance.emitEvent.subscribe(data => this.catchEvent(data))
+        
       });
     }
   }
@@ -146,22 +178,40 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     }
   }
 
+  getTotalValue(service) {
+    let total = 0;
+    service.data.forEach(item => {
+      if (item.type == "item") {
+        item.data.forEach(element => {
+          if (element.data.defaultName == "quantity") {
+            total += parseInt(element.data.text)
+          }
+        });
+      }
+    });
+    return total
+  }
+
   bookNow() {
     let hasRequired = false;
     let requiredServices= ""
     this.pageServices.forEach((service: any) => {
+
       if (service.required) {
-        let hasSelected = false;
-        this.booking.selectedServices.forEach(selected => {
-          if (selected.serviceGroupId == service._id) {
-            hasSelected = true
+        const servQuant = this.getTotalValue(service)
+        if (servQuant >  0) {
+          let hasSelected = false;
+          this.booking.selectedServices.forEach(selected => {
+            if (selected.serviceGroupId == service._id) {
+              hasSelected = true
+            }
+          })
+          if (!hasSelected) {
+            requiredServices = requiredServices.includes("|and|")? requiredServices.split("|and|").join(", "): requiredServices
+            requiredServices += requiredServices != "" ? "|and|":""
+            requiredServices += this.getValue(service.data, "name")
+            hasRequired = true;
           }
-        })
-        if (!hasSelected) {
-          requiredServices = requiredServices.includes("|and|")? requiredServices.split("|and|").join(", "): requiredServices
-          requiredServices += requiredServices != "" ? "|and|":""
-          requiredServices += this.getValue(service.data, "name")
-          hasRequired = true;
         }
       }
     })
@@ -190,6 +240,9 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     if (this.isManual) params.queryParams["manual"] = true
     if (this.editing) params.queryParams["edit"] = true
     if (this.fromReviewBooking) params.queryParams["fromReviewBooking"] = true
+    const itemList = this.pageServices.filter(service => service._id == data.serviceId)
+    params.queryParams["inputQuantity"] = itemList[0]["inputQuantity"]
+    console.log(params)
     this.router.navigate(["/service-provider/view-item", this.pageId, data.serviceId, data.itemId, this.booking.bookingType, this.booking._id], params)
   }
 
@@ -209,7 +262,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     components.forEach(comp => {
       const data = comp.data
       if (typeof data == "object" && data.defaultName && data.defaultName == type) {
-        result = data.text
+        result = parseInt(data.text)
       }
     });
     return result

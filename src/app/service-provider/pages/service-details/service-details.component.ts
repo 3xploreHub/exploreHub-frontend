@@ -36,9 +36,12 @@ export class ServiceDetailsComponent implements OnInit {
   @Input() notOperating: boolean;
   public pageWidth: number;
   public pageHeight: number;
-  public fromReviewBooking:boolean = false;
+  public fromReviewBooking: boolean = false;
   public fromDraft: boolean = false;
-  public editing:boolean = false;
+  public editing: boolean = false;
+  public quantity: number = 1
+  public enterQuant: string;
+  public invalidQuantity: boolean = false;
   public isManual: boolean = false;
   slideOpts = {
     initialSlide: 0,
@@ -97,24 +100,51 @@ export class ServiceDetailsComponent implements OnInit {
       }
 
     }, 100);
-
   }
 
   selectService() {
-    const firstServiceSelected = { service: this.values._id, serviceGroupName: this.serviceInfo.serviceGroupName, serviceGroupId: this.serviceInfo.serviceGroupId }
-    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId ? this.serviceInfo.bookingId : null };
-    this.mainService.createBooking(data).subscribe(
-      (response: bookingData) => {
-        let params = { queryParams: {} }
-        if (this.fromDraft) params.queryParams["draft"] = true
-        if (this.isManual) params.queryParams["manual"] = true
-        if (this.editing) params.queryParams["edit"] = true
-        if (this.fromReviewBooking) params.queryParams["fromReviewBooking"] = true
-        this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id], params)
-      })
-
+    console.log(this.values)
+    if (this.values["inputQuantity"]) {
+      this.enterQuant = this.values._id;
+    } else {
+      this.submitSelected()
+    }
   }
 
+  cancelSelection() {
+    setTimeout(() => {
+      this.quantity = 1;
+      this.invalidQuantity = false
+      this.enterQuant = null
+    }, 300);
+  }
+
+  checkQuantity() {
+    const servQuant = this.values.data.filter(data => data.data.defaultName == "quantity")
+    const quantity = servQuant.length > 0 ? servQuant[0].data.text : null
+    if (quantity) {
+      if (parseInt(quantity) >= this.quantity && this.quantity > 0) {
+        this.invalidQuantity = false
+        this.submitSelected()
+      } else {
+        this.invalidQuantity = true
+      }
+    }
+  }
+
+  submitSelected() {
+    const firstServiceSelected = { service: this.values._id, serviceGroupName: this.serviceInfo.serviceGroupName, quantity: this.quantity, serviceGroupId: this.serviceInfo.serviceGroupId }
+    const data = { pageId: this.serviceInfo.pageId, pageType: this.serviceInfo.pageType, firstService: firstServiceSelected, bookingId: this.serviceInfo.bookingId ? this.serviceInfo.bookingId : null };
+    this.mainService.createBooking(data).subscribe((response: bookingData) => {
+      this.enterQuant = null;
+      let params = { queryParams: {} }
+      if (this.fromDraft) params.queryParams["draft"] = true
+      if (this.isManual) params.queryParams["manual"] = true
+      if (this.editing) params.queryParams["edit"] = true
+      if (this.fromReviewBooking) params.queryParams["fromReviewBooking"] = true
+      this.router.navigate(["/service-provider/select-service", this.serviceInfo.pageId, response._id], params)
+    })
+  }
 
   renderComponent(componentValues: any, parent) {
     const factory = this.componentFactoryResolver.resolveComponentFactory<ElementComponent>(this.components[componentValues.type]);

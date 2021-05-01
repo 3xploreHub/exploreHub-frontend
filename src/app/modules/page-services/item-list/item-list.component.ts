@@ -20,6 +20,7 @@ export interface serviceValues {
   default: boolean;
   required: boolean;
   selectMultiple: boolean;
+  inputQuantity: boolean;
 }
 @Component({
   selector: 'app-item-list',
@@ -85,7 +86,7 @@ export class ItemListComponent implements OnInit {
       this.items = this.values.data.filter(item => item.type == 'item')
     } else {
       this.footerData.done = false;
-      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false, selectMultiple: false, required: false };
+      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false,inputQuantity: false, selectMultiple: false, required: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
@@ -130,7 +131,8 @@ export class ItemListComponent implements OnInit {
     this.creator.editServiceSettings({
       serviceId: this.values._id,
       required: this.values.required,
-      selectMultiple: this.values.selectMultiple
+      selectMultiple: this.values.selectMultiple,
+      inputQuantity: this.values.inputQuantity
     }).subscribe(
       (response: any) => {
         this.footerData.saving = false;
