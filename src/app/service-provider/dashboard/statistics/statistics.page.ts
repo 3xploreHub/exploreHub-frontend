@@ -229,7 +229,7 @@ export class StatisticsPage implements OnInit {
   }
 
   getTotalOccupied(data) {
-    return this.getBookedTotal(data) + this.getBookedTotal(data, true) + this.getProcessingTotal(data)
+    return this.getBookedTotal(data) + this.getBookedTotal(data, true) + this.getProcessingTotal(data) + this.getPendingTotal(data)
   }
 
   getPercentage(item, manual = false) {

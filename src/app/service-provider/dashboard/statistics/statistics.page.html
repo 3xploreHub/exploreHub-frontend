@@ -111,7 +111,6 @@
                 <div class="itemTitle">
                   <div>
                     {{getItemName(item)}}
-
                   </div>
                   <div class="statFract">
                     {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}/{{getValue(item.data, 'quantity')}}

@@ -22,7 +22,7 @@
             <p class="manual">On-site Reservation: <b class="number">{{data.item.manuallyBooked}}</b></p>
           </div>
           <div class="quant">
-            <p>Available: <b  class="number">{{data.itemQuantity - (data.item.booked + data.item.manuallyBooked + data.toBeBooked)}}</b></p>
+            <p>Available: <b  class="number">{{data.itemQuantity - (data.item.booked + data.item.manuallyBooked + data.toBeBooked + data.item.pending)}}</b></p>
           </div>
         </div>
         <div class="totalQuant">Quantity: <b  class="number">{{data.itemQuantity}}</b></div>

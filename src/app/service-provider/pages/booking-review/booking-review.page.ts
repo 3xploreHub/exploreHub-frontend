@@ -186,7 +186,7 @@ export class BookingReviewPage implements OnInit {
       this.popupData = {
         title: "Your booking request was successfully submitted",
         type: 'info',
-        otherInfo: `The system admin will communicate with you for the payment, or you can initiate a chat with the admin. Please see "Conversation" page. Thank you.`,
+        otherInfo: `The Explorehub admin will communicate with you for the payment, or you can initiate a chat with the admin. Please see "Conversation" page. Failure to response to the admin within 20 minutes will result to the rejection of your booking request. Thank you.`,
         show: true
       }
     }, 200);
