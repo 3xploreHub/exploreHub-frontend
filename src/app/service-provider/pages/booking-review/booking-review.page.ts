@@ -126,11 +126,10 @@ export class BookingReviewPage implements OnInit {
           const service = data.service
           service.booked = service.booked ? service.booked : 0;
           service.manuallyBooked = service.manuallyBooked ? service.manuallyBooked : 0
-          if (service.booked + service.manuallyBooked + data.quantity > this.getValue(service.data, "quantity")) {
+          if (service.booked + service.manuallyBooked + data.quantity + service.pending > this.getValue(service.data, "quantity")) {
             this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
             valid = false
           }
-          alert(service.booked + service.manuallyBooked + data.quantity)
           let updateData = { _id: service._id, manuallyBooked: service.manuallyBooked + 1 }
 
           selectedservices.push(updateData)
@@ -141,7 +140,7 @@ export class BookingReviewPage implements OnInit {
 
     } else {
       this.booking.status = "Pending"
-      this.sendRequest()
+      this.sendRequest(this.booking.selectedServices)
     }
 
   }
@@ -168,6 +167,10 @@ export class BookingReviewPage implements OnInit {
                 this.router.navigate(['/service-provider/view-booking', this.booking._id ])
               }
               
+            }
+          }, (error:any) => {
+            if(error.error.type == "item_availability_issue") {
+              this.presentAlert(error.error.message)
             }
           }
         )

@@ -27,7 +27,8 @@ export class UpdateItemPopupComponent implements OnInit {
       quatityPercentage: 0,
       manuallyBookedPercent: 0,
       serviceGroupName: "",
-      processingPercent:0
+      processingPercent:0,
+      pendingPercent: 0,
     }
   }
 

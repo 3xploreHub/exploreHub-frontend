@@ -20,6 +20,7 @@ export interface modalData {
   serviceGroupName: string,
   toBeBooked: number,
   processingPercent: number,
+  pendingPercent: number,
 
 }
 @Component({
@@ -199,6 +200,19 @@ export class StatisticsPage implements OnInit {
     return total;
   }
 
+  getPendingTotal(service) {
+    let total = 0;
+    service.forEach(item => {
+      if (item.type == "item") {
+        if (item.pending) {
+          total += parseInt(item.pending)
+        }
+
+      }
+    });
+    return total;
+  }
+
   getBookedTotal(service, manual = false) {
     let total = 0;
     service.forEach(item => {
@@ -222,10 +236,11 @@ export class StatisticsPage implements OnInit {
     const booked = item.booked ? item.booked : 0
     const manuallyBooked = item.manuallyBooked ? item.manuallyBooked : 0
     const toBeBooked = item.toBeBooked ? item.toBeBooked : 0
+    const pending = item.pending ? item.pending: 0
     let quantity = this.getValue(item.data, 'quantity')
     quantity = quantity ? quantity : 0
-    const quant = manual ? booked + manuallyBooked + toBeBooked : quantity
-    const total = manual ? manuallyBooked : booked + manuallyBooked + toBeBooked
+    const quant = manual ? booked + manuallyBooked + toBeBooked + pending : quantity
+    const total = manual ? manuallyBooked : booked + manuallyBooked + toBeBooked + pending
     const result = total / quant * 100
     if (result == NaN) return 0
     return result
@@ -235,13 +250,25 @@ export class StatisticsPage implements OnInit {
     const booked = item.booked ? item.booked : 0
     const manuallyBooked = item.manuallyBooked ? item.manuallyBooked : 0
     const toBeBooked = item.toBeBooked ? item.toBeBooked : 0
-    let quantity = this.getValue(item.data, 'quantity')
-    quantity = quantity ? quantity : 0
-    const total = booked + manuallyBooked + toBeBooked
+    const pending = item.pending ? item.pending: 0
+    const total = booked + manuallyBooked + toBeBooked + pending
     const result = toBeBooked / total * 100
     if (result == NaN) return 0
     return result
   }
+
+  getPendingPercent(item) {
+    const booked = item.booked ? item.booked : 0
+    const manuallyBooked = item.manuallyBooked ? item.manuallyBooked : 0
+    const toBeBooked = item.toBeBooked ? item.toBeBooked : 0
+    const pending = item.pending ? item.pending: 0
+  
+    const total = booked + manuallyBooked + toBeBooked + pending
+    const result = pending / total * 100
+    if (result == NaN) return 0
+    return result
+  }
+
 
   clickItemToUpdate(item, service) {
     setTimeout(() => {
@@ -259,7 +286,8 @@ export class StatisticsPage implements OnInit {
         manuallyBookedPercent: this.getPercentage(item, true),
         serviceGroupName: service.data[0].data.text,
         toBeBooked: item.toBeBooked,
-        processingPercent: this.getProcessingPercent(item)
+        processingPercent: this.getProcessingPercent(item),
+        pendingPercent: this.getPendingPercent(item)
       }
       console.log(this.modalData)
     }, 100);

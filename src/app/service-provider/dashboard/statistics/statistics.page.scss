@@ -57,17 +57,17 @@
 
     .numStatus {
         display: flex;
-        border-right: 1px solid lightgray;
+        // border-right: 1px solid lightgray;
         // padding:4px;
-        width:95px;
+        // width:95px;
         height: 100%;
         flex-shrink: 0;
         margin-right: 5px;
         overflow:auto;
         // background-color: $lightBg;
-        align-items: stretch;
-        flex-direction: column;
-        justify-content: space-around;
+        // align-items: stretch;
+        // flex-direction: column;
+        // justify-content: space-around;
         
         .totalTL {
             background-color:#fff !important;
@@ -77,6 +77,7 @@
         .quant {
             margin:6px;
             text-align: center;
+            flex-shrink: 0;
             flex-grow: 1;
             border-radius: 5px;
             padding:2px;
@@ -121,12 +122,20 @@
     background-color: rgb(36, 222, 255);
 }
 
+.pending {
+    background-color: rgb(247, 177, 28);
+}
+
 .bookedOnline {
     background-color: rgb(1, 226, 159);
 }
 
+.totalQuantity {
+    background-color: rgb(204, 209, 218);
+}
+
 .available {
-    background-color: rgb(170, 187, 211);
+    background-color: rgb(204, 209, 218);
 }
 
 .totalPercentage {
@@ -176,6 +185,14 @@
             border-radius: 2px;
             // border-radius: 0;
         }
+
+        .pendingPercent {
+            background-color: rgb(247, 177, 28);
+            width: 0;
+            height: 100%;   
+            border-radius: 2px;
+            // border-radius: 0;
+        }
     }
     .max {
         background-color: rgb(252, 17, 162) !important;
@@ -183,11 +200,11 @@
 }
 
 .body {
-    display: flex;
-    align-items: flex-start;
+    // display: flex;
+    // align-items: flex-start;
     margin: 5px 0;
     padding-bottom: 10px;
-    flex-direction: row;
+    // flex-direction: row;
     .scrolling {
         overflow:visible !important;
 
@@ -276,7 +293,8 @@
         flex-grow: 1;
         padding-top: 7px;
         margin-top: 0px;;
-        margin-right:10px;
+        // margin-right:10px;
+        padding:10px;
         
 
         .scrollable {

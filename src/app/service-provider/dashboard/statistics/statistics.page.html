@@ -8,6 +8,7 @@
     <div class="percent totalPercentage">
       <div class="percentBar"
         [ngStyle]="{width: getServiceTotalPercentage(getTotalOccupied(service.data), getTotalQuantity(service)) +'%'}">
+        <div [ngStyle]="{width: getServiceTotalPercentage(getPendingTotal(service.data), getTotalOccupied(service.data)) +'%'}" class="pendingPercent"></div>
         <div [ngStyle]="{width: getServiceTotalPercentage(getProcessingTotal(service.data), getTotalOccupied(service.data)) +'%'}" class="processingPercent"></div>
         <div [ngStyle]="{width: getServiceTotalPercentage(getBookedTotal(service.data, true), getTotalOccupied(service.data))  +'%'}" class="manaullyBookedPercent"></div>
       </div>
@@ -27,26 +28,31 @@
    
     <div class="body">
       <div class="numStatus">
-        <div class="quant totalTL">Total</div>
+        <!-- <div class="quant totalTL">Total</div> -->
         <div class="quant"> 
           <p class="qlabel">Quantity</p>
           <p class="num">{{getTotalQuantity(service)}}</p>
-          <!-- <div class="total"></div> -->
+          <div class="totalQuantity legend"></div>
         </div>
         <div class="quant">
-          <p class="qlabel">Booked Online</p>
+          <p class="qlabel">Approved</p>
           <p class="num">{{getBookedTotal(service.data)}}</p>
           <div class="bookedOnline legend"></div>
-        </div>
-        <div class="quant">
-          <p class="qlabel">Booked Manually</p>
-          <p class="num">{{getBookedTotal(service.data, true)}}</p>
-          <div class="bookedManual legend"></div>
         </div>
         <div class="quant">
           <p class="qlabel">Processing</p>
           <p class="num">{{getProcessingTotal(service.data)}}</p>
           <div class="toBeBooked legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">Pending</p>
+          <p class="num">{{getPendingTotal(service.data)}}</p>
+          <div class="pending legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">On-site</p>
+          <p class="num">{{getBookedTotal(service.data, true)}}</p>
+          <div class="bookedManual legend"></div>
         </div>
         <div class="quant">
           <p class="qlabel">Available</p>
@@ -60,7 +66,7 @@
             <p (click)="expandList = service._id">
               {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
             </p>
-            <input *ngIf="countServices(service) > 3" type="text" placeholder="Search">
+            <input *ngIf="countServices(service) > 10" type="text" placeholder="Search">
           </div>
           <div class="holder" *ngIf="expandList == service._id" class="expandMenu boxShadowed2">
             <p>
@@ -80,6 +86,7 @@
               <div class="percent itemsPercent">
                 <div class="percentBar"
                   [ngStyle]="{width: getPercentage(item)+'%'}">
+                  <div [ngStyle]="{width: getPendingPercent(item) +'%'}" class="pendingPercent"></div>
                   <div [ngStyle]="{width: getProcessingPercent(item) +'%'}" class="processingPercent"></div>
                   <div [ngStyle]="{width: getPercentage(item, true) +'%'}" class="manaullyBookedPercent"></div>
                 </div>

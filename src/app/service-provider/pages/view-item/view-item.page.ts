@@ -49,7 +49,7 @@ export class ViewItemPage implements OnInit {
               item.data = item.data.map(component => {
                 if (component.data.defaultName == "quantity") {
                   component.data.label = "Available"
-                  const booked = (item["booked"] + item["manuallyBooked"] + item["toBeBooked"])
+                  const booked = (item["booked"] + item["manuallyBooked"] + item["toBeBooked"] + item["pending"])
 
                   available = component.data.text - booked
                   available = available == null || available == NaN ? 0 : available

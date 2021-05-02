@@ -128,7 +128,7 @@ export class ViewBookingPage implements AfterViewInit {
         const curBooking = this.booking
         let selectedServices = null;
         let updateBookingCount = false;
-        if (curBooking.status == "Booked" || curBooking.status == "Processing") {
+        if (curBooking.status == "Booked" || curBooking.status == "Processing" || curBooking.status == "Pending") {
           updateBookingCount = true;
         }
         const notificationData: any = {
@@ -168,6 +168,8 @@ export class ViewBookingPage implements AfterViewInit {
       selectedServices = this.selectedServices.map(item => {
         return { _id: item.service._id, manuallyBooked: item.service.manuallyBooked + 1 }
       })
+    } else {
+      selectedServices = this.selectedServices
     }
     const notificationData = {
       receiver: this.booking.pageId.creator,

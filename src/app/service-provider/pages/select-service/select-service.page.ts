@@ -262,7 +262,7 @@ export class SelectServicePage implements AfterViewInit, ViewWillEnter {
     components.forEach(comp => {
       const data = comp.data
       if (typeof data == "object" && data.defaultName && data.defaultName == type) {
-        result = parseInt(data.text)
+        result = type == "quantity"? parseInt(data.text): data.text
       }
     });
     return result

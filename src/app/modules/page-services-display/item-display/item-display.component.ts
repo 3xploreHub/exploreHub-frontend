@@ -60,7 +60,7 @@ export class ItemDisplayComponent implements OnInit {
         let available = 0
         if (component.data.defaultName == "quantity") {
           component.data.label = "Available"
-          const booked = (this.values["booked"] + this.values["manuallyBooked"] + this.values["toBeBooked"])
+          const booked = (this.values["booked"] + this.values["manuallyBooked"] + this.values["toBeBooked"] + this.values['pending'])
           
           available = component.data.text - booked 
           available = available == null || available == NaN? 0: available

@@ -58,6 +58,13 @@
                     height: 100%;
                     border-radius: 0;
                 }
+                .pendingPercent {
+                    background-color: rgb(247, 177, 28);
+                    width: 0;
+                    height: 100%;   
+                    border-radius: 2px;
+                    // border-radius: 0;
+                }
             }
             .max {
                 background-color: rgb(252, 17, 162) !important;
@@ -92,6 +99,7 @@
         color: rgb(6, 201, 110) !important;
         text-align: center;
         font-size: 14px;
+        border-radius: 0;
         flex-grow: 1;
         text-align: left;
         p {
@@ -105,6 +113,10 @@
 
         .processing {
             color: rgb(28, 204, 235);
+        }
+
+        .pending {
+            color:rgb(247, 177, 28);
         }
     }
 
@@ -125,6 +137,7 @@
 .totalQuant {
     padding:10px;
     color:rgb(131, 148, 173);
+    border-radius: 0;
     border-top: 1px solid lightgray;
     text-align: center;
 }
