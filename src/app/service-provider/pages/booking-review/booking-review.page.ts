@@ -40,13 +40,13 @@ export class BookingReviewPage implements OnInit {
   constructor(
     public authService: AuthService,
     public alertController: AlertController, public route: ActivatedRoute, public router: Router, public mainService: MainServicesService) {
-      this.popupData = {
-        title: "",
-        otherInfo: "",
-        type: '',
-        show: false
-      }
-     }
+    this.popupData = {
+      title: "",
+      otherInfo: "",
+      type: '',
+      show: false
+    }
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -146,41 +146,47 @@ export class BookingReviewPage implements OnInit {
   }
 
   sendRequest(selectedServices = null) {
-    const notificationData = {
-      receiver: this.booking.pageId.creator,
-      page: this.booking.pageId._id,
-      booking: this.booking._id,
-      type: "booking-provider",
-    }
-    this.mainService.getBooking(this.bookingId, "booking_review").subscribe((data: any) => {
-      if (data.bookingData.pageId.status != "Not Operating" && data.bookingData.pageId.initialStatus == "Approved") {
-        this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
-          (response: any) => {
-            this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new_booking-fromTourist", receiver: [this.booking.pageId.creator, "admin"], message: "A new booking was submitted to your service" })
-            this.mainService.canLeave = true;
-            if (this.isManual) {
-              this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
-            } else {
-              if (!this.editing) {
-                this.presentInfo()
-              } else {
-                this.router.navigate(['/service-provider/view-booking', this.booking._id ])
-              }
-              
-            }
-          }, (error:any) => {
-            if(error.error.type == "item_availability_issue") {
-              this.presentAlert(error.error.message)
-            }
-          }
-        )
-      } else {
-        this.presentAlert("Sorry. This service is no longer operating.")
+    if (this.booking.selectedServices.length == 0 && this.booking.isManual 
+      || this.booking.bookingInfo.length == 0) {
+
+    } else {
+
+      const notificationData = {
+        receiver: this.booking.pageId.creator,
+        page: this.booking.pageId._id,
+        booking: this.booking._id,
+        type: "booking-provider",
       }
-    })
+      this.mainService.getBooking(this.bookingId, "booking_review").subscribe((data: any) => {
+        if (data.bookingData.pageId.status != "Not Operating" && data.bookingData.pageId.initialStatus == "Approved") {
+          this.mainService.submitBooking(this.booking._id, notificationData, selectedServices, this.booking.isManual).subscribe(
+            (response: any) => {
+              this.mainService.notify({ user: this.mainService.user, booking: this.formatData(this.booking), type: "new_booking-fromTourist", receiver: [this.booking.pageId.creator, "admin"], message: "A new booking was submitted to your service" })
+              this.mainService.canLeave = true;
+              if (this.isManual) {
+                this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
+              } else {
+                if (!this.editing) {
+                  this.presentInfo()
+                } else {
+                  this.router.navigate(['/service-provider/view-booking', this.booking._id])
+                }
+
+              }
+            }, (error: any) => {
+              if (error.error.type == "item_availability_issue") {
+                this.presentAlert(error.error.message)
+              }
+            }
+          )
+        } else {
+          this.presentAlert("Sorry. This service is no longer operating.")
+        }
+      })
+    }
   }
 
-  
+
   presentInfo() {
     setTimeout(() => {
       this.popupData = {
@@ -194,8 +200,8 @@ export class BookingReviewPage implements OnInit {
 
   clicked(action) {
     // if (action == "yes") {
-      this.popupData.show = false
-      this.router.navigate(['/service-provider/view-booking', this.booking._id ])
+    this.popupData.show = false
+    this.router.navigate(['/service-provider/view-booking', this.booking._id])
     // }
   }
 
