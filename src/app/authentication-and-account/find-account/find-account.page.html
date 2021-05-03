@@ -1,59 +1,35 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="login"
-        icon="chevron-back-outline"
-      ></ion-back-button>
+      <ion-back-button defaultHref="login" icon="chevron-back-outline"></ion-back-button>
     </ion-buttons>
     <ion-title>Find Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="background-color: white" class="page" no-padding>
-  <ion-grid class="content" padding>
-    <ion-row class="row2">
-      <ion-col class="loginCard">
-        <ion-card>
-          <ion-card-header color="primary"
-            >Let's find your accout first</ion-card-header
-          >
-          <ion-card-content>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-              <ion-item>
-                <ion-label position="floating" for="credential"
-                  >Email | Phone number</ion-label
-                >
-                <ion-input
-                  name="credential"
-                  (keyup)="checkCred()"
-                  formControlName="credential"
-                  clear-input="true"
-                >
-                </ion-input>
-              </ion-item>
-              <ul
-                class="valErr"
-                *ngIf="(form.get('credential').dirty || form.get('credential').touched) && form.get('credential').errors != null"
-              >
-                <li
-                  *ngFor="let error of form.get('credential').errors.validations"
-                >
-                  {{ error.message }}
-                </li>
-              </ul>
-              <ion-item>
-                <ion-button
-                  type="submit"
-                  [disabled]="!form.get('credential').value"
-                  type="submit"
-                  >Search</ion-button
-                >
-              </ion-item>
-            </form>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="pageBody mainLightBg2">
+    <!-- <div class="titleCont">
+      <p>Find Account</p>
+    </div> -->
+    <div class="formCard boxShadowed2">
+      <div class="header"></div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="fieldHolder">
+          
+          <div class="inputLabel">Email | Phone number</div>
+          <input class="inputField" name="credential" (keyup)="checkCred()" formControlName="credential">
+          <ul class="validationError"
+            *ngIf="(form.get('credential').dirty || form.get('credential').touched) && form.get('credential').errors != null">
+            <li *ngFor="let error of form.get('credential').errors.validations">
+              {{ error.message }}
+            </li>
+          </ul>
+          <div class="submitBtnHolder btnToRight btn">
+            <button class="appBtn noMargin" [disabled]="!form.get('credential').value" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </ion-content>

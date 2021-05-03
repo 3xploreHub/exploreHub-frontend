@@ -1,7 +1,7 @@
 import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { Platform, ActionSheetController, AlertController, IonSlides } from '@ionic/angular';
+import { Platform, ActionSheetController, AlertController, IonSlides, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService, Image } from '../../page-creator/page-creator-service/page-creator.service';
@@ -28,7 +28,7 @@ export class PhotoComponent implements OnInit {
   public dataToDelete: dataToDelete;
   public noActions: boolean = true;
   public slideOpts: any = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
   public showStylePopup: boolean = false;
@@ -38,6 +38,7 @@ export class PhotoComponent implements OnInit {
 
   constructor(private creator: PageCreatorService,
     private plt: Platform,
+    public toastController: ToastController,
     private actionSheetCtrl: ActionSheetController,
     public alert: AlertController) {
     this.footerData = {
@@ -72,7 +73,9 @@ export class PhotoComponent implements OnInit {
           this.footerData.saving = false
         },
         (error) => {
-          this.presentAlert("Oops! Something went wrong. Please try again later!")
+          this.presentAlert("It maybe because of invalid file type!")
+          
+          this.footerData.saving = false;
         },
       )
     }
@@ -143,10 +146,11 @@ export class PhotoComponent implements OnInit {
         }
 
       }, (error) => {
-        this.presentAlert("Oops! Something went wrong. Please try again later!")
+        this.presentAlert("The problem is maybe cuased by an invalid file type being uploaded!")
+        
+        this.footerData.saving = false;
       });
     } catch (err) {
-      console.log(err);
     }
   }
 
@@ -173,7 +177,9 @@ export class PhotoComponent implements OnInit {
       }, 100);
 
     }, (error) => {
-      this.presentAlert("Oops! Something went wrong. Please try again later!")
+      this.presentAlert("The problem is maybe due to invalid file type being uploaded!")
+      
+      this.footerData.saving = false;
     });
   }
 
@@ -225,7 +231,7 @@ export class PhotoComponent implements OnInit {
 
       },
       (error) => {
-        this.presentAlert("Oops! Something went wrong. Please try again later!")
+        this.presentAlert("The problem is maybe due to invalid file type being uploaded!")
       },
       () => {
         this.footerData.saving = false;
@@ -292,4 +298,14 @@ export class PhotoComponent implements OnInit {
     });
     await alert.present();
   }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
+  }
+
 }

@@ -1,0 +1,191 @@
+@import "../../../variables.scss";
+
+.outerWrapper {
+    padding:10px;
+    padding-bottom: 90px;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.photoHolder {
+    background-color: rgb(183, 195, 209);
+    border-radius: 5px;
+    height: 100%;
+    width:130px;
+    box-sizing: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.approvedPage {
+    background-color: rgb(0, 214, 0);
+    height: 30px;
+    width:30px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    font-size: 25px;
+    margin:5px;
+    border: 2px solid white;
+    color: #ffff;
+}
+
+.declinedPage{
+    background-color: rgb(255, 20, 20);
+    color: white;
+}
+
+.pagePhoto {
+    width:100%;
+    background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color:rgb(255, 255, 255);
+
+    .noPhoto {
+        color:#ffff;
+
+
+    }
+}
+
+.page {
+    height: 115px;
+    padding:5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    margin:10px 0;
+    box-shadow: 0 1px 2px rgba(204, 209, 214, 0.7);
+    flex-direction: row;
+
+}
+.pageInfo {
+    position: relative;
+    padding:5px;
+    padding-bottom: 15px;
+    width: 100%;
+
+    .title {
+        font-size: 15px;
+        margin: 3px 25px 3px 3px;
+        height: 19px;
+        font-weight: bold;
+        // width: 100%;
+        color: $mediumLight;
+        overflow-x: auto;
+        overflow-y: hidden;
+        text-overflow: ellipsis;  
+    }
+
+    .description {
+        color:gray;
+        margin: 3px;
+        max-height: 48px;
+        overflow: hidden;
+        font-size: 13px;
+        overflow: hidden;   
+        text-overflow: ellipsis;  
+    }
+}
+.untitled {
+    color:rgb(172, 76, 76) !important;
+}
+
+.bottomRow {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin:5px;
+    display: flex;
+    
+}
+
+.status {
+   
+    font-size: 13px;
+    background: #ffff;
+    display: flex;
+    align-items: center;
+
+    .statusCircle {
+        width:10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+        background-color: green;
+    }
+}
+
+
+.type {
+
+    padding:3px 6px;
+    border-radius: 3px;
+    margin:0 6px;
+    
+    color: $DarkBlueText;
+    font-size: 12px;
+}
+
+.servicePage {
+    background-color: rgb(207, 230, 243) !important;
+}
+
+.spotPage {
+    background-color: rgb(198, 241, 233);
+    
+}
+
+.createPage {
+    position: fixed;
+    bottom:0;
+    right:0;
+    margin:15px;
+    display: flex;
+    align-items: center;
+    background-color: #ffff;
+    color: rgb(65, 77, 88);
+    padding:8px;
+    color: dodgerblue;
+    border-radius: 40px;
+    box-shadow: 0 2px 7px lightslategrey;
+
+    .text {
+        font-size: 17px;
+        padding:0 5px;
+    }
+    
+    .add {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(226, 234, 243);
+
+        ion-icon {
+            color: rgb(9, 100, 192);
+            font-size: 30px;
+        }
+    }
+}
+
+.longDesc {
+    max-height: unset !important;
+    height: unset !important;
+}
+
+// .searchResultMode {
+//     box-shadow: unset !important;
+// }

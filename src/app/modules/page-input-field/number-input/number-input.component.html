@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div class="inputWrapper" *ngIf="!footerData.done; else textInputDisplay">
+  <div class="inputWrapper boxShadowed2 mainLightBg" *ngIf="!footerData.done  && !creator.preview; else textInputDisplay">
     <ion-textarea class="inputLabel" (keyup)="footerData.hasValue = values.data.label ? true : false"
       (change)="saveChanges()" [(ngModel)]="values.data.label" auto-grow="true" rows="1" placeholder="Enter label here">
     </ion-textarea>
@@ -7,7 +7,7 @@
       auto-grow="true" rows="1" placeholder="Enter other info or instructions here (optional)">
     </ion-textarea>
     <ion-input type="number" class="inputLabel otherInfo default" (change)="saveChanges()"
-      [(ngModel)]="values.data.defaultValue" placeholder="Enter default value here">
+      [(ngModel)]="values.data.defaultValue" placeholder="Enter default value here (optional)">
     </ion-input>
     <div class="row">
       <div class="limitOpt">
@@ -38,7 +38,7 @@
   </div>
   <ng-template #textInputDisplay>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default"
         (edit)="creator.clickedComponent = null; footerData.done = false" (delete)="delete()" (close)="creator.clickedComponent = null"
         [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
       <app-number-input-display [values]="values" (click)="creator.clickedComponent = !creator.preview? values._id: null"></app-number-input-display>

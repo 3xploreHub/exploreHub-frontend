@@ -7,10 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { ServiceProviderPageRoutingModule } from './service-provider-routing.module';
 
 import { ServiceProviderPage } from './service-provider.page';
-import { ItemDisplayComponent } from '../modules/page-services-display/item-display/item-display.component';
 @NgModule({
   imports: [
     CommonModule,
+    // BrowserModule,
     FormsModule,
     IonicModule,
     ServiceProviderPageRoutingModule
@@ -18,3 +18,4 @@ import { ItemDisplayComponent } from '../modules/page-services-display/item-disp
   declarations: [ServiceProviderPage]
 })
 export class ServiceProviderPageModule {}
+

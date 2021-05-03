@@ -7,7 +7,7 @@ import { AuthService } from "../../services/auth-services/auth-service.service";
 @Component({
   selector: "app-code-handler",
   templateUrl: "./code-handler.page.html",
-  styleUrls: ["./code-handler.page.scss"],
+  styleUrls: ["./code-handler.page.scss", "../login/login.page.scss"],
 })
 export class CodeHandlerPage implements OnInit {
   @Output() expiredAllCode: EventEmitter<any> = new EventEmitter();
@@ -61,6 +61,7 @@ export class CodeHandlerPage implements OnInit {
       this.presentAlert("Incorrect code!");
     }
   }
+  
   subscribePusher() {
     if (!this.pendingCode) {
       this.startTime();

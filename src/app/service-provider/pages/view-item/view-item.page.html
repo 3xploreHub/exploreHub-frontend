@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/view-page" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>view-item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #slides [options]="slideOpts">
+    <ion-slide *ngFor="let service of values.data">
+      <app-service-details [noAvailable]="service.noAvailable" [notOperating]="notOperating" [serviceInfo]="{pageId: pageId,serviceGroupName: serviceGroupName, serviceGroupId: serviceId,pageType: pageType, bookingId: bookingId}"
+        [values]="service">
+      </app-service-details>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

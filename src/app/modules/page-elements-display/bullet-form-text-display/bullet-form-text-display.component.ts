@@ -8,8 +8,11 @@ import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 })
 export class BulletFormTextDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() parent: string;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

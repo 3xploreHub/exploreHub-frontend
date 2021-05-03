@@ -1,15 +1,20 @@
 <div class="wrapper" *ngIf="!footerData.deleted">
-    <div  *ngIf="!footerData.done; else displayBlock" class="serviceContainer">
-      <ng-template #pageElement></ng-template>
-      <p class="addComp" (click)="showComponentList()">Add info about this service</p>
-      <app-element-footer [noPreview]="true"  [data]="footerData" (render)="renderService()" (delete)="delete()"></app-element-footer>
-    </div>
-    
+  <div *ngIf="!footerData.done; else displayBlock" class="serviceContainer boxShadowed">
+    <ng-template #pageElement></ng-template>
+    <p class="addComp boxShadowed2 ion-activatable ripple-parent" (click)="showComponentList()">Add info about this service
+      <ion-ripple-effect></ion-ripple-effect>
+    </p>
+    <app-element-footer [noPreview]="true" [data]="footerData" (render)="renderService()" (delete)="delete()">
+    </app-element-footer>
+  </div>
   <ng-template #displayBlock>
+    
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
-        (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-item-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-item-display>
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview"
+        [isDefault]="values.default" (edit)="edit()" (delete)="delete()" (close)="creator.clickedComponent = null"
+        [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
+      <app-item-display (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values">
+      </app-item-display>
     </div>
   </ng-template>
 </div>

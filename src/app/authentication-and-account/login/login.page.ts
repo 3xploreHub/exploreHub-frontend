@@ -76,7 +76,8 @@ export class LoginPage implements OnInit {
           if (resp.unfinished_registration) {
             this.router.navigate(["/verification"]);
           } else {
-            this.router.navigate([this.authservice.hasAttemptedUrl()]);
+            this.authservice.checkUser()
+            this.router.navigate(["/service-provider/list-of-pages/submitted"]);
           }
         },
         (err) => {
@@ -155,5 +156,11 @@ export class LoginPage implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  goTo(path) {
+    setTimeout(() => {
+      this.router.navigate([path])
+    }, 100);
   }
 }

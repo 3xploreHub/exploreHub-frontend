@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class PageElementListComponent implements OnInit {
   public selectedComponentName: string;
   isInItemList: boolean;
+  insideItem: boolean;
 
   constructor(public modalController: ModalController) { }
 

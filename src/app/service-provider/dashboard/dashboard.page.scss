@@ -1,0 +1,192 @@
+.boardPhotoHolder {
+    background-color: rgb(127, 141, 158);
+    width:60px;
+    height: 60px;
+    margin:5px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.boardPhoto {
+    width:70px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.boardHeader {
+    background-color: #ffff;
+    z-index: 99999;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(204, 209, 214, 0.7);
+    display: flex;
+    flex-direction: row;
+    padding:2px;
+    align-items: center;
+}
+
+.pageName {
+    padding:5px;
+    margin:0;
+    max-height:38px;
+    overflow: auto;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status {
+    font-size: 15px;
+    background: #ffff;
+    display: flex;
+    margin:5px;
+    align-items: center;
+
+    .circle {
+        width:11px;
+        height: 11px;
+        border-radius: 50%;
+        margin-right: 5px;
+        background-color: green;
+    }
+}
+.topMenu {
+    padding:5px;
+    background-color: none;
+    margin: 0;
+    display: flex;
+    z-index: 99999;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, .4);
+    flex-direction: row;
+}
+.topCol {
+    font-size: 25px;
+    padding:4px;
+    border-radius: 4px;
+    display: flex;
+    align-items:center;
+    .smIcon {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background-color: rgb(255, 255, 255);
+        overflow: visible;
+        position: relative;
+
+        .notifCount {
+            position: absolute;
+            top:0;
+            right:-5px;
+            border: 1px solid #ffff;
+            background-color: red;
+            color:#ffff;
+            font-size: 10px;
+            border-radius: 3px;
+            padding:3px;
+        }
+
+        ion-icon {
+            font-size: 20px;
+            color: rgb(87, 100, 117);
+        }
+    }
+    span {
+        font-size: 14px !important;
+    }
+}
+
+
+.backIcon {
+    background-color: #ffff;
+}
+
+.csTabs {
+    justify-content: space-around;
+    display: flex;
+    z-index: 6;
+    flex-direction: row;
+    position: relative;
+    align-items:center;
+    height: 50px;
+    
+
+
+    .csTab {
+        width:100%;
+        height: 100%;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+    }
+
+}
+
+
+.activeIndicator {
+    top:0;
+    left:0;
+    z-index: 1;
+    right:0;
+    position: absolute;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    height: 50px;
+    background-color: rgba(255, 255, 255, .3);
+
+    .csTab {
+        width:100%;
+        height: 100%;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        position: relative;
+
+        .box {
+            width:100%;
+            height: 100%;
+            padding:8px;
+            position: absolute;
+            transition: .5s;
+            left:0;
+
+            .shadow {
+                width:100%;
+                height: 100%;
+                border-radius: 5px;
+
+                display: flex;
+                // color:#ffff;
+                color:rgb(3, 1, 133);
+                align-items:center;
+                justify-content: center;
+                background-color: rgba(76, 144, 218, 0.7);
+                // background-color: #ffff;
+            }
+        }
+    }
+}
+
+.smIcon {
+    font-size: 18px !important;
+    // background-color: #ffff;
+}
+
+
+// .tabsHolder {
+//     position: sticky;
+//     position: -webkit-sticky;
+//     z-index: 1;
+// }
+
+.pageBody {
+    height:100%;overflow: auto; 
+}

@@ -22,7 +22,6 @@ export class AccountPage implements OnInit {
           this.authService.logOut();
           this.router.navigate(["/login"]);
         }
-        console.log("error in repsond", err);
       }
     );
   }

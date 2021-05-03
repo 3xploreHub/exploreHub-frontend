@@ -1,0 +1,29 @@
+<div>
+  <div class="page">
+    <div *ngIf="booking.isManual; else notManual" class="manuallyBooked">
+      On-site Reservation
+    </div>
+    <ng-template #notManual>
+      <div class="cardPhotoHolder">
+        <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
+          <div class="noPhoto" *ngIf="!photo">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="pageInfo">
+        <div class="pageName">{{booking.tourist.fullName}}</div>
+        <div class="address">{{booking.tourist.address}}</div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div *ngIf="booking.selectedServices.length > 0" class="selectedServices mainLightBg2">
+    <div class="sectionTitle title">Selected Services</div>
+    <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
+    </app-selected-service-card>
+  </div>
+  <div class="inputValueDisplay">
+    <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+  </div>
+</div>

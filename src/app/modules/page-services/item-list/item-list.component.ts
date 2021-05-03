@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AlertController, IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController, ToastController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
@@ -11,18 +11,30 @@ import { TextComponent } from '../../page-elements/text/text.component';
 import { ItemComponent } from '../item/item.component';
 import { v4 as uuidv4 } from 'uuid';
 import { ThrowStmt } from '@angular/compiler';
-
+import { BulletFormTextComponent } from '../../page-elements/bullet-form-text/bullet-form-text.component';
+export interface serviceValues {
+  _id: string;
+  type: string;
+  data: any;
+  styles: string[];
+  default: boolean;
+  required: boolean;
+  selectMultiple: boolean;
+  inputQuantity: boolean;
+}
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss'],
 })
 
+
+
 export class ItemListComponent implements OnInit {
   @ViewChild('pageElement', { read: ViewContainerRef }) pageElement: ViewContainerRef;
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
   @ViewChild('itemList') itemList;
-  @Input() values: ElementValues;
+  @Input() values: serviceValues;
   @ViewChild(IonSlides) slides: IonSlides;
   @ViewChild('newItem') newItemAdded: ElementRef;
   @Input() parentId: string;
@@ -30,8 +42,9 @@ export class ItemListComponent implements OnInit {
   public items: ElementValues[] = [];
   public newlyAdded: number;
   public deletedItem: string[] = []
+
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
 
@@ -39,6 +52,7 @@ export class ItemListComponent implements OnInit {
     'item': ItemComponent,
     'text': TextComponent,
     'labelled-text': LabelledTextComponent,
+    'bullet-form-text': BulletFormTextComponent,
     'photo': PhotoComponent,
   }
 
@@ -46,6 +60,7 @@ export class ItemListComponent implements OnInit {
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
     public creator: PageCreatorService,
+    public toastController: ToastController,
     public alert: AlertController,
   ) {
     this.footerData = {
@@ -71,7 +86,7 @@ export class ItemListComponent implements OnInit {
       this.items = this.values.data.filter(item => item.type == 'item')
     } else {
       this.footerData.done = false;
-      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false };
+      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false,inputQuantity: false, selectMultiple: false, required: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }
@@ -111,6 +126,19 @@ export class ItemListComponent implements OnInit {
     }, 1000);
   }
 
+  editServiceSettings() {
+    this.footerData.saving = true;
+    this.creator.editServiceSettings({
+      serviceId: this.values._id,
+      required: this.values.required,
+      selectMultiple: this.values.selectMultiple,
+      inputQuantity: this.values.inputQuantity
+    }).subscribe(
+      (response: any) => {
+        this.footerData.saving = false;
+      }
+    )
+  }
 
   addItem() {
     this.items.push(uuidv4())
@@ -125,8 +153,8 @@ export class ItemListComponent implements OnInit {
     this.footerData.saving = true;
     this.footerData.message = "loading..."
     setTimeout(() => {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        this.values = newData[0].services[0]
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: any) => {
+        this.values.data = newData
         this.footerData.done = false;
         this.footerData.saving = false;
         this.renderChildren()
@@ -142,8 +170,8 @@ export class ItemListComponent implements OnInit {
     this.values.data = [...info, ...this.items]
 
     setTimeout(() => {
-      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: ElementValues) => {
-        this.values = newData[0].services[0]
+      this.creator.getUpdatedItemListData(this.values._id).subscribe((newData: any) => {
+        this.values.data = newData
         this.footerData.saving = false
         if (this.checkIfHasItems(this.values.data)) {
           this.footerData.done = true;
@@ -185,17 +213,20 @@ export class ItemListComponent implements OnInit {
 
 
   async showComponentList() {
-    const modal = await this.modalController.create({
-      component: PageElementListComponent,
-      cssClass: 'componentListModal',
-      componentProps: {
-        isInItemList: true,
-      }
-    });
-    const present = await modal.present();
-    const { data } = await modal.onWillDismiss();
-    this.renderComponent(data, null);
-    return present;
+    setTimeout(async () => {
+
+      const modal = await this.modalController.create({
+        component: PageElementListComponent,
+        cssClass: 'componentListModal',
+        componentProps: {
+          isInItemList: true,
+        }
+      });
+      const present = await modal.present();
+      const { data } = await modal.onWillDismiss();
+      this.renderComponent(data, null);
+      return present;
+    }, 200);
   }
 
 
@@ -236,7 +267,7 @@ export class ItemListComponent implements OnInit {
 
   checkIfHasItems(items, alert = true) {
     let values = [];
-    if (items.length == 1) {
+    if (items.length <= 1) {
       if (alert) {
         this.presentAlert("Please add info about this service")
       }
@@ -260,6 +291,15 @@ export class ItemListComponent implements OnInit {
       } return false;
     }
     return true
+  }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
   }
 
 }

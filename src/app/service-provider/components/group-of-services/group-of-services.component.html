@@ -1,0 +1,20 @@
+
+<div class="cardBody">
+  <div class="infos">
+
+    <div class="title">{{(services.length > 0? "Services ": "Service ") + "around " }} <b>{{oldPageName}}</b></div>
+    <div class="location">{{location}}</div>
+  </div>
+  <div class="otherServices">
+    <app-other-service-card [bigCard]="true" *ngFor="let service of services" (viewService)="viewService($event)" [service]="service">
+    </app-other-service-card>
+  </div>
+  <div class="total">
+    <p>
+      {{services.length + (services.length > 1? " Services": " service")}}
+    </p>
+    <p class="viewAll" (click)="viewAll()">
+      View All
+    </p>
+  </div>
+</div>

@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { SelectHostTouristSpotPageRoutingModule } from './select-host-tourist-spot-routing.module';
 
 import { SelectHostTouristSpotPage } from './select-host-tourist-spot.page';
+import { SearchPipe } from './search.pipe';
+import { PhotoDisplayComponent } from 'src/app/modules/page-elements-display/photo-display/photo-display.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     FormsModule,
     IonicModule,
     SelectHostTouristSpotPageRoutingModule
   ],
-  declarations: [SelectHostTouristSpotPage]
+  declarations: [
+    SelectHostTouristSpotPage, 
+    SearchPipe
+  ]
 })
 export class SelectHostTouristSpotPageModule {}

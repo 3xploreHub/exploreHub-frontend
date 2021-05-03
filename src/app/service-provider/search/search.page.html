@@ -1,0 +1,41 @@
+<!-- <ion-header> -->
+<!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/view-page" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <p>Search</p>
+  </ion-toolbar> -->
+<!-- </ion-header> -->
+
+<ion-content class="container">
+  <div class="container">
+    <div class="searchHeader">
+      <div class="back ion-activatable ripple-parent">
+        <ion-icon name="arrow-back-outline" [routerLink]="['/service-provider/online-pages-list']">
+
+        </ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <!-- <div> -->
+      <form class="searchInputHolder" [formGroup]="form" (ngSubmit)="search()">
+        <input type="text" class="searchInput" formControlName="pageName"
+          placeholder="Search a tourist spot destination">
+        <button type="submit" class="searchIcon ion-activatable ripple-parent">
+          <ion-icon name="search-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </form>
+      <!-- </div> -->
+    </div>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+    <div class="searchResults">
+      <p *ngIf="loading" class="loading">Loading...</p>
+      <app-page-list-card *ngFor="let page of pages" [page]="page" [searchResult]="true" (viewPage)="viewPage($event)"></app-page-list-card>
+      <div *ngIf="noResult" class="noResults">
+        <p class="noPagesFound">No pages found</p>
+        <p class="subText">The page you're looking for may be not operating this time, or you may have spelled the name
+          above incorrectly.</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-toolbar>
+      <ion-title>Create Page</ion-title>
+    </ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <div class="outerWrapper lightBackground">
+    <div class="wrapper">
+      <div class="section">
+        <div class="insText">
+          <div class="iconHolder serviceBox">
+            <ion-icon class="icons spot" name="compass-outline"></ion-icon>
+          </div>
+          <div class="textHolder">
+            <div class="description">
+              <div class="bigText">
+                Do you manage a tourist destination? </div>
+              <span>
+                Example: Beach Resort, Beautiful places, and other.
+              </span>
+            </div>
+            <div class="btnStyle createSpot ion-activatable ripple-parent" (click)="createTouristSpotPage()">
+              Create Tourist Spot Page
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="insText">
+          <div class="iconHolder spotBox">
+            <ion-icon class="icons" name="location-outline"></ion-icon>
+          </div>
+          <div class="textHolder">
+            <div class="description">
+              <div class="bigText">
+                Do you offer a service within or around a tourist spot?
+              </div>
+              <span>
+                Example: Restaurant, Transportation, Lodging, etc.
+              </span>
+            </div>
+            <div class="btnStyle createService ion-activatable ripple-parent" (click)="goto()">
+              Create Service Page
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

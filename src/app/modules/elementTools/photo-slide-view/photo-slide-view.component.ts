@@ -12,7 +12,7 @@ export class PhotoSlideViewComponent implements OnInit, AfterViewInit {
   @ViewChild('slides' , {static: false}) slides: IonSlides;
   forward = true;
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
   constructor() { }

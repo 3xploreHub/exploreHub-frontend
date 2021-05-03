@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{getPageName()}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, others, tab)">
+  <div class="pageCont">
+    <div class="mainLightBg2 pageView">
+      <div class="info" #info>
+        <ng-template #pageElement></ng-template>
+      </div>
+      <div #services>
+        <div *ngIf="page.services && page.services.length > 0">
+          <div *ngIf="page.services.length > 0" class="servicesSection">
+            <div class="divider">
+              <h4>Services And Offers</h4>
+            </div>
+            <ng-template #pageService></ng-template>
+          </div>
+        </div>
+
+        <div class="bookSectionCont noBackground">
+          <div *ngIf="page.status != 'Not Operating'; else notOperating" (click)="createBooking()"
+            class="bookSection ion-activatable ripple-parent boxShadowed2">
+            <p>Book Now</p>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+          <ng-template #notOperating>
+            <div class="notOperating">This service is not operating at this moment</div>
+          </ng-template>
+        </div>
+      </div>
+<!-- 
+      <ng-template #noServices>
+        <div class="noService mainLightBg2">
+          No Service available this time
+        </div>
+      </ng-template> -->
+
+      <div #others>
+        <div class="otherOptions" [ngStyle]="{'min-height.px': screenHeight}" *ngIf="otherServices.length > 0">
+          <div class="servicesHeader">
+            <p class="Title">Other Services in the Area</p>
+            <p class="infoText">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              These are services offered by other individuals/firms near this tourist spot.
+            </p>
+          </div>
+          <div class="seeMore" (click)="viewAllServices()" *ngIf="otherServices.length > 5">
+            <p>
+              {{otherServices.length}} service{{otherServices.length > 1? 's': ''}}
+            </p>
+          </div>
+          <div class="otherServices">
+            <app-all-services [services]="otherServices"></app-all-services>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="tabs">
+        <div class="tab" (click)="goToSection(info,'info', tab)">
+          Info
+        </div>
+        <div class="tab" [class.none]="page.services.length == 0" #tab (click)="goToSection(services, 'services', tab)">
+          Services
+        </div>
+        <div [class.none]="otherServices.length == 0" class="tab" (click)="goToSection(others, 'others', tab)">
+          Other Services
+        </div>
+      </div> -->
+
+      <!-- <div class="boxHolder">
+        <div class="boxes">
+          <div #box class="box  ion-activatable ripple-parent" [ngStyle]="{'left.px': boxPosition}">
+            <div class="active"></div>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </div>
+        <div class="boxes">
+        </div>
+        <div class="boxes"></div>
+      </div> -->
+      <div class="parentPageCreatorOption" *ngIf="fromHostedList">
+        <div class="status">
+          <div class="approvedStatus" *ngIf="page.initialStatus == 'Approved'">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>&nbsp;
+            Approved
+          </div>
+          <div class="declinedStatus" *ngIf="page.initialStatus == 'Declined'">
+            <ion-icon name="close-circle-outline"></ion-icon>&nbsp;
+            Declined
+          </div>
+        </div>
+        <div class="innerCont">
+          <div class="options ion-activatable ripple-parent messageCont" (click)="message()">
+            <ion-icon class="message" name="chatbubble-ellipses"></ion-icon>&nbsp;
+            Message
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+          <div class="options">
+            <p class="approve ion-activatable ripple-parent"
+              *ngIf="page.initialStatus == 'Declined' || page.initialStatus == 'Pending'" (click)="approve($event)">
+              Approve
+              <ion-ripple-effect></ion-ripple-effect>
+            </p>
+            <p class="decline ion-activatable ripple-parent"
+              *ngIf="page.initialStatus == 'Approved' || page.initialStatus == 'Pending'" (click)="decline($event)">
+              Decline
+              <ion-ripple-effect></ion-ripple-effect>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-confirm-popup [popupData]="popupData" (clicked)="clicked($event)">
+  </app-confirm-popup>
+</ion-content>

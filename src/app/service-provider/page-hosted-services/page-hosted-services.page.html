@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Hosted Services</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container lightBackground">
+    <app-page-list-card *ngFor="let page of hostedPages" [page]="page" (viewPage)="viewPage($event)"></app-page-list-card>
+    <div class="empty" *ngIf="hostedPages.length == 0">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
+  </div>
+</ion-content>

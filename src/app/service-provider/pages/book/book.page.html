@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Book</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #booking>
+    <div *ngIf="bookingInfo.length > 0" class="servicesSection bookingInfoSection">
+      <div class="innerHolder">
+        <div *ngIf="!noServices" class="editSelected" (click)="editSelectedServices()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          Edit Selected Services</div>
+        <div class="divider">
+          <h4>Book Now</h4>
+        </div>
+        <ng-template #pageInputField></ng-template>
+        <div class="bookBtnCont">
+          <button (click)="submitBooking()" class="bookBtn addComponentBtn ion-activatable ripple-parent">
+            {{update ? "Update":"Submit"}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

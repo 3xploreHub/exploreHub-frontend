@@ -1,0 +1,61 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>board</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<!-- <ion-content> -->
+<div>
+
+  <div>
+    <div class="csTabs">
+      <div class="csTab">
+        <span>
+          Closed
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Booked
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Processing
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Pending
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Cancelled
+        </span>
+      </div>
+      <div class="csTab">
+        <span>
+          Statistics
+        </span>
+      </div>
+
+      <div class="activeIndicator">
+        <div (click)="goToSection('Closed', tab, ['booking', 'Closed'])" class="csTab"></div>
+        <div (click)="goToSection('Booked', tab, ['booking' , 'Booked'])" class="csTab">
+          <div class="box" #tab [ngStyle]="{'left.px': boxPosition}">
+            <div class="shadow">{{clickedTab}}</div>
+          </div>
+        </div>
+        <div (click)="goToSection('Processing', tab, ['booking', 'Processing'])" class="csTab"></div>
+        <div (click)="goToSection('Pending', tab, ['booking', 'Pending'])" class="csTab"></div>
+        <div (click)="goToSection('Cancelled', tab, ['booking', 'Cancelled'])" class="csTab"></div>
+        <div (click)="goToSection('Statistics', tab, ['statistics'])" class="csTab"></div>
+      </div>
+    </div>
+  </div>
+  <div class="content" [ngStyle]="{'height.px': height}">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- </ion-content> -->
+</div>

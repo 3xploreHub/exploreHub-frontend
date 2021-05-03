@@ -13,7 +13,6 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from "./services-common-helper/interceptors/token-interceptor.service";
 import { LoadingService } from "./services-common-helper/loadingService/loading-service.service";
 import { LoadingPage } from "./modules/loading/loading.page";
-import { CommonModule } from '@angular/common';
 import { TextComponent } from "./modules/page-elements/text/text.component";
 import { FormsModule } from "@angular/forms";
 import { PhotoComponent } from "./modules/page-elements/photo/photo.component";
@@ -22,7 +21,6 @@ import { EditOrDeletePopupComponent } from "./modules/elementTools/edit-or-delet
 import { TextDisplayComponent } from "./modules/page-elements-display/text-display/text-display.component";
 import { PhotoDisplayComponent } from "./modules/page-elements-display/photo-display/photo-display.component";
 import { LabelledTextComponent } from "./modules/page-elements/labelled-text/labelled-text.component";
-import { LabelledTextDisplayComponent } from "./modules/page-elements-display/labelled-text-display/labelled-text-display.component";
 import { DeleteDataComponent } from "./modules/elementTools/delete-data/delete-data.component";
 import { StylePopupComponent } from "./modules/elementTools/style-popup/style-popup.component";
 import { ItemComponent } from "./modules/page-services/item/item.component";
@@ -40,7 +38,14 @@ import { DateInputDisplayComponent } from "./modules/page-input-field-display/da
 import { ChoicesInputComponent } from "./modules/page-input-field/choices-input/choices-input.component";
 import { ChoicesInputDisplayComponent } from "./modules/page-input-field-display/choices-input-display/choices-input-display.component";
 import { BulletFormTextComponent } from "./modules/page-elements/bullet-form-text/bullet-form-text.component";
-import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/bullet-form-text-display/bullet-form-text-display.component";
+import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
+import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
+import { ComponentsModulePageModule } from "./components-module/components-module.module";
+
+import { environment } from "src/environments/environment";
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ConfirmPopupComponent } from "./service-provider/components/confirm-popup/confirm-popup.component";
+const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
   declarations: [
@@ -56,10 +61,8 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
     ItemComponent,
     ItemListComponent,
     EditOrDeletePopupComponent,
-    BulletFormTextDisplayComponent,
     TextDisplayComponent,
     PhotoDisplayComponent,
-    LabelledTextDisplayComponent,
     ItemDisplayComponent,
     ItemListDisplayComponent,
     PhotoStyleComponent,
@@ -71,20 +74,24 @@ import { BulletFormTextDisplayComponent } from "./modules/page-elements-display/
     DateInputComponent,
     DateInputDisplayComponent,
     ChoicesInputComponent,
-    ChoicesInputDisplayComponent
+    ChoicesInputDisplayComponent,
+    StatisticsPage,
+    BookingPage,
+
   ],
   entryComponents: [],
   imports: [
     BrowserModule,
-    CommonModule,
     FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ComponentsModulePageModule,
     IonicStorageModule.forRoot({
       name: "__mydb",
       driverOrder: ["sqlite", "websql", "localstorage"],
     }),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     StatusBar,

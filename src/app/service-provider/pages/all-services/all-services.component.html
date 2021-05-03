@@ -1,0 +1,9 @@
+<div class="wrapper mainLightBg2">
+  <div class="section" *ngFor="let group of servicesCategories;let i = index">
+    <p class="categoryName">{{categories[i]}}</p>
+    <div class="categoryGroup">
+      <app-other-service-card [bigCard]="true" *ngFor="let service of group" (viewService)="viewService($event)" [service]="service">
+      </app-other-service-card>
+    </div>
+  </div>
+</div>

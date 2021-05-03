@@ -1,0 +1,53 @@
+.overlayBackground {
+    background-color: rgba(0, 0, 0, .3);    
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 999999;
+    left:0;
+    right:0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+    .popupBody {
+        max-width:280px;    
+        border-radius: 4px;
+
+        background-color: #ffff;
+
+        .title {
+            font-size: 20px;
+            padding:15px;
+            
+        }
+
+        .otherInfo {
+            padding:15px;
+            color: rgb(84, 105, 126);
+            font-size: 15px;
+            background-color: rgb(239, 244, 247);
+        }
+
+        .btnHolder {
+            padding:10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            
+            .appBtn {
+                background-color: rgb(235, 239, 241) !important;
+                color:dodgerblue;
+                font-size: 16px;
+                text-transform: uppercase;
+                margin-left: 10px;
+            }
+
+            .no {
+                color: rgb(114, 114, 114) !important;
+                background-color: rgb(243, 242, 242) !important;
+            }
+        }
+    }
+}

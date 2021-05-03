@@ -1,0 +1,54 @@
+
+.notif {
+    display: flex;
+    margin:10px;
+    position: fixed;
+    bottom:0;
+    align-items: center;
+    left:0;
+    border-radius: 4px;
+    right:0;
+    padding:5px;
+    background-color: rgb(22, 140, 219);
+    // box-shadow: 0 2px 6px rgb(77, 80, 85);
+    justify-content: space-between;
+
+    .cont { 
+        display: flex;
+        align-items: center;
+
+        
+        .notifPicHolder {
+            flex-shrink: 0;
+            height: 30px;
+            width: 30px;
+            border-radius: 4px;
+            background-color: rgba(219, 228, 241, 0.5);
+            
+            .notifPic {
+                height: 100%;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                width:100%;
+                
+                ion-icon {
+                    color: rgb(255, 255, 255);
+                    font-size: 18px;
+                }
+            }
+        }
+        .message {
+            padding:5px 10px;
+            color:white;
+            font-size: 13px;
+        }
+    }
+
+    .close {
+        padding:0 10px;
+        flex-shrink: 0;
+        color:white;
+        font-size: 25px;
+    }
+}

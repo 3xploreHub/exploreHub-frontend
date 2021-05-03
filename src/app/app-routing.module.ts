@@ -87,14 +87,19 @@ const routes: Routes = [
   },
   {
     path: 'service-provider',
-    loadChildren: () => import('./service-provider/service-provider.module').then( m => m.ServiceProviderPageModule),
+    loadChildren: () => import('./service-provider/service-provider.module').then(m => m.ServiceProviderPageModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'tourist',
-    loadChildren: () => import('./tourist/tourist.module').then( m => m.TouristPageModule),
+    loadChildren: () => import('./tourist/tourist.module').then(m => m.TouristPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'components-module',
+    loadChildren: () => import('./components-module/components-module.module').then(m => m.ComponentsModulePageModule)
+  },
+
 ];
 
 @NgModule({
@@ -103,4 +108,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

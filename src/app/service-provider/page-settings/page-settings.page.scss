@@ -1,0 +1,148 @@
+
+.statusCont {
+    margin-top: 15px;
+    padding:15px;
+    .settingLabel  {
+        font-size: 13px;
+        color:rgb(121, 129, 139);
+    }
+    
+    .onlineStat {
+        font-size: 18px;
+        display: flex;
+        background-color: rgb(237, 243, 245);
+        padding:8px;
+        position: relative;
+        align-items: center;
+        border-radius: 2px;
+        justify-content: space-between;
+        color:rgb(4, 212, 91);
+        .overlay {
+            position: absolute;
+            right:0;
+            left:0;
+            background-color: transparent;
+            z-index:99999;
+            bottom:0;
+            top:0;
+        }
+    }
+
+    .offline{
+        color:rgb(173, 196, 189);
+    }
+}
+.settings {
+    // padding:10px 5px;
+    background-color: rgb(242, 245, 248);
+    margin:20px;
+    margin-top: 0;
+}
+.otherSettingsLabel {
+    margin:0 20px; 
+    color:rgb(121, 129, 139);
+    font-size: 13px;
+    margin-top: 15px;
+}
+.otherSetting {
+    padding:18px;
+    font-size: 18px;
+    color:rgb(63, 72, 83);
+    border-bottom:1px solid rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.showOtherServices {
+    background-color: rgb(232, 239, 243) !important;
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 99999;
+    left:0;
+    right:0;
+    // display:flex;
+    // align-items: center;
+    // justify-content: center;
+}
+.infoText {
+    // background-color: white;
+    padding:10px;
+    font-size: 16px;
+}
+
+ .btnHolder2 {
+     display: flex;
+     justify-content: flex-end;
+     padding:10px;
+
+     .cancel {
+        margin-right: 10px;
+        color: rgb(76, 82, 87) !important;
+        background-color: rgb(211, 220, 230) !important;
+    }
+
+    .continue {
+        background-color: rgb(238, 46, 46);
+    }
+ }
+
+  .confirmDeletion {
+    background-color: rgba(0, 0, 0, .3);    
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 999999;
+    left:0;
+    right:0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    .inputPassword {
+        // min-width: 270px;
+        max-width: 270px;
+        border-radius: 3px;
+        padding:15px;
+        background-color: white;
+
+        .insText {
+            font-size: 20px;
+            text-align: left;
+            padding:8px 0;
+        }
+
+        .inputField {
+            width: 100%;
+            padding:10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid rgb(106, 128, 158);
+          } 
+
+
+          .btnHolder {
+              text-align: right;
+              padding-top: 10px;
+
+              .cancel {
+                  margin-right: 10px;
+                  color: rgb(76, 82, 87) !important;
+                  background-color: rgb(230, 233, 236) !important;
+              }
+          }
+
+          
+    }
+  }
+
+
+  .listOfPages {
+    background-color: rgb(226, 232, 236) !important;
+    padding:10px 0;
+  }
+  
+  

@@ -61,9 +61,6 @@
     display: block !important;
 }
 
-.imageCont {
-    margin:0;
-}
 
 ion-slides {
     height: 300px;
@@ -79,6 +76,8 @@ ion-slides {
 }
 
 .imageCont {
+    margin:0;
+    padding:0;
     box-sizing: border-box;
     height:180px;
     overflow: hidden;
