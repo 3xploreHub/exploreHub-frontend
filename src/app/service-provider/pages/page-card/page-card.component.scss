@@ -150,16 +150,19 @@ div {
     align-items: flex-start;
 
     .creatorPhotoHolder {
-        width: 35px;
-        height: 35px;
+        width:40px;
+        height: 40px;
         border-radius: 50%;
         background-color: rgb(206, 219, 236);
+        overflow: hidden;
         flex-shrink: 0;
         
         .creatorPhoto {
             height: 100%;
             width: 100%;
             display: flex;
+            background-position: center;
+            background-size: cover;
             justify-content: center;
             align-items: center;
             

@@ -50,6 +50,7 @@ export class BookingInformationPage implements OnInit {
     //     this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
     //   }
     // });
+    this.photo = "http://localhost:3000/"+this.booking.tourist.profile
   }
 
   getAddress() {

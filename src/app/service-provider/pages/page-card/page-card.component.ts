@@ -10,6 +10,7 @@ export class PageCardComponent implements OnInit {
   @Input() page: Page;
   @Output() viewPage: EventEmitter<any> = new EventEmitter();
   public pageCreator: string = ''
+  public pageCreatorPic: string = ''
   public pagePhoto: string = ''
   public pageTitle: string = ''
   public pageServicesPhotos: string[] = []
@@ -27,6 +28,7 @@ export class PageCardComponent implements OnInit {
       this.pageLocation = location.join(", ")
 
       this.pageCreator = this.page["pageCreator"][0].fullName
+      this.pageCreatorPic = this.page["pageCreator"][0].profile
       const pageTitle = this.page.components.filter(comp => comp.data.defaultName == "pageName")
       this.pageTitle = pageTitle.length > 0 ? pageTitle[0].data.text : "Untitled Page"
 
