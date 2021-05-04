@@ -14,27 +14,18 @@
 
         <div class="itemWrapper" (click)="addComponent('text')">
           <div class="itemTitle">Add Text</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
-            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
-            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
+          <ion-icon name="reorder-four-outline"></ion-icon>
         </div>
 
         <div class="itemWrapper" (click)="addComponent('labelled-text')">
           <div class="itemTitle">Add Labelled Text</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
-            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
-            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
+          <ion-icon name="reorder-two-outline"></ion-icon>
         </div>
 
         <div [class.hidden]="isInItemList" class="itemWrapper" (click)="addComponent('photo')">
           <div class="itemTitle">Add Photo</div>
-          <div class="itemSample imgHolder">
-            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
-          </div>
+          <ion-icon name="image-outline"></ion-icon>
+         
         </div>
 
         <!-- <div class="itemWrapper" (click)="addComponent('item-list')">
@@ -46,27 +37,19 @@
 
         <div class="itemWrapper" (click)="addComponent('bullet-form-text')">
           <div class="itemTitle">Add List</div>
-          <div class="itemSample imgHolder">
-            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
-          </div>
+          <ion-icon name="list-outline"></ion-icon>
+  
         </div>
 
-        <div class="itemWrapper" [class.hidden]="!insideItem" (click)="addComponent('labelled-text_quantity')">
+        <!-- <div class="itemWrapper" [class.hidden]="!insideItem" (click)="addComponent('labelled-text_quantity')">
           <div class="itemTitle">Add Quantity Info</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
-            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
-            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
-        </div>
+         
+        </div> -->
 
         <div class="itemWrapper" [class.hidden]="!insideItem" (click)="addComponent('labelled-text_price')">
           <div class="itemTitle">Add Price Info</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat
-            facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio
-            optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
+          <ion-icon name="pricetag-outline"></ion-icon>
+        
         </div>
       </div>
     </div>

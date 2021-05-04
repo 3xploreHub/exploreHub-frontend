@@ -122,7 +122,8 @@ export class PageCreatorComponent implements OnInit {
   }
 
   showServicesComponentList() {
-    return this.showModal(this.pageService, PageServicesListComponent, "page");
+    // return this.showModal(this.pageService, PageServicesListComponent, "page");
+    this.renderComponent(this.pageService, { type: "item-list", unSaved: true }, "page");
   }
 
   showInputFieldList() {

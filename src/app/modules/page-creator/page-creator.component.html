@@ -5,9 +5,9 @@
             <br />
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add other information.</h6>
-                <p>Click <b>Add Field</b> to select component that you can use to present other information about the
+                <p>Click <b>Add Information</b> to select component that you can use to present other information about the
                     tourist spot.</p>
-                <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Field
+                <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Information
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
             </div>
@@ -22,11 +22,11 @@
 
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add services or something you offer.</h6>
-                <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities
+                <p>Click <b>Add Service</b> to select component that you can use to present other services or facilities
                     that you offer that tourists can avail.</p>
                 <div class="addComponentBtn services ion-activatable ripple-parent"
                     (click)="showServicesComponentList()">
-                    Add Field
+                    Add Service
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
 
@@ -41,13 +41,13 @@
                 <ng-template #pageInputField></ng-template>
                 <div *ngIf="!creator.preview" class="addInfo">
                     <h6>Add needed informations for booking.</h6>
-                    <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information
+                    <p>Click <b>Add Input Field</b> to select input fields that you can use to ask tourists some information
                         that
                         they
                         need to provide to make an arrangement.</p>
                     <div class="addComponentBtn bookingBtn ion-activatable ripple-parent"
                         (click)="showInputFieldList()">
-                        Add Field
+                        Add Input Field
                         <ion-ripple-effect></ion-ripple-effect>
                     </div>
                 </div>
