@@ -75,7 +75,7 @@ export class PageSettingsPage implements OnInit {
     setTimeout(() => {
       this.popupData = {
         type: 'change_page_status',
-        title: this.page.status == "Online" ? `Are you sure you want to set page status to "Not Operating"` : `Are you sure want set the page status to "Online"?`,
+        title: this.page.status == "Online" ? `Are you sure you want to set page status to <b>Not Operating</b>` : `Are you sure want set the page status to <b>Online</b>?`,
         otherInfo: this.page.status == "Online" ? 'The page will no longer be visible online.' : 'The page will be visible online by the tourist and other service providers',
         show: true
       }
@@ -164,11 +164,10 @@ export class PageSettingsPage implements OnInit {
 
   continueDeleting() {
     setTimeout(() => {
-
       this.popupData = {
         type: 'delete_page',
-        title: `Are you sure you want to delete "${this.getName()}"?`,
-        otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
+        title: `Are you sure you want to delete <b>${this.getName()}</b>?`,
+        otherInfo: '<b>This action cannot be undone</b>. Deleted page can never be restored.',
         show: true
       }
     }, 300);
@@ -197,8 +196,8 @@ export class PageSettingsPage implements OnInit {
           } else {
             this.popupData = {
               type: 'delete_page',
-              title: `Are you sure you want to delete "${this.getName()}"?`,
-              otherInfo: 'THIS ACTION CANNOT BE UNDONE. Deleted page can never be restored.',
+              title: `Are you sure you want to delete <b>${this.getName()}</b>?`,
+              otherInfo: '<b>This action cannot be undone</b>. Deleted page can never be restored.',
               show: true
             }
           }

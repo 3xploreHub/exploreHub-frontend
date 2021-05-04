@@ -192,8 +192,8 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
           updateBookingCount: true,
           increment: false,
           type: "booking-tourist",
-          messageForAdmin: `${curBooking.tourist.fullName} booking was cancelled by the owner of the service`,
-          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was cancelled by the owner of the service`
+          messageForAdmin: `<b>${curBooking.tourist.fullName}</b> booking was <b>cancelled</b> by the owner of the service`,
+          message: `Your booking to <b>${this.getName(this.booking.pageId.components)}</b> was cancelled by the owner of the service`
         }
 
         this.mainService.changeBookingStatus("Cancelled", notificationData).subscribe(
@@ -212,8 +212,8 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
           updateBookingCount: true,
           increment: false,
           type: "booking-tourist",
-          messageForAdmin: `${curBooking.tourist.fullName} booking has been closed`,
-          message: `Your booking to "${this.getName(this.booking.pageId.components)}" was closed`,
+          messageForAdmin: `<b>${curBooking.tourist.fullName}</b> booking has been closed`,
+          message: `Your booking to <b>${this.getName(this.booking.pageId.components)}</b> was closed`,
         }
         this.mainService.changeBookingStatus("Closed", notificationData).subscribe(
           (response: any) => {
@@ -234,7 +234,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
       this.popupData = {
         type: 'done',
         title: "Are you sure this booking is closed?",
-        otherInfo: 'This booking will be moved to the "Closed" tab.',
+        otherInfo: 'This booking will be moved to the <b>Closed</b> bookings list.',
         show: true
       }
     }, 200);
@@ -245,7 +245,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
       this.popupData = {
         type: 'cancel',
         title: "Are you sure you want to cancel this booking?",
-        otherInfo: "This booking will be moved to the cancelled bookings of your service, to view all cancelled bookings click settings on the top portion of your service dashboard.",
+        otherInfo: "This booking will be moved to the <b>Cancelled</b> bookings list.",
         show: true
       }
     }, 200);

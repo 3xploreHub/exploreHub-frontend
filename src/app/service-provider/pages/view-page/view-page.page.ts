@@ -252,7 +252,7 @@ export class ViewPagePage implements OnInit {
       this.popupData = {
         type: 'approve',
         title: `Are you sure you want to approve this service`,
-        otherInfo: 'This service will be visible within your page in the "Other Services" section.',
+        otherInfo: 'This service will be visible within your page in the <b>Other Services</b> section.',
         show: true
       }
     }, 200);
@@ -275,7 +275,7 @@ export class ViewPagePage implements OnInit {
       let status = "Declined"
       if (this.popupData.type == "approve") status = "Approved"
       let name = this.getPageName()
-      let message = this.popupData.type == "approve"? `The owner of "${this.getPageName(this.page.hostTouristSpot)}" approved your service named "${name}"` :`The owner of "${this.getPageName(this.page.hostTouristSpot)}" declined your service named "${name}"`
+      let message = this.popupData.type == "approve"? `The owner of <b>${this.getPageName(this.page.hostTouristSpot)}</b> approved your service named <b>${name}</b>` :`The owner of <b>${this.getPageName(this.page.hostTouristSpot)}</b> declined your service named <b>${name}</b>`
       let notificationData = {
         receiver:  this.page.creator,
         mainReceiver: this.page.creator,

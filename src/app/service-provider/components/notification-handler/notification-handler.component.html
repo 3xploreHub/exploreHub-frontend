@@ -5,7 +5,7 @@
                 <ion-icon name="notifications-outline"></ion-icon>
             </div>
         </div>
-        <div class="message">{{message}}</div>
+        <div class="message" [innerHTML]="message"></div>
     </div>
     <ion-icon (click)="show = false" class="close" name="close-outline"></ion-icon>
 </div>

@@ -115,7 +115,7 @@ export class TransactionPage implements OnInit {
         isMessage: true,
         subject: this.bookingId,
         sender: this.mainService.user._id,
-        message: `${this.mainService.user.fullName} sent you a message`,
+        message: `<b>${this.mainService.user.fullName}</b> sent you a message`,
         type: "booking-provider",
       }
       if (!this.conversation) {

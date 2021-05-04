@@ -164,7 +164,7 @@ export class PageCreatorComponent implements OnInit {
       this.popupData = {
         title: "Your Page was successfully submitted",
         type: 'info',
-        otherInfo: `The system admin will communicate with you for the payment, or you can initiate a chat with the admin. Please see "Messages" page. Thank you.`,
+        otherInfo: `The Explorehub admin will communicate with you for the <b>payment</b>, or you can initiate a chat with the admin. Please see <b>Messages</b> page. Thank you.`,
         show: true
       }
     }, 200);
@@ -236,7 +236,7 @@ export class PageCreatorComponent implements OnInit {
           booking: null,
           sender: this.mainService.user._id,
           subject: this.page._id,
-          message: `${this.mainService.user.fullName} created a service under your page`,
+          message: `<b>${this.mainService.user.fullName}</b> created a service under your page`,
           type: "page-provider",
         }
       }

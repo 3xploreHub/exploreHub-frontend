@@ -122,7 +122,7 @@ export class PageChatPage implements OnInit, OnDestroy {
         isMessage: true,
         sender: this.mainService.user._id,
         subject: this.pageId,
-        message: `${this.mainService.user.fullName} sent you a message`,
+        message: `<b>${this.mainService.user.fullName}</b> sent you a message`,
         type: this.notifType[this.type],
       }
       if (!this.conversation) {

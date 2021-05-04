@@ -63,7 +63,7 @@ export class ViewBookingPage implements AfterViewInit {
         const type = data.type.split("-");
         if (type[1] == "fromServiceProvider" || type[1] == "fromAdmin") {
           const status = type[0].split("_")[0]
-          const bookingId = data.booking? data.booking._id: data.bookingId? data.bookingId: ""
+          const bookingId = data.booking ? data.booking._id : data.bookingId ? data.bookingId : ""
           if (this.booking._id == bookingId) {
             this.booking.status = status;
             this.bookingStatus = this.booking.status;
@@ -71,6 +71,7 @@ export class ViewBookingPage implements AfterViewInit {
         }
       }
     )
+
   }
 
   getBookingInfo() {
@@ -80,6 +81,14 @@ export class ViewBookingPage implements AfterViewInit {
         this.loading = false;
         this.selectedServices = this.booking.selectedServices
         this.bookingStatus = this.booking.status
+        if (this.bookingStatus == "Processing") {
+          this.popupData = {
+            title: `The status of this booking was set to <b>Processing</b>. The Explorehub admin is expecting you to process the payment within <b>20 minutes</b>.`,
+            type: 'info',
+            otherInfo: "Failure to send the payment will cause to the <b>rejection</b> of this booking request. Thank you",
+            show: true
+          }
+        }
       }
     )
   }
@@ -151,7 +160,7 @@ export class ViewBookingPage implements AfterViewInit {
             // this.router.navigate(["/service-provider/view-booking", this.booking._id, this.bookingStatus], { queryParams: { resubmit: new Date() } })
           }
         )
-      } else if ('resubmit') {
+      } else if (this.popupData.type == 'resubmit') {
         this.resubmit()
       }
     }
@@ -205,7 +214,7 @@ export class ViewBookingPage implements AfterViewInit {
   resubmitConf() {
     setTimeout(() => {
       this.popupData = {
-        title: "Are you sure you want to resubmit this booking?",
+        title: "Are you sure you want to <b>resubmit</b> this booking?",
         type: 'resubmit',
         otherInfo: "",
         show: true
