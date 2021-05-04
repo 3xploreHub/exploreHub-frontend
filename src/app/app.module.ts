@@ -45,6 +45,7 @@ import { ComponentsModulePageModule } from "./components-module/components-modul
 import { environment } from "src/environments/environment";
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ConfirmPopupComponent } from "./service-provider/components/confirm-popup/confirm-popup.component";
+import { DatePipe } from "@angular/common";
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
@@ -104,6 +105,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
       useClass: TokenInterceptorService,
       multi: true,
     },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

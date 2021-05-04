@@ -99,6 +99,7 @@ const routes: Routes = [
     path: 'components-module',
     loadChildren: () => import('./components-module/components-module.module').then(m => m.ComponentsModulePageModule)
   },
+  
 
 ];
 

@@ -28,6 +28,8 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/storage": "^2.3.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cordova-sqlite-storage": "^5.1.0",
     "jwt-decode": "^3.0.0",
     "ngx-socket-io": "^4.0.0",

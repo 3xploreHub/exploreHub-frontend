@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { ViewWillEnter, ModalController } from '@ionic/angular';
+import { WeatherComponent } from 'src/app/modules/common-components/weather/weather.component';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -15,7 +16,7 @@ export class HeaderMenuComponent implements OnInit {
   @Input() currentCategory: string;
   @Output() changeCategory: EventEmitter<any> = new EventEmitter();
   public pages: Page[] =[]
-  constructor(public mainService:MainServicesService, public router: Router) { }
+  constructor(public mainService:MainServicesService, public router: Router, public modalCtrl: ModalController) { }
 
   ngOnInit() {
     
@@ -41,6 +42,11 @@ export class HeaderMenuComponent implements OnInit {
     this.router.navigate(["/service-provider/online-pages-list"], {queryParams: {category: category}})
   }
 
-
+  async checkWeather() {
+    const modal = await this.modalCtrl.create({
+      component: WeatherComponent
+    });
+    return await modal.present();
+  }
 
 }

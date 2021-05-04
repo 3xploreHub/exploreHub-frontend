@@ -62,6 +62,10 @@ export class ServiceProviderPage implements OnInit {
     }, 300);
   }
 
+  gotoSettings() {
+    this.router.navigate(["service-provider/settings"])
+  }
+
   clickContent(e) {
     e.stopPropagation();
   }
