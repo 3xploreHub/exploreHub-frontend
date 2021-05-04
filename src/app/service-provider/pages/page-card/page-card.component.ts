@@ -40,13 +40,16 @@ export class PageCardComponent implements OnInit {
       this.pageDescription = this.pageDescription.length > 350 ? this.pageDescription.substring(0, 350) : this.pageDescription
 
       this.page.otherServices = this.page["otherServicesData"].map(data => {
-        let pageTitle = data.components.filter(comp => comp.data.defaultName == "pageName")
-        data["pageTitle"] = pageTitle.length > 0 ? pageTitle[0].data.text : "Untitled Page"
-
-        let photo = data.components.filter(comp => comp.type == "photo")
-        data["pagePhoto"] = photo.length > 0 ? photo[0].data[0].url : ""
-        return data;
+        if (data.status == "Online") {
+          let pageTitle = data.components.filter(comp => comp.data.defaultName == "pageName")
+          data["pageTitle"] = pageTitle.length > 0 ? pageTitle[0].data.text : "Untitled Page"
+          
+          let photo = data.components.filter(comp => comp.type == "photo")
+          data["pagePhoto"] = photo.length > 0 ? photo[0].data[0].url : ""
+          return data;
+        }
       })
+      this.page.otherServices = this.page.otherServices.filter(page => page)
 
       this.pageServicesPhotos = this.page["pageServices"].map(item => {
         let serv = {}

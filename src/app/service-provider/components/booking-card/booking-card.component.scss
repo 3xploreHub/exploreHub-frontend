@@ -46,6 +46,7 @@
 
     .cardInfo {
         padding:0 5px;
+        width: 100%;
         div {
             margin:6px 0;
 
@@ -101,7 +102,7 @@
         overflow-x:auto;
         padding:0 !important;
         margin-right: 10px;
-        width: 100%;
+        width: 85%;
         flex-wrap: nowrap;
         display: flex;
         .service {
@@ -110,12 +111,13 @@
             border-left: 1px solid rgb(169, 182, 199);
             padding:1px 5px !important;
             color:rgb(136, 172, 219);
+            flex-shrink: 0;
             font-size: 15px;
             margin:0;
-            display: flex;
-            flex-wrap: nowrap;
+            // display: flex;
+            // flex-wrap: nowrap;
             height: 20px;
-            overflow:hidden;
+            // overflow:hidden;
         }
 
         .noAvailed {

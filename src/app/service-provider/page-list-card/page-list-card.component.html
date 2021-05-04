@@ -26,10 +26,10 @@
     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
-  <div *ngIf="page.initialStatus == 'Approved' && mainService.user._id != page.creator && !searchResult" class="approvedPage">
+  <!-- <div *ngIf="page.initialStatus == 'Approved' && page.pageType == 'service' && !searchResult" class="approvedPage">
     <ion-icon name="checkmark-outline"></ion-icon>
   </div>
-  <div *ngIf="page.initialStatus == 'Declined' && mainService.user._id != page.creator && !searchResult" class="approvedPage declinedPage">
+  <div *ngIf="page.initialStatus == 'Declined' && page.pageType == 'service' && !searchResult" class="approvedPage declinedPage">
     <ion-icon name="close-outline"></ion-icon>
-  </div>
+  </div> -->
 </div>

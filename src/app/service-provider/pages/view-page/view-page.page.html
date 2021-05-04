@@ -84,7 +84,7 @@
         <div class="boxes"></div>
       </div> -->
       <div class="parentPageCreatorOption" *ngIf="fromHostedList">
-        <div class="status">
+        <!-- <div class="status">
           <div class="approvedStatus" *ngIf="page.initialStatus == 'Approved'">
             <ion-icon name="checkmark-circle-outline"></ion-icon>&nbsp;
             Approved
@@ -93,22 +93,22 @@
             <ion-icon name="close-circle-outline"></ion-icon>&nbsp;
             Declined
           </div>
-        </div>
-        <div class="innerCont">
-          <div class="options ion-activatable ripple-parent messageCont" (click)="message()">
+        </div> -->
+        <div class="innerCont" *ngIf="page.creator != mainService.user._id">
+          <div  class="options ion-activatable ripple-parent messageCont" (click)="message()">
             <ion-icon class="message" name="chatbubble-ellipses"></ion-icon>&nbsp;
             Message
             <ion-ripple-effect></ion-ripple-effect>
           </div>
           <div class="options">
-            <p class="approve ion-activatable ripple-parent"
+            <!-- <p class="approve ion-activatable ripple-parent"
               *ngIf="page.initialStatus == 'Declined' || page.initialStatus == 'Pending'" (click)="approve($event)">
               Approve
               <ion-ripple-effect></ion-ripple-effect>
-            </p>
+            </p> -->
             <p class="decline ion-activatable ripple-parent"
               *ngIf="page.initialStatus == 'Approved' || page.initialStatus == 'Pending'" (click)="decline($event)">
-              Decline
+              Report
               <ion-ripple-effect></ion-ripple-effect>
             </p>
           </div>
