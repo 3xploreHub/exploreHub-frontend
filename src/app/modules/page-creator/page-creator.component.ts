@@ -164,7 +164,7 @@ export class PageCreatorComponent implements OnInit {
       this.popupData = {
         title: "Your Page was successfully submitted",
         type: 'info',
-        otherInfo: `The Explorehub admin will communicate with you for the <b>payment</b>, or you can initiate a chat with the admin. Please see <b>Messages</b> page. Thank you.`,
+        otherInfo: `The <b>Explorehub admin</b> will communicate with you for the <b>payment</b>. Please see <b>Messages</b> page. Thank you.`,
         show: true
       }
     }, 200);
