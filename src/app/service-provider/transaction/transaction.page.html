@@ -27,7 +27,9 @@
     </div> -->
   </div>
   <div class="currentConvoTitle">
-    {{conReceiver == receiver.admin? "Admin": "Owner"}}
+    <p style="text-transform: Capitalize"></p>{{conReceiver == receiver.admin? "Admin": "Owner"}}
+
+    <p *ngIf='conReceiver == receiver.admin' style="font-size: 14px">Being not able to response in <b>10 minutes</b> will result to the rejection of this booking request.</p>
   </div>
   <div class="noMessages" *ngIf="messages.length == 0">No messages yet!</div>
   <app-message-box *ngFor="let message of messages" [message]="message"

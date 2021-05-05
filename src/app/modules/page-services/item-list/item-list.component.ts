@@ -86,7 +86,7 @@ export class ItemListComponent implements OnInit {
       this.items = this.values.data.filter(item => item.type == 'item')
     } else {
       this.footerData.done = false;
-      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false,inputQuantity: false, selectMultiple: false, required: false };
+      this.values = { _id: "", type: "item-list", styles: [], data: [], default: false, inputQuantity: false, selectMultiple: false, required: false };
       this.footerData.message = "Adding Field..."
       this.addComponent(false);
     }

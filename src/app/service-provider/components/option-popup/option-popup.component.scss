@@ -37,7 +37,7 @@
         }
 
         .delete {
-            color:rgb(250, 21, 21) !important;
+            color:rgb(250, 21, 21);
         }
     }
 }
@@ -48,6 +48,11 @@
     font-size: 19px;
     padding:5px 8px;
     position: absolute;
+}
+
+.cantDelete {
+    opacity: .8;
+    color: lightgray !important;
 }
 
 .closePopup {

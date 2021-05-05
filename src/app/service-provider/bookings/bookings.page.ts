@@ -14,6 +14,7 @@ export class BookingsPage implements OnInit {
   public loading: boolean = true;
   public showOption: boolean = false;
   public bookingClicked: string;
+  public cantDelete: boolean;
   public bookings: bookingData[] = [];
   constructor(
     public mainService: MainServicesService,
@@ -136,6 +137,14 @@ export class BookingsPage implements OnInit {
   displayOption(id) {
     this.showOption = true;
     this.bookingClicked = id
+    this.bookings.forEach(booking => {
+      if (this.bookingClicked == booking._id) {
+        const status = booking.status 
+        if (status != "Rejected" && status != "Unfinished") {
+          this.cantDelete = true
+        }
+      }
+    })
   }
 
   clickOpt(type) {
@@ -151,6 +160,7 @@ export class BookingsPage implements OnInit {
       } else {
         this.bookingClicked = "";
       }
+      this.cantDelete = false
       this.showOption = false;
 
     }, 100);

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-option-popup',
@@ -7,8 +8,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class OptionPopupComponent implements OnInit {
   @Input() show: boolean = false;
+  @Input() cantDelete: boolean = false
   @Output() clickOpt: EventEmitter<any> = new EventEmitter();
-  constructor() { }
+  constructor(public toast: ToastController) { }
 
   ngOnInit() {}
 
@@ -17,7 +19,11 @@ export class OptionPopupComponent implements OnInit {
     setTimeout(() => {
       
       if (type == "delete") {
-        this.clickOpt.emit("delete")
+        if (!this.cantDelete) {
+          this.clickOpt.emit("delete")
+        } else {
+          this.presentToast("Cancel the booking first to be able to delete it.")
+        }
       }
       else if (type == "edit") {
         this.clickOpt.emit("edit")
@@ -32,6 +38,14 @@ export class OptionPopupComponent implements OnInit {
     e.stopPropagation();
     this.clickOpt.emit("close")
     this.show = false;
+  }
+
+  async presentToast(message) {
+    const toast = await this.toast.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
   }
 
 }

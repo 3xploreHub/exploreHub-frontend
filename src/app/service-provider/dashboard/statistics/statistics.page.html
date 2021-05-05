@@ -113,7 +113,7 @@
                     {{getItemName(item)}}
                   </div>
                   <div class="statFract">
-                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}/{{getValue(item.data, 'quantity')}}
+                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0) + (item.pending? item.pending: 0)}}/{{getValue(item.data, 'quantity')}}
                   </div>
                   <!-- <div class="editIcon ion-activatable ripple-parent">
                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>

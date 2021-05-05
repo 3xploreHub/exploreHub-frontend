@@ -20,7 +20,7 @@
       <p [routerLink]="['/service-provider/bookings', 'Booked']">Booked</p>
       <p [routerLink]="['/service-provider/bookings', 'Closed']">Closed</p>
     </div> -->
-    <app-option-popup [show]="showOption" (clickOpt)="clickOpt($event)"></app-option-popup>
+    <app-option-popup [show]="showOption" [cantDelete]="cantDelete" (clickOpt)="clickOpt($event)"></app-option-popup>
 
     <app-booking-card (displayOption)="displayOption($event)" (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking">
     </app-booking-card>

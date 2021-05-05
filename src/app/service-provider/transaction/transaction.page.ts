@@ -132,8 +132,9 @@ export class TransactionPage implements OnInit {
           }
         )
       } else {
-        const data = {notificationData:notificationData, conversationId: this.conversation._id, message: this.message }
-        const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
+        const forAdmin = this.conversation.receiver == this.mainService.user.admin
+        const data = {notificationData:notificationData, forAdmin: forAdmin, conversationId: this.conversation._id, message: this.message }
+      const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {
           this.scrollToBottom()
