@@ -62,6 +62,17 @@
     }
 }
 
+.picture {
+    height: 100px;
+    width:100px;
+    background-color: red;
+}
+
+.boxs {
+    padding:10px !important;
+    background-color: red !important;
+}
+
 .right {
     .boxHeader {
         flex-direction: row-reverse !important;

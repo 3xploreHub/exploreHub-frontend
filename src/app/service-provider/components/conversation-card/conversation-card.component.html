@@ -7,7 +7,7 @@
   </div>
   <div class="cardText">
     <div class="name">{{receiverName}}&nbsp;-<p class="pageName">{{pageName}}</p></div>
-    <div class="lastMessage">{{lastMessage}}</div>
+    <div class="lastMessage" [innerHTML]="lastMessage"></div>
     <div class="time">{{conversation.updatedAt | date:'short'}}</div>
   </div>
   <div (click)="clickOption($event)" class="cardOptions">

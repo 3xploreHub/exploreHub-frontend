@@ -81,7 +81,7 @@ export class ConversationCardComponent implements OnInit {
   openMessage() {
     if (this.conversation.page) {
 
-      this.router.navigate(['/service-provider/page-chat'], { queryParams: { receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page, conversationId: this.conversation._id } })
+      this.router.navigate(['/service-provider/page-chat'], { queryParams: { receiverName: this.receiverName, receiver: this.receiver, pageId: this.conversation.page._id, conversationId: this.conversation._id } })
     } 
   }
   clickOption(e) {

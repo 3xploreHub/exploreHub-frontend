@@ -311,6 +311,12 @@ export class ViewPagePage implements OnInit {
   message() {
     setTimeout(() => {
       this.router.navigate(["/service-provider/page-chat"], { queryParams: { pageId: this.page._id, type: "host_page_creator_approval", receiver: this.page.creator, receiverName: this.getPageName() } })
-    }, 200);
+    }, 300);
+  }
+
+  resportPage() {
+    setTimeout(() => {
+      this.router.navigate(["/service-provider/page-chat"], { queryParams: { pageId: this.page.hostTouristSpot["_id"], type: "admin_approval", receiver: this.mainService.user.admin, receiverName: "(Admin) - "+this.getPageName(this.page.hostTouristSpot),pageToReport: this.page._id } })
+    }, 300);
   }
 }

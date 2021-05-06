@@ -107,8 +107,8 @@
               <ion-ripple-effect></ion-ripple-effect>
             </p> -->
             <p class="decline ion-activatable ripple-parent"
-              *ngIf="page.initialStatus == 'Approved' || page.initialStatus == 'Pending'" (click)="decline($event)">
-              Report
+              *ngIf="page.initialStatus == 'Approved' || page.initialStatus == 'Pending'" (click)="resportPage()">
+              Report this page
               <ion-ripple-effect></ion-ripple-effect>
             </p>
           </div>

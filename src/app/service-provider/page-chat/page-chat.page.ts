@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { MainServicesService } from '../provider-services/main-services.service';
 import { conversation } from '../transaction/transaction.page';
@@ -15,12 +16,18 @@ export class PageChatPage implements OnInit, OnDestroy {
   public pageId: string;
   public conversationId: string;
   public receiverName: string;
+  public report: string = ""
   public type: string;
   public receiver: string;
-  public notifType = {host_page_creator_approval: "page-provider", admin_approval: "page-admin", tourist_message: "page-tourist"}
+  public reporting: boolean = false;
+  public pageReport: any;
+  public inputPlaceholder: string = "Enter message here"
+  public pageToReport: string;
+  public notifType = { host_page_creator_approval: "page-provider", admin_approval: "page-admin", tourist_message: "page-tourist" }
   public conversation: conversation;
   public messages: any[] = []
-  constructor(public route: ActivatedRoute, public mainService: MainServicesService) { }
+
+  constructor(public route: ActivatedRoute, private sanitizer: DomSanitizer, public mainService: MainServicesService) { }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 120
@@ -32,7 +39,34 @@ export class PageChatPage implements OnInit, OnDestroy {
         this.receiverName = params.receiverName
         this.receiver = params.receiver
         this.conversationId = params.conversationId
-        if (this.type == "host_page_creator_approval") {         
+        if (this.type == "admin_approval") {
+          this.mainService.getConvoForPageSubmission(this.pageId, this.type).subscribe(
+            (response: any) => {
+              if (!response.noConversation) {
+                this.conversation = response
+                this.type = this.conversation["type"]
+                this.messages = this.conversation.messages
+
+                this.formatData()
+
+                this.mainService.getPage(params.pageToReport).subscribe(page => {
+                  this.report = `<div data-page="${params.pageToReport}" style="width:200px;margin:10px; background-color: white; display:flex; flex-direction: column; align-items: center; justify-content: center">
+                  <div style="padding:8px 0; background-color: red; color:white;text-align:center;font-size:12px; width: 200px;">Report</div>
+                    <div  style="width:200px;margin:0; height: 150px; background-color:lightsteelblue; overflow:hidden"><div style="width:100%; height: 100%; background-size: cover;background-position: center; background-image: url('${this.getValue(page, "photo")}');"></div></div>
+                    <div style="width:200px; color: dodgerblue; padding:8px; font-size:18px; text-align:center">${this.getValue(page, "pageName")}</div>
+                  </div>`
+                  this.pageReport = this.sanitizer.bypassSecurityTrustHtml(this.report)
+                  this.reporting = true;
+                })
+                this.inputPlaceholder = "Enter your reason here"
+              }
+              setTimeout(() => {
+                this.scrollToBottom()
+              }, 400)
+            }
+          )
+        }
+        else if (this.type == "host_page_creator_approval") {
           this.mainService.getConvoForPageSubmission(this.pageId, this.type).subscribe(
             (response: any) => {
               if (!response.noConversation) {
@@ -77,7 +111,9 @@ export class PageChatPage implements OnInit, OnDestroy {
       }
     })
 
-     this.mainService.notification.subscribe(
+
+
+    this.mainService.notification.subscribe(
       (data: any) => {
         if (data.type == "message-page" && this.pageId == data.pageId) {
           if (this.conversation && data.conversationId != this.conversation._id) return;
@@ -98,12 +134,27 @@ export class PageChatPage implements OnInit, OnDestroy {
     )
   }
 
-  ngOnDestroy() {
-    this.mainService.openConvo(this.conversation._id, true).subscribe(
-      (response: any) => {
-        
+  getValue(page, type) {
+    let value;
+    page.components.forEach(element => {
+      if (type == "photo" && element.type == type) {
+        value = element.data[0].url
+      } else if (element.data.defaultName == type) {
+        value = element.data.text;
       }
-    )
+    });
+    return value;
+  }
+
+  ngOnDestroy() {
+    if (this.conversation) {
+
+      this.mainService.openConvo(this.conversation._id, true).subscribe(
+        (response: any) => {
+
+        }
+      )
+    }
   }
 
   scrollToBottom(): void {
@@ -114,8 +165,11 @@ export class PageChatPage implements OnInit, OnDestroy {
 
   send() {
     if (this.message) {
+      this.message = this.report + this.message
+
+      this.reporting = false;
       const notificationData = {
-        receiver:  this.receiver,
+        receiver: this.receiver,
         mainReceiver: this.mainService.user._id,
         page: this.pageId,
         booking: null,
@@ -126,32 +180,34 @@ export class PageChatPage implements OnInit, OnDestroy {
         type: this.notifType[this.type],
       }
       if (!this.conversation) {
-        const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.receiver }
+        const data = { notificationData: notificationData, withMedia: this.report ? true : false, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.receiver }
         this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
+            this.report = ""
             if (!response.noConversation) {
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
               this.scrollToBottom()
-              this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversation: this.conversation, type: "message-page", receiver: [this.receiver], message:  `${this.mainService.user.fullName} sent you a message` })
+              this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversation: this.conversation, type: "message-page", receiver: [this.receiver], message: `${this.mainService.user.fullName} sent you a message` })
             }
           }
         )
       } else {
-        const data = {pageConvo: true, notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
-        const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
+        const data = { pageConvo: true, notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
+        const message = { createdAt: "Sending...", withMedia: this.report ? true : false, sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {
           this.scrollToBottom()
         }, 200)
         this.mainService.sendMessage(data).subscribe(
           (response: conversation) => {
+            this.report = ""
             this.conversation = response
             this.messages = this.conversation.messages
             this.formatData()
             this.scrollToBottom()
-            this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-page", receiver: [this.receiver], message:  `${this.mainService.user.fullName} sent you a message` })
+            this.mainService.notify({ user: this.mainService.user, pageId: this.pageId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: "message-page", receiver: [this.receiver], message: `${this.mainService.user.fullName} sent you a message` })
           }
         )
       }

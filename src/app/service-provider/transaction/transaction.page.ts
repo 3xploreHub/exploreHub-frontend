@@ -4,9 +4,10 @@ import { MainServicesService } from '../provider-services/main-services.service'
 
 export interface message {
   _id: string;
+  withMedia: boolean;
   sender: string;
   senderFullName: string;
-  message: string;
+  message: any;
   createdAt: string;
   updatedAt: string;
   noSender: boolean
@@ -37,7 +38,7 @@ export class TransactionPage implements OnInit {
   public message: string;
   public bookingId: string;
   public pageId: string;
-  public receiver = { owner: "", admin: "605839a8268f4b69047e4bb1" }
+  public receiver = { owner: "", admin: this.mainService.user.admin }
   public conReceiver: string;
   public screenHeight: number;
   public conversation: conversation;
@@ -50,7 +51,7 @@ export class TransactionPage implements OnInit {
       if (params) {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
-        this.receiver = { owner: params.receiverId, admin: '605839a8268f4b69047e4bb1' }
+        this.receiver = { owner: params.receiverId, admin: this.mainService.user.admin }
         this.conReceiver = this.receiver.owner
         this.fetchConversation()
       }

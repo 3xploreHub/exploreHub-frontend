@@ -7,13 +7,18 @@
     </div>
 
     <div class="userInfo">
-      <div class="userName" *ngIf="!message.noSender && mainService.user._id != message.sender">{{message.senderFullName}}</div>
-      <div *ngIf="showDate || message.createdAt == 'Sending...'" class="date">{{ message.createdAt == "Sending..." ? "Sending..." : message.createdAt | date:'short'}}</div>
+      <div class="userName" *ngIf="!message.noSender && mainService.user._id != message.sender">
+        {{message.senderFullName}}</div>
+      <div *ngIf="showDate || message.createdAt == 'Sending...'" class="date">{{ message.createdAt == "Sending..." ?
+        "Sending..." : message.createdAt | date:'short'}}</div>
     </div>
   </div>
   <div class="messageHolder">
 
-    <div class="messageContent" [innerHTML]="message.message">
+    <div class="messageContent" *ngIf="message.withMedia; else plainText" [innerHTML]="message.message">
     </div>
+    <ng-template #plainText>
+      <div class="messageContent" [innerHTML]="message.message"></div>
+    </ng-template>
   </div>
 </div>
