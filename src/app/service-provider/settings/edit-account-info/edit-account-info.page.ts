@@ -37,6 +37,7 @@ import {
   FormBuilder,
 } from "@angular/forms";
 import { FooterData } from "src/app/modules/elementTools/interfaces/footer-data";
+import { user } from './../../../services-common-helper/constantValue/user';
 
 export interface dataToDelete {
   _id: string;
@@ -63,6 +64,22 @@ export class EditAccountInfoPage implements OnInit {
   userGender = null;
   userBirthday = null;
 
+  user = {
+    userId : null,
+    profile : null,
+    userAccountType : null,
+    userFullname : null,
+    userFirstname : null,
+    userMiddlename : null,
+    userLastname : null,
+    userAge : null,
+    userEmail : null,
+    userPhone : null,
+    userAddress : null,
+    userGender : null,
+    userBirthday : null,
+  };
+
   noActions: boolean = true;
   @ViewChild("fileInput", { static: false }) fileInput: ElementRef;
   @ViewChild("slides", { static: false }) slides: IonSlides;
@@ -87,7 +104,7 @@ export class EditAccountInfoPage implements OnInit {
     firstName: new FormControl("", Validators.required),
     lastName: new FormControl("", Validators.required),
     middleName: new FormControl("", Validators.required),
-    age: new FormControl("", Validators.required),
+    age: new FormControl("", [Validators.required, Validators.min(5), Validators.max(100)]),
     gender: new FormControl("", Validators.required),
     birthday: new FormControl("", Validators.required),
     address: new FormControl("", Validators.required),
@@ -132,8 +149,6 @@ export class EditAccountInfoPage implements OnInit {
     "l\u00f8r",
   ];
   customPickerOptions: any;
-
-  previousData: any;
 
   image;
 
@@ -181,10 +196,12 @@ export class EditAccountInfoPage implements OnInit {
 
   ngOnInit() {
     this.getUserInfo();
+    this.checkIfValuesChange();
   }
 
   ionViewWillEnter() {
     this.getUserInfo();
+    console.log(this.updateUserForm.valid)
   }
 
   onSubmit() {
@@ -201,21 +218,16 @@ export class EditAccountInfoPage implements OnInit {
       birthday: this.userBirthday,
     };
 
-    this.previousData = formValuesNoUpdatePassword;
-
-    let updated = this.settingsService.updateUserInfo(
-      formValuesNoUpdatePassword
-    );
-    updated.subscribe((user: any) => {
-      return user;
-    });
-    if (updated) {
-      console.log("User's information updated successfully!");
-      console.log(JSON.stringify(updated));
-    } else {
-      console.log("User's information failed to update.");
+    if(this.checkIfValuesChange() == true) {
+      let updated = this.settingsService.updateUserInfo(
+        formValuesNoUpdatePassword
+      );
+      updated.subscribe((user: any) => {
+        this.router.navigate(['/service-provider/settings']);
+        return user;
+      });
+      this.getUserInfo();
     }
-    this.getUserInfo();
   }
 
   changeEmail() {
@@ -226,16 +238,48 @@ export class EditAccountInfoPage implements OnInit {
     }
   }
 
-  checkIfValuesChange(firstValues, secondValues) {
-    return firstValues == secondValues;
-  }
-
   back() {
-    this.router.navigate(["service-provider/settings"]);
+    this.router.navigate(['/service-provider/settings']);
+  }
+  checkIfValuesChange() {
+    if(
+      this.user.userId == this.userId && 
+      this.user.userFirstname == this.userFirstname &&
+      this.user.userLastname == this.userLastname &&
+      this.user.userMiddlename == this.userMiddlename &&
+      this.user.userFullname == this.userFullname && 
+      this.user.userAge == this.userAge &&
+      this.user.userEmail == this.userEmail &&
+      this.user.userPhone == this.userPhone && 
+      this.user.userAddress == this.userAddress && 
+      this.user.userGender == this.userGender && 
+      this.user.userBirthday == this.userBirthday 
+    ){
+      return false;
+    }
+    return true;
   }
 
   getUserInfo() {
     this.settingsService.getUserInfo().subscribe((userInfo: any) => {
+      this.user.userId = userInfo._id;
+      this.user.userAccountType = userInfo.accountType;
+      this.user.userFirstname = userInfo.firstName;
+      this.user.userLastname = userInfo.lastName;
+      this.user.userMiddlename = userInfo.middleName;
+      this.user.userFullname = userInfo.fullName;
+      this.user.userAge = userInfo.age;
+      this.user.userEmail = userInfo.email;
+      this.user.userPhone = userInfo.contactNumber;
+      this.user.userAddress = userInfo.address;
+      this.user.userGender = userInfo.gender;
+      this.user.userBirthday = this.datePipe.transform(
+        userInfo.birthday,
+        "yyyy-MM-dd"
+      );
+      this.user.profile = userInfo.profile;
+
+
       this.userId = userInfo._id;
       this.userAccountType = userInfo.accountType;
       this.userFirstname = userInfo.firstName;
@@ -340,7 +384,7 @@ export class EditAccountInfoPage implements OnInit {
       },
       (error) => {
         this.presentAlert(
-          "Oops! Something went wronggggggggggggggggggggggggggg. Please try again later!"
+          "Oops! Something went wrong. Please try again later!"
         );
       }
     );

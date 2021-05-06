@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SettingsService } from './settings.service';
 import { DatePipe } from '@angular/common';
 import { ModalController } from '@ionic/angular';
-import { WeatherComponent } from 'src/app/modules/common-components/weather/weather.component';
+// import { WeatherComponent } from 'src/app/modules/common-components/weather/weather.component';
 
 @Component({
   selector: 'app-settings',
@@ -33,9 +33,17 @@ export class SettingsPage implements OnInit {
 
   weatherToday = '';
 
-  constructor( private router: Router, private settingsService: SettingsService, private datePipe: DatePipe, private modalCtrl: ModalController) { }
+  constructor( private router: Router, private settingsService: SettingsService, private datePipe: DatePipe, private modalCtrl: ModalController,  public route: ActivatedRoute) { }
 
-  ngOnInit() { }
+  public formDashboard: boolean;
+
+  ngOnInit() { 
+    this.route.queryParams.subscribe(
+      (params: any) => {
+        if (params && params.formDashboard) this.formDashboard = true
+      }
+    )
+  }
 
   ionViewWillEnter(){
     this.getUserInfo();
@@ -51,13 +59,6 @@ export class SettingsPage implements OnInit {
 
   back() {
     this.router.navigate(["service-provider"])
-  }
-
-  async openWeatherModal() {
-    const modal = await this.modalCtrl.create({
-      component: WeatherComponent
-    });
-    return await modal.present();
   }
 
   editAccountInfo() {

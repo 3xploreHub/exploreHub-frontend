@@ -1,10 +1,23 @@
-<ion-header [translucent]="false">
+<!-- <ion-header [translucent]="false">
   <ion-toolbar>
-      <ion-title class="header">Account Settings</ion-title>
+      <ion-title class="header">My Account</ion-title>
       <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()"></ion-icon>
-      <ion-icon (click)="openWeatherModal()" style="font-size: 30px; color: rgb(0, 106, 255); margin-right: 8px;" slot="end" name="cloud-outline"></ion-icon>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start" *ngIf="!formDashboard; else backBtn">
+        <ion-menu-button content-id="main-content"></ion-menu-button>
+      </ion-buttons>
+  
+      <ng-template #backBtn>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+        </ion-buttons>
+      </ng-template>
+      <ion-title>My Account</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content>
   <div class="container">
@@ -14,8 +27,9 @@
                   <ion-icon (click)="editAccountInfo()" name="create-outline"></ion-icon>
               </div>
               <div class="profile-pic-container">
-                  <img id="profile-pic" [src]="'http://localhost:3000/' + profile">
+                    <img id="profile-pic" [src]="'http://localhost:3000/' + profile">
               </div>
+              <div class="profile-pic-container" ></div>
               <h3 class="fullname" style="text-transform: capitalize;"><b>{{firstname}} {{middlename}} {{lastname}}</b></h3>
               <div class="contact-info-container">
                   <p>{{email}}</p>

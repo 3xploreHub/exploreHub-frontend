@@ -4,7 +4,7 @@
     <!-- <ion-buttons slot="start">
           <ion-menu-button content-id="main-content"></ion-menu-button>
       </ion-buttons> -->
-    <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()"></ion-icon>
+    <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()" style="margin-left: 8px;"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -43,14 +43,14 @@
             <label style="font-size: 18px;"><b>Account Setting</b></label><br><br>
 
             <label for="email">Email</label>
-            <input type="email" [className]="emailClass" (keyup)="changeEmail()" id="email" name="email" formControlName="email" [(ngModel)]="userEmail">
+            <input type="email" [className]="emailClass" (keyup)="changeEmail()" id="email" name="email" formControlName="email" [(ngModel)]="user.userEmail">
             <div *ngIf="email.invalid && (email.touched || email.dirty)">
               <p id="error" *ngIf="email.errors.required">Email is required</p>
               <p id="error" *ngIf="email.errors.email">Please provide valid email</p>
             </div>
             
             <label for="phone">Phone</label>
-            <input type="phone" id="phone" name="phone" formControlName="phone" [(ngModel)]="userPhone">
+            <input type="phone" id="phone" name="phone" formControlName="phone" [(ngModel)]="user.userPhone">
             <div *ngIf="phone.invalid && (phone.touched || phone.dirty)">
               <p id="error" *ngIf="phone.errors.required">Phone is required</p>
             </div>
@@ -75,20 +75,19 @@
             <br>
             <label style="font-size: 18px;"><b>Profile Setting</b></label><br><br>
             <label for="fname">First Name</label>
-            <input type="text" id="fname" formControlName="firstName" name="firstname" [(ngModel)]="userFirstname">
+            <input type="text" id="fname" formControlName="firstName" name="firstName" [(ngModel)]="userFirstname">
             <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
               <p id="error" *ngIf="firstName.errors.required">First name is required</p>
               <p id="error" *ngIf="firstName.errors.minLength">Password must at least 8 characters</p>
             </div>
-
             <label for="lname">Middle Name</label>
-            <input type="text" id="mname" formControlName="middleName" name="middlename" [(ngModel)]="userMiddlename">
+            <input type="text" id="mname" formControlName="middleName" name="middleName" [(ngModel)]="userMiddlename">
             <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
               <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
             </div>
 
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" formControlName="lastName" name="lastname" [(ngModel)]="userLastname">
+            <input type="text" id="lname" formControlName="lastName" name="lastName" [(ngModel)]="userLastname">
             <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
               <p id="error" *ngIf="lastName.errors.required">Last name is required</p>
             </div>
@@ -97,10 +96,11 @@
             <input type="number" id="age" formControlName="age" name="age" [(ngModel)]="userAge">
             <div *ngIf="age.invalid && (age.touched || age.dirty)">
               <p id="error" *ngIf="age.errors.required">Age is required</p>
+              <p id="error" *ngIf="age.errors.min || age.errors.max">Age must less than 100 and greater than 5</p>
             </div>
 
             <label for="lname">Gender</label><br>
-            <select name="cars" id="gender" (change)="changeGender($event)" formControlName="gender" [value]="userGender">
+            <select name="cars" id="gender" (change)="changeGender($event)" formControlName="gender" [ngModel]="userGender">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
@@ -118,12 +118,12 @@
   
             <label for="lname">Address</label><br>
             <input type="text" id="address" formControlName="address" name="address" [(ngModel)]="userAddress">
-            <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
-              <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
+            <div *ngIf="address.invalid && (address.touched || address.dirty)">
+              <p id="error" *ngIf="address.errors.required">Middle name is required</p>
             </div>
-          </div>
+          </div>  
           
-          <input type="submit" value="Save Changes">
+          <input type="submit" [disabled]="!updateUserForm.valid || checkIfValuesChange() == false" value="Save Changes">
 
         </form>
       </div>

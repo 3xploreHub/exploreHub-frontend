@@ -4,15 +4,20 @@
 
 .container {
     background-color: rgb(230, 230, 230);
+    min-height: 450px;
+    height: auto;
 }
 
 .profile-container {
     width: 95%;
     margin: auto;
+    min-width: 300px;
+    height: auto;
     
     .profile {
         // border-bottom: 1px solid gray;
-        height: 690px;
+        height: auto;
+        padding-bottom: 18%;
         width: 100%;
         background-color: white;
         margin: auto;
@@ -49,6 +54,7 @@
 
         .fullname {
             text-align: center;
+            padding: 0 10px;
         }
 
         .contact-info-container {

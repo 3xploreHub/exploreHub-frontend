@@ -21,6 +21,8 @@
         .profile-pic-container {
             height: 200px;
             width: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
             background-color: rgb(230, 230, 230);
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -51,7 +53,6 @@
             margin-right: auto;
             border-radius: 5px;
             border: 4px solid white;
-            // margin-top: 7%;
         }
 
         input[type=text],
@@ -72,6 +73,7 @@
         }
 
         input[type=submit] {
+            border-style: none;
             width: 100%;
             background-color: #529ee6;
             color: white;
@@ -82,10 +84,10 @@
             cursor: pointer;
         }
 
-        input:focus {
-            outline: none !important;
-            box-shadow: 0 0 10px #719ECE;
-        }
+        // input:focus {
+        //     outline: none !important;
+        //     box-shadow: 0 0 10px #719ECE;
+        // }
 
         select:focus {
             outline: none !important;

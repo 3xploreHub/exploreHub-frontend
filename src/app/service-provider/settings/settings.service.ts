@@ -52,7 +52,7 @@ export class SettingsService {
   }
 
   deleteProfile(file: string) {
-    return this.http.post(`${environment.apiUrl}/account/deleteProfile`, {profile: file}, {
+    return this.http.post(`${environment.apiUrl}/api/account/deleteProfile`, {profile: file}, {
       headers: { hideLoadingIndicator: "" },
     });
   }
