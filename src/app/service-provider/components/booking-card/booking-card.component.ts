@@ -13,6 +13,7 @@ import { MainServicesService } from '../../provider-services/main-services.servi
 export class BookingCardComponent implements OnInit {
   @Output() displayOption: EventEmitter<any> = new EventEmitter();
   @Input() forDashboard: boolean = false;
+  @Input() hideOption: boolean = false;
   public deleted: boolean = false;
   @Input() booking: bookingData = {
     _id: "",

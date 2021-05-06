@@ -28,7 +28,7 @@
     </div>
   </div>
   <ion-ripple-effect></ion-ripple-effect>
-  <div (click)="clickOption($event)" class="cardOptions ion-activatable ripple-parent">
+  <div (click)="clickOption($event)" *ngIf="!hideOption" class="cardOptions ion-activatable ripple-parent">
     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
