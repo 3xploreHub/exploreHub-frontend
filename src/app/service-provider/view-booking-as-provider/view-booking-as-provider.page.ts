@@ -203,7 +203,7 @@ export class ViewBookingAsProviderPage implements OnInit, AfterViewInit {
           }
         )
       } else if (this.popupData.type == "done") {
-        const notificationData: any = {
+      const notificationData: any = {
           receiver: curBooking.tourist._id,
           page: curBooking.pageId._id,
           booking: curBooking._id,

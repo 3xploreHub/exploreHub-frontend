@@ -85,7 +85,7 @@ export class ViewBookingPage implements AfterViewInit {
           this.popupData = {
             title: `The status of this booking was set to <b>Processing</b>. The Explorehub admin is expecting you to process the payment within <b>20 minutes</b>.`,
             type: 'info',
-            otherInfo: "Failure to send the payment will cause to the <b>rejection</b> of this booking request. Thank you",
+            otherInfo: "Failure to send the payment will result to the <b>rejection</b> of this booking request. Thank you",
             show: true
           }
         }

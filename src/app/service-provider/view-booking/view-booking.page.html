@@ -6,7 +6,7 @@
           <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
         </div>
         <div class="optionsTop">
-          <div *ngIf="bookingStatus !='Booked' && bookingStatus !='Closed' && bookingStatus !='Processing'" (click)="editBooking()" class="cancel ion-activatable ripple-parent edit">Edit&nbsp;
+          <div *ngIf="bookingStatus =='Rejected' || bookingStatus == 'Cancelled'" (click)="editBooking()" class="cancel ion-activatable ripple-parent edit">Edit&nbsp;
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="create-outline"></ion-icon>
           </div>

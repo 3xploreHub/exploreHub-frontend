@@ -52,7 +52,7 @@ export class TransactionPage implements OnInit {
         this.bookingId = params.bookingId
         this.pageId = params.pageId
         this.receiver = { owner: params.receiverId, admin: this.mainService.user.admin }
-        this.conReceiver = this.receiver.owner
+        this.conReceiver = this.receiver.admin
         this.fetchConversation()
       }
     })
