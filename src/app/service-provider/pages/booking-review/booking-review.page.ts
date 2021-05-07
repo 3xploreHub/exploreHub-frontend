@@ -126,7 +126,7 @@ export class BookingReviewPage implements OnInit {
           const service = data.service
           service.booked = service.booked ? service.booked : 0;
           service.manuallyBooked = service.manuallyBooked ? service.manuallyBooked : 0
-          if (service.booked + service.manuallyBooked + data.quantity + service.pending > this.getValue(service.data, "quantity")) {
+          if (service.booked + service.toBeBooked + service.manuallyBooked + data.quantity + service.pending > this.getValue(service.data, "quantity")) {
             this.presentAlert(this.getValue(service.data, "name") + " has no more available item")
             valid = false
           }
@@ -166,11 +166,11 @@ export class BookingReviewPage implements OnInit {
               if (this.isManual) {
                 this.router.navigate(["/service-provider/dashboard/" + this.pageType + "/" + this.pageId + "/board/booking/Booked"])
               } else {
-                if (!this.editing) {
+                // if (!this.editing) {
                   this.presentInfo()
-                } else {
-                  this.router.navigate(['/service-provider/view-booking', this.booking._id])
-                }
+                // } else {
+                //   this.router.navigate(['/service-provider/view-booking', this.booking._id])
+                // }
 
               }
             }, (error: any) => {

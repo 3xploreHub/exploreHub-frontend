@@ -13,6 +13,8 @@
         height: 70px;
         width: 70px;
         overflow: hidden;
+        flex-shrink: 0;
+        border-radius: 5px;
         border-bottom: 3px;
         background-color: rgba(184, 202, 230, .5);
     
@@ -21,6 +23,7 @@
             width: 100%;
             font-size: 20px;
             background-position: center;
+            background-size: cover;
             background-repeat: no-repeat;
             display: flex;
             justify-content: center;
@@ -80,7 +83,6 @@
         }
     }
     .picHolder {
-        
         background-color: rgba(145, 181, 238, 0.5);
     
         .pic {

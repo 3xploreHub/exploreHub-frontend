@@ -187,6 +187,7 @@ export class PageChatPage implements OnInit, OnDestroy {
           (response: any) => {
             this.report = ""
             if (!response.noConversation) {
+              this.inputPlaceholder = "Enter message here"
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
@@ -204,6 +205,8 @@ export class PageChatPage implements OnInit, OnDestroy {
         }, 200)
         this.mainService.sendMessage(data).subscribe(
           (response: conversation) => {
+            this.inputPlaceholder = "Enter message here"
+
             this.report = ""
             this.conversation = response
             this.messages = this.conversation.messages

@@ -12,6 +12,7 @@ export class ConversationCardComponent implements OnInit {
   @Input() conversation: conversation;
   public name: string;
   public receiver: string;
+  public photo: string;
   public receiverName: string;
   public pageName: string = ""
   public lastMessage: string = ""
@@ -40,6 +41,7 @@ export class ConversationCardComponent implements OnInit {
         if (receiver.length > 0) {
           this.receiver = receiver[0]._id
           this.receiverName = receiver[0].fullName
+          this.photo = receiver[0].profile ? "http://localhost:3000/"+receiver[0].profile: ""
         }
         if (this.conversation.page) {
           this.conversation.page.components.forEach(comp => {
