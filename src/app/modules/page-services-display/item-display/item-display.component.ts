@@ -47,11 +47,11 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
+    // setTimeout(() => {
       if (this.values.data.length > 0) {
         this.setPage(this.values.data)
       }
-    }, 400);
+    // }, 400);
   }
 
   setPage(component) {

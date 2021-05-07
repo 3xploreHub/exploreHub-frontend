@@ -140,7 +140,7 @@ export class BookingsPage implements OnInit {
     this.bookings.forEach(booking => {
       if (this.bookingClicked == booking._id) {
         const status = booking.status 
-        if (status != "Rejected" && status != "Unfinished") {
+        if (status != "Rejected" &&  status != "Unfinished" && status != "Cancelled") {
           this.cantDelete = true
         }
       }
