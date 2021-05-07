@@ -36,6 +36,7 @@ export class NotificationHandlerComponent {
         console.log(data);
 
         if (data.receiver.includes(this.mainService.user._id) || data.receiver.includes("all")) {
+          console.log("notification:", data)
           if (data.user._id != this.user._id && !data.receiver.includes("all")) {
             this.showToast(data.message);
           }

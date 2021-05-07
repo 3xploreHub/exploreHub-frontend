@@ -39,6 +39,18 @@ export class PageChatPage implements OnInit, OnDestroy {
         this.receiverName = params.receiverName
         this.receiver = params.receiver
         this.conversationId = params.conversationId
+        if (params.pageToReport) {
+          this.mainService.getPage(params.pageToReport).subscribe(page => {
+            this.report = `<div data-page="${params.pageToReport}" style="width:200px;margin:10px; background-color: white; display:flex; flex-direction: column; align-items: center; justify-content: center">
+            <div style="padding:8px 0; background-color: red; color:white;text-align:center;font-size:12px; width: 200px;">Report</div>
+              <div  style="width:200px;margin:0; height: 150px; background-color:lightsteelblue; overflow:hidden"><div style="width:100%; height: 100%; background-size: cover;background-position: center; background-image: url('${this.getValue(page, "photo")}');"></div></div>
+              <div style="width:200px; color: dodgerblue; padding:8px; font-size:18px; text-align:center">${this.getValue(page, "pageName")}</div>
+            </div>`
+            this.pageReport = this.sanitizer.bypassSecurityTrustHtml(this.report)
+            this.reporting = true;
+          })
+          this.inputPlaceholder = "Enter your reason here"
+        }
         if (this.type == "admin_approval") {
           this.mainService.getConvoForPageSubmission(this.pageId, this.type).subscribe(
             (response: any) => {
@@ -49,16 +61,6 @@ export class PageChatPage implements OnInit, OnDestroy {
 
                 this.formatData()
 
-                this.mainService.getPage(params.pageToReport).subscribe(page => {
-                  this.report = `<div data-page="${params.pageToReport}" style="width:200px;margin:10px; background-color: white; display:flex; flex-direction: column; align-items: center; justify-content: center">
-                  <div style="padding:8px 0; background-color: red; color:white;text-align:center;font-size:12px; width: 200px;">Report</div>
-                    <div  style="width:200px;margin:0; height: 150px; background-color:lightsteelblue; overflow:hidden"><div style="width:100%; height: 100%; background-size: cover;background-position: center; background-image: url('${this.getValue(page, "photo")}');"></div></div>
-                    <div style="width:200px; color: dodgerblue; padding:8px; font-size:18px; text-align:center">${this.getValue(page, "pageName")}</div>
-                  </div>`
-                  this.pageReport = this.sanitizer.bypassSecurityTrustHtml(this.report)
-                  this.reporting = true;
-                })
-                this.inputPlaceholder = "Enter your reason here"
               }
               setTimeout(() => {
                 this.scrollToBottom()
@@ -180,7 +182,7 @@ export class PageChatPage implements OnInit, OnDestroy {
         type: this.notifType[this.type],
       }
       if (!this.conversation) {
-        const data = { notificationData: notificationData, withMedia: this.report ? true : false, booking: null, page: this.pageId, message: this.message, type: "host_page_creator_approval", receiver: this.receiver }
+        const data = { notificationData: notificationData, withMedia: this.report ? true : false, booking: null, page: this.pageId, message: this.message, type: this.report? "admin_approval": "host_page_creator_approval", receiver: this.receiver }
         this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
             this.report = ""
