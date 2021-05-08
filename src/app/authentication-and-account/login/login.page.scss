@@ -11,56 +11,128 @@
   overflow: auto;
 }
 
+.appLogo {
+  height:80px;
+  width:80px;
+  background-color: white;
+  border-radius: 8px;
+  overflow:hidden;
+  border: 2px solid white;
+  // border-radius: 50%;
+  // display: flex;
+  // // overflow:hidden;
+  // align-items: center;
+  // justify-content: center;
+  position: relative;
+  // background-image: linear-gradient(to top, rgb(192, 217, 241),rgb(255, 255, 255));
+  background-color: white;
+
+  .circle {
+    width: 37px;
+    height: 37px;
+    top: 19px;
+    border: 8px solid rgb(132, 193, 253);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+}
+ 
+      ion-icon {
+        z-index: 2;
+        position: relative;;
+        font-size: 100px;
+        color:dodgerblue;
+        margin:0;
+      }
+
+      .line {
+        height: 12px;
+        width: 35px;
+        // border-radius: 30px;
+        left: -5px;
+
+        border-radius: 40px;
+        position: relative;
+        background-color: dodgerblue;
+        margin:3px;
+      }
+  
+      .l1 {
+        margin-top: 10px;
+        background-image: linear-gradient(to right, white,rgb(2, 143, 243));
+      }
+      .l2 {
+        width: 55px;
+        background-image: linear-gradient(to right, white,rgb(2, 131, 243));
+      }
+      .l3 {
+        background-image: linear-gradient(to right, white,rgb(2, 163, 243));
+      }
+
+  
+
+      .divider {
+        width: 100px;
+        height: 100px;
+        left: 35px;
+        top: 30px;
+        position: absolute;
+        transform: rotate(
+    45deg
+    );
+        background-color: rgb(52, 126, 255);
+      }
+  
+      .divider2 {
+        width: 100px;
+        height: 100px;
+        left: 50px;
+        top: -50px;
+        position: absolute;
+        transform: rotate(
+    -45deg
+    );
+        background-color: rgba(0, 219, 253, 0.6);
+      }
+
+      .ex {
+        position: absolute;
+        height: 12px;
+        transform: rotate(45deg);
+        width: 100px;
+        // border-radius: 30px;
+        border-radius: 6px;
+        background-color: dodgerblue;
+        
+      }
+      .ex2 {
+        position: absolute;
+        left: 25px;
+        height: 12px;
+        transform: rotate(-45deg);
+        width: 60px;
+        top: 70px;
+        border-radius: 5px;
+        background-color: dodgerblue;
+      }
+}
+.appTitle {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
 .header {
   padding: 40px 0;
+  padding-bottom: 30px;
   display: flex;
+  flex-direction: column;
   background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
   justify-content: center;
   align-items: center;
   width: 100%;
-  // box-shadow: 0px 3px 5px #7190a7;
-  // border-bottom-right-radius: 40px;
-  // border-bottom-left-radius: 40px;
-  .appTitle {
-    height: 100px;
-    position: relative;
-    background-color: none;
-    width: 100%;
-    
-    .circleHolder {
-      width: 100%;
-      text-align: center;
-      top:-15px;
-      position: absolute; 
-      .circle {
-        display: inline-block;
-        // background-color: rgb(188, 230, 248);
-        height: 130px;
-        border:8px dashed rgb(199, 235, 240);
-        width: 130px;
-        border-radius: 50%;
-      }
-    }
-    .titleHolder {
-      position: absolute;
-      background-color: none;
-      background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
-      top:24px;
-      width: 100%;
-     
-      text-align: center;
-      .title {
-        display: inline-block;
-        font-weight: bold;
-        margin:5px 0;
-        padding:3px 30px;
-        border-top:5px solid rgb(199, 227, 240);
-        border-bottom:5px solid rgb(199, 227, 240);
-        color:rgb(255, 255, 255);
-        font-size: 30px;
-      }
-    }
-  }
+
+
 }
 
 .formHolder {
