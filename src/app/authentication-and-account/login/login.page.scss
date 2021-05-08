@@ -15,9 +15,9 @@
   height:80px;
   width:80px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow:hidden;
-  border: 2px solid white;
+  border: 1px solid white;
   // border-radius: 50%;
   // display: flex;
   // // overflow:hidden;
@@ -58,7 +58,7 @@
       }
   
       .l1 {
-        margin-top: 10px;
+        margin-top: 15px;
         background-image: linear-gradient(to right, white,rgb(2, 143, 243));
       }
       .l2 {
@@ -75,18 +75,18 @@
         width: 100px;
         height: 100px;
         left: 35px;
-        top: 30px;
+        top: 35px;
         position: absolute;
         transform: rotate(
     45deg
     );
-        background-color: rgb(52, 126, 255);
+        background-color: rgb(15, 133, 251);
       }
   
       .divider2 {
         width: 100px;
         height: 100px;
-        left: 50px;
+        left: 46px;
         top: -50px;
         position: absolute;
         transform: rotate(
@@ -116,15 +116,40 @@
         background-color: dodgerblue;
       }
 }
+
+.design {
+  width:500px;
+  height: 500px;
+  position: absolute;
+  background-color: rgba(185, 243, 251, 0.2);
+  transform: rotate(45deg);
+  border-radius: 15px;
+  top:-100px;
+  right: -500px;
+}
+
+.design2 {
+  width:500px;
+  height: 500px;
+  position: absolute;
+  background-color: rgba(104, 172, 255, 0.2);
+  transform: rotate(45deg);
+  border-radius: 15px;
+  top:-200px;
+  left: -500px;
+}
 .appTitle {
   color: white;
+  z-index: 9999999;
   font-weight: bold;
   text-align: center;
 }
 
 .header {
   padding: 40px 0;
+  overflow:hidden;
   padding-bottom: 30px;
+  position: relative;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));

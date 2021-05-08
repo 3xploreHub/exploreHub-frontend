@@ -18,6 +18,7 @@ export class ServiceProviderPage implements OnInit {
   public active: string = ''
   public currentUser: any = {fullName: "", profile: ""}
   public defaultType: any = accountType;
+  public appLogo: string = 'assets/explorehub.png'
   public api: string = "http://localhost:3000/"
   public accountType: string = accountType.tourist;
   constructor(public loadingService: LoadingService,

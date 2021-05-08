@@ -3,7 +3,7 @@
   <ion-content (click)="clickContent($event)">
     <div class="menu-header-bg"></div>
     <div class="header-content">
-      <img src="https://p7.hiclipart.com/preview/371/951/717/train-service-brand-train.jpg" alt="">
+      <div class="logo" [ngStyle]="{'background-image': 'url('+appLogo + ')'}" ></div>
       <ion-label>
         <h2>ExploreHub</h2>
         <p class="serve">Explore the Wonders of Nature</p>
