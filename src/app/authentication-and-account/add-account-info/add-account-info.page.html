@@ -31,6 +31,17 @@
           </div>
 
           <div class="fieldHolder">
+            <div class="inputLabel">Birthday</div>
+            <ion-datetime id="birthday" class="inputField" displayFormat="MM/DD/YYYY" min="1950-01-01" formControlName="birthday" name="birthday" [(ngModel)]="userBirthday"></ion-datetime>
+            <ul class="validationError"
+              *ngIf=" (form.get('birthday').dirty || form.get('birthday').touched) && form.get('birthday').errors !=null">
+              <li *ngFor="let error of form.get('birthday').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="fieldHolder">
             <div class="inputLabel">Address</div>
             <input class="inputField" formControlName="address" name="address">
             <ul class="validationError"

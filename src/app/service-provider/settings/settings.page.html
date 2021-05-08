@@ -28,8 +28,10 @@
               </div>
               <div class="profile-pic-container">
                   <div id="profile-pic">
-                    <div class="pic" [ngStyle]="{'background-image': 'url('+api+profile+')' }">
-                        <ion-icon *ngIf="!profile" name="person-outline"></ion-icon>
+                    <div *ngIf="profile" class="pic" [ngStyle]="{'background-image': 'url('+api+profile+')' }">
+                    </div>
+                    <div *ngIf="!profile" class="pic">
+                        <ion-icon name="person-outline"></ion-icon>
                     </div>
                   </div>
                     <!-- <img id="profile-pic" [src]="'http://localhost:3000/' + profile"> -->
@@ -71,7 +73,7 @@
                           <label for="gender"><b>Birthday:</b></label>
                       </ion-col>
                       <ion-col>
-                          <label for="gender-val">{{birthday}}</label>
+                          <label for="gender-val">{{birthday | date:'medium'}}</label>
                       </ion-col>
                   </ion-row>
               </div>

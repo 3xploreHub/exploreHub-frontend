@@ -48,6 +48,7 @@ export class AddAccountInfoPage implements OnInit {
         CValidator.validate([{ v: "required" }]),
       ],
       gender: ["Female ", CValidator.validate([{ v: "required" }])],
+      birthday: ["Birthday ", CValidator.validate([{ v: "required" }])],
       age: [
         "",
         CValidator.validate([

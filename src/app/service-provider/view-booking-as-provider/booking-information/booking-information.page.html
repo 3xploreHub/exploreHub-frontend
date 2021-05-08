@@ -5,8 +5,11 @@
     </div>
     <ng-template #notManual>
       <div class="cardPhotoHolder">
-        <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+photo+')' }">
-          <div class="noPhoto" *ngIf="!photo">
+        <div class="cardPhoto" *ngIf="photo"  [ngStyle]="{'background-image': 'url('+photo+')' }">
+        </div>
+
+        <div *ngIf="!photo" class="cardPhoto">
+          <div class="noPhoto">
             <ion-icon name="person-outline"></ion-icon>
           </div>
         </div>

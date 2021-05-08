@@ -102,7 +102,6 @@ export class CValidator {
       requirements.forEach(requirement => {
         let none = true;
         value.forEach(char => {
-          console.log(char == char.toUpperCase())
           if (char.toUpperCase() != char.toLowerCase()  && char == char.toUpperCase() && requirement == "uppercase") {
             none = false
           }
@@ -124,8 +123,6 @@ export class CValidator {
       control.value.length !== 0 &&
       requirements.length != 3
     ) {
-      console.log(requirements);
-      
       let error = ""
       if (!requirements.includes("lowercase")) error += ` at least one lowercase|`
       if (!requirements.includes("uppercase")) error += ` at least one uppercase|`

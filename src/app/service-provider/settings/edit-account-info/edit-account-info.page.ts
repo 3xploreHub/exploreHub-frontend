@@ -343,7 +343,8 @@ export class EditAccountInfoPage implements OnInit {
 
       this.settingsService.addUserProfile(blobData).subscribe(
         (data: any) => {
-          this.profile = data.profile;
+          this.profile = data.user.profile;
+          this.mainService.checkCurrentUser.emit()
         },
         (error) => {
           this.presentAlert(
@@ -366,7 +367,9 @@ export class EditAccountInfoPage implements OnInit {
 
     this.settingsService.addUserProfile2(file).subscribe(
       (data: any) => {
-        this.profile = data.profile;
+        this.profile = data.user.profile;
+        this.mainService.checkCurrentUser.emit()
+
       },
       (error) => {
         this.presentAlert(
@@ -383,10 +386,11 @@ export class EditAccountInfoPage implements OnInit {
 
   deleteProfile() {
     this.settingsService.deleteProfile(this.profile).subscribe((response: any) => {
+
+      this.mainService.checkCurrentUser.emit()
     }, (error) => {
       console.log(error)
     })
-
     this.settingsService.deleteProfile(this.profile);
     this.getUserInfo();
   }
