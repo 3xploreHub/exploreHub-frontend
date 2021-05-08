@@ -12,7 +12,7 @@
     <ion-list lines="none" class="menu-items">
       <ion-menu-toggle auto-hide="false">
         <ion-item style="position:relative;" [class.active]="active == 'settings'" (click)="gotTo($event, 'settings')"
-          class="ion-activatable ripple-parent">
+          class="ion-activatable ripple-parent accHolder">
           <div>
             <div class="profilePic">
               <div class="pic" *ngIf="mainService.user.profile"

@@ -116,7 +116,7 @@
     height: 43px;
     border-radius: 50%;
     position: absolute;
-    top:5px;
+    top:10px;
     background-color: rgb(191, 209, 231);
     overflow:hidden;
     // font-size: 25px;
@@ -150,6 +150,16 @@
     font-weight: normal;
     color:rgb(109, 163, 207);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    top:0;
-    right:0;
+    bottom: -3px;
+    left: 46px;
+}
+
+.accHolder {
+    margin-bottom: 15px !important;
+    overflow:visible !important;
+
+}
+
+.input-wrapper {
+    overflow:visible !important;
 }

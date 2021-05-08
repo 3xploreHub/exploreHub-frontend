@@ -73,9 +73,13 @@
                           <label for="gender"><b>Birthday:</b></label>
                       </ion-col>
                       <ion-col>
-                          <label for="gender-val">{{birthday | date:'medium'}}</label>
+                          <label for="gender-val">{{birthday | date:'longDate'}}</label>
                       </ion-col>
                   </ion-row>
+              </div>
+              <div class="btnStyle" (click)="goTo()">
+                Change password
+                <ion-ripple-effect></ion-ripple-effect>
               </div>
           </div>
       </div>

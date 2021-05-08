@@ -32,7 +32,7 @@
 }
 .temperature {
     position: relative;
-    bottom: 10%;
+    bottom: 14%;
     // background-color: aquamarine;
 }
 #temp {
@@ -42,16 +42,17 @@
 }
 #temp-label {
     position:relative;
-    bottom: 20%;
+    bottom: 24%;
     // background-color: yellow;
 }
 #dayNow {
-    font-size: 45px;
+    font-size: 35px;
 }
 
 .day {
     position: relative;
-    bottom: 20%;
+    bottom: 22%;
+    line-height: 4px;
 }
 
 #date {
@@ -73,4 +74,20 @@
 #myIcon {
     height: 50px;
     width: 50px;
+}
+
+.sun-wind {
+    position: relative;
+    bottom: 22%;
+    text-align: center;
+}
+.col1, .col2, .day{
+    background-color: rgb(241, 248, 255, 0.5); 
+    margin: 6px; border-radius: 5px;
+}
+#col1-label, #col2-label {
+    font-size: 20px;
+}
+.sun, .wind {
+    line-height: 4px;
 }

@@ -17,8 +17,6 @@
           <p class="inputLabel">Phone number | email</p>
           <input class="inputField" (keyup)="checkCred()" name="credential"
             formControlName="credential" autcomplete="on">
-
-
           <ul class="validationError"
             *ngIf="(form.get('credential').dirty || form.get('credential').touched) && form.get('credential').errors != null">
             <li *ngFor="let error of form.get('credential').errors.validations">
@@ -47,7 +45,7 @@
           </ul>
         </div>
         <div class="submitBtnHolder">
-          <button type="submit" class="submitBtn boxShadowed2 ion-activatable ripple-parent"
+          <button type="submit" class="submitBtn ion-activatable ripple-parent"
             [disabled]="!form.get('credential').value || !form.get('password').value || !form.valid" type="submit">Login
             <ion-ripple-effect></ion-ripple-effect>
           </button>

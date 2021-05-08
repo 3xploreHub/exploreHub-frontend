@@ -84,4 +84,8 @@ export class SettingsPage implements OnInit {
     });
   }
 
+  goTo() {
+    this.router.navigate(["service-provider/settings/change-password"])
+  }
+
 }

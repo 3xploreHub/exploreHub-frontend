@@ -33,8 +33,10 @@ export class RegisterPage implements OnInit {
     return this.formBuilder.group({
       accountType: [""],
       contactNumber: [
-        "",
+        "63",
         CValidator.validate([
+          { v: "minLength", r: 12 },
+          { v: "maxLength", r: 12 },
           { v: "required" },
           { v: "pattern", r: "^[0-9]*$", m: ["numbers"] },
         ]),
@@ -45,7 +47,7 @@ export class RegisterPage implements OnInit {
           { v: "required" },
           {
             v: "pattern",
-            r: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+            r: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-z]{2,4}$",
             m: ["email format"],
           },
         ]),
@@ -70,7 +72,9 @@ export class RegisterPage implements OnInit {
     if (this.form.valid) {
       const nform = this.form.value;
       var num = nform.contactNumber;
+      nform.email  = nform.email.toLowerCase()
       nform.contactNumber = this.completeNum(num);
+      console.log(nform)
       const request = this.authService.initialRegistration(nform);
       request.subscribe(
         (resp) => {
@@ -84,7 +88,7 @@ export class RegisterPage implements OnInit {
         }
       );
     } else {
-      return;
+      this.touch()
     }
   }
 
@@ -147,6 +151,7 @@ export class RegisterPage implements OnInit {
   }
 
   completeNum(num) {
+    if (!num) return;
     if (num.length == 11 && num[0] == "0") {
       return "63" + num.substring(1, 11);
     } else if (num.length == 10) {
@@ -171,6 +176,13 @@ export class RegisterPage implements OnInit {
         letter !== letter.toUpperCase() ? letter : " " + letter.toLowerCase();
     });
     return str;
+  }
+
+  touch() {
+    this.form.controls['email'].touched = true
+    this.form.controls['password'].touched = true
+    this.form.controls['contactNumber'].touched = true
+    this.form.controls['confirmPassword'].touched = true
   }
 
   showUniquenessError(err) {

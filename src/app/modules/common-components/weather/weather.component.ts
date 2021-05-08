@@ -14,12 +14,18 @@ export class WeatherComponent implements OnInit {
     icon: null,
     temp: null,
     weather: null,
+    sunrise: null,
+    sunset: null,
+    wind: {
+      speed: null,
+      gust: null,
+    }
   }
-
-  panahon = "assets/icons/broken clouds.png";
 
   date = null;
   today = null;
+  sunrise = null;
+  sunset = null;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -44,6 +50,17 @@ export class WeatherComponent implements OnInit {
         console.log("WEATHER CONDITION: ", weatherCondition)
         let weatherNow = weatherCondition.weather[0].description;
         let temp = weatherCondition.main.temp;
+        let sunrise = weatherCondition.sys.sunrise;
+        let sunset = weatherCondition.sys.sunset;
+
+        this.weatherToday.temp = this.getCelciusTemp(temp);
+        this.weatherToday.weather = weatherNow;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
+        this.weatherToday.wind.speed = weatherCondition.wind.speed;
+        this.weatherToday.wind.gust = weatherCondition.wind.gust;
+
+        this.getSunriseAndSunset();
 
         this.weatherToday.temp = this.getCelciusTemp(temp);
         this.weatherToday.weather = weatherNow;
@@ -104,5 +121,18 @@ export class WeatherComponent implements OnInit {
   closeModal() {
     this.modalCtrl.dismiss();
   }
+
+ getSunriseAndSunset() {
+  this.weatherToday.sunrise = this.convertSunriseOrSunset(this.sunrise);
+  this.weatherToday.sunset = this.convertSunriseOrSunset(this.sunset);
+}
+
+convertSunriseOrSunset(value) {
+  var time = new Date(value * 1000);
+  var hours = time.getHours();
+  var minutes = "0" + time.getMinutes();
+  var formattedTime = hours + ':' + minutes.substr(-2);
+  return formattedTime;
+}
 
 }

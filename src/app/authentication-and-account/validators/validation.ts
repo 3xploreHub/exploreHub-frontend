@@ -35,29 +35,34 @@ export class CValidator {
   }
 
   static required(control: AbstractControl) {
-    return control.value === undefined || control.value.length == 0
+    
+    return !control.value || control.value.length == 0
       ? { type: "required", message: "This field required" }
       : null;
   }
 
   static minLength(control: AbstractControl, min: number) {
-    return control.value !== undefined &&
-      control.value.length !== 0 &&
-      control.value.length < min
+    const msg = typeof control.value == 'number'? `Invalid number.`: `Must be at least ${min} characters.`;
+    const value = control.value + ""
+    return value &&
+      value.length !== 0 &&
+      value.length < min
       ? {
         type: "minLength",
-        message: `Must be at least ${min} characters long.`,
+        message: msg,
       }
       : null;
   }
 
   static maxLength(control: AbstractControl, max: number) {
-    return control.value !== undefined &&
-      control.value.length !== 0 &&
-      control.value.length > max
+    const msg = typeof control.value == 'number'? `Invalid number.`: `Must not be more than ${max} characters.`;
+    const value = control.value + ""
+    return value &&
+      value.length !== 0 &&
+      value.length > max
       ? {
         type: "maxLength",
-        message: `Must not be more than ${max} characters long.`,
+        message: msg,
       }
       : null;
   }
@@ -65,7 +70,7 @@ export class CValidator {
   static invalidPattern(control: AbstractControl, pattern: string) {
     const pt = new RegExp(pattern);
     if (
-      control.value !== undefined &&
+      control.value &&
       control.value.length !== 0 &&
       pt.test(control.value)
     ) {
@@ -77,7 +82,7 @@ export class CValidator {
   static pattern(control: AbstractControl, pattern: string, must: string[]) {
     const pt = new RegExp(pattern);
     if (
-      control.value !== undefined &&
+      control.value &&
       control.value.length !== 0 &&
       !pt.test(control.value)
     ) {
@@ -119,7 +124,7 @@ export class CValidator {
       })
     }
     if (
-      control.value !== undefined &&
+      control.value &&
       control.value.length !== 0 &&
       requirements.length != 3
     ) {

@@ -48,7 +48,7 @@ export class AddAccountInfoPage implements OnInit {
         CValidator.validate([{ v: "required" }]),
       ],
       gender: ["Female ", CValidator.validate([{ v: "required" }])],
-      birthday: ["Birthday ", CValidator.validate([{ v: "required" }])],
+      birthday: ["Birthday", CValidator.validate([{ v: "required" }])],
       age: [
         "",
         CValidator.validate([
@@ -74,6 +74,13 @@ export class AddAccountInfoPage implements OnInit {
           }
         }
       );
+    } else {
+        this.form.controls['firstName'].touched = true
+        this.form.controls['lastName'].touched = true
+        this.form.controls['address'].touched = true
+        this.form.controls['birthday'].touched = true
+        this.form.controls['gender'].touched = true
+        this.form.controls['age'].touched = true
     }
   }
 

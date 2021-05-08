@@ -79,6 +79,7 @@
 
 .fieldHolder {
   margin:25px 0;
+  position: relative;
   box-sizing: border-box;
 }
 .hasIcons {
@@ -106,9 +107,17 @@
 
 .validationError {
   color: red;
+  position: absolute;
   font-size: 0.8rem;
-  margin:0;
-  padding:0;
+  background-color: rgb(251, 231, 231);
+  z-index: 999;
+  border-radius: 5px;
+  padding:8px;
+  margin:3px 0;
+  right:0;
+  border:1px solid rgb(255, 140, 140);
+  // box-shadow: 0 1px 4px rgb(66, 66, 66);
+  // padding:0;
   list-style: none;
 
   li {

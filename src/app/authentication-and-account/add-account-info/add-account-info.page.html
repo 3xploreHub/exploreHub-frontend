@@ -32,7 +32,7 @@
 
           <div class="fieldHolder">
             <div class="inputLabel">Birthday</div>
-            <ion-datetime id="birthday" class="inputField" displayFormat="MM/DD/YYYY" min="1950-01-01" formControlName="birthday" name="birthday" [(ngModel)]="userBirthday"></ion-datetime>
+            <ion-datetime id="birthday" class="inputField inputF" displayFormat="MM/DD/YYYY" min="1950-01-01" formControlName="birthday" name="birthday"></ion-datetime>
             <ul class="validationError"
               *ngIf=" (form.get('birthday').dirty || form.get('birthday').touched) && form.get('birthday').errors !=null">
               <li *ngFor="let error of form.get('birthday').errors.validations">
@@ -47,6 +47,17 @@
             <ul class="validationError"
               *ngIf="(form.get('address').dirty || form.get('address').touched) && form.get('address').errors != null">
               <li *ngFor="let error of form.get('address').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="fieldHolder">
+            <div class="inputLabel">Age</div>
+            <input type="number" class="inputField" formControlName="age" name="age">
+            <ul class="validationError"
+              *ngIf="(form.get('age').dirty || form.get('age').touched) && form.get('age').errors != null">
+              <li *ngFor="let error of form.get('age').errors.validations">
                 {{ error.message }}
               </li>
             </ul>
@@ -77,18 +88,11 @@
               </li>
             </ul>
           </div>
-          <div class="fieldHolder">
-            <div class="inputLabel">Age</div>
-            <input class="inputField" formControlName="age" name="age">
-            <ul class="validationError"
-              *ngIf="(form.get('age').dirty || form.get('age').touched) && form.get('age').errors != null">
-              <li *ngFor="let error of form.get('age').errors.validations">
-                {{ error.message }}
-              </li>
-            </ul>
-          </div>
+          
           <div class="submitBtnHolder btnToRight">
-            <button class="appBtn" [disabled]="!form.valid" type="submit">Submit</button>
+            <button class="appBtn ion-activatable ripple-parent" type="submit">Submit
+              <ion-ripple-effect></ion-ripple-effect>
+            </button>
           </div>
         </form>
       </div>

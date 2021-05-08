@@ -60,7 +60,7 @@
           <div class="inputLabel">Contact number
             <span>&nbsp;+63</span>
           </div>
-          <input class="inputField" name="contactNumber" formControlName="contactNumber">
+          <input class="inputField" type="number" autocomplete="off" (change)="completeNum(form.get('contactNumber').value)" name="contactNumber" formControlName="contactNumber">
           <ul class="validationError"
             *ngIf="(form.get('contactNumber').dirty || form.get('contactNumber').touched) && form.get('contactNumber').errors != null">
             <li *ngFor="let error of form.get('contactNumber').errors.validations">
@@ -80,7 +80,7 @@
         </div>
         <div class="fieldHolder">
           <div class="inputLabel">Confirm password</div>
-          <input class="inputField" type="password" name="confirmPassword" (keyup)="checkPasswordConfirmation()"
+          <input class="inputField" type="password" name="confirmPassword" (change)="checkPasswordConfirmation()"
             formControlName="confirmPassword">
           <ul class="validationError"
             *ngIf="(form.get('confirmPassword').dirty || form.get('confirmPassword').touched) && form.get('confirmPassword').errors != null">
@@ -90,7 +90,9 @@
           </ul>
         </div>
         <div class="submitBtnHolder">
-          <button type="submit" class="submitBtn boxShadowed2 ion-activatable ripple-parent" [disabled]="!form.valid" type="submit">Register</button>
+          <button type="submit" class="submitBtn ion-activatable ripple-parent" type="submit">Register
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
         </div>
         <div class="forgotPassHolder">
           <p class="textBtn" routerLink="/login">

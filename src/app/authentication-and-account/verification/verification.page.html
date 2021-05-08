@@ -21,7 +21,7 @@
       </ion-card-content>
     </ion-card>
 
-    <app-code-handler (expiredAllCode)="onExpiredAllCode($event)" (submitCode)="onSubmitCode($event)">
+    <app-code-handler [atVerification]="true" (expiredAllCode)="onExpiredAllCode($event)" (submitCode)="onSubmitCode($event)">
     </app-code-handler>
   </div>
 </ion-content>

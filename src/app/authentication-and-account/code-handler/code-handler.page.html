@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-content style="flex-shrink: 0;" *ngIf="pendingCode">
     <div>
-      <h3>Enter code here to reset password</h3>
+      <h3>{{atVerification? "Enter verification code here": "Enter code here to reset password"}}</h3>
     </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="fieldHolder noMarginBottom">
@@ -15,7 +15,9 @@
         </ul>
       </div>
       <div class="btnHolder">
-        <button class="appBtn" [disabled]="form.get('code').errors != null" type="submit">Submit</button>
+        <button class="appBtn ion-activatable ripple-parent" [disabled]="form.get('code').errors != null" type="submit">Submit
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
       </div>
     </form>
   </ion-card-content>

@@ -14,9 +14,36 @@
       <p id="temp">{{weatherToday.temp}}°C</p>
     </div>
     <ion-label [class.hidden]="loading" id="temp-label">TEMPERATURE</ion-label>
+    <div class="sun-wind">
+      <ion-row>
+        <ion-col class="col1">
+          <ion-label id="col1-label"><b>SUN</b></ion-label>
+          <div class="sun">
+            <p id="sunrise">SUNRISE: {{weatherToday.sunrise}} AM</p>
+            <p id="sunset">SUNSET: {{weatherToday.sunset}} PM</p>
+          </div>
+        </ion-col>
+        <ion-col class="col2">
+          <ion-label id="col2-label"><b>WIND</b></ion-label>
+          <div class="wind">
+            <p id="speed">SPEED: {{weatherToday.wind.speed}} MPS</p>
+            <p id="gust">GUST: {{weatherToday.wind.gust}} MPS</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
     <div class="day" [class.hidden]="loading">
-      <h1 id="dayNow">{{today}}</h1>
-      <p id="date" style="position: relative; bottom: 30%;">{{date}}</p>
+      <ion-row>
+        <ion-col>
+          <div>
+            <p id="dayNow">{{today}}</p>
+          </div>
+          <div>
+            <p id="date">{{date}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
     </div>
     <div [class.hidden]="!loading" class="loadingInd">Loading Weather Information...</div>
     <ion-progress-bar [class.hidden]="!loading" type="indeterminate"></ion-progress-bar>
