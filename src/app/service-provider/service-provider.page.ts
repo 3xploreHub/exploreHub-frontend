@@ -16,7 +16,9 @@ import { MainServicesService } from './provider-services/main-services.service';
 
 export class ServiceProviderPage implements OnInit {
   public active: string = ''
+  public currentUser: any = {fullName: "", profile: ""}
   public defaultType: any = accountType;
+  public api: string = "http://localhost:3000/"
   public accountType: string = accountType.tourist;
   constructor(public loadingService: LoadingService,
     public router: Router,
@@ -36,7 +38,8 @@ export class ServiceProviderPage implements OnInit {
       (data: any) => {
         this.authService.getCurrentUser().then(
           (data:any) => {
-            this.mainService.user = data     
+            this.mainService.user = data 
+            this.currentUser = data    
             this.accountType = data.accountType       
           }
         )

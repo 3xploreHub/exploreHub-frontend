@@ -13,7 +13,10 @@ export class TextDisplayComponent implements OnInit {
 
   ngOnInit() {
     if (this.parent && this.parent == "component") {
+    
       this.values.styles.push("onItemStyle")
+    } else {
+      this.values.styles = this.values.styles.filter(style => style != "onItemStyle")
     }
     
   }

@@ -6,10 +6,36 @@
     <ion-title>{{getPageName()}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, others, tab)">
+<ion-content [scrollEvents]="true" *ngIf="!loading" (ionScroll)="onScroll($event, info, services, others, tab)">
   <div class="pageCont">
     <div class="mainLightBg2 pageView">
       <div class="info" #info>
+        <div class="creatorAndWeather">
+          <div class="pageCreator">
+            <div class="creatorPhotoHolder">
+              <div class="creatorPhoto"
+                [ngStyle]="{'background-image': 'url(http://localhost:3000/' + page.creator.profile + ')'}">
+                <ion-icon *ngIf="!page.creator.profile" name="person-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="creatorInfo">
+              <div class="creatorName">{{page.creator.fullName}}</div>
+              <div class="dateCreated">{{page.createdAt | date:'short'}}</div>
+            </div>
+          </div>
+          <div (click)="checkWeather()" *ngIf="!loadingWeather" id="weather-icon">
+            <div class="weather">
+              <div class="weatherText">Weather</div>
+              <div>
+                {{weatherToday.weather}}
+              </div>
+              <div class="viewDetails">View Details</div>
+            </div>
+            <div class="weatherIcon">
+              <img src="{{weatherToday.icon}}" alt="weather condition">
+            </div>
+          </div>
+        </div>
         <ng-template #pageElement></ng-template>
       </div>
       <div #services>
@@ -34,7 +60,7 @@
           </ng-template>
         </div>
       </div>
-<!-- 
+      <!-- 
       <ng-template #noServices>
         <div class="noService mainLightBg2">
           No Service available this time
@@ -95,7 +121,7 @@
           </div>
         </div> -->
         <div class="innerCont" *ngIf="page.creator != mainService.user._id">
-          <div  class="options ion-activatable ripple-parent messageCont" (click)="message()">
+          <div class="options ion-activatable ripple-parent messageCont" (click)="message()">
             <ion-icon class="message" name="chatbubble-ellipses"></ion-icon>&nbsp;
             Message
             <ion-ripple-effect></ion-ripple-effect>

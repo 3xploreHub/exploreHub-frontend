@@ -1,0 +1,23 @@
+<div class="container" >
+  <ion-icon (click)="closeModal()" name="close" id="close"></ion-icon>
+  <div class="weather-title">
+    <h1 id="location">Moalboal</h1>
+  </div>
+    <ion-label [class.hidden]="loading" id="weatherNow">{{weatherToday.weather}}</ion-label>
+    <div class="icon" [class.hidden]="loading">
+      
+      <img  id="weather-icon" src="{{weatherToday.icon}}" alt="weather condition">
+      <!-- <img id="weather-icon" src="{{weatherToday.icon}}" alt="weather condition"> -->
+      <!-- <img id="weather-icon" src="/broken clouds.png" alt="weather condition"> -->
+    </div>
+    <div [class.hidden]="loading" class="temperature">
+      <p id="temp">{{weatherToday.temp}}°C</p>
+    </div>
+    <ion-label [class.hidden]="loading" id="temp-label">TEMPERATURE</ion-label>
+    <div class="day" [class.hidden]="loading">
+      <h1 id="dayNow">{{today}}</h1>
+      <p id="date" style="position: relative; bottom: 30%;">{{date}}</p>
+    </div>
+    <div [class.hidden]="!loading" class="loadingInd">Loading Weather Information...</div>
+    <ion-progress-bar [class.hidden]="!loading" type="indeterminate"></ion-progress-bar>
+</div>

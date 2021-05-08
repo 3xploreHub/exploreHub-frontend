@@ -41,7 +41,7 @@ import { BulletFormTextComponent } from "./modules/page-elements/bullet-form-tex
 import { StatisticsPage } from "./service-provider/dashboard/statistics/statistics.page";
 import { BookingPage } from "./service-provider/dashboard/booking/booking.page";
 import { ComponentsModulePageModule } from "./components-module/components-module.module";
-
+import { DatePipe } from "@angular/common";
 import { environment } from "src/environments/environment";
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ConfirmPopupComponent } from "./service-provider/components/confirm-popup/confirm-popup.component";
@@ -104,6 +104,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
       useClass: TokenInterceptorService,
       multi: true,
     },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

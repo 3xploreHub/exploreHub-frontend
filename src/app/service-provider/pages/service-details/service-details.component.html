@@ -1,6 +1,6 @@
 <div class="container mainLightBg2" [ngStyle]="{'width.px': pageWidth, 'height.px': pageHeight}">
   <ng-template #pageElement></ng-template>
-  <div *ngIf="!notOperating" class="selectServiceBtnHolder ion-activatable ripple-parent">
+  <div *ngIf="!notOperating; else offline" class="selectServiceBtnHolder ion-activatable ripple-parent">
     <div *ngIf="!noAvailable" class="selectServiceBtn" (click)="selectService()">
       <p>
         Select
@@ -10,6 +10,11 @@
     </div>
     <div *ngIf="noAvailable" class="noAvailable">No Available</div>
   </div>
+  <ng-template #offline>
+    <div class="selectServiceBtnHolder">
+      <div class="noAvailable">The service is not operating</div>
+    </div>
+  </ng-template>
 
   <div *ngIf="enterQuant == values._id" class="inputQuant">
     <div class="inputCont">

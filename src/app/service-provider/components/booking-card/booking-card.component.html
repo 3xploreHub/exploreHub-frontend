@@ -3,9 +3,12 @@
   <div class="cardPhotoHolder">
     <!-- <p *ngIf="!photo">No photo</p> -->
     
-    <div class="cardPhoto" [ngStyle]="{'background-image': 'url('+booking.photo+')' }">
-      <ion-icon *ngIf="!booking.photo && !forDashboard" name="golf-outline"></ion-icon>
-      <ion-icon *ngIf="!booking.photo && forDashboard" name="card-outline"></ion-icon>
+    <div *ngIf="booking.photo" class="cardPhoto" [ngStyle]="{'background-image': 'url('+booking.photo+')' }">
+     
+    </div>
+    <div class="cardPhoto" *ngIf="!booking.photo">
+      <ion-icon *ngIf="!forDashboard" name="golf-outline"></ion-icon>
+      <ion-icon *ngIf="forDashboard" name="card-outline"></ion-icon>
     </div>
   </div>
   <div class="cardInfo">

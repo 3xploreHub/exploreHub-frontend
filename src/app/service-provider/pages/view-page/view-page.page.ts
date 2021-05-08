@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ElementComponent } from 'src/app/modules/elementTools/interfaces/element-component';
 import { Page } from 'src/app/modules/elementTools/interfaces/page';
 import { PageCreatorService } from 'src/app/modules/page-creator/page-creator-service/page-creator.service';
@@ -17,6 +17,8 @@ import { AuthService } from 'src/app/services/auth-services/auth-service.service
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
 import { popupData } from '../../view-booking-as-provider/view-booking-as-provider.page';
+import { WeatherComponent } from 'src/app/modules/common-components/weather/weather.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-page',
@@ -30,6 +32,8 @@ export class ViewPagePage implements OnInit {
   public boxPosition: number;
   public otherServices: Page[] = [];
   public pageType: string;
+  loading = true
+  public loadingWeather:boolean = false
   public fromHostedList: boolean;
   public parentPageCreator: string;
   public popupData: popupData;
@@ -45,11 +49,17 @@ export class ViewPagePage implements OnInit {
     'date-input': DateInputDisplayComponent,
     'choices-input': ChoicesInputDisplayComponent
   }
+  weatherToday = {
+    icon:  `assets/icons/rain.png`,
+    temp: null,
+    weather: 'light rain',
+  }
   constructor(
     public mainService: MainServicesService,
     public componentFactoryResolver: ComponentFactoryResolver,
     public route: ActivatedRoute,
     public alert:AlertController,
+    public modalCtrl: ModalController,
     public router: Router,
     public authService: AuthService,
     public creator: PageCreatorService) {
@@ -63,6 +73,7 @@ export class ViewPagePage implements OnInit {
   }
 
   ngOnInit() {
+    // this.getWeather();
     this.route.queryParams.subscribe(
       (params: any) => {
         if (params && params.fromHostedList && params.parentPageCreator) {
@@ -81,6 +92,7 @@ export class ViewPagePage implements OnInit {
 
       this.mainService.viewPage({ pageId: pageId, pageType: this.pageType }).subscribe(
         (response: any) => {
+          this.loading = false
           this.page = response;
           // this.page.services = this.page.services.map(service => {
           //   service.data = service.data.map(item => {
@@ -318,5 +330,59 @@ export class ViewPagePage implements OnInit {
     setTimeout(() => {
       this.router.navigate(["/service-provider/page-chat"], { queryParams: { pageId: this.page.hostTouristSpot["_id"], type: "admin_approval", receiver: this.mainService.user.admin, receiverName: "(Admin) - "+this.getPageName(this.page.hostTouristSpot),pageToReport: this.page._id } })
     }, 300);
+  }
+
+  async checkWeather() {
+    const modal = await this.modalCtrl.create({
+      component: WeatherComponent
+    });
+    return await modal.present();
+  }
+
+  getWeather() {
+    fetch(`${environment.weatherMap_base_url}weather?q=moalboal,cebu&APPID=${environment.weatherMap_api_key}`)
+      .then(weather => {
+         this.loadingWeather = false
+         return weather.json();
+      }).then(weatherCondition => {
+        this.loadingWeather = false
+        console.log("WEATHER CONDITION: ", weatherCondition)
+        let weatherNow = weatherCondition.weather[0].description;
+        let temp = weatherCondition.main.temp;
+
+        this.weatherToday.temp = this.getCelciusTemp(temp);
+        this.weatherToday.weather = weatherNow;
+
+        if(weatherNow == 'broken clouds' || weatherNow == 'overcast clouds') {
+          this.weatherToday.icon = `assets/icons/broken clouds.png`
+        }
+        if(weatherNow == 'rain' || weatherNow == 'light rain' || weatherNow == 'moderate rain' || weatherNow == 'heavy intensity rain' || weatherNow == 'very heavy rain' || weatherNow == 'extreme rain' ) {
+          this.weatherToday.icon = `assets/icons/rain.png`
+        }
+        if(weatherNow == 'freezing rain') {
+          this.weatherToday.icon = `assets/icons/freezing rain.png`
+        }
+
+        if(weatherNow == 'light intensity shower rain' || weatherNow == 'shower rain' || weatherNow == 'heavy intensity shower rain' || weatherNow == 'ragged shower rain' ||
+          weatherNow == 'light intensity drizzle' || weatherNow == 'drizzle' || weatherNow == 'heavy intensity drizzle' || weatherNow == 'light intensity drizzle rain' || weatherNow == 'drizzle rain' || weatherNow == 'heavy intensity drizzle rain' || weatherNow == 'shower rain and drizzle' ||  weatherNow == 'heavy shower rain and drizzle' || weatherNow == 'shower drizzle') {
+          this.weatherToday.icon = `assets/icons/shower rain.png`
+        }
+        if(weatherNow.includes('thunderstorm')) {
+          this.weatherToday.icon = `assets/icons/thunderstorm.png`;
+        }
+        if(weatherNow == 'few clouds') {
+          this.weatherToday.icon = `assets/icons/few clouds.png`;
+        }
+        if(weatherNow == 'clear sky') {
+          this.weatherToday.icon = `assets/icons/clear sky.png`;
+        }
+        if(weatherNow == 'scattered clouds') {
+          this.weatherToday.icon = `assets/icons/scattered clouds.png`;
+        }
+      })
+  }
+
+  getCelciusTemp(value) {
+    return (Math.floor(value - 273));
   }
 }

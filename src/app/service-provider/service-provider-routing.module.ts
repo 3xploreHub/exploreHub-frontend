@@ -123,6 +123,10 @@ const routes: Routes = [
         loadChildren: () => import('./list-of-services/list-of-services.module').then( m => m.ListOfServicesPageModule)
       },
       {
+        path: 'settings',
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/service-provider/online-pages-list'
       },

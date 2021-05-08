@@ -14,6 +14,9 @@ export class ViewItemPage implements OnInit {
   public serviceId: string;
   public itemId: string;
   public pageId: string;
+  name = ""
+  start = false;
+  end = false;
   public notOperating: boolean = false
   public bookingId: string;
   public inputQuantity: boolean = false
@@ -45,7 +48,6 @@ export class ViewItemPage implements OnInit {
           this.values.data = this.values.data.map((item: any) => {
             let available = 0;
             if (item.type == "item") {
-              console.log("values:", this.values)
               item.data = item.data.map(component => {
                 if (component.data.defaultName == "quantity") {
                   component.data.label = "Available"
@@ -61,6 +63,10 @@ export class ViewItemPage implements OnInit {
                 }
                 return component
               })
+            } else {
+              if (item.data.defaultName == "name") {
+                this.name = item.data.text
+              }
             }
             return item
           });
@@ -74,6 +80,7 @@ export class ViewItemPage implements OnInit {
             }
 
           }
+
 
           response.forEach(item => {
 
@@ -91,5 +98,13 @@ export class ViewItemPage implements OnInit {
         }
       )
     })
+  }
+
+
+  slideChanged() {
+    this.slides.getActiveIndex().then(id => {
+      this.start = id == 0;
+      this.end = id == this.values.data.length - 1
+    });
   }
 }

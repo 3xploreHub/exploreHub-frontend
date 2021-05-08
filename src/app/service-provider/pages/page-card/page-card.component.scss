@@ -203,12 +203,13 @@ div {
 .serviceCont {
     display: flex;
     flex-shrink: 0;
+    width: 100px;
     // flex-direction: column;
-    margin-right:3px;
+    margin:3px;
     height: 50px;
     overflow:hidden;
     border-radius: 4px;
-    // background-color: rgb(232, 236, 241);
+    background-color: rgb(255, 255, 255);
     align-items: flex-start;
     .subServicePic {
         width: 50px;
@@ -257,9 +258,9 @@ div {
     overflow-y:scroll;
     
     .serviceItem {
-        width:80px;
+        width:76px;
         flex-shrink: 0;
-        height:80px;
+        height:76px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
