@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Conversations</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="empty" *ngIf="conversations.length == 0 && !loading">
+    <div class="iholder">
+      <ion-icon name="folder-open-outline"></ion-icon>
+    </div>
+    <p>There's nothing here.</p>
+  </div>
+  <div class="lightBackground">
+    <app-conversation-card *ngFor="let convo of conversations" [conversation]="convo"></app-conversation-card>
+
+  </div>
+</ion-content>

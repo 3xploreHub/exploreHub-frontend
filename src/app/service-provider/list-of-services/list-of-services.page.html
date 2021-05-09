@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Services</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="otherServices">
+    <div class="wrapper mainLightBg2">
+      <div class="section" *ngFor="let group of servicesCategories;let i = index">
+        <p class="categoryName">{{categories[i]}}</p>
+        <div class="categoryGroup">
+          <app-other-service-card [bigCard]="true" *ngFor="let service of group" (viewService)="viewService($event)" [service]="service">
+          </app-other-service-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

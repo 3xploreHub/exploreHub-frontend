@@ -1,25 +1,412 @@
-.eye {
+@import "../../../variables.scss";
+
+.pageBody {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: auto;
+}
+
+.appLogo {
+  height:80px;
+  width:80px;
+  // background-color: white;
+  border-radius: 50%;
+  // border: 7px solid white;
+  // border-bottom: 1px solid rgb(78, 202, 255);
+  overflow:hidden;
+  // background-color: rgb(101, 222, 255);
+  background-image: linear-gradient(to right, rgb(0, 200, 255),rgb(78, 249, 255));
+  // border-left: 2px solid white;
+  // border: 3px solid white;
+  
+  // box-shadow: 0 1px 5px rgb(71, 105, 127);
   position: relative;
-  bottom: -17px;
-  left: -5px;
-  right: 45px;
-  cursor: pointer;
-  z-index: 100;
-}
-.eye:hover {
-  color: black;
+  // background-color: white;
+
+
+ 
+      ion-icon {
+        z-index: 2;
+        position: relative;;
+        font-size: 100px;
+        color:dodgerblue;
+        margin:0;
+      }
+
+      .line {
+        height: 7px;
+        width: 35px;
+        left: -10px;
+
+        border-radius: 20px;
+        position: relative;
+        margin:3px;
+        z-index:2;
+        
+        div {
+          right:-5px;
+          width: 10px;
+          top:0px;
+          height: 10px;
+          transform: rotate(45deg);
+          background-color: rgb(18, 145, 236);
+          position: absolute;
+        }
+      }
+  
+      .l1 {
+        margin-top: 16px;
+        left: -18px;
+        width:45px;
+        background-color: white;
+
+      }
+      .l2 {
+        width: 45px;
+        left: -5px;
+        background-color: white;
+
+      }
+      .l3 {
+        left: -18px;
+    background-color: white;
+      }
+
+  
+
+      .divider {
+        width: 100px;
+        height: 100px;
+        left: -60px;
+        top: -20px;
+        border-radius: 12px;
+        position: absolute;
+        border:7px solid white;
+        transform: rotate(45deg);
+        background-color: rgb(87, 213, 255);
+        background-color: none;
+      }
+  
+      .divider2 {
+        width: 100px;
+        height: 100px;
+        left: 65px;
+        border-radius: 12px;
+        z-index: 3;
+        top: -1px;
+        position: absolute;
+        border: 7px solid white;
+        transform: rotate(
+    -45deg
+    );
+
+      }
+
 }
 
-ion-item {
-  margin: 20px 5px;
-  // position: relative;
+.design {
+  width:500px;
+  height: 500px;
+  position: absolute;
+  background-color: rgba(185, 243, 251, 0.2);
+  transform: rotate(45deg);
+  border-radius: 15px;
+  top:-100px;
+  right: -500px;
 }
 
-.valErr {
+.design2 {
+  width:500px;
+  height: 500px;
+  position: absolute;
+  background-color: rgba(104, 172, 255, 0.2);
+  transform: rotate(45deg);
+  border-radius: 15px;
+  top:-200px;
+  left: -500px;
+}
+.appTitle {
+  color: white;
+  z-index: 9999999;
+  font-weight: bold;
+  text-align: center;
+}
+
+.header {
+  padding: 40px 0;
+  overflow:hidden;
+  padding-bottom: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+
+}
+
+.formHolder {
+  max-width: 300px;
+  width: 100%;
+
+}
+
+.inputField {
+  width: 100%;
+  padding:10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid rgb(106, 128, 158);
+}
+
+.fieldHolder {
+  margin:25px 0;
+  position: relative;
+  box-sizing: border-box;
+}
+.hasIcons {
+  position: relative;
+  .iconHolder {
+    position: absolute;
+
+    height: 100%;
+    right:0;
+    display: flex;
+    align-items: center;
+    padding:0 9px;
+
+    .fieldsIcon {
+      font-size: 25px;
+      color:rgb(43, 63, 92);
+    }
+  }
+}
+.inputLabel {
+  margin:3px 0;
+  font-size: 14px;
+  color:rgb(96, 119, 141);
+}
+
+.validationError {
   color: red;
+  position: absolute;
   font-size: 0.8rem;
+  background-color: rgb(251, 231, 231);
+  z-index: 999;
+  border-radius: 5px;
+  padding:8px;
+  margin:3px 0;
+  right:0;
+  border:1px solid rgb(255, 140, 140);
+  // box-shadow: 0 1px 4px rgb(66, 66, 66);
+  // padding:0;
+  list-style: none;
+
+  li {
+    padding:0;
+    margin:0;
+  }
 }
 
-ion-label {
+.submitBtn {
+  color:#ffff;
+  font-size: 17px;
+  padding:12px 40px;
+  width:100%;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, rgb(36, 142, 248), rgb(9, 214, 221));
+}
+
+.submitBtnHolder {
+  width: 100%;
+  text-align: center;
+  margin:35px 0;
+}
+
+.forgotPassHolder {
+  margin:30px 0;
+  text-align: center;
+}
+
+.textBtn {
+  padding:8px;
+  text-align: center;
+  color: rgb(14, 131, 248);
+}
+
+.registerBtn {
+  border-radius: 5px;
+  font-size: 17px;
+  background-color: transparent;
+  border: 1px solid dodgerblue;
+  color:dodgerblue;
+  padding:10px;
+  width: 100%;
+}
+
+button:focus {
+  outline:none;
+}
+
+.titleCont {
+  padding:10px;
+  text-align: center;
+  p {
+      margin:5px;
+      font-size: 20px;
+      color: rgb(93, 114, 141);
+  }
+}
+
+.btnToRight {
+  text-align: right !important;
+}
+
+
+.nlogo {
+  width:90px;
+  height: 90px;
+  border-radius: 50%;
+  // background-color: rgb(199, 245, 255);
+  background-color: white;
+  // border-bottom: 5px solid rgb(0, 214, 0);
+  // border-right: 5px solid dodgerblue;
+  // border-top: 5px solid rgb(28, 204, 235);
+  // border-left: 5px solid rgb(250, 162, 0);
+  text-align: center;
+  position: relative;
+  overflow:hidden;
+  box-shadow: 0 1px 5px rgb(30, 115, 169);
+
+  .ring {
+    width: 90px;
+    height:90px;
+    border-radius: 50%;
+
+    border: 4px solid black;
+    position: absolute;
+  }
+
+  .location {
+    font-size: 70px;
+    margin:0;
+    color: rgb(19, 119, 220);
+    margin-top: 16px;
+
+  }
+}
+
+.initial {
+  position: absolute;
+  color: white;
+  z-index: 9999999;
+  left: 9px;
+  top: 49px;
+
+    .arrows {
+      height: 3px;
+      background-color: white;
+      width: 30px;
+      margin:3px 0;
+      border-radius: 5px;
+    }
+
+    .vertical {
+      height: 20px;
+      width: 3px;
+      top:-2px;
+      left:5px;
+      background-color: white;
+      position: absolute;
+    }
+}
+
+.arrowPoint1 {
+  background-color: none;
+    width: 20px;
+    height: 20px;
+    z-index: 9999999;
+    top: 11px;
+    border-left: 4px solid white;
+    border-top: 4px solid white;
+
+    left: 12px;
+    position: absolute;
+}
+
+.boxes {
+  display: grid;
+  position: absolute;
+  grid-template-columns: auto auto;
+  transform: rotate(
+45deg
+);
+  width: 190px;
+  top: -50px;
+  left: -35px;
+  height: 190px;
+  z-index: 99999;
+  
+  .box {
+    width: 100%;
+    border-radius: 15px;
+    // background-color: rgb(70, 203, 251);
+    margin: 10px;
+    height: 100%;
+    // background: dodgerblue;
+    // opacity: .8;
+    // border: 1px solid white;
+    border: 3px solid rgb(255, 255, 255);
+    z-index: 99999;
+  }
+}
+
+.b1 {
+  background-color: rgb(192, 219, 251);
+}
+
+.b2 {
+  background-color: rgb(182, 219, 255);
+}
+
+.b3 {
+  background-color: rgb(139, 194, 250);
+}
+
+.b4 {
+  background-color: rgb(189, 221, 253);
+}
+.onlineBg {
+  color: rgb(0, 214, 0) !important;
+  div {
+      background-color: rgb(0, 214, 0) !important;
+  }
+}
+
+.doneBg {
   color: dodgerblue !important;
+  div {
+      background-color: rgb(118, 187, 255) !important;
+  }
+}
+
+.processingBg {
+  color: rgb(28, 204, 235) !important;
+  div {
+      background-color: rgb(28, 204, 235) !important;
+  }
+}
+
+.pendingBg {
+  color: rgb(250, 162, 0) !important;
+  div {
+      background-color: rgb(250, 162, 0) !important;
+  }
 }

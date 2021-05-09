@@ -1,96 +1,91 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Login </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="page" no-padding>
-  <ion-grid class="content" padding>
-    <ion-row class="row2">
-      <ion-col class="loginCard">
-        <ion-card>
-          <ion-card-header color="primary">Login</ion-card-header>
-          <ion-card-content>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-              <ion-item>
-                <ion-label position="floating" for="credential"
-                  >Phone number | email</ion-label
-                >
-                <ion-input
-                  (keyup)="checkCred()"
-                  clear-input="true"
-                  name="credential"
-                  formControlName="credential"
-                  autcomplete="on"
-                ></ion-input>
-              </ion-item>
-              <ul
-                class="valErr"
-                *ngIf="(form.get('credential').dirty || form.get('credential').touched) && form.get('credential').errors != null"
-              >
-                <li
-                  *ngFor="let error of form.get('credential').errors.validations"
-                >
-                  {{ error.message }}
-                </li>
-              </ul>
-              <ion-item>
-                <ion-label position="floating" for="password"
-                  >Password</ion-label
-                >
-                <ion-icon
-                  (click)="showPassword = false"
-                  *ngIf="showPassword"
-                  name="eye-off-outline"
-                  class="eye"
-                  slot="end"
-                ></ion-icon>
-                <ion-icon
-                  (click)="showPassword = true"
-                  *ngIf="!showPassword"
-                  name="eye-outline"
-                  class="eye"
-                  slot="end"
-                ></ion-icon>
-                <ion-input
-                  name="password"
-                  clear-input="true"
-                  formControlName="password"
-                  [type]=" !showPassword ? 'password': 'text'"
-                >
-                </ion-input>
-              </ion-item>
-              <ul
-                class="valErr"
-                *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null"
-              >
-                <li
-                  *ngFor="let error of form.get('password').errors.validations"
-                >
-                  {{ error.message }}
-                </li>
-              </ul>
-              <ion-item>
-                <ion-button
-                  type="submit"
-                  [disabled]="!form.get('credential').value || !form.get('password').value || !form.valid"
-                  type="submit"
-                  >Login</ion-button
-                >
-              </ion-item>
-              <ion-item>
-                <p routerLink="/find-account">forgot password</p>
-                <hr />
-              </ion-item>
-              <ion-item>
-                <a routerLink="/register">
-                  <p>Don't have an account? Register</p>
-                </a>
-              </ion-item>
-            </form>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="pageBody mainLightBg2">
+    <div class="header">
+      <div class="design"></div>
+      <div class="design2"></div>
+      <!-- <div class="appLogo">
+
+          <div class="line l1">
+          </div>
+          <div class="line l2">
+          </div>
+          <div class="line l3">
+          </div>
+          
+          <div class="divider"></div>
+          <div class="divider2"></div>
+      </div> -->
+
+      <div class="nlogo">
+        <div class="boxes">
+          <div class="box b1"></div>
+          <div class="box b2"></div>
+          <div class="box b3"></div>
+          <div class="box b4"></div>
+        </div>
+        <!-- <div class="initial">
+          <div class="arrows"></div>
+          <div class="arrows" style="margin-left:5px"></div>
+          <div class="arrows"></div>
+          <div class="vertical"></div>
+        </div> -->
+        <div class="arrowPoint1"></div>
+        <!-- <ion-icon class="location" name="location-sharp"></ion-icon> -->
+      </div>
+     
+      <h3 class="appTitle">ExploreHub</h3>
+    </div>
+    <div class="formHolder">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="fieldHolder">
+          <p class="inputLabel">Phone number | email</p>
+          <input class="inputField" (keyup)="checkCred()" name="credential" formControlName="credential"
+            autcomplete="on">
+          <ul class="validationError"
+            *ngIf="(form.get('credential').dirty || form.get('credential').touched) && form.get('credential').errors != null">
+            <li *ngFor="let error of form.get('credential').errors.validations">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="fieldHolder">
+          <p class="inputLabel">Password</p>
+          <div class="hasIcons">
+            <div class="iconHolder">
+              <ion-icon class="fieldsIcon" (click)="showPassword = false" *ngIf="showPassword" name="eye-off-outline">
+              </ion-icon>
+              <ion-icon class="fieldsIcon" (click)="showPassword = true" *ngIf="!showPassword" name="eye-outline">
+              </ion-icon>
+            </div>
+            <input class="inputField" name="password" formControlName="password"
+              [type]=" !showPassword ? 'password': 'text'">
+          </div>
+          <ul class="validationError"
+            *ngIf="(form.get('password').dirty || form.get('password').touched) && form.get('password').errors != null">
+            <li *ngFor="let error of form.get('password').errors.validations">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+        <div class="submitBtnHolder">
+          <button type="submit" class="submitBtn ion-activatable ripple-parent"
+            [disabled]="!form.get('credential').value || !form.get('password').value || !form.valid" type="submit">Login
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </div>
+      </form>
+
+
+      <div>
+        <button class="registerBtn ion-activatable ripple-parent" (click)="goTo('register')">
+          Register
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+      <div>
+        <p class="textBtn" routerLink="/find-account">forgot password</p>
+      </div>
+    </div>
+  </div>
 </ion-content>

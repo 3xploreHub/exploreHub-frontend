@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, from } from "rxjs";
@@ -13,9 +13,10 @@ import userTokenType from "../../services-common-helper/constantValue/user-token
 })
 
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/account`;
+  private apiUrl = `${environment.apiUrl}/api/account`;
   attemptedUrl: string;
   token = null;
+  public checkCurrentUser: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private http: HttpClient,
@@ -25,6 +26,10 @@ export class AuthService {
     this.get("currentUser").then((user) => {
       this.token = user;
     });
+  }
+
+  checkUser() {
+    this.checkCurrentUser.emit();
   }
 
   initialRegistration(data: user): Observable<any> {
@@ -84,7 +89,6 @@ export class AuthService {
           return val;
         },
         (error) => {
-          console.log("error in getting token form the storage ", error);
         }
       );
     });
@@ -133,6 +137,25 @@ export class AuthService {
         }
       }
       return false;
+    });
+  }
+
+  getAccountType() {
+    return this.get("currentUser").then((token) => {
+      if (token !== null) {
+        const dtoken = this.decodeToken(token);
+        return dtoken.accountType
+      }
+      return null;
+    });
+  }
+
+  getCurrentUser() {
+    return this.get("currentUser").then((token) => {
+      if (token !== null) {
+        return this.decodeToken(token);
+      }
+      return null;
     });
   }
 }

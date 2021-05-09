@@ -10,7 +10,7 @@ import accountType from "../../services-common-helper/constantValue/accountType"
 @Component({
   selector: "app-register",
   templateUrl: "./register.page.html",
-  styleUrls: ["./register.page.scss"],
+  styleUrls: ["./register.page.scss", "../login/login.page.scss"],
 })
 export class RegisterPage implements OnInit {
   public form;
@@ -33,37 +33,38 @@ export class RegisterPage implements OnInit {
     return this.formBuilder.group({
       accountType: [""],
       contactNumber: [
-        "639755663973",
+        "63",
         CValidator.validate([
+          { v: "minLength", r: 12 },
+          { v: "maxLength", r: 12 },
           { v: "required" },
           { v: "pattern", r: "^[0-9]*$", m: ["numbers"] },
         ]),
       ],
       email: [
-        "rivas@gmail.com",
+        "",
         CValidator.validate([
           { v: "required" },
           {
             v: "pattern",
-            r: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+            r: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-z]{2,4}$",
             m: ["email format"],
           },
         ]),
       ],
       password: [
-        "Jrivas2398",
+        "",
         CValidator.validate([
           { v: "required" },
           { v: "minLength", r: 8 },
           { v: "maxLength", r: 25 },
           {
-            v: "pattern",
-            r: "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$",
-            m: ["uppercase", "lowercase", "numbers"],
+            v: "passwordPattern",
+            r: "",
           },
         ]),
       ],
-      confirmPassword: ["Jrivas2398", CValidator.validate([{ v: "required" }])],
+      confirmPassword: ["", CValidator.validate([{ v: "required" }])],
     });
   }
 
@@ -71,7 +72,9 @@ export class RegisterPage implements OnInit {
     if (this.form.valid) {
       const nform = this.form.value;
       var num = nform.contactNumber;
+      nform.email  = nform.email.toLowerCase()
       nform.contactNumber = this.completeNum(num);
+      console.log(nform)
       const request = this.authService.initialRegistration(nform);
       request.subscribe(
         (resp) => {
@@ -85,7 +88,7 @@ export class RegisterPage implements OnInit {
         }
       );
     } else {
-      return;
+      this.touch()
     }
   }
 
@@ -104,8 +107,11 @@ export class RegisterPage implements OnInit {
   }
 
   setAccountType(type) {
-    this.form.patchValue({ accountType: type });
-    this.selectingAccountType = false;
+    setTimeout(() => {
+      
+      this.form.patchValue({ accountType: type });
+      this.selectingAccountType = false;
+    }, 300);
   }
 
   checkEmailOrNumberAvailability(field, value) {
@@ -140,12 +146,12 @@ export class RegisterPage implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
 
   completeNum(num) {
+    if (!num) return;
     if (num.length == 11 && num[0] == "0") {
       return "63" + num.substring(1, 11);
     } else if (num.length == 10) {
@@ -172,6 +178,13 @@ export class RegisterPage implements OnInit {
     return str;
   }
 
+  touch() {
+    this.form.controls['email'].touched = true
+    this.form.controls['password'].touched = true
+    this.form.controls['contactNumber'].touched = true
+    this.form.controls['confirmPassword'].touched = true
+  }
+
   showUniquenessError(err) {
     var errf = err.error.errorFields;
     if (err.error.type === "field_uniqueness") {
@@ -195,5 +208,12 @@ export class RegisterPage implements OnInit {
       str = errf[0];
     }
     return `The ${str} you have entered ${lverb} already taken`;
+  }
+
+  change() {
+    setTimeout(() => {
+      
+      this.selectingAccountType = true
+    }, 200);
   }
 }

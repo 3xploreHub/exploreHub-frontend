@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -24,7 +24,8 @@ export class BulletFormTextComponent implements OnInit {
 
   constructor(
     public creator: PageCreatorService,
-    public alert: AlertController
+    public alert: AlertController,
+    public toastController: ToastController
   ) {
     this.footerData = {
       done: false,
@@ -150,6 +151,15 @@ export class BulletFormTextComponent implements OnInit {
     values.data.list = [...this.values.data.list];
     values.data.list = values.data.list.filter(i => i._id != id)
     this.saveChanges(values);
+  }
+
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
   }
 
 }

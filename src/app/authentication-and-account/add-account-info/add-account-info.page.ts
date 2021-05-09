@@ -8,7 +8,7 @@ import { CValidator } from "../validators/validation";
 @Component({
   selector: "app-add-account-info",
   templateUrl: "./add-account-info.page.html",
-  styleUrls: ["./add-account-info.page.scss"],
+  styleUrls: ["./add-account-info.page.scss", "../login/login.page.scss", "../verification/verification.page.scss"],
 })
 export class AddAccountInfoPage implements OnInit {
   public form;
@@ -27,7 +27,7 @@ export class AddAccountInfoPage implements OnInit {
   setForm() {
     return this.formBuilder.group({
       firstName: [
-        "Jonathan",
+        "",
         [
           CValidator.validate([
             { v: "required" },
@@ -37,17 +37,18 @@ export class AddAccountInfoPage implements OnInit {
         "",
       ],
       lastName: [
-        "Rivas",
+        "",
         CValidator.validate([
           { v: "required" },
           { v: "pattern", r: "^[a-zA-Z .]*$", m: ["letters"] },
         ]),
       ],
       address: [
-        "Nasipit, talamban, Cebu",
+        "",
         CValidator.validate([{ v: "required" }]),
       ],
       gender: ["Female ", CValidator.validate([{ v: "required" }])],
+      birthday: ["Birthday", CValidator.validate([{ v: "required" }])],
       age: [
         "",
         CValidator.validate([
@@ -64,6 +65,7 @@ export class AddAccountInfoPage implements OnInit {
       request.subscribe(
         (resp) => {
           this.form = this.setForm();
+          this.authService.checkUser()
           this.router.navigate([this.authService.hasAttemptedUrl()]);
         },
         (err) => {
@@ -72,11 +74,17 @@ export class AddAccountInfoPage implements OnInit {
           }
         }
       );
+    } else {
+        this.form.controls['firstName'].touched = true
+        this.form.controls['lastName'].touched = true
+        this.form.controls['address'].touched = true
+        this.form.controls['birthday'].touched = true
+        this.form.controls['gender'].touched = true
+        this.form.controls['age'].touched = true
     }
   }
 
   setGender(evnt) {
-    console.log(evnt);
   }
 
   async presentAlert(message) {

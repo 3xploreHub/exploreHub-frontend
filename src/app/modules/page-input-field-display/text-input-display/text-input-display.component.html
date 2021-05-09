@@ -2,7 +2,7 @@
   <div *ngIf="!creator.preview" class="overlay">
   </div>
   <ion-label>{{values.data.label}}</ion-label>
-  <ion-textarea class="inputField" [(ngModel)]="values.data.defaultValue" rows="1" auto-grow="true"
-    placeholder="Type here"></ion-textarea>
+  <ion-textarea [class.hasError]="hasError" class="inputField" (change)="passData()" [(ngModel)]="values.data.defaultValue" rows="1" auto-grow="true"
+    placeholder="Enter text here"></ion-textarea>
   <p class="instructions">{{values.data.instructions}}</p>
 </div>

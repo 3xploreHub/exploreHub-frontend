@@ -1,0 +1,51 @@
+<div #messagesCont [ngStyle]="{'height.px': screenHeight}" class="pageContainer withTwoUser">
+  <div class="convos">
+    
+    <div [class.otherConvo]="conReceiver != receiver.admin" class="currentConvo" (click)="getConversation(receiver.admin)">
+      <div class="ccPicture">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+      <div class="ccText">
+        <div class="current">
+          Admin
+        </div>
+        <div *ngIf="conReceiver == receiver.admin" class="text">Current conversation</div>
+      </div>
+    </div>
+
+    <div [class.otherConvo]="conReceiver != receiver.owner" class="currentConvo" (click)="getConversation(receiver.owner)">
+      <div class="ccPicture">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+      <div class="ccText">
+        <div class="current">
+          Owner
+        </div>
+        <div *ngIf="conReceiver == receiver.owner" class="text">Current conversation</div>
+      </div>
+    </div>
+    <!-- <div class="otherConvo" (click)="getConversation()">
+      <ion-icon name="person-outline"></ion-icon> {{conReceiver == receiver.owner? "Admin": "Owner"}}
+    </div> -->
+  </div>
+  <div class="currentConvoTitle">
+    <p style="text-transform: Capitalize"></p>{{conReceiver == receiver.admin? "Admin": "Owner"}}
+
+    <p *ngIf='conReceiver == receiver.admin' style="font-size: 14px">Failure to respond to the <b>Explorehub Admin's</b> message in <b>10 minutes</b> will result to the <b>rejection</b> of this booking request.</p>
+  </div>
+  <div class="noMessages" *ngIf="messages.length == 0">No messages yet!</div>
+  <app-message-box *ngFor="let message of messages" [message]="message"
+    [position]="message.sender == mainService.user._id? 'right':'left'"></app-message-box>
+
+  <div class="inputMessageHolder">
+    <div class="inputHolder">
+      <ion-textarea auto-grow="true" rows="1" [(ngModel)]="message" placeholder="Enter other message here"
+        class="inputMessage" type="text">
+      </ion-textarea>
+      <div class="send boxShadowed2 ion-activatable ripple-parent" (click)="send()">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-icon name="send-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+</div>

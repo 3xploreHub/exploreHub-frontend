@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Review</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container mainLightBg2">
+    <div class="descText">Please review your booking before submitting.</div>
+    <div *ngIf="!noServices" class="selectedServices mainLightBg2">
+      <div class="sectionTitle">Selected Services
+        <div (click)="editSelectedServices()" class="editBtn">
+          <ion-icon name="create-outline"></ion-icon>{{booking.selectedServices .length > 0 ? "Edit":"Add"}}
+        </div>
+
+      </div>
+      <app-selected-service-card [editable]="false" *ngFor="let item of booking.selectedServices" [item]="item">
+      </app-selected-service-card>
+      <div *ngIf="booking.selectedServices.length == 0" class="notItemSelected">No selected service</div>
+    </div>
+    <div class="inputValueDisplay">
+      <div class="editBtnHolder">
+        Booking Info
+        <div (click)="editBookingInfo()" class="editBtn">
+          <ion-icon name="create-outline"></ion-icon>{{booking.bookingInfo.length > 0 ? "Edit":"Add"}}
+        </div>
+      </div>
+      <app-booking-info-display [inputValues]="booking.bookingInfo"></app-booking-info-display>
+      <div class="bookSectionCont">
+        <div (click)="submitBooking()" class="bookSection ion-activatable ripple-parent boxShadowed2">
+          <p>Book Now</p>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)"></app-confirm-popup>
+</ion-content>

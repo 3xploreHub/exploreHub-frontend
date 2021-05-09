@@ -10,3 +10,98 @@ ion-item {
 ion-label {
   color: dodgerblue !important;
 }
+
+.selectType {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 999999;
+  box-sizing: border-box;
+  padding:10px;
+  background: white;
+}
+
+.accTypeHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.userIcon {
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:0 auto;
+  background-color: rgb(227, 233, 241);
+  ion-icon {
+    font-size: 50px;
+    color:rgb(117, 139, 168);
+  }
+}
+.createAcc {
+  text-align: center;
+  font-size: 18px;
+  color:rgb(117, 139, 168);
+}
+.accType {
+  max-width: 300px;
+  margin:10px 0;
+  border-radius: 5px;
+  background-color: rgb(229, 235, 243);
+  box-sizing: border-box;
+  overflow: visible;
+  color:#ffff; 
+  .accTypeName {
+    width: 100%;
+    padding:20px 10px;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
+    font-size: 25px;
+    margin:0;
+  }
+
+  .accTypeText {
+    margin:0;
+    padding:10px;
+    color:rgb(74, 91, 109);
+    font-size: 12px;
+  }
+}
+
+.selectedType {
+  width: 100%;
+  padding: 10px 20px;
+  flex-shrink: 0;
+  position: relative;
+  color:#ffff;
+  background-image: linear-gradient(to right, rgb(11, 108, 204),rgb(91, 218, 223));
+  margin:0;
+  p {
+    margin:0;
+  }
+ .creatingAccAs {
+   font-size: 13px;
+ }
+ .selectedTypeText {
+    font-size: 20px;
+  }
+
+  .changeType {
+    right:0;
+    margin:10px;
+    padding:0 10px;
+    // background-color: rgba(255, 255, 255, .1);
+    color:rgb(255, 255, 255);
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    border-radius: 4px;
+  }
+}

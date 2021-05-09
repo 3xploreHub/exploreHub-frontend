@@ -1,0 +1,32 @@
+.container {
+    height: 100%;
+    background-color: #f4f6f8 !important;
+    overflow: scroll;
+    padding:10px 0;
+}
+
+.inputValueDisplay {
+    border-top:2px solid #ffff;
+    padding-top: 10px;
+}
+
+.descText {
+    padding:10px 15px;
+    color: rgb(82, 99, 110);
+    background-color: rgb(224, 234, 240);
+}
+.editBtnHolder {
+    font-size: 19px;
+    color: rgb(72, 91, 109);
+    padding:5px 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.editBtn {
+    text-align: right;
+    padding:5px;
+    font-size: 16px !important;
+    display:inline-block;
+    color: dodgerblue;
+}

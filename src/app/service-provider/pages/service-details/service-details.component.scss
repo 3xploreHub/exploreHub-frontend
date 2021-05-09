@@ -1,0 +1,91 @@
+.container {
+    height: 100%;
+    margin-top: 30px;
+    overflow:scroll;
+    padding-bottom: 40px;
+    position: relative;
+}
+
+.selectServiceBtnHolder {
+    padding:40px 10px;
+    padding-top: 10px;
+    text-align: right;
+    margin:10px 0;
+    display: flex;
+    justify-content: flex-end;
+
+    .selectServiceBtn {
+        background-color: rgb(24, 130, 236);
+        color: #ffff;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding:10px 40px;
+        p {
+            margin:2px;
+        }
+    }
+}
+
+.noAvailable {
+    padding:9px;
+    background-color: rgb(240, 240, 240);
+    color:red;
+}
+
+.inputQuant {
+    background-color: rgba(0, 0, 0, .3);    
+    position: absolute;
+    height:100%;
+    width:100%;
+    top:0;
+    z-index: 999999;
+    left:0;
+    right:0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    .inputCont {
+        // min-width: 270px;
+        max-width: 270px;
+        border-radius: 3px;
+        padding:15px;
+        background-color: white;
+
+        .insText {
+            font-size: 18px;
+            text-align: left;
+            padding:8px 0;
+        }
+
+        .inputField {
+            width: 100%;
+            padding:10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid rgb(106, 128, 158);
+          } 
+
+
+          .btnHolder {
+              text-align: right;
+              padding-top: 10px;
+
+              .cancel {
+                  margin-right: 10px;
+                  color: rgb(76, 82, 87) !important;
+                  background-color: rgb(230, 233, 236) !important;
+              }
+          }
+
+          
+    }
+  }
+
+  .invalidQuantity {
+      color: red;
+      text-align: left;
+      font-size: 14px;
+      padding:5px;
+  }

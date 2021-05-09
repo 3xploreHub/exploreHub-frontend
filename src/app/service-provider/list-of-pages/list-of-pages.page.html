@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>{{pagesStatus == 'submitted' ? 'My Pages': 'Drafts'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="outerWrapper lightBackground">
+    <div class="empty" *ngIf="pages.length == 0 && !loading">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
+    <div class="list">
+      <app-page-list-card *ngFor="let page of pages" [page]="page" (clickOption)="clickOption($event)" (viewPage)="goToDashBoard($event)"></app-page-list-card>
+    </div>
+  </div>  
+  <app-option-popup [show]="showOption" (clickOpt)="clickOpt($event)"></app-option-popup>
+  <div *ngIf="pagesStatus !='unfinished'" (click)="createPage()" class="createPage ion-activatable ripple-parent">
+    <div class="text">
+      Create Page
+    </div>
+    <div class="add">
+      <ion-icon name="add-outline"></ion-icon>
+    </div>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+</ion-content>

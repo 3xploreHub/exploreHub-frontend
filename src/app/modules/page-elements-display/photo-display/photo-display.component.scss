@@ -3,9 +3,6 @@
     grid-template-columns: 50% 50%;
     background-color: rgb(233, 232, 232);
 
-    div {
-        margin:3px;
-    }
 }
 
 .singleCol {
@@ -21,6 +18,8 @@
 
 .imageCont {
     height:250px;
+    margin:0 !important;
+    padding:0 !important;
     overflow: hidden;
     background-position: center;
     background-size: cover;
@@ -30,4 +29,5 @@
 
 .small {
     height: 180px !important;
+    margin:1px !important;
 }

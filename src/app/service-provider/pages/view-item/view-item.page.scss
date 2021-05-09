@@ -1,0 +1,40 @@
+ion-slides {
+    height:100%;
+    // background-color: rgb(124, 122, 122);
+    background-color: rgb(206, 206, 206);
+
+    ion-slide {
+        width: 100%;
+    }
+}
+
+.prevAndNext {
+    position: fixed;
+    z-index: 999999;
+    height: 0;
+    overflow: visible;
+    width:100%;
+    background: rgba(115, 115, 115, 0.5);
+    display: flex;
+    bottom:0;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    div {
+        height: 35px;
+        width:35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1px 5px rgb(153, 163, 173);
+        margin:5px;
+        font-size: 20px;
+        border-radius: 5px;
+        color:rgb(245, 249, 255);
+        background-color: rgb(64, 90, 119);
+    }
+
+    .hidden {
+        visibility:hidden;
+    }
+}

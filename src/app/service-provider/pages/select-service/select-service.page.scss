@@ -1,0 +1,87 @@
+.selectedServices {
+    padding:10px;
+    margin:0;
+    background-color: #ffff;
+    border-bottom: 1px solid lightsteelblue;
+    .sectionTitle {
+        font-size: 19px;
+        padding:5px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        color: rgb(72, 91, 109);
+        display: flex;
+        justify-content: space-between;
+    }
+
+   
+}
+
+.selectedItem {
+    margin:15px 5px;
+    border-radius: 5px;
+    background-color: #ffff;
+    border: 1px solid lightsteelblue;
+    overflow: hidden;
+    padding-bottom: 1px;
+    .groupName {
+        padding:7px;
+        font-weight: bold;
+        text-align: left;
+        background-color: rgb(223, 233, 243);
+        border-bottom: 1px solid lightsteelblue;
+        // color: rgb(21, 44, 63);
+        color:rgb(5, 84, 117);
+        }
+}
+
+.notSelected {
+    .selectMore {
+        padding:20px 15px;
+        color: rgb(72, 91, 109);
+        font-size: 19px;
+    }
+}
+.item {
+    display:flex;
+    margin:5px;
+    padding:5px;
+    .itemInfo {
+        width:100%;
+        position: relative;
+        padding:5px 10px;
+
+        .changeItem {
+            position: absolute;
+            font-size: 14px;
+            right: 0;
+            bottom: 0;
+            color: rgb(0, 123, 247);
+        }
+    }
+}
+
+.photoHolder {
+    height: 70px;
+    border-radius: 4px;
+    overflow:hidden;
+    width:120px;
+    
+    .photo {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width:100%;
+        height: 100%;
+        background-color: steelblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            color:white;
+            margin:0;
+        }
+    }
+}
+
+

@@ -1,0 +1,93 @@
+.container {
+    color: rgb(45, 45, 45);
+    background-image: linear-gradient(#fff, rgb(169, 208, 226), rgb(156, 214, 255));
+    min-height: 375px;
+    height: 100%;
+    text-align: center;
+    margin: 5px;
+}
+#location {
+    font-size: 45px;
+    margin-top: 10%;
+}
+
+.hidden {
+    display: none;
+}
+#weather-icon {
+    height: 200px;
+    width: 200px;
+}
+
+.loadingInd {
+    margin:10px;
+    font-size: 18px;
+    margin-top: 100px;
+    color: lightslategrey;
+}
+.weather-icon {
+    // background-color:rgb(156, 214, 255);
+    height: 80px;
+    width: auto;
+}
+.temperature {
+    position: relative;
+    bottom: 14%;
+    // background-color: aquamarine;
+}
+#temp {
+    font-size: 60px;
+    position: relative;
+    bottom: 25%;
+}
+#temp-label {
+    position:relative;
+    bottom: 24%;
+    // background-color: yellow;
+}
+#dayNow {
+    font-size: 35px;
+}
+
+.day {
+    position: relative;
+    bottom: 22%;
+    line-height: 4px;
+}
+
+#date {
+    position: relative;
+    bottom: 20%;
+}
+
+#weatherNow {
+    text-transform: uppercase;
+}
+#close {
+    font-size: 25px;
+    float: right;
+}
+.icon {
+    height: 35%;
+    width: auto;
+}
+#myIcon {
+    height: 50px;
+    width: 50px;
+}
+
+.sun-wind {
+    position: relative;
+    bottom: 22%;
+    text-align: center;
+}
+.col1, .col2, .day{
+    background-color: rgb(241, 248, 255, 0.5); 
+    margin: 6px; border-radius: 5px;
+}
+#col1-label, #col2-label {
+    font-size: 20px;
+}
+.sun, .wind {
+    line-height: 4px;
+}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -11,10 +11,12 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 
 export class NumberInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Input() hasError: boolean = false;
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
   min = null;
   max = null;
   number = null;
-  hasError = false;
+  hasErrors = false;
   message = null
   constructor(
     public toastController: ToastController,
@@ -41,19 +43,20 @@ export class NumberInputDisplayComponent implements OnInit {
   validate() {
     if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentToast(this.message)
-      this.hasError = true;
+      this.hasErrors = true;
     }
     else {
-      this.hasError = false
+      this.hasErrors = false
     }
   }
 
   finalValidation() {
     if ((this.max != null && this.number > this.max) || (this.min != null && this.number < this.min)) {
       this.presentAlert(this.message)
-      this.hasError = true;
+      this.hasErrors = true;
     } else {
-      this.hasError = false;
+      this.hasErrors = false;
+      this.passData();
     }
   }
 
@@ -73,5 +76,18 @@ export class NumberInputDisplayComponent implements OnInit {
       buttons: ["OK"],
     });
     await alert.present();
+  }
+
+  passData() {
+    this.emitEvent.emit({
+      userInput: true,
+      data: {
+        inputId: this.values._id,
+        inputFieldType: "number-input",
+        inputLabel: this.values.data.label,
+        settings: {},
+        value: this.number
+      }
+    })
   }
 }

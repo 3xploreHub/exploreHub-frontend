@@ -1,0 +1,62 @@
+<div *ngIf="page.pageType != 'service_group'; else serviceGroup" (click)="view()"
+  class="pageCard ion-activatable ripple-parent">
+  <div class="pageMain">
+    <div class="creator">
+      <div class="creatorPhotoHolder">
+        <div  *ngIf="pageCreatorPic" class="creatorPhoto" [ngStyle]="{'background-image': 'url(http://localhost:3000/' + pageCreatorPic + ')'}">
+        </div>
+        <div class="creatorPhoto" *ngIf="!pageCreatorPic">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="creatorInfo">
+        <div class="creatorName">{{pageCreator}}</div>
+        <div class="dateCreated">{{page.createdAt | date:'short'}}</div>
+      </div>
+    </div>
+    <div class="photoHolder">
+      <div class="pagePhoto" [ngStyle]="{'background-image': 'url('+pagePhoto+')'}">
+        <p *ngIf="page.components[0].data.length == 0" class="noPhoto">No Picture</p>
+        <div class="pageServices">
+          <div class="serviceItem" *ngFor="let Sdata of pageServicesPhotos"
+            [ngStyle]="{'background-image': 'url(' + Sdata.photo +')'}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pageInfo">
+      <div class="titleHolder">
+        <p class="title" [class.untitled]="!page.components[1].data.text">{{pageTitle}}</p>
+        <!-- <div class="stars">
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star" class="filledStar"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div> -->
+      </div>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        {{pageLocation}}
+      </div>
+      <p class="description">{{pageDescription}}</p>
+    </div>
+  </div>
+  <div class="spotInfo" *ngIf="page.otherServices.length > 0">
+    <div class="cardFooter">
+      <div class="servicesSection">
+
+        <div class="serviceCont" *ngFor="let item of page.otherServices">
+          <div class="subServicePic" [ngStyle]="{'background-image': 'url('+item.pagePhoto+')'}"></div>
+          <div class="serviceName">{{item.pageTitle}}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #serviceGroup>
+  <app-group-of-services [data]="page"></app-group-of-services>
+</ng-template>

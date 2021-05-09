@@ -1,0 +1,60 @@
+.optionBox {
+    position: fixed;
+    background-color: rgba(77, 81, 83, .3);
+    z-index: 99999;
+    right:0;
+    left:0;
+    top:0;
+    bottom:0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    // color:#ffff;
+    top:0;
+
+    .optionHolder {
+        margin-bottom: 20px;
+        display: flex;
+        padding:0;
+        border-radius: 4px;
+        // padding:0 5px;
+   
+        align-items: center;
+        font-size: 19px;
+        box-shadow: 0px 2px 5px rgb(112, 111, 111);
+        background-color: #ffff;
+
+        div {
+            margin:0;
+            padding:18px 20px;
+            ion-icon {
+                font-size: 23px;
+            }
+        }
+
+        .edit {
+            color: rgb(15, 133, 252) !important;
+        }
+
+        .delete {
+            color:rgb(250, 21, 21);
+        }
+    }
+}
+
+.options {
+    top:0;
+    right:0;
+    font-size: 19px;
+    padding:5px 8px;
+    position: absolute;
+}
+
+.cantDelete {
+    opacity: .8;
+    color: lightgray !important;
+}
+
+.closePopup {
+    color: gray;
+}

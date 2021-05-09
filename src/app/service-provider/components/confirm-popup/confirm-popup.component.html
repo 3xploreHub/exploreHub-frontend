@@ -1,0 +1,24 @@
+<div *ngIf="popupData.show" (click)="close($event)" class="overlayBackground">
+
+  <div class="popupBody">
+    <div class="title" [innerHTML]="popupData.title">
+    </div>
+    <div *ngIf="popupData.otherInfo" class="otherInfo" [innerHTML]="popupData.otherInfo">
+    </div>
+    <div *ngIf="popupData.type != 'info'; else info" class="btnHolder">
+      <div class="appBtn ion-activatable ripple-parent" (click)="click($event, 'yes')">Yes
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="appBtn ion-activatable ripple-parent no" (click)="click($event, 'no')">No
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+    <ng-template #info>
+      <div class="btnHolder">
+        <div class="appBtn ion-activatable ripple-parent" (click)="click($event, 'yes')">OK
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

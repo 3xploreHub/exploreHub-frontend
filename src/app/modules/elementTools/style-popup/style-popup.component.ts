@@ -11,6 +11,7 @@ export class StylePopupComponent implements OnInit {
   @Output() cancel: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<string> = new EventEmitter();
   @Input() selectedStyles: string[] = [];
+  @Input() parent: string;
   constructor() { }
 
   ngOnInit() {

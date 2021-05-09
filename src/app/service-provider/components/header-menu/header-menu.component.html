@@ -1,0 +1,40 @@
+<div class="headerMenu">
+  <div class="top">
+    <div class="titleAndMenu">
+      <div content-id="main-content" class="ion-activatable ripple-parent iconHolder nBg">
+        <ion-menu-button content-id="main-content"></ion-menu-button>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="title">ExploreHub</div>
+    </div>
+
+    <div class="menu">
+      <div class="ion-activatable ripple-parent iconHolder" (click)="goTo(['/service-provider/notifications'], true)">
+        <ion-icon name="notifications-outline">
+        </ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+        <div *ngIf="notificationsCount || notificationsCount != 0" class="notifCount">{{notificationsCount}}</div>
+      </div>
+      <div class="ion-activatable ripple-parent iconHolder" (click)="goTo(['/service-provider/search'])">
+        <ion-icon name="search-outline">
+        </ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <!-- <div class="weather iconHolder"> -->
+        <!-- <ion-icon name="sunny-outline"></ion-icon>
+          <ion-icon name="thunderstorm-outline"></ion-icon> -->
+        <!-- <ion-icon name="rainy-outline" (click)="checkWeather()"></ion-icon> -->
+        <!-- <ion-icon name="cloudy-outline"></ion-icon> -->
+      <!-- </div> -->
+    </div>
+  </div>
+  <div class="categories">
+    <div class="categoryTab ion-activatable ripple-parent" [class.currentTab]="currentCategory == 'all'" (click)="retrieveTouristSpotByCategory('all')">All
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+    <div class="categoryTab ion-activatable ripple-parent" [class.currentTab]="currentCategory == category.name" *ngFor="let category of categories"
+      (click)="retrieveTouristSpotByCategory(category.name)">{{category.name}}
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+</div>

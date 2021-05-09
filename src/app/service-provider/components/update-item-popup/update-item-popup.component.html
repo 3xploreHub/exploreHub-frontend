@@ -1,0 +1,40 @@
+<div class="backgroundOverlay" *ngIf="show" (click)="closeModal($event)">
+  <div class="popup" (click)="clickInsidePopup($event)">
+    <ion-icon class="closeModal" (click)="closeModal($event)" name="close-outline"></ion-icon>
+    <div class="itemName">
+      {{data.itemName}}
+    </div>
+
+    <div class="stats">
+      <div>
+        <div class="percent prcnt">
+          <div class="percentBar" [ngStyle]="{width: data.quatityPercentage +'%'}">
+            <div [ngStyle]="{width: data.pendingPercent +'%'}" class="pendingPercent"></div>
+            <div [ngStyle]="{width: data.processingPercent +'%'}" class="processingPercent"></div>
+            <div [ngStyle]="{width: data.manuallyBookedPercent +'%'}" class="manaullyBookedPercent"></div>
+          </div>
+        </div>
+        <div class="quantity">
+          <div class="bkd">
+            <p>Approved Booking: <b class="number">{{data.item.booked}}</b></p>
+            <p class="processing">Processing: <b class="number">{{data.toBeBooked}}</b></p>
+            <p class="pending">Pending: <b class="number">{{data.item.pending}}</b></p>
+            <p class="manual">On-site Reservation: <b class="number">{{data.item.manuallyBooked}}</b></p>
+          </div>
+          <div class="quant">
+            <p>Available: <b  class="number">{{data.itemQuantity - (data.item.booked + data.item.manuallyBooked + data.toBeBooked + data.item.pending)}}</b></p>
+          </div>
+        </div>
+        <div class="totalQuant">Quantity: <b  class="number">{{data.itemQuantity}}</b></div>
+       
+      </div>
+    </div>
+    <div class="addBooking">
+      <div (click)="createBooking()" class="createBookingBtn ion-activatable ripple-parent">{{ creatingManual? "Creating...": "Add on-site reservation"}} 
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <!-- <div class="createBookingBtn editItem ion-activatable ripple-parent">Edit Item
+        <ion-ripple-effect></ion-ripple-effect>
+      </div> -->
+    </div>
+  </div>

@@ -1,0 +1,14 @@
+<div *ngIf="show" (click)="clickBox($event)" class="optionBox">
+  <div class="optionHolder">
+    <div class="delete ion-activatable ripple-parent" [class.cantDelete]="cantDelete" (click)="clickOption($event, 'delete')">Delete
+      <ion-ripple-effect *ngIf="!cantDelete"></ion-ripple-effect>
+    </div>
+    <div class="edit ion-activatable ripple-parent" (click)="clickOption($event, 'edit')">View
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+    <div class="ion-activatable ripple-parent" (click)="clickOption($event, 'close')">
+      <ion-icon class="closePopup" name="close-outline"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+</div> 

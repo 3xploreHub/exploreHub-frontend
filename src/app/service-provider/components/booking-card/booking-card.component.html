@@ -1,0 +1,38 @@
+<div *ngIf="!deleted" [class.hasOption]="booking.status == 'Unfinished'" class="cardBody ion-activatable ripple-parent"
+  (click)="viewBooking()">
+  <div class="cardPhotoHolder">
+    <!-- <p *ngIf="!photo">No photo</p> -->
+    
+    <div *ngIf="booking.photo" class="cardPhoto" [ngStyle]="{'background-image': 'url('+booking.photo+')' }">
+     
+    </div>
+    <div class="cardPhoto" *ngIf="!booking.photo">
+      <ion-icon *ngIf="!forDashboard" name="golf-outline"></ion-icon>
+      <ion-icon *ngIf="forDashboard" name="card-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="cardInfo">
+    <div class="cardTitle" [class.isManual]="booking.isManual">{{booking.isManual? "On-site Reservation": booking.name}}</div>
+    <div class="servicesHolder">
+
+      <div class="selectedServices">
+        <div class="service" *ngFor="let item of booking.selectedServices">{{item}}</div>
+        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0 && booking.page && booking.page.services.length > 0">No services availed</div>
+      </div>
+    </div>
+    <div class="cardDate">{{booking.createdAt | date:'short'}}</div>
+  </div>
+
+  <div class="bottomRow">
+    <div *ngIf="!forDashboard" class="type spotPage" [class.servicePage]="booking.bookingType == 'service'">
+      {{booking.bookingType == 'service'? 'Service': 'Tourist Spot'}}</div>
+    <div class="cardStatus status" [ngClass]="getStatus(booking.status)">
+      <div class="statusCircle"></div>{{booking.status}}
+    </div>
+  </div>
+  <ion-ripple-effect></ion-ripple-effect>
+  <div (click)="clickOption($event)" *ngIf="!hideOption" class="cardOptions ion-activatable ripple-parent">
+    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+
+<div class="card ion-activatable ripple-parent" [class.unread]="!conversation.viewedBy.includes(mainService.user._id)" (click)="openConvo($event)">
+  <div class="picHolder">
+    <div class="pic" *ngIf="photo" [ngStyle]="{'background-image': 'url('+photo+')'}">
+    </div>
+    <div *ngIf="!photo" class="pic">
+      <ion-icon name="person-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="cardText">
+    <div class="name">{{receiverName}}&nbsp;-<p class="pageName">{{pageName}}</p></div>
+    <div class="lastMessage" [innerHTML]="lastMessage"></div>
+    <div class="time">{{conversation.updatedAt | date:'short'}}</div>
+  </div>
+  <div (click)="clickOption($event)" class="cardOptions">
+    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+  </div>
+  <ion-ripple-effect></ion-ripple-effect>
+</div>

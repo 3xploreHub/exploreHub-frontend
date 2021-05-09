@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="statusCont" *ngIf="page.status == 'Online' || page.status == 'Not Operating'">
+      <div class="settingLabel">Status</div>
+      <div class="onlineStat" (click)="changePageStatus($event)">
+        <div class="overlay ion-activatable ripple-parent">
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <div [class.offline]="!online">{{online? "Online / Operating": "Not Operating"}}</div>
+        <ion-toggle readOnly color="success" [checked]="online"></ion-toggle>
+      </div>
+    </div>
+    <div *ngIf="page.status == 'Online' || page.status == 'Not Operating'" class="otherSettingsLabel">Other Settings
+    </div>
+    <br *ngIf="page.status != 'Online' && page.status != 'Not Operating'">
+    <br *ngIf="page.status != 'Online' && page.status != 'Not Operating'">
+    <div class="settings">
+      <div *ngIf="page.pageType == 'tourist_spot'" class="otherSetting ion-activatable ripple-parent"
+        (click)="goTo(['/service-provider/page-hosted-services'], {queryParams: {pageId: page._id, creator:page.creator}})">
+        <div class="text">
+          Hosted Services
+        </div>
+        <ion-icon name="copy-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="otherSetting ion-activatable ripple-parent" (click)="editPage()">
+        <div class="text">
+          Edit Page
+        </div>
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="otherSetting ion-activatable ripple-parent" (click)="toDeletePage($event)">
+        <div class="text">
+          Delete Page
+        </div>
+        <ion-icon name="trash-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+  </div>
+  <app-confirm-popup [popupData]="popupData" (clicked)="clicked($event)">
+  </app-confirm-popup>
+  <div *ngIf="confirmDelete" class="confirmDeletion">
+
+    <div class="inputPassword">
+      <div class="insText">Enter password to confirm</div>
+      <input class="inputField" [(ngModel)]="password" type="password" />
+      <div class="btnHolder"> 
+        <button (click)="cancelDelete()" class="appBtn cancel ion-activatable ripple-parent">Cancel
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+        <button class="appBtn ion-activatable ripple-parent" (click)="deleteConfirmedPage()">Confirm
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showOtherServicesGroup" class="showOtherServices">
+    <div class="listOfPages">
+      <app-group-of-services [data]="page"></app-group-of-services>
+    </div>
+    <div class="infoText">{{page.otherServices.length+(page.otherServices.length > 1 ? " services are": " service is")
+    }} under your page, for {{(page.otherServices.length > 1 ? " them ": " it ")}}to remain visible online even after
+    this page is deleted,
+    a group of services which has the name of this page as the title is created as shown above.</div>
+    <div class="btnHolder2">
+      <button (click)="hideServiceGroupToBeCreated()" class="appBtn cancel ion-activatable ripple-parent">Cancel
+        <ion-ripple-effect></ion-ripple-effect>
+      </button>
+      <button (click)="continueDeleting()" class="appBtn continue ion-activatable ripple-parent">Continue 
+        <ion-ripple-effect></ion-ripple-effect>
+      </button>
+    </div>
+  </div>
+</ion-content>

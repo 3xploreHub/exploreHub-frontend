@@ -1,0 +1,34 @@
+<div [class.searchResultMode]="!searchResult" class="page ion-activatable ripple-parent"  (click)="view(page)">
+  <div class="photoHolder">
+    <div class="pagePhoto" *ngIf="page.components[0].data.length > 0" [ngStyle]="{'background-image': page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+    </div>
+    <div *ngIf="page.components[0].data.length == 0" class="pagePhoto">
+      <ion-icon  name="golf-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="pageInfo">
+    <p class="title" [class.untitled]="!page.components[1].data.text" [class.longDesc]="searchResult">{{page.components[1].data.text?
+      page.components[1].data.text: 'Untitled'}}</p>
+    <p class="description">{{page.components[6].data.text ? page.components[6].data.text: ''}}</p>
+    <div class="bottomRow">
+      <div class="type spotPage" [class.servicePage]="page.hostTouristSpot">{{page.hostTouristSpot? 'Service':
+        'Tourist Spot'}}</div>
+      <div class="status" [ngClass]="getStatus(page)" *ngIf="!searchResult">
+        <div class="statusCircle"></div>
+        {{page.status}}
+      </div>
+    </div>
+  </div>
+  <ion-ripple-effect></ion-ripple-effect>
+  <div *ngIf="page.status == 'Unfinished'" (click)="clickOpt($event, page._id)"
+    class="cardOptions ion-activatable ripple-parent">
+    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+  <!-- <div *ngIf="page.initialStatus == 'Approved' && page.pageType == 'service' && !searchResult" class="approvedPage">
+    <ion-icon name="checkmark-outline"></ion-icon>
+  </div>
+  <div *ngIf="page.initialStatus == 'Declined' && page.pageType == 'service' && !searchResult" class="approvedPage declinedPage">
+    <ion-icon name="close-outline"></ion-icon>
+  </div> -->
+</div>

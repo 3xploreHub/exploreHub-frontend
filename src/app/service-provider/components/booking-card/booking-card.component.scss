@@ -1,0 +1,133 @@
+.cardBody {
+    min-height: 110px;
+    border-radius: 4px;
+    display: flex;
+    overflow: hidden;
+    // box-shadow: 0 1px 2px rgb(175, 182, 190);
+    box-shadow: 0 1px 2px rgba(204, 209, 214, 0.7);
+    margin:10px;
+    align-items: stretch;
+    background-color: #ffff;
+    padding:5px;
+    position: relative;
+    
+    .cardPhotoHolder {
+        height: 100px;
+        width: 110px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        overflow:hidden;
+        background-color: lightsteelblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .cardPhoto {
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            ion-icon {
+                        font-size:40px;
+                        color:rgb(255, 255, 255);
+                    }
+        }
+
+        
+
+        p {
+            font-size: 11px;
+        }
+    }
+
+    .cardInfo {
+        padding:0 5px;
+        width: 100%;
+        div {
+            margin:6px 0;
+
+        }
+
+        .cardTitle {
+            font-size: 16px;
+            // color: rgb(47, 62, 77);
+        }
+        .cardDate {
+            font-size: 13px;
+            color:rgb(130, 146, 163);
+        }
+    }
+}
+
+.hasOption {
+    padding-right: 35px !important;
+}
+
+// .bottomRow {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     margin:5px;
+//     display: flex;
+//     .status {
+        
+//         font-size: 15px;
+//         background: #ffff;
+//         margin:8px;
+//         display: flex;
+       
+//         align-items: center;
+        
+//         .statusCircle {
+//             width:12px;
+//             height: 12px;
+//             border-radius: 50%;
+//             margin-right: 5px;
+//             background-color: green;
+//         }
+//     }
+    
+// }
+.servicesHolder {
+    margin-right: 10px;
+    overflow-x:auto;
+
+    .selectedServices {
+        margin:0 !important;
+        overflow-y: hidden;
+        overflow-x:auto;
+        padding:0 !important;
+        margin-right: 10px;
+        width: 85%;
+        flex-wrap: nowrap;
+        display: flex;
+        .service {
+            
+            // background-color: rgb(234, 241, 250);
+            border-left: 1px solid rgb(169, 182, 199);
+            padding:1px 5px !important;
+            color:rgb(136, 172, 219);
+            flex-shrink: 0;
+            font-size: 15px;
+            margin:0;
+            // display: flex;
+            // flex-wrap: nowrap;
+            height: 20px;
+            // overflow:hidden;
+        }
+
+        .noAvailed {
+            color:rgb(194, 186, 186);
+        }
+    }
+}
+
+.isManual {
+    color:rgb(0, 97, 224);
+}
+
+

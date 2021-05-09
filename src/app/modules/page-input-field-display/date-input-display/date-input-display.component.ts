@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -10,6 +10,8 @@ import { PageCreatorService } from '../../page-creator/page-creator-service/page
 })
 export class DateInputDisplayComponent implements OnInit {
   @Input() values: ElementValues;
+  @Output() emitEvent: EventEmitter<any> = new EventEmitter();
+  @Input() hasError: boolean = false;
   currentYear = new Date().getFullYear()
   allDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -18,13 +20,14 @@ export class DateInputDisplayComponent implements OnInit {
   date: any
   days = []
   months = []
+  customDaysDisplay = []
   customPickerOptions: any;
 
   constructor(public alert: AlertController, public creator: PageCreatorService) {
     this.customPickerOptions = {
       buttons: [{
         text: 'Cancel',
-        handler: () => console.log('cancelled')
+        handler: () => {}
 
       }, {
         text: 'Clear',
@@ -40,7 +43,7 @@ export class DateInputDisplayComponent implements OnInit {
           const day = datepicked.getDay();
           if (this.values.data.customDays.length > 0) {
             if (!this.values.data.customDays.includes(this.allDays[day])) {
-              this.presentAlert("Service is not available every " + this.daysName[day])
+              this.presentAlert("Service is only available every " + this.customDaysDisplay)
               this.date = null;
               return false;
             }
@@ -54,6 +57,13 @@ export class DateInputDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customDaysDisplay = this.values.data.customDays.map(day => {
+      let name = " "+this.daysName[this.allDays.indexOf(day)];
+      if (this.values.data.customDays.indexOf(day) == this.values.data.customDays.length - 1) {
+        name = " and "+name;
+      }
+      return name
+    });
     this.date = this.values.data.defaultValue
     this.years = this.values.data.customYears;
     let defaultYears = []
@@ -86,4 +96,16 @@ export class DateInputDisplayComponent implements OnInit {
     await alert.present();
   }
 
+  passData() {
+    this.emitEvent.emit({
+      userInput: true,
+      data: {
+        inputId: this.values._id,
+        inputFieldType: "date-input",
+        inputLabel: this.values.data.label,
+        settings: {},
+        value: this.date
+      }
+    })
+  }
 }

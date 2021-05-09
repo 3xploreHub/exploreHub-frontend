@@ -1,0 +1,158 @@
+.backgroundOverlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .3);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left:0;
+    z-index: 999999;
+
+    .popup {
+        position: relative;
+        padding:8px;
+        width:300px;
+        border-radius: 4px;
+        background-color: #ffff;
+
+        .itemName {
+            padding:10px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid lightgray;
+        }
+    }
+}
+.stats {
+    div {
+        border-radius: 5px;
+        // background-color: rgb(242, 248, 248);
+        .percent {
+            overflow: hidden;
+            top: 0;
+            border-radius: 5px;
+            left:0;
+            right:0;
+            height: 9px;
+            background-color: rgb(227, 234, 245);
+            
+            .percentBar {
+                // border-radius: 3px;
+                height: 100%;
+                display: flex;
+                border-radius: 0;
+                background-color:rgb(1, 226, 159);
+                
+                .manaullyBookedPercent {
+                    background-color: dodgerblue;
+                    width: 0;
+                    height: 100%;
+                    border-radius: 0;
+                }
+
+                .processingPercent {
+                    background-color: rgb(36, 222, 255);
+                    width: 0;
+                    height: 100%;
+                    border-radius: 0;
+                }
+                .pendingPercent {
+                    background-color: rgb(247, 177, 28);
+                    width: 0;
+                    height: 100%;   
+                    border-radius: 2px;
+                    // border-radius: 0;
+                }
+            }
+            .max {
+                background-color: rgb(252, 17, 162) !important;
+            }
+        }
+    }
+}
+
+.prcnt {
+    width: 100%;
+    position: unset;
+}
+.closeModal {
+    text-align: right;
+    font-size: 25px;
+    position: absolute;
+    color: gray;
+    right:0;
+    top:0;
+    background-color: #ffff;
+}
+.quantity {
+    text-align: center;
+    position: unset !important;
+    width:100%;
+    display: flex;
+    padding:5px 0;
+    justify-content: stretch;
+
+    .bkd {
+        padding:8px;
+        color: rgb(6, 201, 110) !important;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 0;
+        flex-grow: 1;
+        text-align: left;
+        p {
+            margin:3px 0;
+
+        }
+        .manual {
+            color:rgb(9, 120, 231);
+        }
+        border-right: 1px solid lightgray;
+
+        .processing {
+            color: rgb(28, 204, 235);
+        }
+
+        .pending {
+            color:rgb(247, 177, 28);
+        }
+    }
+
+    .quant {
+        padding:5px;
+        font-size: 14px;
+        flex-grow: 1;
+
+        text-align: center;
+        color:rgb(131, 148, 173);
+    }
+}
+
+.number {
+    font-size: 19px;
+}
+
+.totalQuant {
+    padding:10px;
+    color:rgb(131, 148, 173);
+    border-radius: 0;
+    border-top: 1px solid lightgray;
+    text-align: center;
+}
+
+.createBookingBtn {
+    padding:10px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgb(0, 125, 228);
+    color:#ffff;
+    margin:8px 0;
+}
+
+.editItem {
+    background-color: rgb(213, 228, 233);
+    color:rgb(84, 86, 90);
+}
+

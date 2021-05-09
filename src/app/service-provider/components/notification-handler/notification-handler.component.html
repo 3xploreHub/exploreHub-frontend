@@ -1,0 +1,11 @@
+<div *ngIf="show" class="notif">
+    <div class="cont" (click)="goto(['/service-provider/notifications'])">
+        <div class="notifPicHolder">
+            <div class="notifPic">
+                <ion-icon name="notifications-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="message" [innerHTML]="message"></div>
+    </div>
+    <ion-icon (click)="show = false" class="close" name="close-outline"></ion-icon>
+</div>

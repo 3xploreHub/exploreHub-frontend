@@ -1,5 +1,5 @@
 <div *ngIf="!footerData.deleted">
-  <div *ngIf="!footerData.done; else doneBlock" class="textAreaWrapper">
+  <div *ngIf="!footerData.done  && !creator.preview; else doneBlock" class="textAreaWrapper boxShadowed2 mainLightBg">
     <ion-textarea [ngClass]="values.styles" auto-grow="true" (change)="saveChanges()"
       (keyup)="values.data.text? footerData.hasValue = true: footerData.hasValue = false" [readonly]="footerData.saving"
       [(ngModel)]="values.data.text" class="textarea" rows="1" [placeholder]="values.data.placeholder? values.data.placeholder: 'Enter text here'">
@@ -8,16 +8,17 @@
       (selectStyle)="applyStyle($event)" (delete)="delete()">
     </app-element-footer>
     <div class="componentWrapper" *ngIf="showStylePopup">
-      <app-style-popup *ngIf="footerData.hasStyle" (cancel)="cancelStyles()"
+      <app-style-popup *ngIf="footerData.hasStyle" [parent]="parent" (cancel)="cancelStyles()"
         (select)="applyStyle($event)" class="componentPopup" [selectedStyles]="values.styles"></app-style-popup>
     </div>
   </div>
-
   <ng-template #doneBlock>
     <div class="componentWrapper">
-      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
+      <app-edit-or-delete-popup *ngIf="creator.clickedComponent == values._id && !creator.preview" [isDefault]="values.default" (edit)="edit()" (delete)="delete()"
         (close)="creator.clickedComponent = null" [deleting]="footerData.saving" class="componentPopup"></app-edit-or-delete-popup>
-      <app-text-display [ngClass]="values.styles" (click)="creator.clickedComponent = !creator.preview? values._id: null" [values]="values"></app-text-display>
+      <app-text-display [ngClass]="values.styles" (click)="creator.clickedComponent = !creator.preview? values._id: null;
+      creator.preview? presentToast('Preview'):null" [parent]="parent" [values]="values"></app-text-display>
     </div>
   </ng-template>
 </div>
+

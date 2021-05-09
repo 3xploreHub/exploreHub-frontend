@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { CValidator } from "../validators/validation";
 import { FormBuilder } from "@angular/forms";
 import { AlertController } from "@ionic/angular";
@@ -7,11 +7,12 @@ import { AuthService } from "../../services/auth-services/auth-service.service";
 @Component({
   selector: "app-code-handler",
   templateUrl: "./code-handler.page.html",
-  styleUrls: ["./code-handler.page.scss"],
+  styleUrls: ["./code-handler.page.scss", "../login/login.page.scss"],
 })
 export class CodeHandlerPage implements OnInit {
   @Output() expiredAllCode: EventEmitter<any> = new EventEmitter();
   @Output() submitCode: EventEmitter<any> = new EventEmitter();
+  @Input() atVerification: boolean = false;
   public contactNumber: string = "";
   public channel: any;
   public id: string;
@@ -61,6 +62,7 @@ export class CodeHandlerPage implements OnInit {
       this.presentAlert("Incorrect code!");
     }
   }
+  
   subscribePusher() {
     if (!this.pendingCode) {
       this.startTime();

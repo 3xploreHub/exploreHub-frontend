@@ -1,0 +1,193 @@
+.container {
+    padding:10px 0 !important;
+    height: 100%;
+    overflow: scroll;
+    padding-top: 100px !important;
+}
+.noHeader {
+    padding-top: 50px !important;
+}
+.inputValueDisplay {
+    padding-top: 10px;
+    border-top:2px solid #ffff;
+}
+
+.headerHolder {
+    position: fixed;
+    z-index: 99999;
+    box-shadow: 0 1px 2px rgba(167, 174, 180, 0.7);
+    width:100%;
+    top:0;
+    background-color: #ffff;
+    .backBtn {
+        display: flex;
+        align-items: center;
+        padding:6px 0 !important;
+        margin:0;
+        color:rgb(102, 102, 102) !important;
+        
+        .back {
+            font-size: 23px;
+            padding-left:8px;
+            // margin:3px;
+        }
+       
+    }
+
+    .topHead {
+        align-items: center;
+        padding:5px 0;
+        justify-content: space-between !important;
+        border-bottom: 1px solid rgb(220, 229, 241);
+
+        .cancel {
+            color:rgb(221, 107, 107) !important;
+            padding:5px 10px !important;
+            border-radius: 3px;
+            margin:0 5px;
+            background-color: rgb(241, 245, 248);
+            display: flex;
+            align-items: center;
+
+            ion-icon {
+                padding:0;
+            }
+        }
+
+        .edit {
+            color:rgb(65, 131, 207) !important;
+        } 
+
+        .optionsTop {
+            display: flex;
+            padding:0 10px;
+            margin:0;
+        }
+    }
+
+   
+
+    
+    .header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+
+        div {
+            color: rgb(7, 68, 129);
+            padding:15px 0;
+            display: flex;
+            align-items: center;
+            ion-icon {
+                padding-right:5px;
+            }
+        }
+    }
+}
+
+.page {
+    display: flex;
+    padding:15px;
+    background-color: #fff;
+    .cardPhotoHolder {
+        height: 90px;
+        width: 90px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        overflow:hidden;
+        
+        .cardPhoto {
+            height: 100%;
+            width: 100%;
+            background-color: lightsteelblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+
+            ion-icon {
+                font-size:40px;
+                color:rgb(77, 97, 109);
+            }
+            p {
+                font-size: 11px;
+            }
+        }
+    }
+
+    .pageInfo {
+        padding:8px 10px;
+
+        .pageName {
+            font-size: 17px;
+            font-weight: bold;
+            color:rgb(53, 67, 82);
+        }
+
+        .address {
+            font-size: 14px;
+            color:rgb(79, 91, 107);
+        }
+    }
+}
+
+.boxHolder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding:0;
+    display: flex;
+    align-items: center;
+    
+    .box {
+        margin:0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .active {
+            transition: .5s;
+            position: absolute;
+            left:0;
+            margin:0;
+            padding:8px 0;
+            border-radius: 5px;
+            height: 100%;
+            width: 100%;
+            padding:10px 15px;
+            
+            
+            .shade {
+                background-color: rgb(163, 205, 248);
+                display: flex;
+                border-radius: 4px;
+                width: 100%;
+                color:rgb(8, 78, 168) !important;
+                font-weight: bold;
+                height: 50% !important;
+                margin:0;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+.dateAndStatus {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .dateCreated {
+        padding:0 15px;
+        color:gray;
+        font-size: 13px;
+    }
+    .bookingStatus {
+        padding:5px 15px;
+        text-align: right;
+        font-size: 14px;
+    }
+}

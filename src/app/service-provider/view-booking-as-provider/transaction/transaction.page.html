@@ -1,0 +1,15 @@
+<div #messagesCont [ngStyle]="{'height.px': screenHeight}" class="pageContainer">
+  <div *ngIf="messages.length != 0">
+    <app-message-box *ngFor="let message of messages" [message]="message" [position]="message.sender == mainService.user._id? 'right':'left'"></app-message-box><app-message-box [position]="'left'"></app-message-box>
+  </div>
+  <div class="noMessages" *ngIf="messages.length == 0">No messages yet.</div>
+  <div class="inputMessageHolder">
+    <ion-textarea auto-grow="true" [(ngModel)]="message" rows="1" placeholder="Enter other message here" class="inputMessage" type="text">
+    </ion-textarea>
+    <div class="send boxShadowed2 ion-activatable ripple-parent" (click)="send()">
+
+      <ion-ripple-effect></ion-ripple-effect>
+      <ion-icon name="send-outline"></ion-icon>
+    </div>
+  </div>
+</div>

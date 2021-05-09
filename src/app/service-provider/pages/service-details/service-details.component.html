@@ -1,0 +1,34 @@
+<div class="container mainLightBg2" [ngStyle]="{'width.px': pageWidth, 'height.px': pageHeight}">
+  <ng-template #pageElement></ng-template>
+  <div *ngIf="!notOperating; else offline" class="selectServiceBtnHolder ion-activatable ripple-parent">
+    <div *ngIf="!noAvailable" class="selectServiceBtn" (click)="selectService()">
+      <p>
+        Select
+      </p>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+    <div *ngIf="noAvailable" class="noAvailable">No Available</div>
+  </div>
+  <ng-template #offline>
+    <div class="selectServiceBtnHolder">
+      <div class="noAvailable">The service is not operating</div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="enterQuant == values._id" class="inputQuant">
+    <div class="inputCont">
+      <div class="insText">Enter Quantity</div>
+      <input class="inputField" min="1" [(ngModel)]="quantity" type="number" />
+      <div class="invalidQuantity" *ngIf="invalidQuantity">Invalid Quantity</div>
+      <div class="btnHolder">
+        <button (click)="cancelSelection()" class="appBtn cancel ion-activatable ripple-parent">Cancel
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+        <button class="appBtn ion-activatable ripple-parent" (click)="checkQuantity()">Submit
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

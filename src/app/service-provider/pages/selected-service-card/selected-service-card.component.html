@@ -1,0 +1,30 @@
+<div *ngIf="item.service; else none" class="selectedItem">
+  <div class="groupName">{{item.serviceGroupName}}
+  </div>
+  <div class="item">
+    <div class="photoHolder">
+      <div class="photo" *ngIf="getPhoto(item.service)" [ngStyle]="{'background-image': 'url('+ getPhoto(item.service) +')' }">
+      </div>
+      <div *ngIf="!getPhoto(item.service)" class="photo">
+        <ion-icon name="card-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="itemInfo">
+      <div class="serviceName">{{getServiceName(item.service, 'name')}}</div>
+      <div class="servicePrice">
+        <div>
+          Price: <b>{{getServiceName(item.service, 'price')? 
+          formatNumber(getServiceName(item.service, 'price')): 0}}</b>
+        </div>
+        <div>Quantity: <b>{{item.quantity}}</b></div>
+      </div>
+      <div *ngIf="editable" (click)="changeService()" class="changeItem">Change</div>
+    </div>
+  </div>
+</div>
+<ng-template #none>
+  <div class="none">
+
+    Service no longer available
+  </div>
+</ng-template>

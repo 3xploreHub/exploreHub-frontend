@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/view-page" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #slides [options]="slideOpts" (ionSlideWillChange)="slideChanged()">
+    <ion-slide *ngFor="let service of values.data">
+      <app-service-details [noAvailable]="service.noAvailable" [notOperating]="notOperating" [serviceInfo]="{pageId: pageId,serviceGroupName: serviceGroupName, serviceGroupId: serviceId,pageType: pageType, bookingId: bookingId}"
+        [values]="service">
+      </app-service-details>
+    </ion-slide>
+  </ion-slides>
+  <div class="prevAndNext" *ngIf="values.data.length > 1">
+    <div (click)="slides.slidePrev()" [class.hidden]="start" class="ion-activatable ripple-parent">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    <div (click)="slides.slideNext()" [class.hidden]="end" class="ion-activatable ripple-parent">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+      </div>
+  </div>
+</ion-content>

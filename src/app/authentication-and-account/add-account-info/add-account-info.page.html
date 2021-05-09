@@ -1,108 +1,100 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Add personal information</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content class="page" no-padding>
-  <ion-button fill="outline" size="medium" color="medium" (click)="logOut()"
-    >Log out</ion-button
-  >
-  <ion-grid class="content" padding>
-    <ion-row class="row2">
-      <ion-col class="loginCard">
+  <div class="pageBody mainLightBg2">
+      <div class="options">
+        <p (click)="logOut()">Log out</p>
+      </div>
+      <div class="titleCont">
+        <p>Add Personal Information</p>
+      </div>
+      <div class="formHolder">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <ion-item>
-            <ion-label position="floating" for="firstName"
-              >First name</ion-label
-            >
-            <ion-input
-              formControlName="firstName"
-              name="firstName"
-              clear-input="true"
-            ></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('firstName').dirty || form.get('firstName').touched) && form.get('firstName').errors != null"
-          >
-            <li *ngFor="let error of form.get('firstName').errors.validations">
-              {{ error.message }}
-            </li>
-          </ul>
+          <div class="fieldHolder">
+            <div class="inputLabel">First name</div>
+            <input class="inputField" formControlName="firstName" name="firstName">
+            <ul class="validationError"
+              *ngIf="(form.get('firstName').dirty || form.get('firstName').touched) && form.get('firstName').errors != null">
+              <li *ngFor="let error of form.get('firstName').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+          <div class="fieldHolder">
+            <div class="inputLabel">Last name</div>
+            <input class="inputField" name="lastName" formControlName="lastName">
+            <ul class="validationError"
+              *ngIf=" (form.get('lastName').dirty || form.get('lastName').touched) && form.get('lastName').errors !=null">
+              <li *ngFor="let error of form.get('lastName').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
 
-          <ion-item>
-            <ion-label position="floating">Last name</ion-label>
-            <ion-input
-              formControlName="lastName"
-              clear-input="true"
-            ></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('lastName').dirty || form.get('lastName').touched) && form.get('lastName').errors != null"
-          >
-            <li *ngFor="let error of form.get('lastName').errors.validations">
-              {{ error.message }}
-            </li>
-          </ul>
+          <div class="fieldHolder">
+            <div class="inputLabel">Birthday</div>
+            <ion-datetime id="birthday" class="inputField inputF" displayFormat="MM/DD/YYYY" min="1950-01-01" formControlName="birthday" name="birthday"></ion-datetime>
+            <ul class="validationError"
+              *ngIf=" (form.get('birthday').dirty || form.get('birthday').touched) && form.get('birthday').errors !=null">
+              <li *ngFor="let error of form.get('birthday').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
 
-          <ion-item>
-            <ion-label position="floating">Address</ion-label>
-            <ion-input formControlName="address" clear-input="true"></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('address').dirty || form.get('address').touched) && form.get('address').errors != null"
-          >
-            <li *ngFor="let error of form.get('address').errors.validations">
-              {{ error.message }}
-            </li>
-          </ul>
+          <div class="fieldHolder">
+            <div class="inputLabel">Address</div>
+            <input class="inputField" formControlName="address" name="address">
+            <ul class="validationError"
+              *ngIf="(form.get('address').dirty || form.get('address').touched) && form.get('address').errors != null">
+              <li *ngFor="let error of form.get('address').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
 
-          <ion-list>
-            <ion-radio-group formControlName="gender">
-              <ion-list-header>
-                <ion-label>Gender</ion-label>
-              </ion-list-header>
+          <div class="fieldHolder">
+            <div class="inputLabel">Age</div>
+            <input type="number" class="inputField" formControlName="age" name="age">
+            <ul class="validationError"
+              *ngIf="(form.get('age').dirty || form.get('age').touched) && form.get('age').errors != null">
+              <li *ngFor="let error of form.get('age').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
 
-              <ion-item>
-                <ion-label>Female</ion-label>
-                <ion-radio slot="start" value="Female"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Male</ion-label>
-                <ion-radio slot="start" value="Male"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('gender').dirty || form.get('gender').touched) && form.get('gender').errors != null"
-          >
-            <li *ngFor="let error of form.get('gender').errors.validations">
-              {{ error.message }}
-            </li>
-          </ul>
-          <ion-item>
-            <ion-label position="floating">Age</ion-label>
-            <ion-input formControlName="age" clear-input="true"></ion-input>
-          </ion-item>
-          <ul
-            class="valErr"
-            *ngIf="(form.get('age').dirty || form.get('age').touched) && form.get('age').errors != null"
-          >
-            <li *ngFor="let error of form.get('age').errors.validations">
-              {{ error.message }}
-            </li>
-          </ul>
-          <ion-item>
-            <ion-button [disabled]="!form.valid" type="submit"
-              >Register</ion-button
-            >
-          </ion-item>
+          <div class="fieldHolder">
+
+            <ion-list class="genderSection">
+              <ion-radio-group class="genderSection" formControlName="gender">
+                <ion-list-header>
+                  <ion-label>Gender</ion-label>
+                </ion-list-header>
+
+                <ion-item class="genderSection">
+                  <ion-label>Female</ion-label>
+                  <ion-radio slot="start" value="Female"></ion-radio>
+                </ion-item>
+                <ion-item class="genderSection">
+                  <ion-label>Male</ion-label>
+                  <ion-radio slot="start" value="Male"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+            <ul class="validationError"
+              *ngIf="(form.get('gender').dirty || form.get('gender').touched) && form.get('gender').errors != null">
+              <li *ngFor="let error of form.get('gender').errors.validations">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+          
+          <div class="submitBtnHolder btnToRight">
+            <button class="appBtn ion-activatable ripple-parent" type="submit">Submit
+              <ion-ripple-effect></ion-ripple-effect>
+            </button>
+          </div>
         </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </div>
+    </div>
 </ion-content>

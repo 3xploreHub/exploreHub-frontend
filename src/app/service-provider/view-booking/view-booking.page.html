@@ -1,0 +1,65 @@
+<ion-content>
+  <div [class.noHeader]="booking.isManual" class="container mainLightBg2 pageContent">
+    <div class="headerHolder">
+      <div class="header topHead">
+        <div (click)="goBack()" class="backBtn">
+          <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
+        </div>
+        <div class="optionsTop">
+          <div *ngIf="bookingStatus =='Rejected' || bookingStatus == 'Cancelled'" (click)="editBooking()" class="cancel ion-activatable ripple-parent edit">Edit&nbsp;
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <div *ngIf="bookingStatus == 'Cancelled' || bookingStatus == 'Rejected'" (click)="resubmitConf()" class="cancel ion-activatable ripple-parent edit">Resubmit
+            <ion-ripple-effect></ion-ripple-effect>&nbsp;
+            <ion-icon name="send-outline"></ion-icon>
+          </div>
+          <div *ngIf="bookingStatus !='Unfinished' && bookingStatus !='Cancelled' && bookingStatus !='Closed'  && bookingStatus != 'Rejected'"  class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel&nbsp;
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon name="close-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="header" *ngIf="!booking.isManual">
+        <div class="bookingCont">
+          <ion-icon name="information-circle-outline"></ion-icon>Booking Info
+        </div>
+        <div class="transac">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Conversation
+        </div>
+        <div class="boxHolder">
+          <div class="box" (click)="goTo('Booking Info', 'booking-information', tab)">
+            <div class="active" #tab [ngStyle]="{'left.px': boxPosition}">
+              <div class="shade">
+
+                <ion-icon *ngIf="clickedTab == 'Booking Info'; else transaction" name="information-circle">
+                </ion-icon>
+                <ng-template #transaction>
+                  <ion-icon name="chatbubble-ellipses"></ion-icon>
+                </ng-template>
+                {{clickedTab}}
+              </div>
+            </div>
+          </div>
+          <div class="box" (click)="goTo('Conversation','conversation', tab, {queryParams: {bookingId: booking._id, pageId: booking.pageId._id, receiverId: booking.pageId.creator}})"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dateAndStatus">
+      <div class="dateCreated">
+        {{booking.createdAt | date:'short'}}
+      </div>
+      <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
+        Status:
+        <b>
+          {{booking.status}}
+        </b>
+      </div>
+    </div>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+    <router-outlet></router-outlet>
+  </div>
+ 
+  <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">
+  </app-confirm-popup>
+</ion-content>

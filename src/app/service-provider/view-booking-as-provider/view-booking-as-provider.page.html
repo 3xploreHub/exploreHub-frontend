@@ -1,0 +1,71 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+
+  <div class="container mainLightBg2 pageContent" [class.noHeader]="isManual">
+    <div class="headerHolder boxShadowed2">
+      <div class="header topHead">
+        <div (click)="goBack()" class="backBtn">
+          <ion-icon class="back" name="chevron-back-outline"></ion-icon>Back
+        </div>
+        <div *ngIf="bookingStatus == 'Booked'" class="optionsTop">
+          <div class="cancel edit ion-activatable ripple-parent" (click)="done()">Close
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon class="editIcon" name="checkmark-outline"></ion-icon>
+          </div>
+            <!-- <div class="cancel ion-activatable ripple-parent" (click)="cancel()">Cancel
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-icon class="cancelIcon" name="close-outline"></ion-icon>
+            </div> -->
+        </div>
+      </div>
+      <div class="header" *ngIf="!isManual">
+        <div class="bookingCont">
+          <ion-icon name="information-circle-outline"></ion-icon>Booking Info
+        </div>
+        <div class="transac">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Conversation
+        </div>
+        <div class="boxHolder">
+          <div class="box" (click)="goTo('Booking Info', 'booking-information', tab)">
+            <div class="active" #tab [ngStyle]="{'left.px': boxPosition}">
+              <div class="shade">
+
+                <ion-icon *ngIf="clickedTab == 'Booking Info'; else transaction" name="information-circle">
+                </ion-icon>
+                <ng-template #transaction>
+                  <ion-icon name="chatbubble-ellipses"></ion-icon>
+                </ng-template>
+                {{clickedTab}}
+              </div>
+            </div>
+          </div>
+          <div class="box" (click)="goTo('Conversation','conversation', tab, {queryParams: {bookingId: booking._id, pageId: booking.pageId._id, tourist: booking.tourist._id}})"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dateAndStatus">
+      <div class="dateCreated">
+        {{booking.createdAt | date:'short'}}
+      </div>
+      <div [ngClass]="getStatus(booking.status)" class="bookingStatus">
+        Status:
+        <b>
+          {{booking.status}}
+        </b>
+      </div>
+    </div>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+
+    <router-outlet></router-outlet>
+  </div>
+  <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)">
+  </app-confirm-popup>
+</ion-content>

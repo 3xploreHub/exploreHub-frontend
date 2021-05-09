@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { FooterData } from '../../elementTools/interfaces/footer-data';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -16,13 +16,16 @@ export class LabelledTextComponent implements OnInit {
   @Input() grandParentId: string;
   public footerData: FooterData;
   public lastValue: string = null;
+  public defaults: any[];
   public hasChanges: boolean = false;
   public clickedDone: boolean = false;
   public pending: boolean = false;
+  public showDefaults: boolean = false;
 
   constructor(
     public creator: PageCreatorService,
-    public alert: AlertController
+    public alert: AlertController,
+    public toastController: ToastController,
   ) {
     this.footerData = {
       done: false,
@@ -38,14 +41,23 @@ export class LabelledTextComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.values) {
+    if (this.values && this.values._id) {
       let data = this.values.data
-      this.footerData.done = data.text && data.label ? true: false
-      this.footerData.hasValue = data.text && data.label ? true: false
+      this.footerData.done = data.text && data.label ? true : false
+      this.footerData.hasValue = data.text && data.label ? true : false
       this.footerData.hasId = true;
       this.footerData.isDefault = this.values.default;
+      if (this.values.data.defaultName && this.values.data.defaultName == "category") {
+        this.creator.getDefaultCategories().subscribe(
+          (response: any[]) => {
+            this.defaults = response;
+          }
+        )
+      }
     } else {
-      this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null }, default: false };
+      if (!this.values) {
+        this.values = { _id: "", type: "labelled-text", styles: [], data: { label: null, text: null, defaults: null, referenceId: null }, default: false };
+      }
       this.footerData.message = "Adding Field..."
       this.addComponent(false, this.parent);
     }
@@ -57,13 +69,22 @@ export class LabelledTextComponent implements OnInit {
     this.footerData.hasValue = data.label && data.text ? true : false;
   }
 
+  enterOtherCategory() {
+    setTimeout(() => {
+      this.showDefaults = false;
+      this.values.data.text = null;
+    }, 300);
+  }
 
   renderText(hasChanges = false) {
     this.hasChanges = hasChanges;
     let label = this.values.data.label;
     let text = this.values.data.text;
-    this.values.data.label = label ? label.trim() : null;
-    this.values.data.text = text ? text.trim() : null;
+    if (!this.values.data.defaultName) {
+      this.values.data.label = label ? label.trim() : null;
+      this.values.data.text = text ? text.trim() : null;
+    }
+    
     this.footerData.hasValue = (label || text) || (label && text)
     this.pending = true;
     if (this.footerData.hasValue) {
@@ -71,6 +92,9 @@ export class LabelledTextComponent implements OnInit {
 
         if (this.hasChanges) {
           this.footerData.saving = true;
+          if (this.values.data.defaultName == "category") {
+            this.values.data["category"] = this.values.data.text
+          }
           this.creator.editComponent(this.values, this.grandParentId, this.parentId, this.parent).subscribe(
             (response) => {
               // this.values = response;
@@ -79,7 +103,7 @@ export class LabelledTextComponent implements OnInit {
               this.presentAlert("Oops! Something went wrong. Please try again later!")
             },
             () => {
-              this.footerData.hasValue = this.values.data.label && this.values.data.text? true: false;
+              this.footerData.hasValue = this.values.data.label && this.values.data.text ? true : false;
               this.pending = false
               let done = this.footerData.hasValue && this.clickedDone
               this.clickedDone = false
@@ -161,5 +185,36 @@ export class LabelledTextComponent implements OnInit {
   }
 
 
+  select(category) {
+  }
 
+  async presentToast(message) {
+    if (message == 'Preview') message = "You are in preview mode, click 'edit' button to edit page"
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000
+    });
+    toast.present();
+  }
+
+  editField() {
+    this.creator.clickedComponent = !this.creator.preview && !this.values.data.fixed ? this.values._id : null;
+    if (!this.creator.preview) {
+      if (!this.values.data.fixed) {
+        this.creator.clickedComponent = this.values._id;
+      }
+      else {
+        this.presentToast("Municipality cannot be changed!")
+      }
+    } else {
+      this.presentToast('Preview');
+    }
+  }
+
+  focusOut() {
+    setTimeout(() => {
+
+      this.showDefaults = false
+    }, 300);
+  }
 }

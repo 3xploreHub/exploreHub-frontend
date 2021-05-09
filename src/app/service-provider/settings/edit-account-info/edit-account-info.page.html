@@ -1,0 +1,146 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-title class="header">Update Account Info</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="start">
+          <ion-menu-button content-id="main-content"></ion-menu-button>
+      </ion-buttons> -->
+    <!-- <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()" style="margin-left: 8px;"></ion-icon> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <h3 *ngIf="images.length == 0" text-center>Please Select Image!</h3> -->
+
+  <div class="container">
+    <div class="profile-container">
+      <div class="profile">
+
+        <!-- <div class="profile-background">
+        </div> -->
+
+        <div class="profile-pic-container">
+          <!-- <img id="profile-pic" [src]="'http://localhost:3000/' + profile"> -->
+          <div class="porfileHolder">
+            <div *ngIf="profile" class="profile" [ngStyle]="{'background-image': 'url('+api+profile+')' }">
+            </div>
+
+            <div *ngIf="!profile" class="profile">
+              <ion-icon name="person-outline"></ion-icon>
+            </div>
+          </div>
+          <!-- <img id="profile-pic" [src]="'http://localhost:3000/' + profile"> -->
+        </div>
+
+        <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
+
+        <div class="upload-del-btn">
+          <ion-button *ngIf="!profile" (click)="selectImageSource()" fill="clear" expand="full" color="medium">
+            <ion-icon slot="start" name="camera"></ion-icon>
+            Upload Photo
+          </ion-button>
+          <ion-button *ngIf="profile" [disabled]="!profile" (click)="deleteProfile()" fill="clear" expand="full" color="medium">
+            <ion-icon slot="start" name="trash"></ion-icon>
+            Delete
+          </ion-button>
+        </div>
+
+        <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+          <div class="additional-info">
+            <br>
+            <div style="display: none;">
+
+              <label style="font-size: 18px;"><b>Account</b></label><br><br>
+              
+              <label class="inputLabel" for="email">Email</label>
+              <input   type="email" [className]="emailClass" (keyup)="changeEmail()" id="email" name="email" formControlName="email" [(ngModel)]="userEmail">
+              <div *ngIf="email.invalid && (email.touched || email.dirty)">
+                <p id="error" *ngIf="email.errors.required">Email is required</p>
+                <p id="error" *ngIf="email.errors.email">Please provide valid email</p>
+              </div>
+              
+              <label class="inputLabel" for="phone">Phone</label>
+              <input  type="phone" id="phone" name="phone" formControlName="phone" [(ngModel)]="userPhone">
+              <div *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+                <p id="error" *ngIf="phone.errors.required">Phone is required</p>
+              </div>
+              
+            </div>
+            <!-- <p for="note-change-pass" style="color: gray;"><i>Please input your current password first if you wish to change it!</i></p>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" formControlName="password" [(ngModel)]="userPassword">
+            <div *ngIf="password.invalid && (password.touched || password.dirty)">
+              <p id="error" *ngIf="password.errors.required">Password is required</p>
+              <p id="error" *ngIf="password.errors.minlength">Password must at least 8 characters</p>
+            </div>
+
+            <label for="new password">New Password</label><br>
+            <input type="password" id="newPassword" name="newPassword" formControlName="newPassword" [(ngModel)]="newUserPassword" >
+            <div *ngIf="newPassword.invalid && (newPassword.touched || newPassword.dirty)">
+              <p id="error" *ngIf="newPassword.errors.minlength">Password must at least 8 characters</p>
+            </div> -->
+
+          </div>
+
+          <div class="additional-info">
+            <br>
+            <label style="font-size: 18px;"><b>Personal Information</b></label><br><br>
+            <label class="inputLabel" for="fname">First Name</label>
+            <input type="text" id="fname" formControlName="firstName" name="firstName" [(ngModel)]="userFirstname">
+            <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+              <p id="error" *ngIf="firstName.errors.required">First name is required</p>
+              <p id="error" *ngIf="firstName.errors.minLength">Password must at least 8 characters</p>
+            </div>
+            <!-- <label for="lname">Middle Name</label>
+            <input type="text" id="mname" formControlName="middleName" name="middleName" [(ngModel)]="userMiddlename">
+            <div *ngIf="middleName.invalid && (middleName.touched || middleName.dirty)">
+              <p id="error" *ngIf="middleName.errors.required">Middle name is required</p>
+            </div> -->
+
+            <label class="inputLabel" for="lname">Last Name</label>
+            <input type="text" id="lname" formControlName="lastName" name="lastName" [(ngModel)]="userLastname">
+            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+              <p id="error" *ngIf="lastName.errors.required">Last name is required</p>
+            </div>
+  
+            <label class="inputLabel" for="lname">Age</label>
+            <input type="number" id="age" formControlName="age" name="age" [(ngModel)]="userAge">
+            <div *ngIf="age.invalid && (age.touched || age.dirty)">
+              <p id="error" *ngIf="age.errors.required">Age is required</p>
+              <p id="error" *ngIf="age.errors.min || age.errors.max">Age must less than 100 and greater than 5</p>
+            </div>
+
+            <label class="inputLabel" for="lname">Gender</label><br>
+            <select name="gender" id="gender" (change)="changeGender($event)" formControlName="gender" [ngModel]="userGender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+  
+
+            <!-- <ion-item>
+              <ion-label position="floating">MM/DD/YYYY</ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
+            </ion-item> -->
+
+            <label class="inputLabel" for="birthday">Birthday</label>
+            <ion-datetime id="birthday" displayFormat="MM/DD/YYYY" min="1950-01-01" formControlName="birthday" name="birthday" [(ngModel)]="userBirthday"></ion-datetime>
+  
+            <label class="inputLabel" for="lname">Address</label><br>
+            <input type="text" id="address" formControlName="address" name="address" [(ngModel)]="userAddress">
+            <div *ngIf="address.invalid && (address.touched || address.dirty)">
+              <p id="error" *ngIf="address.errors.required">Middle name is required</p>
+            </div>
+          </div>  
+          
+          <!-- <input type="submit" [disabled]="!updateUserForm.valid || checkIfValuesChange() == false" value="Save Changes"> -->
+          <input type="submit" value="Save Changes">
+
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

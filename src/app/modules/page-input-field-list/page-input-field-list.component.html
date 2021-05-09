@@ -5,31 +5,23 @@
 
         <div class="itemWrapper" (click)="addComponent('text-input')">
           <div class="itemTitle">Add Text Input</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
+          <ion-icon name="text-outline"></ion-icon>
         </div>
 
         <div class="itemWrapper" (click)="addComponent('number-input')">  
           <div class="itemTitle">Add Number Input</div>
-          <div class="itemSample paragraph">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis aperiam vel, expedita nostrum fugiat facilis vero illo perferendis officiis voluptatem. Explicabo, dignissimos ea quisquam tempora distinctio optio maxime? Hic doloribus corrupti dolorum explicabo nisi id sed aliquid velit nihil vitae!
-          </div>
+          <ion-icon name="keypad-outline"></ion-icon>
         </div>
 
         <div [class.hidden]="isInItemList" class="itemWrapper" (click)="addComponent('date-input')">
           <div class="itemTitle">Add Date Input</div>
-          <div class="itemSample imgHolder">
-            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
-          </div>
+          <ion-icon name="calendar-outline"></ion-icon>
         </div>
 
 
         <div class="itemWrapper" (click)="addComponent('choices-input')">
           <div class="itemTitle">Add Choices Input</div>
-          <div class="itemSample imgHolder">
-            <img class="imagePlaceholder" src="assets/images/image-placeholder.png" alt="">
-          </div>
+          <ion-icon name="list-outline"></ion-icon>
         </div>
       </div>
     </div>

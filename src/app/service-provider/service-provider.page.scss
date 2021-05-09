@@ -1,0 +1,170 @@
+
+@import "../../global.scss";
+@import "../../variables.scss";
+* {
+    font-family: lato;
+}
+
+.menu-header-bg {
+    height: 180px;
+    width: 340px;
+    // background: skyblue;
+    // background: linear-gradient(90deg, hsla(199, 100%, 50%, 0.71) 0%, skyblue 100%);
+    // box-shadow: 0px 1px 10px rgb(21, 160, 224);
+    background: rgb(6, 170, 235);
+    // background: linear-gradient(90deg, rgb(21, 127, 233), rgb(122, 229, 236));
+    background-image:$gradient;
+    // box-shadow: 0px 1px 10px rgb(21, 224, 190);
+    // border-radius: 10px 10px 10px 50px;
+    margin-left: -18px;
+    margin-top: -50px;
+    // margin-bottom: 8px;
+}
+
+.header-content {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    align-items: flex-start;
+    .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-top: 18px !important;
+        margin-right: 20px;
+        flex-shrink: 0;
+        box-shadow: 0 1px 5px rgb(30, 115, 169);
+        // border: 1px solid white;
+        background-size: cover;
+        background-position: center;
+    }
+    h2 {
+        font-weight: normal;
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 13px;
+        // color: rgb(11, 67, 124);
+        color:#ffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    p {
+        font-size: 12px;
+        // color: rgb(97, 97, 97);
+        color:rgb(206, 231, 255) !important;
+        font-weight: 400;
+        letter-spacing: 0.4px;
+        margin-left: 2px;
+        font-size: 17px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+.menu-items {
+    padding-right: 10px;
+    padding-top: 0;
+    margin: 0px;
+    ion-icon {
+        color: rgb(106, 127, 158);
+        position: absolute;
+        font-size: 25px;
+        padding-left:5px;
+
+    }
+    ion-item {
+        transition: .5s;
+        font-family: lato !important;
+        padding-left: 0px;
+        margin-bottom: 5px;
+        margin-left: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(106, 127, 158);
+    }
+
+  
+    ion-label {
+        margin-left: 50px;
+        font-weight: normal;
+    }
+}
+
+.active {
+    color: rgb(0, 153, 255) !important;
+
+    ion-icon {
+        color: rgb(0, 140, 255) !important;
+    }
+}
+
+.serve {
+    text-align: left;
+    color:rgb(71, 99, 128) !important;
+    font-size: 10px;
+}
+
+
+.logout {
+    // border-top: 1px solid rgb(177, 177, 177) !important;
+    color: rgb(160, 159, 159) !important;
+
+    ion-icon {
+        color: rgb(160, 159, 159) !important;
+    }
+}
+
+.divider {
+    border-top: 1px solid rgb(177, 177, 177) !important;
+}
+.profilePic {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    position: absolute;
+    top:10px;
+    background-color: rgb(191, 209, 231);
+    overflow:hidden;
+    // font-size: 25px;
+    // padding-left:5px;
+    
+    .pic {
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ion-icon {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            color: lightslategrey;
+        }
+    }
+}
+
+.accType {
+    font-size: 10px;
+    position: absolute;
+    margin:0;
+    text-align: right;
+    padding:5px;
+    padding-top: 0;
+    font-weight: normal;
+    color:rgb(109, 163, 207);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    bottom: -3px;
+    left: 46px;
+}
+
+.accHolder {
+    padding-bottom: 10px !important;
+    overflow:visible !important;
+
+}
+
+.input-wrapper {
+    overflow:visible !important;
+}

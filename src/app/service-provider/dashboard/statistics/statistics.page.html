@@ -1,0 +1,165 @@
+<!-- <div class="menu boxShadowed">
+  <div class="tab">Services Statistics</div>
+  <div class="tab">Income Statistics</div>
+</div> -->
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+<div (click)="clickOutside($event)">
+  <div class="itemList boxShadowed" *ngFor="let service of services">
+    <div class="percent totalPercentage">
+      <div class="percentBar"
+        [ngStyle]="{width: getServiceTotalPercentage(getTotalOccupied(service.data), getTotalQuantity(service)) +'%'}">
+        <div
+          [ngStyle]="{width: getServiceTotalPercentage(getPendingTotal(service.data), getTotalOccupied(service.data)) +'%'}"
+          class="pendingPercent"></div>
+        <div
+          [ngStyle]="{width: getServiceTotalPercentage(getProcessingTotal(service.data), getTotalOccupied(service.data)) +'%'}"
+          class="processingPercent"></div>
+        <div
+          [ngStyle]="{width: getServiceTotalPercentage(getBookedTotal(service.data, true), getTotalOccupied(service.data))  +'%'}"
+          class="manaullyBookedPercent"></div>
+      </div>
+    </div>
+    <div class="itemName">
+      <div class="name">
+        {{service.data[0].data.text}}
+      </div>
+      <div class="expandList" (click)="expandList = service._id">
+        <span>
+          Expand
+        </span>
+        <ion-icon name="expand-outline"></ion-icon>
+      </div>
+
+    </div>
+
+    <div class="body">
+      <div class="numStatus">
+        <!-- <div class="quant totalTL">Total</div> -->
+        <div class="quant">
+          <p class="qlabel">Quantity</p>
+          <p class="num">{{getTotalQuantity(service)}}</p>
+          <div class="totalQuantity legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">Approved</p>
+          <p class="num">{{getBookedTotal(service.data)}}</p>
+          <div class="bookedOnline legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">Processing</p>
+          <p class="num">{{getProcessingTotal(service.data)}}</p>
+          <div class="toBeBooked legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">Pending</p>
+          <p class="num">{{getPendingTotal(service.data)}}</p>
+          <div class="pending legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">On-site</p>
+          <p class="num">{{getBookedTotal(service.data, true)}}</p>
+          <div class="bookedManual legend"></div>
+        </div>
+        <div class="quant">
+          <p class="qlabel">Available</p>
+          <p class="num">{{getTotalQuantity(service) - getTotalOccupied(service.data)}}</p>
+          <div class="available legend"></div>
+        </div>
+      </div>
+      <div class="items">
+        <div [class.expand]="expandList == service._id">
+          <div class="searchItem">
+            <p (click)="expandList = service._id">
+              {{countServices(service) + ' item'+(countServices(service) > 0? 's': '')}}
+            </p>
+            <input *ngIf="countServices(service) > 10" type="text" placeholder="Search">
+          </div>
+          <div class="holder" *ngIf="expandList == service._id" class="expandMenu boxShadowed2">
+            <p>
+              <b>
+                {{service.data[0].data.text}}
+              </b>
+            </p>
+            <p (click)="expandList = null" class="close">Close</p>
+          </div>
+          <div [class.fullWidth]="expandList == service._id" class="scrollable">
+            <!-- (click)="clickItem($event);itemClicked? itemClicked = null: itemClicked = item._id; updateClicked = false" -->
+            <div (click)="clickItemToUpdate(item, service)" class="item ion-activatable ripple-parent"
+              *ngFor="let item of filterItem(service.data); let i = index" [ngClass]="{fadeItem: itemClicked != item._id && itemClicked,
+                  focusItem: itemClicked == item._id  }">
+              <ion-ripple-effect></ion-ripple-effect>
+              <div class="percent itemsPercent">
+                <div class="percentBar" [ngStyle]="{width: getPercentage(item)+'%'}">
+                  <div [ngStyle]="{width: getPendingPercent(item) +'%'}" class="pendingPercent"></div>
+                  <div [ngStyle]="{width: getProcessingPercent(item) +'%'}" class="processingPercent"></div>
+                  <div [ngStyle]="{width: getPercentage(item, true) +'%'}" class="manaullyBookedPercent"></div>
+                </div>
+              </div>
+
+              <div class="popupHolder">
+                <div [class.first]="i < 2" (click)="clickItem($event)" *ngIf="itemClicked == item._id"
+                  class="updateItem">
+                  <div *ngIf="!updateClicked" class="popupMenu">
+                    <span class="ion-activatable ripple-parent">View
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
+                    <span class="ion-activatable ripple-parent" (click)="clickItemToUpdate(item, service._id)">Update
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div>
+                <div class="itemTitle">
+                  <div>
+                    {{getItemName(item)}}
+                  </div>
+                  <div style="display: flex;">
+                    <div class="statFract">
+                      {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked?
+                      item.toBeBooked:0)
+                      + (item.pending? item.pending: 0)}}/{{getValue(item.data, 'quantity')}}
+                    </div>&nbsp;
+                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                  </div>
+                  <!-- <div class="editIcon ion-activatable ripple-parent">
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-ripple-effect></ion-ripple-effect>
+                  </div> -->
+
+                </div>
+                <!-- <div class="itemStats"> -->
+                <!-- {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}/{{getValue(item.data, 'quantity')}} -->
+                <!-- <div class="statsNum">
+                    <span>
+                      Quantity
+                    </span>
+                    {{getValue(item.data, 'quantity')}}
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Taken
+                    </span>
+                    {{item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)}}
+                  </div>
+                  <div class="statsNum withBorder">
+                    <span>
+                      Available
+                    </span>
+                    {{getValue(item.data, 'quantity') != 'Unli.' ? getValue(item.data, 'quantity') - (item.booked + (item.manuallyBooked? item.manuallyBooked:0) + (item.toBeBooked? item.toBeBooked:0)):
+                    'Unli.'}}
+                  </div> -->
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-update-item-popup [data]="modalData" [show]="updateItem" (close)="modalClosed()">
+  </app-update-item-popup>
+</div>

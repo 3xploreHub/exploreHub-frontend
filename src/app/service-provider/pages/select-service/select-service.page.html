@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select services</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <div class="selectedServices mainLightBg2">
+      <div class="sectionTitle">Selected Services</div>
+      <app-selected-service-card (changeItem)="changeItem($event)" *ngFor="let item of booking.selectedServices" [item]="item"></app-selected-service-card>
+      <div class="notItemSelected" *ngIf="booking.selectedServices.length == 0">Not item selected</div>
+    </div>
+    <div class="notSelected">
+      <div *ngIf="notSelected.length > 0" class="sectionTitle selectMore">Select {{booking.selectedServices.length > 0 ? "other": ""}} services</div>
+      <ng-template #services></ng-template>
+    </div>
+    <div class="bookSectionCont">
+      <div (click)="bookNow()" class="bookSection ion-activatable ripple-parent boxShadowed2">
+        <p>Book Now</p>
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+  </div>
+</ion-content>

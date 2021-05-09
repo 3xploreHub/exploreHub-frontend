@@ -1,9 +1,52 @@
 .itemWrapper {
     padding: 5px;
     background-color: #ffff;
-    border:1px solid lightgray;
     width:200px;
-    margin:5px;
-    align-self: stretch;
-    // height: 100%;
+    margin:6px; 
+    border-radius: 2px;
+    overflow: hidden;
+    max-height: 430px;
+    overflow: hidden;
+    position:relative;
+
+    .footerDiv {
+        background-color:#ffff;
+        width:100%;
+        bottom:-3px;
+        z-index: 99;
+        margin:0;
+        right: 0;
+        left:0;
+        position: absolute;
+    }
+}
+
+.hasPaddingBottom {
+    padding-bottom: 40px !important;
+
+}
+
+.seeMore {
+    background-color: #ffff;
+    color:rgb(0, 128, 255);
+}
+
+.noAvailable {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-color: rgba(255, 255, 255, .4);
+    display: flex;
+    align-items:flex-start;
+    justify-content: center;
+    p {
+        background-color: rgba(223, 3, 3, 0.7);
+        color:rgb(255, 255, 255);
+        padding:8px;
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+    }
 }

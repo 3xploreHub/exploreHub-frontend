@@ -1,0 +1,22 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tourist Spots</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content>
+  <app-header-menu [currentCategory]="category" (changeCategory)="onChangeCategory($event)" [notificationsCount]="notificationsCount" [categories]="categories"></app-header-menu>
+    <div class="wrapper lightBackground">
+      <div class="pagesCont">
+        <app-page-card *ngFor="let page of pages" (viewPage)="viewPage($event)" [page]="page"></app-page-card>
+      </div>
+    </div>
+    <div class="empty" *ngIf="pages.length == 0 && !loading">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
+</ion-content>

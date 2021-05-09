@@ -1,0 +1,11 @@
+<div class="content">
+  <div *ngFor="let value of inputValues">
+    <div *ngIf="value.settings && value.settings.multiple; else singleData">
+      <app-bullet-form-text-display [values]="makeComponent(value)"></app-bullet-form-text-display>
+    </div>
+    <ng-template #singleData>
+      <app-labelled-text-display [isDate]="value.inputFieldType == 'date-input'" [values]="makeComponent(value)"></app-labelled-text-display>
+    </ng-template>
+  </div>
+  <div *ngIf="inputValues.length == 0" class="notItemSelected noInfo">No booking info</div>
+</div>

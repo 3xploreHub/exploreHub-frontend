@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="lightBackground">
+    <div class="topMenu">
+      <div (click)="goBack()" class="topCol backIcon ion-activatable ripple-parent ">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+      <div class="topCol">
+        <div class="ion-activatable ripple-parent smIcon" (click)="goTo(['/service-provider/notifications'], {queryParams: {formDashboard: true}})">
+          <ion-icon  name="notifications-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+          <div *ngIf="notificationsCount && notificationsCount != 0" class="notifCount">{{notificationsCount}}</div>
+        </div>&nbsp;&nbsp;
+        <div (click)="goTo(['/service-provider/page-conversations'], {queryParams: {pageId: page._id, creator: page.creator}})" class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>&nbsp;&nbsp;
+        <div (click)="viewStats()" class="ion-activatable ripple-parent smIcon">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>  &nbsp;&nbsp;
+        <div class="ion-activatable ripple-parent smIcon" (click)="goTo(['/service-provider/page-settings', page._id], {queryParams: {test: true}})">
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
+    <div class="boardHeader ion-activatable ripple-parent" (click)="viewPage(e)">
+      <div class="boardPhotoHolder">
+        <div class="boardPhoto"
+          [ngStyle]="{'background-image': page.components.length > 0 && page.components[0].data.length > 0? 'url('+page.components[0].data[0].url+')' : '' }">
+        </div>
+      </div>
+      <div>
+        <div class="pageName">{{name}}</div>
+        <div class="status" [ngClass]="getStatus()">
+          <div class="statusCircle"></div>
+          {{page.status}}
+        </div>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+<!-- 
+    <div class="csTabs boxShadowed">
+      <div class="csTab">Booked
+      </div>
+      <div class="csTab">Pending</div>
+      <div class="csTab">Statistics</div>
+
+      <div class="activeIndicator">
+        <div [routerLink]="['booking']" (click)="goToSection('Booked', tab)" class="csTab">
+          <div  class="box" #tab [ngStyle]="{'left.px': boxPosition}">
+            <div class="shadow">{{clickedTab}}</div>
+          </div>
+        </div>
+        <div [routerLink]="['booking']" (click)="goToSection('Pending', tab)" class="csTab"></div>
+        <div [routerLink]="['statistics']" (click)="goToSection('Statistics', tab)" class="csTab"></div>
+      </div>
+    </div> -->
+    <div class="tabsHolder" >
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</ion-content>

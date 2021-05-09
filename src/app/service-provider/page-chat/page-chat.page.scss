@@ -1,0 +1,68 @@
+.inputMessageHolder {
+    padding:5px;
+    width:100%;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right:0;
+    display: flex;
+    background-color: rgb(150, 195, 240);
+
+
+    .inputMessage {
+        width: 100%;
+        margin:0;
+        border-radius: 4px;
+        background-color: #ffff;
+        border:1px solid rgb(154, 173, 197);
+        max-height: 100px;
+        
+    }
+
+    .send {
+        flex-shrink: 0;
+        display: flex;
+        margin-left:5px;
+        border-radius: 4px;
+        padding:0 20px;
+        background-color: rgb(195, 215, 236);
+        justify-content: center;
+        align-items: center;
+    }
+    
+
+}
+.reportHolder {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(224, 224, 224);
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.picture {
+    height: 100px;
+    width:100px;
+    // background-color: red;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.pageContainer {
+    box-sizing: none;
+    padding-top: 20px;
+    // padding-bottom: 10px;
+    padding-bottom: 0 !important;
+    // height: 400px;
+    overflow: scroll;
+}
+
+.noMessages {
+    text-align: center;
+    color:rgb(159, 173, 184);
+}

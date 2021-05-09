@@ -1,17 +1,15 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event, info, services, tab)">
-    <div class="creator">
+    <div class="creator mainLightBg2">
         <div #info>
             <ng-template #pageElement></ng-template>
             <br />
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add other information.</h6>
-                <p>Click <b>Add Field</b> to select component that you can use to present other information about the
-                    tourist
-                    spot.</p>
-                <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Field
+                <p>Click <b>Add Information</b> to select component that you can use to present other information about the
+                    tourist spot.</p>
+                <div class="addComponentBtn ion-activatable ripple-parent" (click)="showComponentList()">Add Information
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
-
             </div>
         </div>
         <br />
@@ -24,75 +22,96 @@
 
             <div *ngIf="!creator.preview" class="addInfo">
                 <h6>Add services or something you offer.</h6>
-                <p>Click <b>Add Field</b> to select component that you can use to present other services or facilities
-                    that
-                    you
-                    offer that tourists can avail.</p>
+                <p>Click <b>Add Service</b> to select component that you can use to present other services or facilities
+                    that you offer that tourists can avail.</p>
                 <div class="addComponentBtn services ion-activatable ripple-parent"
                     (click)="showServicesComponentList()">
-                    Add Field
+                    Add Service
                     <ion-ripple-effect></ion-ripple-effect>
                 </div>
 
             </div>
         </div>
         <div #booking class="servicesSection bookingInfoSection">
-            <div class="divider">
-                <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
-            </div>
-            <ng-template #pageInputField></ng-template>
-            <div *ngIf="!creator.preview" class="addInfo">
-                <h6>Add needed informations for booking.</h6>
+            <div class="innerHolder">
 
-                <p>Click <b>Add Field</b> to select input fields that you can use to ask tourists some information that
-                    they
-                    need to provide to make an arrangement.</p>
-                <div class="addComponentBtn bookingBtn ion-activatable ripple-parent" (click)="showInputFieldList()">
-                    Add Field
-                    <ion-ripple-effect></ion-ripple-effect>
+                <div class="divider">
+                    <h4>{{preview? "Book Now!" : "Booking Information"}}</h4>
+                </div>
+                <ng-template #pageInputField></ng-template>
+                <div *ngIf="!creator.preview" class="addInfo">
+                    <h6>Add needed informations for booking.</h6>
+                    <p>Click <b>Add Input Field</b> to select input fields that you can use to ask tourists some information
+                        that
+                        they
+                        need to provide to make an arrangement.</p>
+                    <div class="addComponentBtn bookingBtn ion-activatable ripple-parent"
+                        (click)="showInputFieldList()">
+                        Add Input Field
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
                 </div>
 
             </div>
-
-
         </div>
-        <div class="menu">
-            <div class="exit">
-                <ion-icon class="icons" name="arrow-back-circle-outline"></ion-icon>&nbsp;Back
+        
+        <div class="btnHolder" *ngIf="page && page.status == 'Unfinished'; else submitted">
+            <div (click)="submit()" class="submitPage btnStyle ion-activatable ripple-parent">
+                Submit Page
+                <ion-ripple-effect></ion-ripple-effect>
             </div>
-            <!-- Tourist Spot -->
+        </div>
+        <ng-template #submitted>
+            <div class="submitted">
 
-            <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
-                (click)="creator.preview = !creator.preview">
-                <ion-icon class="icons" name="create-outline"></ion-icon>&nbsp;Edit
+                <div [ngClass]="getStatus()">
+                    <b>Status:</b>{{page.status}}
+                </div>
+            </div>
+        </ng-template>
+        <div class="menu">
+            <div class="exit ion-activatable ripple-parent" (click)="exit()">
+                <ion-icon class="icons" name="chevron-back-outline"></ion-icon>&nbsp;Back
                 <ion-ripple-effect></ion-ripple-effect>
             </div>
-            <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent"
-                (click)="creator.preview = !creator.preview">
-                <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview / Test
-                <ion-ripple-effect></ion-ripple-effect>
+            <p class="pageTitle">
+                {{creator.pageType == 'service'? 'Service Page': 'Tourist Spot Page'}}
+            </p>
+            <div class="preview" *ngIf="loading; else doneLoading">
+                <ion-spinner color="white" name="lines-small"></ion-spinner>
+                <div class="saving">Loading</div>
             </div>
-            <div class="submit">
-                Submit&nbsp;<ion-icon name="send-outline"></ion-icon>
-            </div>
+            <ng-template #doneLoading>
+                <div *ngIf="creator.preview" class="preview ion-activatable ripple-parent"
+                    (click)="creator.preview = !creator.preview">
+                    <ion-icon class="icons" name="create-outline"></ion-icon>&nbsp;Edit
+                    <ion-ripple-effect></ion-ripple-effect>
+                </div>
+                <div *ngIf="!creator.preview" class="preview ion-activatable ripple-parent" (click)="previewPage()">
+                    <ion-icon class="icons" name="eye-outline"></ion-icon>&nbsp;Preview
+                    <ion-ripple-effect></ion-ripple-effect>
+                </div>
+            </ng-template>
         </div>
 
         <div class="tabs">
-            <div class="tab" (click)="scroll(info,'info', tab)">
+            <div class="tab" [ngClass]="{dark: active == 'info'}" (click)="goToSection(info,'info', tab)">
                 Info
             </div>
-            <div class="tab" #tab (click)="scroll(services, 'services', tab)">
+            <div class="tab" [class.dark]="active == 'services'" #tab (click)="goToSection(services, 'services', tab)">
                 Services
             </div>
-            <div class="tab" (click)="scroll(booking, 'booking', tab)">
+            <div class="tab" [class.dark]="active == 'booking'"(click)="goToSection(booking, 'booking', tab)">
                 Booking
             </div>
         </div>
 
         <div class="boxHolder">
             <div class="boxes">
-                <div #box class="box" [ngStyle]="{'left.px': boxPosition}">
+                <div #box class="box  ion-activatable ripple-parent" [ngStyle]="{'left.px': boxPosition}">
                     <div class="active"></div>
+                    <ion-ripple-effect></ion-ripple-effect>
+
                 </div>
             </div>
             <div class="boxes">
@@ -101,6 +120,40 @@
             <div class="boxes"></div>
         </div>
 
-    </div>
+        <div class="csmodal" *ngIf="showUnfilled">
 
+            <div class="errHeader">
+                <span>Please fill up or finish the following field(s) to be able to {{submitting? 'submit' :
+                    'preview'}}</span>
+                <ion-icon name="close-outline" class="closeErr" (click)="showUnfilled = false"></ion-icon>
+            </div>
+            <div class="modalCont">
+                <div class="holder" *ngIf="unfilledFields.components.length > 0">
+                    <b>
+                        Info
+                    </b>
+                    <div class="fieldHolder">
+                        <div class="field" *ngFor="let type of unfilledFields.components">{{type}}</div>
+                    </div>
+                </div>
+                <div class="holder" *ngIf="unfilledFields.services.length > 0">
+                    <b>
+                        Services
+                    </b>
+                    <div class="fieldHolder">
+                        <div class="field" *ngFor="let type of unfilledFields.services">{{type}}</div>
+                    </div>
+                </div>
+                <div class="holder" *ngIf="unfilledFields.bookingInfo.length > 0">
+                    <b>
+                        Booking
+                    </b>
+                    <div class="fieldHolder">
+                        <div class="field" *ngFor="let type of unfilledFields.bookingInfo">{{type}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-confirm-popup [popupData]="popupData"  (clicked)="clicked($event)"></app-confirm-popup>
 </ion-content>

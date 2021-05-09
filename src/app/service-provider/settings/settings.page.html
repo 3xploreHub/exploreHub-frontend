@@ -1,0 +1,87 @@
+<!-- <ion-header [translucent]="false">
+  <ion-toolbar>
+      <ion-title class="header">My Account</ion-title>
+      <ion-icon slot="start" name="arrow-back-outline" id="account-back-btn" (click)="back()"></ion-icon>
+  </ion-toolbar>
+</ion-header> -->
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start" *ngIf="!formDashboard; else backBtn">
+        <ion-menu-button content-id="main-content"></ion-menu-button>
+      </ion-buttons>
+  
+      <ng-template #backBtn>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/service-provider/online-pages-list" icon="chevron-back-outline"></ion-back-button>
+        </ion-buttons>
+      </ng-template>
+      <ion-title>My Account</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <div class="container">
+      <div class="profile-container">
+          <div class="profile">
+              <div id="additional-div">
+                  <ion-icon (click)="editAccountInfo()" name="create-outline"></ion-icon>
+              </div>
+              <div class="profile-pic-container">
+                  <div id="profile-pic">
+                    <div *ngIf="profile" class="pic" [ngStyle]="{'background-image': 'url('+api+profile+')' }">
+                    </div>
+                    <div *ngIf="!profile" class="pic">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                  </div>
+                    <!-- <img id="profile-pic" [src]="'http://localhost:3000/' + profile"> -->
+              </div>
+              <div class="profile-pic-container" ></div>
+              <h3 class="fullname" style="text-transform: capitalize;"><b>{{firstname}} {{middlename}} {{lastname}}</b></h3>
+              <div class="contact-info-container">
+                  <p>{{email}}</p>
+                  <p>{{phone}}</p>
+              </div>
+
+              <div class="additional-info">
+                  <ion-row>
+                      <ion-col size="4">
+                          <label for="address"><b>Address:</b></label>
+                      </ion-col>
+                      <ion-col>
+                          <label for="address-val" style="text-transform: capitalize;">{{address}}</label>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col size="4">
+                          <label for="age"><b>Age:</b></label>
+                      </ion-col>
+                      <ion-col>
+                          <label for="age-val">{{age}}</label>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col size="4">
+                          <label for="gender"><b>Gender:</b></label>
+                      </ion-col>
+                      <ion-col>
+                          <label for="gender-val">{{gender}}</label>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col size="4">
+                          <label for="gender"><b>Birthday:</b></label>
+                      </ion-col>
+                      <ion-col>
+                          <label for="gender-val">{{birthday | date:'longDate'}}</label>
+                      </ion-col>
+                  </ion-row>
+              </div>
+              <div class="btnStyle" (click)="goTo()">
+                Change password
+                <ion-ripple-effect></ion-ripple-effect>
+              </div>
+          </div>
+      </div>
+  </div>
+</ion-content>

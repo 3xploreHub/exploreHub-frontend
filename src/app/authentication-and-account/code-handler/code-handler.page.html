@@ -1,30 +1,24 @@
 <ion-card>
-  <ion-card-content *ngIf="pendingCode">
-    <ion-item>
-      <h3>Enter code here to reset password</h3>
-    </ion-item>
+  <ion-card-content style="flex-shrink: 0;" *ngIf="pendingCode">
+    <div>
+      <h3>{{atVerification? "Enter verification code here": "Enter code here to reset password"}}</h3>
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating" for="code">Code</ion-label>
-        <ion-input
-          clear-input="true"
-          name="code"
-          formControlName="code"
-        ></ion-input>
-      </ion-item>
-      <ul
-        class="valErr"
-        *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null"
-      >
-        <li *ngFor="let error of form.get('code').errors.validations">
-          {{ error.message }}
-        </li>
-      </ul>
-      <ion-item>
-        <ion-button [disabled]="form.get('code').errors != null" type="submit"
-          >Submit</ion-button
-        >
-      </ion-item>
+      <div class="fieldHolder noMarginBottom">
+        <div class="inputLabel">Code</div>
+        <input class="inputField" name="code"  autocomplete="off" formControlName="code">
+        <ul class="validationError"
+          *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null">
+          <li *ngFor="let error of form.get('code').errors.validations">
+            {{ error.message }}
+          </li>
+        </ul>
+      </div>
+      <div class="btnHolder">
+        <button class="appBtn ion-activatable ripple-parent" [disabled]="form.get('code').errors != null" type="submit">Submit
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
     </form>
   </ion-card-content>
 </ion-card>
@@ -34,16 +28,13 @@
       <!-- <p slot="start">{{i + 1}}</p> -->
       <ion-icon name="key-outline" slot="start"></ion-icon>
       sent to {{ code.sentTo }}
-      <span
-        style="
+      <span style="
           font-weight: bold;
           padding-left: 5px;
           margin-left: 5px;
           border-left: 1px solid lightgray;
-        "
-        >{{ 'will expire after '+(code.displayTime != undefined ?
-        code.displayTime: '00:00')}}</span
-      >
+        ">{{ 'will expire after '+(code.displayTime != undefined ?
+        code.displayTime: '00:00')}}</span>
     </ion-item>
   </ion-card-content>
 </ion-card>

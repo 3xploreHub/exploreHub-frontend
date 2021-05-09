@@ -17,6 +17,8 @@ export class ItemListDisplayComponent implements OnInit {
   @Input() values: ElementValues;
   @Output() onHasUpdate: EventEmitter<ElementValues> = new EventEmitter();
   @ViewChild('listInfo', { read: ViewContainerRef }) listInfo: ViewContainerRef;
+  @Output() onRender: EventEmitter<any> = new EventEmitter();
+  @Output() emitEvent: EventEmitter<any> =  new EventEmitter();
 
   components = {
     'item': ItemDisplayComponent,
@@ -29,6 +31,7 @@ export class ItemListDisplayComponent implements OnInit {
     public creator: PageCreatorService,) { }
 
   ngOnInit() {
+    this.onRender.emit();
     setTimeout(() => {
       if (this.values.data.length > 0) {
         this.setService(this.values.data)
@@ -58,6 +61,8 @@ export class ItemListDisplayComponent implements OnInit {
         comp.instance.values = componentValues;
         comp.instance.parentId = this.values._id;
         comp.instance.parent = parent;
+        comp.instance.emitEvent = new EventEmitter();
+        comp.instance.emitEvent.subscribe(itemId => this.emitEvent.emit({itemId: itemId, serviceId: this.values._id}));
       }
     }
   }

@@ -1,4 +1,4 @@
-<div class="holder">
+<div class="holder whiteBg" [class.onItemStyleList]="parent == 'component'">
   <div class="label">{{values.data.label}}</div>
   <div *ngIf="values.data.orderedList; else unordered">
     <ol>

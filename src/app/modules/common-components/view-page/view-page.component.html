@@ -1,0 +1,48 @@
+<div (scroll)="scroll($event)">
+  <div class="creator mainLightBg2 pageView">
+    <div #info>
+      <ng-template #pageElement></ng-template>
+    </div>
+
+
+    <div #services class="servicesSection">
+      <div class="divider">
+        <h4>Services And Offers</h4>
+      </div>
+      <ng-template #pageService></ng-template>
+    </div>
+
+
+    <div #booking class="servicesSection bookingInfoSection">
+      <div class="divider">
+        <h4>Book Now!</h4>
+      </div>
+      <ng-template #pageInputField></ng-template>
+    </div>
+
+    <div class="tabs">
+      <div class="tab" (click)="goToSection(info,'info', tab)">
+        Info
+      </div>
+      <div class="tab" #tab (click)="goToSection(services, 'services', tab)">
+        Services
+      </div>
+      <div class="tab" (click)="goToSection(booking, 'booking', tab)">
+        Book
+      </div>
+    </div>
+
+    <div class="boxHolder">
+      <div class="boxes">
+        <div #box class="box ion-activatable ripple-parent" [ngStyle]="{'left.px': boxPosition}">
+          <div class="active"></div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+      <div class="boxes">
+
+      </div>
+      <div class="boxes"></div>
+    </div>
+  </div>
+</div>

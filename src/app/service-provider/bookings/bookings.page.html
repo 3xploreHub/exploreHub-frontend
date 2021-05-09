@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content-id="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{status != "Unfinished"? "Bookings":"Draft Bookings"}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container lightBackground">
+    <div class="empty" *ngIf="bookings.length == 0 && !loading">
+      <div class="iholder">
+        <ion-icon name="folder-open-outline"></ion-icon>
+      </div>
+      <p>There's nothing here.</p>
+    </div>
+    <!-- <div class="topTab boxShadowed2" *ngIf="status != 'Unfinished'">
+      <p [routerLink]="['/service-provider/bookings', 'Pending']">Pending</p>
+      <p [routerLink]="['/service-provider/bookings', 'Booked']">Booked</p>
+      <p [routerLink]="['/service-provider/bookings', 'Closed']">Closed</p>
+    </div> -->
+    <app-option-popup [show]="showOption" [cantDelete]="cantDelete" (clickOpt)="clickOpt($event)"></app-option-popup>
+
+    <app-booking-card (displayOption)="displayOption($event)" (view)="viewBooking($event)" *ngFor="let booking of bookings" [booking]="booking">
+    </app-booking-card>
+  </div>
+</ion-content>
