@@ -204,18 +204,32 @@ export class EditAccountInfoPage implements OnInit {
       birthday: this.userBirthday,
     };
 
-    console.log("FORMVALUES: ", formValuesNoUpdatePassword)
-    if (this.checkIfValuesChange() == true) {
+    if(this.checkIfValuesChange() == true) {
+      this.presentAlert("Your changes saved successfully!");
       let updated = this.settingsService.updateUserInfo(
         formValuesNoUpdatePassword
       );
       updated.subscribe((user: any) => {
-        this.router.navigate(['/service-provider/settings']);
-        this.mainService.checkCurrentUser.emit()
+        this.getUserInfo();
         return user;
       });
-      this.getUserInfo();
+    }else if(this.checkIfValuesChange() == false) {
+      this.presentAlert("You don't have changes of your personal information!");
     }
+
+
+    // console.log("FORMVALUES: ", formValuesNoUpdatePassword)
+    // if (this.checkIfValuesChange() == true) {
+    //   let updated = this.settingsService.updateUserInfo(
+    //     formValuesNoUpdatePassword
+    //   );
+    //   updated.subscribe((user: any) => {
+    //     this.router.navigate(['/service-provider/settings']);
+    //     this.mainService.checkCurrentUser.emit()
+    //     return user;
+    //   });
+    //   this.getUserInfo();
+    // }
   }
 
   changeEmail() {

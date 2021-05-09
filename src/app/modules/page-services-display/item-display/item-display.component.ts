@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { MainServicesService } from 'src/app/service-provider/provider-services/main-services.service';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
 import { ElementValues } from '../../elementTools/interfaces/ElementValues';
 import { PageCreatorService } from '../../page-creator/page-creator-service/page-creator.service';
@@ -35,7 +36,8 @@ export class ItemDisplayComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     public componentFactoryResolver: ComponentFactoryResolver,
-    public creator: PageCreatorService
+    public creator: PageCreatorService,
+    public mainService: MainServicesService
   ) {
     this.values = {
       data: [],
@@ -52,6 +54,11 @@ export class ItemDisplayComponent implements OnInit {
         this.setPage(this.values.data)
       }
     // }, 400);
+    this.mainService.notification.subscribe(
+      (data: any) => {
+       
+      }
+    )
   }
 
   setPage(component) {

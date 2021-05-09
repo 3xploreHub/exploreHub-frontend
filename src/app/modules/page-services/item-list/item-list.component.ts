@@ -1,3 +1,4 @@
+
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AlertController, IonSlides, ModalController, ToastController } from '@ionic/angular';
 import { ElementComponent } from '../../elementTools/interfaces/element-component';
