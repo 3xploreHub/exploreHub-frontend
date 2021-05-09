@@ -14,28 +14,21 @@
 .appLogo {
   height:80px;
   width:80px;
-  background-color: white;
-  border-radius: 6px;
+  // background-color: white;
+  border-radius: 50%;
+  // border: 7px solid white;
+  // border-bottom: 1px solid rgb(78, 202, 255);
   overflow:hidden;
-  border: 1px solid white;
-  // border-radius: 50%;
-  // display: flex;
-  // // overflow:hidden;
-  // align-items: center;
-  // justify-content: center;
+  // background-color: rgb(101, 222, 255);
+  background-image: linear-gradient(to right, rgb(0, 200, 255),rgb(78, 249, 255));
+  // border-left: 2px solid white;
+  // border: 3px solid white;
+  
+  // box-shadow: 0 1px 5px rgb(71, 105, 127);
   position: relative;
-  // background-image: linear-gradient(to top, rgb(192, 217, 241),rgb(255, 255, 255));
-  background-color: white;
+  // background-color: white;
 
-  .circle {
-    width: 37px;
-    height: 37px;
-    top: 19px;
-    border: 8px solid rgb(132, 193, 253);
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1;
-}
+
  
       ion-icon {
         z-index: 2;
@@ -46,27 +39,42 @@
       }
 
       .line {
-        height: 12px;
+        height: 7px;
         width: 35px;
-        // border-radius: 30px;
-        left: -5px;
+        left: -10px;
 
-        border-radius: 40px;
+        border-radius: 20px;
         position: relative;
-        background-color: dodgerblue;
         margin:3px;
+        z-index:2;
+        
+        div {
+          right:-5px;
+          width: 10px;
+          top:0px;
+          height: 10px;
+          transform: rotate(45deg);
+          background-color: rgb(18, 145, 236);
+          position: absolute;
+        }
       }
   
       .l1 {
-        margin-top: 15px;
-        background-image: linear-gradient(to right, white,rgb(2, 143, 243));
+        margin-top: 16px;
+        left: -18px;
+        width:45px;
+        background-color: white;
+
       }
       .l2 {
-        width: 55px;
-        background-image: linear-gradient(to right, white,rgb(2, 131, 243));
+        width: 45px;
+        left: -5px;
+        background-color: white;
+
       }
       .l3 {
-        background-image: linear-gradient(to right, white,rgb(2, 163, 243));
+        left: -18px;
+    background-color: white;
       }
 
   
@@ -74,47 +82,31 @@
       .divider {
         width: 100px;
         height: 100px;
-        left: 35px;
-        top: 35px;
+        left: -60px;
+        top: -20px;
+        border-radius: 12px;
         position: absolute;
-        transform: rotate(
-    45deg
-    );
-        background-color: rgb(15, 133, 251);
+        border:7px solid white;
+        transform: rotate(45deg);
+        background-color: rgb(87, 213, 255);
+        background-color: none;
       }
   
       .divider2 {
         width: 100px;
         height: 100px;
-        left: 46px;
-        top: -50px;
+        left: 65px;
+        border-radius: 12px;
+        z-index: 3;
+        top: -1px;
         position: absolute;
+        border: 7px solid white;
         transform: rotate(
     -45deg
     );
-        background-color: rgba(0, 219, 253, 0.6);
+
       }
 
-      .ex {
-        position: absolute;
-        height: 12px;
-        transform: rotate(45deg);
-        width: 100px;
-        // border-radius: 30px;
-        border-radius: 6px;
-        background-color: dodgerblue;
-        
-      }
-      .ex2 {
-        position: absolute;
-        left: 25px;
-        height: 12px;
-        transform: rotate(-45deg);
-        width: 60px;
-        top: 70px;
-        border-radius: 5px;
-        background-color: dodgerblue;
-      }
 }
 
 .design {
@@ -277,3 +269,144 @@ button:focus {
   text-align: right !important;
 }
 
+
+.nlogo {
+  width:90px;
+  height: 90px;
+  border-radius: 50%;
+  // background-color: rgb(199, 245, 255);
+  background-color: white;
+  // border-bottom: 5px solid rgb(0, 214, 0);
+  // border-right: 5px solid dodgerblue;
+  // border-top: 5px solid rgb(28, 204, 235);
+  // border-left: 5px solid rgb(250, 162, 0);
+  text-align: center;
+  position: relative;
+  overflow:hidden;
+  box-shadow: 0 1px 5px rgb(30, 115, 169);
+
+  .ring {
+    width: 90px;
+    height:90px;
+    border-radius: 50%;
+
+    border: 4px solid black;
+    position: absolute;
+  }
+
+  .location {
+    font-size: 70px;
+    margin:0;
+    color: rgb(19, 119, 220);
+    margin-top: 16px;
+
+  }
+}
+
+.initial {
+  position: absolute;
+  color: white;
+  z-index: 9999999;
+  left: 9px;
+  top: 49px;
+
+    .arrows {
+      height: 3px;
+      background-color: white;
+      width: 30px;
+      margin:3px 0;
+      border-radius: 5px;
+    }
+
+    .vertical {
+      height: 20px;
+      width: 3px;
+      top:-2px;
+      left:5px;
+      background-color: white;
+      position: absolute;
+    }
+}
+
+.arrowPoint1 {
+  background-color: none;
+    width: 20px;
+    height: 20px;
+    z-index: 9999999;
+    top: 11px;
+    border-left: 4px solid white;
+    border-top: 4px solid white;
+
+    left: 12px;
+    position: absolute;
+}
+
+.boxes {
+  display: grid;
+  position: absolute;
+  grid-template-columns: auto auto;
+  transform: rotate(
+45deg
+);
+  width: 190px;
+  top: -50px;
+  left: -35px;
+  height: 190px;
+  z-index: 99999;
+  
+  .box {
+    width: 100%;
+    border-radius: 15px;
+    // background-color: rgb(70, 203, 251);
+    margin: 10px;
+    height: 100%;
+    // background: dodgerblue;
+    // opacity: .8;
+    // border: 1px solid white;
+    border: 3px solid rgb(255, 255, 255);
+    z-index: 99999;
+  }
+}
+
+.b1 {
+  background-color: rgb(33, 224, 245);
+}
+
+.b2 {
+  background-color: rgb(29, 234, 245);
+}
+
+.b3 {
+  background-color: rgb(18, 196, 223);
+}
+
+.b4 {
+  background-color: rgb(13, 207, 228);
+}
+.onlineBg {
+  color: rgb(0, 214, 0) !important;
+  div {
+      background-color: rgb(0, 214, 0) !important;
+  }
+}
+
+.doneBg {
+  color: dodgerblue !important;
+  div {
+      background-color: rgb(118, 187, 255) !important;
+  }
+}
+
+.processingBg {
+  color: rgb(28, 204, 235) !important;
+  div {
+      background-color: rgb(28, 204, 235) !important;
+  }
+}
+
+.pendingBg {
+  color: rgb(250, 162, 0) !important;
+  div {
+      background-color: rgb(250, 162, 0) !important;
+  }
+}

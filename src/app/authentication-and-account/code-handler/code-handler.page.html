@@ -6,7 +6,7 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="fieldHolder noMarginBottom">
         <div class="inputLabel">Code</div>
-        <input class="inputField" name="code" formControlName="code">
+        <input class="inputField" name="code"  autocomplete="off" formControlName="code">
         <ul class="validationError"
           *ngIf="(form.get('code').dirty || form.get('code').touched) && form.get('code').errors != null">
           <li *ngFor="let error of form.get('code').errors.validations">
