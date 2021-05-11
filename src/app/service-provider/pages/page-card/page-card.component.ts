@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Page } from '../../../modules/elementTools/interfaces/page';
 
 @Component({
@@ -28,7 +29,7 @@ export class PageCardComponent implements OnInit {
       this.pageLocation = location.join(", ")
 
       this.pageCreator = this.page["pageCreator"][0].fullName
-      this.pageCreatorPic = this.page["pageCreator"][0].profile
+      this.pageCreatorPic = environment.apiUrl+ this.page["pageCreator"][0].profile
       const pageTitle = this.page.components.filter(comp => comp.data.defaultName == "pageName")
       this.pageTitle = pageTitle.length > 0 ? pageTitle[0].data.text : "Untitled Page"
 

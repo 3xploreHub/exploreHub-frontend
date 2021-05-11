@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ViewWillEnter } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 import { Page } from '../modules/elementTools/interfaces/page';
 import { PageCreatorService } from '../modules/page-creator/page-creator-service/page-creator.service';
 import accountType from '../services-common-helper/constantValue/accountType';
@@ -19,7 +20,7 @@ export class ServiceProviderPage implements OnInit {
   public currentUser: any = {fullName: "", profile: ""}
   public defaultType: any = accountType;
   public appLogo: string = 'assets/explorehub.png'
-  public api: string = "http://localhost:3000/"
+  public api: string = environment.apiUrl
   public accountType: string = accountType.tourist;
   constructor(public loadingService: LoadingService,
     public router: Router,

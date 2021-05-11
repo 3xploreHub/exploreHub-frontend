@@ -31,6 +31,7 @@ import {
 } from "@angular/forms";
 import { FooterData } from "src/app/modules/elementTools/interfaces/footer-data";
 import { MainServicesService } from "../../provider-services/main-services.service";
+import { environment } from "src/environments/environment";
 
 export interface dataToDelete {
   _id: string;
@@ -45,7 +46,7 @@ export interface dataToDelete {
 export class EditAccountInfoPage implements OnInit {
   userId = null;
   profile = "";
-  api = 'http://localhost:3000/'
+  api = environment.apiUrl
   userAccountType = null;
   userFullname = null;
   userFirstname = null;

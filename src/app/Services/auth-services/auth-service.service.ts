@@ -13,7 +13,7 @@ import userTokenType from "../../services-common-helper/constantValue/user-token
 })
 
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/api/account`;
+  private apiUrl = `${environment.apiUrl}api/account`;
   attemptedUrl: string;
   token = null;
   public checkCurrentUser: EventEmitter<any> = new EventEmitter();

@@ -35,6 +35,7 @@ export class ViewPagePage implements OnInit {
   loading = true
   public loadingWeather:boolean = false
   public fromHostedList: boolean;
+  api = environment.apiUrl
   public parentPageCreator: string;
   public popupData: popupData;
   screenHeight = window.innerHeight - 80;

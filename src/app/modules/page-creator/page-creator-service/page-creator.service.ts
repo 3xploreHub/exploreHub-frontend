@@ -15,7 +15,7 @@ export interface Image {
   providedIn: 'root'
 })
 export class PageCreatorService {
-  private apiUrl = `${environment.apiUrl}/api/service-provider`;
+  private apiUrl = `${environment.apiUrl}api/service-provider`;
   public currentPageId: string;
   public preview: boolean = false;
   public clickedComponent: string;

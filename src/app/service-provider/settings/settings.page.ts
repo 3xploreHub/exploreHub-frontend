@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SettingsService } from './settings.service';
 import { DatePipe } from '@angular/common';
 import { ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 // import { WeatherComponent } from 'src/app/modules/common-components/weather/weather.component';
 
 @Component({
@@ -22,7 +23,7 @@ export class SettingsPage implements OnInit {
   firstname = null;
   lastname = null;
   middlename = null;
-  api = "http://localhost:3000/"
+  api = environment.apiUrl
   age = null;
   email = null;
   phone = null;

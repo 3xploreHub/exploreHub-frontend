@@ -3,7 +3,7 @@
   <div class="pageMain">
     <div class="creator">
       <div class="creatorPhotoHolder">
-        <div  *ngIf="pageCreatorPic" class="creatorPhoto" [ngStyle]="{'background-image': 'url(http://localhost:3000/' + pageCreatorPic + ')'}">
+        <div  *ngIf="pageCreatorPic" class="creatorPhoto" [ngStyle]="{'background-image': 'url(' + pageCreatorPic + ')'}">
         </div>
         <div class="creatorPhoto" *ngIf="!pageCreatorPic">
           <ion-icon name="person-outline"></ion-icon>

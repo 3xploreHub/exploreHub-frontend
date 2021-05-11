@@ -14,7 +14,7 @@
           <div class="pageCreator">
             <div class="creatorPhotoHolder">
               <div class="creatorPhoto" *ngIf="page.creator.profile"
-                [ngStyle]="{'background-image': 'url(http://localhost:3000/' + page.creator.profile + ')'}">
+                [ngStyle]="{'background-image': 'url('+ api + page.creator.profile + ')'}">
               </div>
               <div *ngIf="!page.creator.profile" class="creatorPhoto">
                 <ion-icon name="person-outline"></ion-icon>

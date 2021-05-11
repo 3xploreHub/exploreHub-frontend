@@ -9,7 +9,7 @@ import { bookingData } from './interfaces/bookingData';
   providedIn: 'root'
 })
 export class MainServicesService {
-  private apiUrl = `${environment.apiUrl}/api/service-provider`;
+  private apiUrl = `${environment.apiUrl}api/service-provider`;
 
   public notification: EventEmitter<any> = new EventEmitter();
   public currentPage: Page;

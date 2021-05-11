@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { bookingData } from '../../provider-services/interfaces/bookingData';
 import { MainServicesService } from '../../provider-services/main-services.service';
 
@@ -50,7 +51,7 @@ export class BookingInformationPage implements OnInit {
     //     this.name = comp.data && comp.data.text ? comp.data.text : "Untitled"
     //   }
     // });
-    this.photo = "http://localhost:3000/"+this.booking.tourist.profile
+    this.photo = environment.apiUrl +this.booking.tourist.profile
   }
 
   getAddress() {
