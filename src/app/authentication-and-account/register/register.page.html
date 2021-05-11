@@ -60,7 +60,7 @@
           <div class="inputLabel">Contact number
             <span>&nbsp;+63</span>
           </div>
-          <input class="inputField" type="number" autocomplete="off" (change)="completeNum(form.get('contactNumber').value)" name="contactNumber" formControlName="contactNumber">
+          <input class="inputField" type="number" (change)="completeNum(form.get('contactNumber').value)" name="contactNumber" formControlName="contactNumber">
           <ul class="validationError"
             *ngIf="(form.get('contactNumber').dirty || form.get('contactNumber').touched) && form.get('contactNumber').errors != null">
             <li *ngFor="let error of form.get('contactNumber').errors.validations">

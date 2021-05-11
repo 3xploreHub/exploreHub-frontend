@@ -58,7 +58,7 @@
               <ion-icon class="fieldsIcon" (click)="showPassword = true" *ngIf="!showPassword" name="eye-outline">
               </ion-icon>
             </div>
-            <input class="inputField" name="password" formControlName="password"
+            <input class="inputField" name="password" autocomplete="off" formControlName="password"
               [type]=" !showPassword ? 'password': 'text'">
           </div>
           <ul class="validationError"
