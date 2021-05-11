@@ -11,19 +11,19 @@ export class SettingsService {
   constructor( private http: HttpClient) { }
 
   // retreiveAllTouristSpotCategories() {
-  //   return this.http.get(`${environment.apiUrl}/service-provider/retrieveAllToristSpotCategories`);
+  //   return this.http.get(`${environment.apiUrl}service-provider/retrieveAllToristSpotCategories`);
   // }21  `a
 
   getUserInfo() {
-    return this.http.get(`${environment.apiUrl}/api/account/getUserInformation`);
+    return this.http.get(`${environment.apiUrl}api/account/getUserInformation`);
   }
 
   updateUserInfo(userData) {
-    return this.http.put(`${environment.apiUrl}/api/account/updateUserInformation`, userData);
+    return this.http.put(`${environment.apiUrl}api/account/updateUserInformation`, userData);
   }
 
   changePassword(password) {
-    return this.http.post(`${environment.apiUrl}/api/account/changePassword`, password);
+    return this.http.post(`${environment.apiUrl}api/account/changePassword`, password);
   }
 
   addUserProfile(blobData) {
@@ -32,7 +32,7 @@ export class SettingsService {
     
     // alert("BLOBDATA: " + JSON.stringify(blobData))
 
-    return this.http.post(`${environment.apiUrl}/api/account/addUserProfile`, formData, {
+    return this.http.post(`${environment.apiUrl}api/account/addUserProfile`, formData, {
       headers: {
         containsFiles: ""
       }
@@ -44,7 +44,7 @@ export class SettingsService {
     const formData = new FormData();
     formData.append('image', file, `myimage.${ext}`);
 
-    return this.http.post(`${environment.apiUrl}/api/account/addUserProfile`, formData, {
+    return this.http.post(`${environment.apiUrl}api/account/addUserProfile`, formData, {
       headers: {
         containsFiles: ""
       }
@@ -52,7 +52,7 @@ export class SettingsService {
   }
 
   deleteProfile(file: string) {
-    return this.http.post(`${environment.apiUrl}/api/account/deleteProfile`, {profile: file}, {
+    return this.http.post(`${environment.apiUrl}api/account/deleteProfile`, {profile: file}, {
       headers: { hideLoadingIndicator: "" },
     });
   }
