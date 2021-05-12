@@ -17,7 +17,7 @@
 
       <div class="selectedServices">
         <div class="service" *ngFor="let item of booking.selectedServices">{{item}}</div>
-        <div class="service noAvailed" *ngIf="booking.selectedServices.length == 0 && booking.page && booking.page.services.length > 0">No services availed</div>
+        <div class="service noAvailed" *ngIf="booking.selectedServices && booking.selectedServices.length == 0 && booking.page && booking.page.services &&  booking.page.services.length > 0">No services availed</div>
       </div>
     </div>
     <div class="cardDate">{{booking.createdAt | date:'short'}}</div>

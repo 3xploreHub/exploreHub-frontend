@@ -29,7 +29,7 @@ export class BookingsPage implements OnInit {
       this.mainService.getBookings(this.status).subscribe(
         (response: bookingData[]) => {
           this.loading = false;
-
+        
           this.bookings = response.reverse();
           this.bookings = this.bookings.map(booking => {
             booking.page = booking.page[0]

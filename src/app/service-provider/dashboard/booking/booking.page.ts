@@ -34,12 +34,14 @@ export class BookingPage implements OnInit {
             this.notifId = data.notifId
             const notifType = data.type.split("-")[1]
             if (notifType == "fromTourist" || notifType == "fromAdmin" && data.booking) {
-              if (!data.booking.name && !data.booking.photo) data.booking = this.formatData(data.booking)
-              if (this.bookingStatus != data.booking.status) {
-                this.bookings = this.bookings.filter(booking => booking._id != data.booking._id)
-              } else if (this.bookingStatus == data.booking.status) {
-                const existingBooking = this.bookings.filter(bkng => bkng._id == data.booking._id)
-                if (existingBooking.length == 0) this.bookings.unshift(data.booking)
+              if (data.booking.pageId._id == this.pageId) {
+                if (!data.booking.name && !data.booking.photo) data.booking = this.formatData(data.booking)
+                if (this.bookingStatus != data.booking.status) {
+                  this.bookings = this.bookings.filter(booking => booking._id != data.booking._id)
+                } else if (this.bookingStatus == data.booking.status) {
+                  const existingBooking = this.bookings.filter(bkng => bkng._id == data.booking._id)
+                  if (existingBooking.length == 0) this.bookings.unshift(data.booking)
+                }
               }
             }
           }
