@@ -14,7 +14,7 @@
       <p id="temp">{{weatherToday.temp}}°C</p>
     </div>
     <ion-label [class.hidden]="loading" id="temp-label">TEMPERATURE</ion-label>
-    <div class="sun-wind">
+    <div [class.hidden]="loading" class="sun-wind">
       <ion-row>
         <ion-col class="col1">
           <ion-label id="col1-label"><b>SUN</b></ion-label>

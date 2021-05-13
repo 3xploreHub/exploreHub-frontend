@@ -36,8 +36,9 @@
         </div>
 
         <input type="file" #fileInput (change)="uploadFile($event)" hidden="true" accept="image/*" />
-
+        <p id="note" *ngIf="!profile">Note: Your photo will automatically saved!</p>
         <div class="upload-del-btn">
+         
           <ion-button *ngIf="!profile" (click)="selectImageSource()" fill="clear" expand="full" color="medium">
             <ion-icon slot="start" name="camera"></ion-icon>
             Upload Photo

@@ -23,12 +23,19 @@
         margin: auto;
 
         #additional-div {
+            // display: flex;
             height: 80px;
             width: 100%;
-            // background-color: rgb(216, 216, 216);
             background-color: rgb(208, 225, 236);
             border: 1px solid white;
             padding-top: 40px;
+            
+            p {
+                float: right;
+                font-size: 10px;
+                padding: 5px;
+                color: rgb(22, 22, 53); 
+            }
 
             ion-icon {
                 float: right;

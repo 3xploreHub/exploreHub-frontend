@@ -38,12 +38,17 @@
             justify-content: center;
         }
 
+        #note {
+            height: 3px;
+            font-size: 14px;
+            color: rgb(0, 0, 0, 0.45);
+        }
+
         .porfileHolder {
             height: 150px;
             width: 150px;
             overflow: hidden;
             border-radius: 5px;
-
             background-color: rgb(186, 207, 228);
             .profile {
                 width: 100%;
@@ -72,6 +77,8 @@
         .upload-del-btn {
             display: flex; 
             justify-content: center; 
+            position: relative;
+            bottom: 45%;
         }
 
         #profile-pic {

@@ -105,7 +105,7 @@ export class WeatherComponent implements OnInit {
     if(date < 10) {
       newDate = `0${date}`;
     }
-
+    newDate = date;
     this.date = `0${month} - ${newDate} - ${year}`;
     console.log("MONTH: ", month)
 
